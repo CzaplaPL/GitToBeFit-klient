@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">GitToBeFit</string>
     <string name="e_mail">e-mail</string>
-    <string name="password">password</string>
+    <string name="password">hasło</string>
     <string name="forgot_password">Nie pamiętasz hasła ?</string>
     <string name="login">Zaloguj</string>
     <string name="otherLogin">lub zaloguj się z</string>

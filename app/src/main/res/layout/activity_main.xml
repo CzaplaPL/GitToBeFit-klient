@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,16 +13,15 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="-16dp">
         <!--zdjecie loga -->
-
         <ImageView
-            android:id="@+id/logowanieLogo"
+            android:id="@+id/loginLogo"
             android:layout_width="match_parent"
             android:layout_height="155dp"
             android:contentDescription="@string/app_name"
             app:srcCompat="@drawable/logo" />
         <!--wpisywanie e-mail -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/logowanieMailKontener"
+            android:id="@+id/loginMailKontener"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
@@ -35,16 +33,15 @@
             app:hintEnabled="true"
             app:startIconContentDescription="@string/e_mail"
             app:startIconDrawable="@drawable/baseline_email_24">
-
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/logowanieMail"
+                android:id="@+id/loginMail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textWebEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
         <!--wpisywanie hasla -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/logowaniePassKontener"
+            android:id="@+id/loginPassKontener"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
@@ -58,30 +55,23 @@
             app:passwordToggleTintMode="multiply"
             app:startIconContentDescription="@string/password"
             app:startIconDrawable="@drawable/baseline_lock_open_24">
-
-
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/logowaniePass"
-
-
+                android:id="@+id/loginPass"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textWebPassword" />
-
         </com.google.android.material.textfield.TextInputLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
             <Space
                 android:layout_width="155dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
             <!--przypominanie hasla -->
             <TextView
-                android:id="@+id/logowanieForgotPass"
+                android:id="@+id/loginForgotPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -90,18 +80,18 @@
                 android:textColor="@color/ourGreen"
                 android:textStyle="italic" />
         </LinearLayout>
-
+        <!--zaloguj-->
         <Button
-            android:id="@+id/containedButton"
+            android:id="@+id/loginZaloguj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/login"
             app:shapeAppearanceOverlay="@style/roundedButton"
             android:textColor="@color/ourBlack" />
-
+        <!-- napis lub-->
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/loginOther"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/otherLogin"
@@ -113,10 +103,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
-
+            <!-- google-->
             <Button
-
-                android:id="@+id/containedButton1"
+                android:id="@+id/loginGoogle"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -126,57 +115,58 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:backgroundTint="@color/google"
-                app:shapeAppearanceOverlay="@style/noroundedButton"
+                app:shapeAppearanceOverlay="@style/roundedButton"
+                android:layout_marginEnd="7dp"
                 style="style/Widget.MaterialComponents.Button"  />
-
+            <!-- facebook-->
             <Button
-                android:id="@+id/containedButton2"
+                android:id="@+id/loginfacebook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif-black"
                 android:text="@string/facebook"
+                android:layout_marginStart="7dp"
                 android:textColor="@color/ourWhite"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:backgroundTint="@color/facebook"
-                app:shapeAppearanceOverlay="@style/noroundedButton"
+                app:shapeAppearanceOverlay="@style/roundedButton"
                 style="style/Widget.MaterialComponents.Button" />
-
-
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="245dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
-
+            <!--brak konta?-->
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/loginNoAccount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/noAccount" />
-
-
+                android:text="@string/noAccount"
+                android:textColor="@color/ourGreen" />
+            <!--rejestracja-->
             <Button
-                android:id="@+id/outlinedButton"
+                android:id="@+id/loginRegister"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:shapeAppearanceOverlay="@style/roundButton"
+                android:textColor="@color/ourBlack"
+                app:strokeColor="@color/ourGreen"
                 android:text="@string/register" />
         </LinearLayout>
-
+        <!--pomijanie-->
         <Button
-            android:id="@+id/containedButton4"
+            android:id="@+id/loginSkip"
             android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/skip"
-
+            app:shapeAppearanceOverlay="@style/roundedButton"
             android:textColor="@color/ourBlack" />
 
         <Space
