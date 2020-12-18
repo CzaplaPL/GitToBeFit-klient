@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GitToBeFit</string>
-    <string name="nowe">nowe</string>
+    <string name="e_mail">e-mail</string>
+    <string name="password">hasło</string>
+    <string name="forgot_password">Nie pamiętasz hasła ?</string>
+    <string name="login">Zaloguj</string>
+    <string name="login">Zaloguj</string>
+    <string name="login">Zaloguj</string>
+    <string name="login">Zaloguj</string>
+    <string name="login">Zaloguj</string>
+    <string name="login">Zaloguj</string>
 </resources>
