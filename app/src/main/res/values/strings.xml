@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GitToBeFit</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_setting">Setting</string>
+    <string name="about_us">About Us</string>
+    <string name="menu_logout">Logout</string>
 </resources>
