@@ -11,13 +11,13 @@ import android.os.Bundle;
 import android.view.View;
 
 
-public class MainActivity extends AppCompatActivity {
+public class HomePage extends AppCompatActivity {
     private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home_page);
 
         drawerLayout = findViewById(R.id.drawer_layout);
     }

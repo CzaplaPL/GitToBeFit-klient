@@ -20,19 +20,19 @@ public class AboutUs extends AppCompatActivity
     }
 
     public void ClickMenu(View view) {
-        MainActivity.openDrawer(drawerLayout);
+        HomePage.openDrawer(drawerLayout);
     }
 
     public void ClickLogo(View view) {
-        MainActivity.closeDrawer(drawerLayout);
+        HomePage.closeDrawer(drawerLayout);
     }
 
     public void ClickHome(View view) {
-        MainActivity.redirectActivity(this, MainActivity.class);
+        HomePage.redirectActivity(this, MainActivity.class);
     }
 
     public void ClickSetting(View view) {
-        MainActivity.redirectActivity(this, Setting.class);
+        HomePage.redirectActivity(this, Setting.class);
     }
 
     public void ClickAboutUs(View view) {
@@ -40,12 +40,12 @@ public class AboutUs extends AppCompatActivity
     }
 
     public void ClickLogout(View view) {
-        MainActivity.logout(this);
+        HomePage.logout(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        MainActivity.closeDrawer(drawerLayout);
+        HomePage.closeDrawer(drawerLayout);
     }
 }

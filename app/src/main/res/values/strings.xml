@@ -4,4 +4,14 @@
     <string name="menu_setting">Setting</string>
     <string name="about_us">About Us</string>
     <string name="menu_logout">Logout</string>
+    <string name="e_mail">e-mail</string>
+    <string name="password">hasło</string>
+    <string name="forgotPassword">Nie pamiętasz hasła ?</string>
+    <string name="login">Zaloguj</string>
+    <string name="otherLogin">lub zaloguj się z</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="noAccount">Nie masz konta?</string>
+    <string name="register">Załóż je</string>
+    <string name="skip">Pomiń</string>
 </resources>

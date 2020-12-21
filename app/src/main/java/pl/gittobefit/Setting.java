@@ -19,15 +19,15 @@ public class Setting extends AppCompatActivity
     }
 
     public void ClickMenu(View view) {
-        MainActivity.openDrawer(drawerLayout);
+        HomePage.openDrawer(drawerLayout);
     }
 
     public void ClickLogo(View view) {
-        MainActivity.closeDrawer(drawerLayout);
+        HomePage.closeDrawer(drawerLayout);
     }
 
     public void ClickHome(View view) {
-        MainActivity.redirectActivity(this, MainActivity.class);
+        HomePage.redirectActivity(this, MainActivity.class);
     }
 
     public void ClickSetting(View view) {
@@ -35,16 +35,16 @@ public class Setting extends AppCompatActivity
     }
 
     public void ClickAboutUs(View view) {
-        MainActivity.redirectActivity(this, AboutUs.class);
+        HomePage.redirectActivity(this, AboutUs.class);
     }
 
     public void ClickLogout(View view) {
-        MainActivity.logout(this);
+        HomePage.logout(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        MainActivity.closeDrawer(drawerLayout);
+        HomePage.closeDrawer(drawerLayout);
     }
 }
