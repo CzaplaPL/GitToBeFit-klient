@@ -14,4 +14,6 @@
     <string name="noAccount">Nie masz konta?</string>
     <string name="register">Załóż je</string>
     <string name="skip">Pomiń</string>
+    <string name="incorrectData">Błędne dane</string>
+    <string name="serwerError">Błąd serwera</string>
 </resources>

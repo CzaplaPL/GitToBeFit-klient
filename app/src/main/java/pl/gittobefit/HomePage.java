@@ -63,7 +63,6 @@ public class HomePage extends AppCompatActivity {
         builder.setMessage("Are you sure you want to logout ?");
         builder.setPositiveButton("Yes", (dialog, which) -> {
             activity.finishAffinity();
-            System.exit(0);
         });
         builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
         builder.show();
