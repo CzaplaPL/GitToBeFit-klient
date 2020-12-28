@@ -2,6 +2,12 @@ package pl.gittobefit.network;
 
 import android.util.Log;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+
+import org.json.JSONObject;
+
 import pl.gittobefit.MainActivity;
 import pl.gittobefit.System;
 import pl.gittobefit.network.interfaces.IUserServices;
@@ -80,11 +86,11 @@ public class UserServices
                     if(response.code()!=400)
                     {
                         Log.e("response body error : ", String.valueOf(response.code()));
-                        main.loginFail(true);
+                        main.loginFail(false);
                     }else
                     {
                         Log.i("response body : "," 400 zły użytkownik ");
-                        main.loginFail(false);
+                        main.loginFail(true);
                     }
                 }
             }
@@ -96,4 +102,60 @@ public class UserServices
             }
         });
     }
+
+
+    public void loginFacebook(AccessToken token, MainActivity main)
+    {
+
+        Log.i("Network", "user.loginfacebook");
+        Log.i("Network",  token.getToken());
+        GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback()
+        {
+            @Override
+            public void onCompleted(JSONObject me, GraphResponse response) {
+                if (response.getError() != null)
+                {
+                    Log.i("fb " , " error " );
+                } else
+                {
+                    String email = me.optString("email");
+
+                    Call<Void> call = user.loginFacebook(new TokenUser(token.getToken()));
+                    call.enqueue(new Callback<Void>()
+                    {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                            if (response.isSuccessful())
+                            {
+                                Log.i("logowanie fb ","  sukces " + response.headers().get("Authorization"));
+                                //pytanie o id
+                                System.user.initGoogle(email,response.headers().get("Authorization"),"1",main.getApplicationContext());
+                                main.loginSuccess();
+                            }else
+                            {
+                                if(response.code()!=400)
+                                {
+                                    Log.e("response body error : ", String.valueOf(response.code()));
+                                    main.loginFail(true);
+                                }else
+                                {
+                                    Log.i("response body : "," 400 zły użytkownik ");
+                                    main.loginFail(false);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t)
+                        {
+                            Log.e(" błąd  ", "logowanie : "+t.toString());
+                        }
+                    });
+
+                }
+            }
+        }).executeAsync();
+    }
+
+
 }

@@ -13,4 +13,7 @@ Call<Void> login(@Body RespondUser user);
 
 @POST("/user/login/google")
 Call<Void> loginGoogle(@Body TokenUser token);
+
+@POST("/user/login/facebook")
+Call<Void> loginFacebook(@Body TokenUser token);
 }

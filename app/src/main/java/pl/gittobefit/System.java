@@ -12,6 +12,6 @@ import pl.gittobefit.user.User;
 
 public class System
 {
-    public final static Conection conect = new Conection("http://77.55.236.227:8080");
+    public final static Conection conect = new Conection("https://77.55.236.227:8443");
     public final static User user = new User();
 }

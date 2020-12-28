@@ -16,4 +16,7 @@
     <string name="skip">Pomiń</string>
     <string name="incorrectData">Błędne dane</string>
     <string name="serwerError">Błąd serwera</string>
+    <string name="facebook_app_id">204805201285094</string>
+    <string name="fb_login_protocol_scheme">fb204805201285094</string>
+
 </resources>
