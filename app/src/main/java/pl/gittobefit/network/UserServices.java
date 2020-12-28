@@ -13,26 +13,38 @@ import pl.gittobefit.System;
 import pl.gittobefit.network.interfaces.IUserServices;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
+import pl.gittobefit.user.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+/**
+ * funkcje obsługujące komunikacje z serwerem
+ */
 public class UserServices
 {
-
     private final IUserServices user ;
     UserServices(Retrofit adapter)
     {
         user =adapter.create(IUserServices.class);
     }
 
+    /**
+     * logowanie kontem użytkownika
+     * @param email email
+     * @param password hasło
+     * @param main activity
+     * @author czapla
+     */
     public void login(String email, String password,MainActivity main)
     {
 
         Log.i("Network", "user.login");
         Log.i("Network", email + " " + password);
+        //przygotowanie zapytania zapytania
         Call<Void> call = user.login(new RespondUser(email,password));
+        //wywołanie zapytania
         call.enqueue(new Callback<Void>()
         {
             @Override
@@ -40,8 +52,12 @@ public class UserServices
                 if (response.isSuccessful())
                 {
                     Log.i("logowanie ","  sukces");
+                    ///////////////////////////
+                    //////////////////////////
                     //pytanie o id
-                    System.user.init(email,password,response.headers().get("Authorization"),"1",main.getApplicationContext());
+                    ///////////////////////
+                    ////////////////////////
+                    User.getUser().add(email,password,response.headers().get("Authorization"),"1",main.getApplicationContext());
                     main.loginSuccess();
                 }else
                 {
@@ -65,6 +81,13 @@ public class UserServices
         });
     }
 
+    /**
+     * logowanie przez google
+     * @param email email
+     * @param token token google
+     * @param main activity
+     * @author czapla
+     */
     public void loginGoogle(String email,String token,MainActivity main)
     {
 
@@ -77,9 +100,13 @@ public class UserServices
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful())
                 {
-                    Log.i("logowanie google ","  sukces " + response.headers().get("Authorization"));
+                    Log.i("logowanie google ","  sukces " );
+                    ///////////////////////////
+                    //////////////////////////
                     //pytanie o id
-                    System.user.initGoogle(email,response.headers().get("Authorization"),"1",main.getApplicationContext());
+                    ///////////////////////
+                    ////////////////////////
+                    User.getUser().add(email,response.headers().get("Authorization"),"1",main.getApplicationContext());
                     main.loginSuccess();
                 }else
                 {
@@ -98,28 +125,35 @@ public class UserServices
             @Override
             public void onFailure(Call<Void> call, Throwable t)
             {
-                Log.e(" błąd  ", "logowanie : "+t.toString());
+                Log.e(" błąd  ", "logowanie google = : "+t.toString());
+                main.loginFail(true);
             }
         });
     }
 
-
+    /**
+     * logowanie przez facebooka
+     * @param token token google
+     * @param main activity
+     * @author czapla
+     */
     public void loginFacebook(AccessToken token, MainActivity main)
     {
 
         Log.i("Network", "user.loginfacebook");
         Log.i("Network",  token.getToken());
+        //zapytanie fb o email
         GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback()
         {
             @Override
             public void onCompleted(JSONObject me, GraphResponse response) {
                 if (response.getError() != null)
                 {
-                    Log.i("fb " , " error " );
+                    Log.i("fb pytanie o email  " , " error " );
+                    Log.i("fb pytanie o email  " , response.getError().getErrorMessage() );
                 } else
                 {
                     String email = me.optString("email");
-
                     Call<Void> call = user.loginFacebook(new TokenUser(token.getToken()));
                     call.enqueue(new Callback<Void>()
                     {
@@ -127,9 +161,13 @@ public class UserServices
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             if (response.isSuccessful())
                             {
-                                Log.i("logowanie fb ","  sukces " + response.headers().get("Authorization"));
+                                Log.i("logowanie fb ","  sukces ");
+                                ///////////////////////////
+                                //////////////////////////
                                 //pytanie o id
-                                System.user.initGoogle(email,response.headers().get("Authorization"),"1",main.getApplicationContext());
+                                ///////////////////////
+                                ////////////////////////
+                                User.getUser().add(email,response.headers().get("Authorization"),"1",main.getApplicationContext());
                                 main.loginSuccess();
                             }else
                             {
@@ -148,7 +186,7 @@ public class UserServices
                         @Override
                         public void onFailure(Call<Void> call, Throwable t)
                         {
-                            Log.e(" błąd  ", "logowanie : "+t.toString());
+                            Log.e(" błąd  ", "logowanie facebook : "+t.toString());
                         }
                     });
 

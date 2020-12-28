@@ -1,9 +1,13 @@
 package pl.gittobefit.network.object;
 
+/**
+ * obiekt usera konwertowany na jsona
+ * @author czapla
+ */
 public class RespondUser
 {
-    private String email="";
-    private String password="";
+    private String email;
+    private String password;
     public RespondUser(String email,String password)
     {
         this.email=email;
