@@ -136,6 +136,7 @@
                 app:strokeColor="@color/ourGreen" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -148,9 +149,9 @@
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:onClick="loginGoogle"
                 android:layout_marginEnd="7dp"
                 android:fontFamily="sans-serif-black"
+                android:onClick="loginGoogle"
                 android:text="@string/google"
                 android:textColor="@color/ourWhite"
                 android:textSize="18sp"
@@ -158,20 +159,34 @@
                 app:backgroundTint="@color/google"
                 app:shapeAppearanceOverlay="@style/roundedButton" />
             <!-- facebook-->
-            <Button
-                android:id="@+id/loginfacebook"
-                style="style/Widget.MaterialComponents.Button"
+            <FrameLayout
+                android:id="@+id/facebook"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
                 android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/facebook"
-                android:textColor="@color/ourWhite"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:backgroundTint="@color/facebook"
-                app:shapeAppearanceOverlay="@style/roundedButton" />
+                android:layout_height="match_parent">
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/loginFacebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/loginButtonFacebook"
+                    style="style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+
+                    android:fontFamily="sans-serif-black"
+                    android:text="@string/facebook"
+                    android:textColor="@color/ourWhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/facebook"
+                    app:shapeAppearanceOverlay="@style/roundedButton" />
+            </FrameLayout>
+
         </LinearLayout>
         <Space
             android:layout_width="match_parent"
