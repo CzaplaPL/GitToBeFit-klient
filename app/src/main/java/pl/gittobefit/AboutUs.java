@@ -3,12 +3,16 @@ package pl.gittobefit;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+
+import pl.gittobefit.user.User;
 
 public class AboutUs extends AppCompatActivity
 {
-
+    TextView userEmailDisplay;
     DrawerLayout drawerLayout;
 
     @Override
@@ -16,30 +20,33 @@ public class AboutUs extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
 
+        userEmailDisplay = findViewById(R.id.user_email_display);
+        userEmailDisplay.setText(User.getUser().getEmail());
+
         drawerLayout = findViewById(R.id.drawer_layout);
     }
 
-    public void ClickMenu(View view) {
+    public void clickMenu(View view) {
         HomePage.openDrawer(drawerLayout);
     }
 
-    public void ClickLogo(View view) {
+    public void clickLogo(View view) {
         HomePage.closeDrawer(drawerLayout);
     }
 
-    public void ClickHome(View view) {
-        HomePage.redirectActivity(this, MainActivity.class);
+    public void clickHome(View view) {
+        HomePage.redirectActivity(this, HomePage.class);
     }
 
-    public void ClickSetting(View view) {
+    public void clickSetting(View view) {
         HomePage.redirectActivity(this, Setting.class);
     }
 
-    public void ClickAboutUs(View view) {
+    public void clickAboutUs(View view) {
         recreate();
     }
 
-    public void ClickLogout(View view) {
+    public void clickLogout(View view) {
         HomePage.logout(this);
     }
 

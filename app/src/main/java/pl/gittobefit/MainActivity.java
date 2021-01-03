@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,7 +27,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Collections;
 
-import pl.gittobefit.network.Connection;
+import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.user.User;
 
 /***
  * author:Dominik
@@ -45,6 +48,20 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//przęjęcie buttona żeby po wylogowaniu nie wrócić do apki
+        if (User.getUser().getToken() == null)
+        {
+            OnBackPressedCallback callback = new OnBackPressedCallback(true)
+            {
+                @Override
+                public void handleOnBackPressed() {
+                    Toast.makeText(MainActivity.this, "Musisz się zalogować", Toast.LENGTH_SHORT).show();
+                }
+            };
+            this.getOnBackPressedDispatcher().addCallback(this, callback);
+        }
+
+
         //logowanie facebook
         facebookButton = (Button) findViewById(R.id.loginButtonFacebook);
         LoginButton fbButton = (LoginButton) findViewById(R.id.loginFacebook);
@@ -105,7 +122,7 @@ public class MainActivity extends AppCompatActivity
     {
         TextInputLayout email =(TextInputLayout)findViewById(R.id.loginMailKontener);
         TextInputLayout pass =(TextInputLayout)findViewById(R.id.loginPassKontener);
-        Connection.getConect().user.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this);
+        ConnectionToServer.getConect().userServices.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this);
     }
     /***
      * funkcja zmieniajaca activity po udanym logowaniu
@@ -149,7 +166,7 @@ public class MainActivity extends AppCompatActivity
      */
     public void loginFacebook(AccessToken token)
     {
-        Connection.getConect().user.loginFacebook(token,this);
+        ConnectionToServer.getConect().userServices.loginFacebook(token,this);
 
     }
     /**
@@ -161,7 +178,7 @@ public class MainActivity extends AppCompatActivity
         try {
             Log.w("logowanie google = ", "ok");
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Connection.getConect().user.loginGoogle(account.getEmail(),account.getIdToken(),this);
+            ConnectionToServer.getConect().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this);
 
         } catch (ApiException e) {
             Log.w("logowanie google", "signInResult:failed code=" + e.getStatusCode());
@@ -180,4 +197,5 @@ public class MainActivity extends AppCompatActivity
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 }

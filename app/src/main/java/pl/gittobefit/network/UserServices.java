@@ -1,6 +1,9 @@
 package pl.gittobefit.network;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -8,9 +11,13 @@ import com.facebook.GraphResponse;
 
 import org.json.JSONObject;
 
+import pl.gittobefit.ChangePassword;
+import pl.gittobefit.HomePage;
 import pl.gittobefit.MainActivity;
+import pl.gittobefit.Setting;
 import pl.gittobefit.System;
 import pl.gittobefit.network.interfaces.IUserServices;
+import pl.gittobefit.network.object.ChangePassUser;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
 import pl.gittobefit.user.User;
@@ -37,7 +44,7 @@ public class UserServices
      * @param main activity
      * @author czapla
      */
-    public void login(String email, String password,MainActivity main)
+    public void login(String email, String password, MainActivity main)
     {
 
         Log.i("Network", "user.login");
@@ -108,7 +115,8 @@ public class UserServices
                     ////////////////////////
                     User.getUser().add(email,response.headers().get("Authorization"),"1",main.getApplicationContext());
                     main.loginSuccess();
-                }else
+                }
+                else
                 {
                     if(response.code()!=400)
                     {
@@ -195,5 +203,87 @@ public class UserServices
         }).executeAsync();
     }
 
+    /**
+     * @author Kuba
+     * @param actualPassword akualne hasło
+     * @param newPassword nowe hasło
+     * @param activity activty
+     */
+    public void changePassword(String actualPassword, String newPassword, Activity activity)
+    {
 
+        Call<Void> call = user.getUserIDbyEmail(User.getUser().getEmail(), User.getUser().getToken());
+        call.enqueue(new Callback<Void>()
+        {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+               String userID = response.headers().get("idUser");
+               Call<Void> call2 = user.changePassword(userID, User.getUser().getToken(), new ChangePassUser(User.getUser().getEmail(), actualPassword, newPassword));
+               call2.enqueue(new Callback<Void>()
+               {
+                   @Override
+                   public void onResponse(Call<Void> call, Response<Void> response) {
+
+                       int code = response.code();
+                       if (code == 409)
+                       {
+                           Toast.makeText(activity, "Błędne stare hasło",Toast.LENGTH_SHORT).show();
+                       } else {
+                           activity.startActivity(new Intent(activity, Setting.class));
+                           Toast.makeText(activity, "Zmieniono hasło !",Toast.LENGTH_SHORT).show();
+                       }
+                       Log.e("kod błędu", String.valueOf(code));
+                   }
+
+                   @Override
+                   public void onFailure(Call<Void> call, Throwable t) {
+                       Log.e(" błąd  ", "zmiana hasła : "+ t.toString());
+                   }
+               });
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e(" błąd  ", "pobiereanie id poprzez email : "+ t.toString());
+            }
+        });
+    }
+
+    /**
+     * @author Kuba
+     * @param activity  activity
+     */
+    public void deleteAccount(Activity activity)
+    {
+        Call<Void> call = user.getUserIDbyEmail(User.getUser().getEmail(), User.getUser().getToken());
+        call.enqueue(new Callback<Void>()
+        {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                String userID = response.headers().get("idUser");
+                Call<Void> call2 = user.deleteAccount(userID, User.getUser().getToken());
+                call2.enqueue(new Callback<Void>()
+                {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        int code =  response.code();
+                        Log.e("kod błędu", String.valueOf(code));
+                        User.getUser().setToken(null);
+                        HomePage.redirectActivity(activity, MainActivity.class);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.e(" Błąd  ", "usuwanie konta: "+ t.toString());
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e(" błąd  ", "pobiereanie id poprzez email : "+ t.toString());
+            }
+        });
+    }
 }

@@ -9,20 +9,29 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
+import pl.gittobefit.user.User;
 
+/**
+ * @author Kuba
+ */
 public class HomePage extends AppCompatActivity {
     private DrawerLayout drawerLayout;
+    TextView userEmailDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+
         drawerLayout = findViewById(R.id.drawer_layout);
+        userEmailDisplay = findViewById(R.id.user_email_display);
+        userEmailDisplay.setText(User.getUser().getEmail());
     }
 
-    public void ClickMenu(View view) {
+    public void clickMenu(View view) {
         openDrawer(drawerLayout);
     }
 
@@ -30,7 +39,7 @@ public class HomePage extends AppCompatActivity {
         drawerLayout.openDrawer(GravityCompat.START);
     }
 
-    public void ClickLogo(View view) {
+    public void clickLogo(View view) {
         closeDrawer(drawerLayout);
     }
 
@@ -40,31 +49,35 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
-    public void ClickHome(View view) {
+    public void clickHome(View view) {
         recreate();
     }
 
-    public void ClickSetting(View view) {
+    public void clickSetting(View view) {
         redirectActivity(this, Setting.class);
     }
 
-    public void ClickAboutUs(View view) {
+    public void clickAboutUs(View view) {
         redirectActivity(this, AboutUs.class);
     }
 
-    public void ClickLogout(View view) {
+    public void clickLogout(View view) {
         logout(this);
     }
 
     public static void logout(Activity activity) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-        builder.setTitle("Logout");
-        builder.setMessage("Are you sure you want to logout ?");
-        builder.setPositiveButton("Yes", (dialog, which) -> {
-            activity.finishAffinity();
+        builder.setTitle("Wyloguj");
+        builder.setMessage("Czy na pewno chesz się wylogować ?");
+        builder.setPositiveButton("Tak", (dialog, which) -> {
+            User.getUser().setToken(null);
+            Intent intent = new Intent(activity, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            activity.startActivity(intent);
         });
-        builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton("Nie", (dialog, which) -> dialog.dismiss());
         builder.show();
     }
 
@@ -78,6 +91,5 @@ public class HomePage extends AppCompatActivity {
         Intent intent = new Intent(activity, aClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
-
     }
 }

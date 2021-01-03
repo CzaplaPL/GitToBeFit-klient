@@ -10,13 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_margin="16dp"
-        android:onClick="ClickLogo"
+        android:onClick="clickLogo"
         android:src="@mipmap/ic_launcher_round"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/ourGray"/>
+    <TextView
+        android:id="@+id/user_email_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textAlignment="center"
@@ -34,13 +42,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:onClick="ClickHome">
+        android:onClick="clickHome">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Home"
+            android:text="Start"
             android:padding="12dp"
             android:layout_marginStart="16dp"/>
 
@@ -57,13 +65,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:onClick="ClickSetting">
+        android:onClick="clickSetting">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Setting"
+            android:text="Ustawienia"
             android:padding="12dp"
             android:layout_marginStart="16dp"/>
 
@@ -80,13 +88,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:onClick="ClickAboutUs">
+        android:onClick="clickAboutUs">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="About Us"
+            android:text="O nas"
             android:padding="12dp"
             android:layout_marginStart="16dp"/>
 
@@ -103,13 +111,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:onClick="ClickLogout">
+        android:onClick="clickLogout">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Logout"
+            android:text="Wyloguj"
             android:padding="12dp"
             android:layout_marginStart="16dp"/>
 

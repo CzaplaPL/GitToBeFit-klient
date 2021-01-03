@@ -4,7 +4,6 @@ import android.content.Context;
 
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.EntityUser;
-import pl.gittobefit.network.Connection;
 
 /**
  * klasa przechowująca informacje o użytkowniku
@@ -66,5 +65,19 @@ public class User
         this.id=id;
         this.auth=auth;
         AppDataBase.getDatabase(context).user().addUser(new EntityUser(id, email, ""));
+    }
+    //getter do emaila - Kuba
+    public String getEmail()
+    {
+        return this.email;
+    }
+    //getter do Tokena(zeminna Auth) - Kuba
+    public String getToken()
+    {
+        return this.auth;
+    }
+    //setter do tokena - Kuba
+    public void setToken(String auth) {
+        this.auth = auth;
     }
 }

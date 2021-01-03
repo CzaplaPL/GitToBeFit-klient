@@ -8,19 +8,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * klasa odpowiedzialana za połączenie z serwerem
  */
-public class Connection
+public class ConnectionToServer
 {
-    public final UserServices user;
-    private static volatile Connection INSTANCE;
-    static public Connection getConect()
+    public final UserServices userServices;
+    private static volatile ConnectionToServer INSTANCE;
+    static public ConnectionToServer getConect()
     {
         if (INSTANCE == null)
         {
-            synchronized (Connection.class)
+            synchronized (ConnectionToServer.class)
             {
                 if (INSTANCE == null)
                 {
-                    INSTANCE = new Connection("https://77.55.236.227:8443");
+                    INSTANCE = new ConnectionToServer("https://77.55.236.227:8443");
                 }
             }
         }
@@ -31,7 +31,7 @@ public class Connection
      * tworzy połączenie z serwerem
      * @param url url serwera
      */
-    public Connection(String url)
+    public ConnectionToServer(String url)
     {
         OkHttpClient okHttpClient = UnsafeOkHttpClient.getUnsafeOkHttpClient();
         Retrofit restAdapter = new Retrofit.Builder()
@@ -39,9 +39,6 @@ public class Connection
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        user = new UserServices(restAdapter);
+        userServices = new UserServices(restAdapter);
     }
-
-
-
 }
