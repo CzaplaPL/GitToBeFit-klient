@@ -12,7 +12,7 @@ public class User
 {
     private String email ="";
     private String auth ="";
-    private String id ="";
+    private String idServer ="";
 
     private static volatile User INSTANCE;
 
@@ -47,7 +47,7 @@ public class User
     public void add(String email, String password, String auth, String id, Context context)
     {
         this.email=email;
-        this.id=id;
+        this.idServer =id;
         this.auth=auth;
         AppDataBase.getDatabase(context).user().addUser(new EntityUser(id, email, password));
     }
@@ -62,7 +62,7 @@ public class User
     public void add(String email, String auth, String id, Context context)
     {
         this.email=email;
-        this.id=id;
+        this.idServer =id;
         this.auth=auth;
         AppDataBase.getDatabase(context).user().addUser(new EntityUser(id, email, ""));
     }

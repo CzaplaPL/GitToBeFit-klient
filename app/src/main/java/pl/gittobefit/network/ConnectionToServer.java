@@ -1,5 +1,7 @@
 package pl.gittobefit.network;
 
+import java.net.InetAddress;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -41,4 +43,16 @@ public class ConnectionToServer
                 .build();
         userServices = new UserServices(restAdapter);
     }
+    public static boolean isNetwork()
+    {
+        try
+        {
+            InetAddress ipAddr = InetAddress.getByName("google.com");
+            return !ipAddr.equals("");
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
 }

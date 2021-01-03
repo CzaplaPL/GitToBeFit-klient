@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity
     // logowanie google
     GoogleSignInClient mGoogleSignInClient;
     //////
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -78,40 +77,39 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCancel()
             {
-                Log.i("login facebook =" , "cancel " );
+                Log.w("login facebook Main = " , "   cancel " );
             }
             @Override
             public void onError(FacebookException exception)
             {
-                Log.i("login facebook =" , "blad " );
-                Log.i("login facebook =" , exception.toString() );
+                Log.w("login facebook Main  =" , "  błąd " );
+                Log.w("login facebook Main  =" , "       " +exception.toString() );
             }
         });
         ////////////////
         //logowanie google
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("167652090961-5dkah0ddinbeh8clnq81ieg3h2onkvjp.apps.googleusercontent.com")
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("167652090961-5dkah0ddinbeh8clnq81ieg3h2onkvjp.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        /*if(GoogleSignIn.getLastSignedInAccount(this)!=null)
+        //automatyczne logowanie google
+        if(GoogleSignIn.getLastSignedInAccount(this)!=null)
         {
-            Log.i("auto login google =" , "blad " );
-            Intent intet = new Intent(MainActivity.this,HomePage.class);
-            startActivity(intet);
-        }*/
-
+            Log.w("auto login google =" , "     login " );
+            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+            ConnectionToServer.getConect().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this);
+        }
+        //autologowanie facebook
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if( accessToken != null && !accessToken.isExpired())
+        {
+            ConnectionToServer.getConect().userServices.loginFacebook(accessToken,this);
+        }
         //chowanie actionBara
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.hide();
-
-     /*
-        List<EntityUser> user = AppDataBase.getDatabase(this).user().getUser();
-        for(EntityUser it : user)
-        {
-            Log.i("select", it.toString());
-        }
-        Log.i("koniec "," sprawdzam baze ");*/
 
     }
     /***
@@ -156,7 +154,7 @@ public class MainActivity extends AppCompatActivity
      */
     public void loginGoogle(View view)
     {
-        Log.w("logowanie google = ", "tu");
+        Log.w("logowanie google = ", "         uruchamianie ");
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, 1);
     }
@@ -175,18 +173,18 @@ public class MainActivity extends AppCompatActivity
      */
     public void handleSignInResult(Task<GoogleSignInAccount> completedTask)
     {
-        try {
-            Log.w("logowanie google = ", "ok");
+        try
+        {
+            Log.w("logowanie google = ", "     ok");
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             ConnectionToServer.getConect().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this);
-
         } catch (ApiException e) {
             Log.w("logowanie google", "signInResult:failed code=" + e.getStatusCode());
             loginFail(true);
         }
     }
     /**
-     * funkcja logowania przez fb
+     * funkcja obsługująca odpowiedz od zewnetrznego api
      * @param requestCode ""
      * @param resultCode ""
      * @param data ""
@@ -194,8 +192,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1)
+        {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }else
+        {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
     }
-
 }

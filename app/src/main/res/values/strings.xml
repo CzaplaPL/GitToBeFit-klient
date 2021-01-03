@@ -10,10 +10,14 @@
     <string name="login">Zaloguj</string>
     <string name="otherLogin">lub zaloguj się z</string>
     <string name="google">Google</string>
+    <string name="cancel">Anuluj</string>
+    <string name="resetPassword">Resetuj hasło</string>
     <string name="facebook">Facebook</string>
     <string name="noAccount">Nie masz konta?</string>
     <string name="register">Załóż je</string>
     <string name="skip">Pomiń</string>
+    <string name="remindPassword">Przypomnij Hasło</string>
+    <string name="remindPasswordText">Podaj email konta, na który zostanie wysłany mail z nowym hasłem</string>
     <string name="incorrectData">Błędne dane</string>
     <string name="serwerError">Błąd serwera</string>
     <string name="facebook_app_id">204805201285094</string>
