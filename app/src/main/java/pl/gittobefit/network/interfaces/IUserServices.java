@@ -5,6 +5,7 @@ import pl.gittobefit.network.object.TokenUser;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -40,4 +41,11 @@ Call<Void> loginGoogle(@Body TokenUser token);
     @POST("/user/login/facebook")
 Call<Void> loginFacebook(@Body TokenUser token);
 
+    /**
+     * pobieranie id danego emaila
+     * @param email emial
+     * @return void
+     */
+    @GET("/user/search/{email}")
+    Call<Void> getId(@Path("email") String email,@Header("Authorization") String auth);
 }
