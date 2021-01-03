@@ -24,6 +24,7 @@ import retrofit2.Retrofit;
  */
 public class UserServices
 {
+    private final String reg= "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*" + "(\\.[A-Za-z]{2,})$";
     private final IUserServices user ;
     UserServices(Retrofit adapter)
     {
@@ -43,6 +44,12 @@ public class UserServices
         Log.w("Network", "      user.login");
         Log.w("Network", "   " + email + " " + password);
         //przygotowanie zapytania zapytania
+
+        if(!email.matches(reg))
+        {
+            main.loginFail(false);
+            return;
+        }
         Call<Void> call = user.login(new RespondUser(email,password));
         //wywołanie zapytania
         call.enqueue(new Callback<Void>()

@@ -1,12 +1,17 @@
 package pl.gittobefit;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.AccessToken;
@@ -26,6 +31,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Collections;
 
 import pl.gittobefit.network.Connection;
+import pl.gittobefit.user.User;
 
 /***
  * author:Dominik
@@ -42,53 +48,63 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //logowanie facebook
-        facebookButton = (Button) findViewById(R.id.loginButtonFacebook);
-        LoginButton fbButton = (LoginButton) findViewById(R.id.loginFacebook);
-        facebookButton.setOnClickListener(v -> fbButton.performClick());
-        fbButton.setPermissions(Collections.singletonList("email"));
-        fbButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>()
+        if(Connection.isNetwork())
         {
-            @Override
-            public void onSuccess(LoginResult loginResult)
+            //logowanie facebook
+            facebookButton = (Button) findViewById(R.id.loginButtonFacebook);
+            LoginButton fbButton = (LoginButton) findViewById(R.id.loginFacebook);
+            facebookButton.setOnClickListener(v -> fbButton.performClick());
+            fbButton.setPermissions(Collections.singletonList("email"));
+            fbButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>()
             {
-                Log.w("login facebook Main = " , "   sukces " );
-                loginFacebook(loginResult.getAccessToken());
-            }
-            @Override
-            public void onCancel()
+                @Override
+                public void onSuccess(LoginResult loginResult)
+                {
+                    Log.w("login facebook Main = " , "   sukces " );
+                    loginFacebook(loginResult.getAccessToken());
+                }
+                @Override
+                public void onCancel()
+                {
+                    Log.w("login facebook Main = " , "   cancel " );
+                }
+                @Override
+                public void onError(FacebookException exception)
+                {
+                    Log.w("login facebook Main  =" , "  błąd " );
+                    Log.w("login facebook Main  =" , "       " +exception.toString() );
+                }
+            });
+            ////////////////
+            //logowanie google
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken("167652090961-5dkah0ddinbeh8clnq81ieg3h2onkvjp.apps.googleusercontent.com")
+                    .requestEmail()
+                    .build();
+            mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+            //automatyczne logowanie google
+            if(GoogleSignIn.getLastSignedInAccount(this)!=null)
             {
-                Log.w("login facebook Main = " , "   cancel " );
+                Log.w("auto login google =" , "     login " );
+                GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+                Connection.getConect().user.loginGoogle(account.getEmail(),account.getIdToken(),this);
             }
-            @Override
-            public void onError(FacebookException exception)
+            //autologowanie facebook
+            AccessToken accessToken = AccessToken.getCurrentAccessToken();
+            if( accessToken != null && !accessToken.isExpired())
             {
-                Log.w("login facebook Main  =" , "  błąd " );
-                Log.w("login facebook Main  =" , "       " +exception.toString() );
+                Connection.getConect().user.loginFacebook(accessToken,this);
             }
-        });
-        ////////////////
-        //logowanie google
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("167652090961-5dkah0ddinbeh8clnq81ieg3h2onkvjp.apps.googleusercontent.com")
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        //automatyczne logowanie google
-        if(GoogleSignIn.getLastSignedInAccount(this)!=null)
+        }else
         {
-            Log.w("auto login google =" , "     login " );
-            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-            Connection.getConect().user.loginGoogle(account.getEmail(),account.getIdToken(),this);
+            //brak internetu
         }
-        //autologowanie facebook
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        if( accessToken != null && !accessToken.isExpired())
-        {
-           Connection.getConect().user.loginFacebook(accessToken,this);
-        }
+
+
+
         //chowanie actionBara
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
@@ -184,5 +200,18 @@ public class MainActivity extends AppCompatActivity
         {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public void remindPassword(View view)
+    {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+        final EditText input = new EditText(MainActivity.this);
+
+        alertDialog.setView(input)
+                .setTitle(getResources().getString(R.string.remindPassword))
+                .setMessage(getResources().getString(R.string.remindPasswordText))
+                .setPositiveButton(getResources().getString(R.string.resetPassword),
+                        (dialog, which) -> Log.w("eee","bbb"))
+                .show();
     }
 }

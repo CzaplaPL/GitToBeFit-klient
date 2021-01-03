@@ -2,6 +2,8 @@ package pl.gittobefit.user;
 
 import android.content.Context;
 
+import java.net.InetAddress;
+
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.EntityUser;
 
@@ -66,4 +68,5 @@ public class User
         this.auth=auth;
         AppDataBase.getDatabase(context).user().addUser(new EntityUser(id, email, ""));
     }
+
 }
