@@ -31,21 +31,23 @@ import retrofit2.Retrofit;
  */
 public class UserServices
 {
-    private final String reg= "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*" + "(\\.[A-Za-z]{2,})$";
-    private final IUserServices user ;
+    private final String reg = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*" + "(\\.[A-Za-z]{2,})$";
+    private final IUserServices user;
+
     UserServices(Retrofit adapter)
     {
-        user =adapter.create(IUserServices.class);
+        user = adapter.create(IUserServices.class);
     }
 
     /**
      * logowanie kontem użytkownika
-     * @param email email
+     *
+     * @param email    email
      * @param password hasło
-     * @param main activity
+     * @param main     activity
      * @author czapla
      */
-    public void login(String email, String password,MainActivity main)
+    public void login(String email, String password, MainActivity main)
     {
 
         Log.w("Network", "      user.login");
@@ -57,36 +59,38 @@ public class UserServices
             main.loginFail(false);
             return;
         }
-        Call<Void> call = user.login(new RespondUser(email,password));
+        Call<Void> call = user.login(new RespondUser(email, password));
         //wywołanie zapytania
         call.enqueue(new Callback<Void>()
         {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful())
+            public void onResponse(Call<Void> call, Response<Void> response)
+            {
+                if(response.isSuccessful())
                 {
-                    Log.w("logowanie  ","  get_id");
-                    Call<Void> call2 = user.getUserIDbyEmail(email,response.headers().get("Authorization"));
+                    Log.w("logowanie  ", "  get_id");
+                    Call<Void> call2 = user.getUserIDbyEmail(email, response.headers().get("Authorization"));
                     //wywołanie zapytania
                     call2.enqueue(new Callback<Void>()
                     {
                         @Override
-                        public void onResponse(Call<Void> call2, Response<Void> response2) {
-                            if (response2.isSuccessful())
+                        public void onResponse(Call<Void> call2, Response<Void> response2)
+                        {
+                            if(response2.isSuccessful())
                             {
 
 
-                                User.getUser().add(email,password,response.headers().get("Authorization"),response2.headers().get("idUser"),main.getApplicationContext());
+                                User.getUser().add(email, password, response.headers().get("Authorization"), response2.headers().get("idUser"), main.getApplicationContext());
                                 main.loginSuccess();
                             }else
                             {
-                                if(response2.code()!=404)
+                                if(response2.code() != 404)
                                 {
-                                    Log.e("get_id  error : ","   "+ String.valueOf(response2.code()));
+                                    Log.e("get_id  error : ", "   " + String.valueOf(response2.code()));
                                     main.loginFail(true);
                                 }else
                                 {
-                                    Log.w("get_id error : ","    404 zły użytkownik ");
+                                    Log.w("get_id error : ", "    404 zły użytkownik ");
                                     main.loginFail(true);
                                 }
                             }
@@ -95,18 +99,18 @@ public class UserServices
                         @Override
                         public void onFailure(Call<Void> call, Throwable t)
                         {
-                            Log.e(" logowanie  error fail ", "logowanie : "+t.toString());
+                            Log.e(" logowanie  error fail ", "logowanie : " + t.toString());
                         }
                     });
                 }else
                 {
-                    if(response.code()!=403)
+                    if(response.code() != 403)
                     {
                         Log.e("logowanie error : ", String.valueOf(response.code()));
                         main.loginFail(true);
                     }else
                     {
-                        Log.w("logowanie error : "," 403 zły użytkownik ");
+                        Log.w("logowanie error : ", " 403 zły użytkownik ");
                         main.loginFail(false);
                     }
                 }
@@ -115,51 +119,54 @@ public class UserServices
             @Override
             public void onFailure(Call<Void> call, Throwable t)
             {
-                Log.e(" logowanie error fail  ", "logowanie : "+t.toString());
+                Log.e(" logowanie error fail  ", "logowanie : " + t.toString());
             }
         });
     }
 
     /**
      * logowanie przez google
+     *
      * @param email email
      * @param token token google
-     * @param main activity
+     * @param main  activity
      * @author czapla
      */
-    public void loginGoogle(String email,String token,MainActivity main)
+    public void loginGoogle(String email, String token, MainActivity main)
     {
 
         Log.w("Network", "user.logingoogle");
-        Log.w("Network",  email+" "+token);
+        Log.w("Network", email + " " + token);
         Call<Void> call = user.loginGoogle(new TokenUser(token));
         call.enqueue(new Callback<Void>()
         {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful())
+            public void onResponse(Call<Void> call, Response<Void> response)
+            {
+                if(response.isSuccessful())
                 {
-                    Log.w("logowanie google ","  get_id " );
+                    Log.w("logowanie google ", "  get_id ");
 
 
-                   Call<Void> call2 = user.getUserIDbyEmail(email,response.headers().get("Authorization"));
+                    Call<Void> call2 = user.getUserIDbyEmail(email, response.headers().get("Authorization"));
                     call2.enqueue(new Callback<Void>()
                     {
                         @Override
-                        public void onResponse(Call<Void> call2, Response<Void> response2) {
-                            if (response2.isSuccessful())
+                        public void onResponse(Call<Void> call2, Response<Void> response2)
+                        {
+                            if(response2.isSuccessful())
                             {
-                                User.getUser().add(email,response.headers().get("Authorization"),response2.headers().get("idUser"),main.getApplicationContext());
+                                User.getUser().add(email, response.headers().get("Authorization"), response2.headers().get("idUser"), main.getApplicationContext());
                                 main.loginSuccess();
                             }else
                             {
-                                if(response2.code()!=404)
+                                if(response2.code() != 404)
                                 {
                                     Log.e("get_id error : ", String.valueOf(response2.code()));
                                     main.loginFail(true);
                                 }else
                                 {
-                                    Log.w("get_id error :  "," 404 zły użytkownik ");
+                                    Log.w("get_id error :  ", " 404 zły użytkownik ");
                                     main.loginFail(true);
                                 }
                             }
@@ -168,19 +175,19 @@ public class UserServices
                         @Override
                         public void onFailure(Call<Void> call, Throwable t)
                         {
-                            Log.e("  get_id error  ", "logowanie google = : "+t.toString());
+                            Log.e("  get_id error  ", "logowanie google = : " + t.toString());
                             main.loginFail(true);
                         }
                     });
                 }else
                 {
-                    if(response.code()!=400)
+                    if(response.code() != 400)
                     {
                         Log.e("google error : ", String.valueOf(response.code()));
                         main.loginFail(false);
                     }else
                     {
-                        Log.w("google error : "," 400 zły użytkownik ");
+                        Log.w("google error : ", " 400 zły użytkownik ");
                         main.loginFail(true);
                     }
                 }
@@ -189,7 +196,7 @@ public class UserServices
             @Override
             public void onFailure(Call<Void> call, Throwable t)
             {
-                Log.e(" google error   ", "  logowanie google = : "+t.toString());
+                Log.e(" google error   ", "  logowanie google = : " + t.toString());
                 main.loginFail(true);
             }
         });
@@ -197,36 +204,26 @@ public class UserServices
 
     /**
      * logowanie przez facebooka
+     *
      * @param token token google
-     * @param main activity
+     * @param main  activity
      * @author czapla
      */
     public void loginFacebook(AccessToken token, MainActivity main)
     {
 
         Log.w("Network", "user.loginfacebook");
-        Log.w("Network",  token.getToken());
+        Log.w("Network", token.getToken());
         //zapytanie fb o email
-        GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback()
+        Call<Void> call = user.loginFacebook(new TokenUser(token.getToken()));
+        call.enqueue(new Callback<Void>()
         {
             @Override
-            public void onCompleted(JSONObject me, GraphResponse response)
+            public void onResponse(Call<Void> call, Response<Void> response)
             {
-                if (response.getError() != null)
+                if(response.isSuccessful())
                 {
-                    Log.w("fb pytanie o email  " , " error " );
-                    Log.w("fb pytanie o email  " , response.getError().getErrorMessage() );
-                } else
-                {
-                    String email = me.optString("email");
-                    Call<Void> call = user.loginFacebook(new TokenUser(token.getToken()));
-                    call.enqueue(new Callback<Void>()
-                    {
-                        @Override
-                        public void onResponse(Call<Void> call, Response<Void> response) {
-                            if (response.isSuccessful())
-                            {
-                                Log.d("logowanie fb ","zalogowano");
+                    Log.d("logowanie fb ", "zalogowano");
                                /*
                                do poprawienia
 
@@ -263,115 +260,114 @@ public class UserServices
                                     }
                                 });*/
 
-                                User.getUser().add(email,response.headers().get("Authorization"),"1",main.getApplicationContext());
-                                main.loginSuccess();
-                            }else
-                            {
-                                if(response.code()!=400)
-                                {
-                                    Log.e("response error : ", String.valueOf(response.code()));
-                                    main.loginFail(true);
-                                }else
-                                {
-                                    Log.w("glowne pytanie  "," 400 zły użytkownik ");
-                                    main.loginFail(false);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Void> call, Throwable t)
-                        {
-                            Log.e(" błąd  ", "logowanie facebook : "+t.toString());
-                        }
-                    });
-
+                    User.getUser().add("email", response.headers().get("Authorization"), "1", main.getApplicationContext());
+                    main.loginSuccess();
+                }else
+                {
+                    if(response.code() != 400)
+                    {
+                        Log.e("response error : ", String.valueOf(response.code()));
+                        main.loginFail(true);
+                    }else
+                    {
+                        Log.w("glowne pytanie  ", " 400 zły użytkownik ");
+                        main.loginFail(false);
+                    }
                 }
             }
-        }).executeAsync();
-    }
-
-    /**
-     * @author Kuba
-     * @param actualPassword akualne hasło
-     * @param newPassword nowe hasło
-     * @param activity activty
-     */
-    public void changePassword(String actualPassword, String newPassword, Activity activity)
-    {
-
-        Call<Void> call = user.getUserIDbyEmail(User.getUser().getEmail(), User.getUser().getToken());
-        call.enqueue(new Callback<Void>()
-        {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-               String userID = response.headers().get("idUser");
-               Call<Void> call2 = user.changePassword(userID, User.getUser().getToken(), new ChangePassUser(User.getUser().getEmail(), actualPassword, newPassword));
-               call2.enqueue(new Callback<Void>()
-               {
-                   @Override
-                   public void onResponse(Call<Void> call, Response<Void> response) {
-
-                       int code = response.code();
-                       if (code == 409)
-                       {
-                           Toast.makeText(activity, "Błędne stare hasło",Toast.LENGTH_SHORT).show();
-                       } else {
-                           activity.startActivity(new Intent(activity, Setting.class));
-                           Toast.makeText(activity, "Zmieniono hasło !",Toast.LENGTH_SHORT).show();
-                       }
-                       Log.e("kod błędu", String.valueOf(code));
-                   }
-
-                   @Override
-                   public void onFailure(Call<Void> call, Throwable t) {
-                       Log.e(" błąd  ", "zmiana hasła : "+ t.toString());
-                   }
-               });
-
-            }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.e(" błąd  ", "pobiereanie id poprzez email : "+ t.toString());
+            public void onFailure(Call<Void> call, Throwable t)
+            {
+                Log.e(" błąd  ", "logowanie facebook : " + t.toString());
             }
         });
+
     }
 
-    /**
-     * @author Kuba
-     * @param activity  activity
-     */
-    public void deleteAccount(Activity activity)
-    {
-        Call<Void> call = user.getUserIDbyEmail(User.getUser().getEmail(), User.getUser().getToken());
+
+
+/**
+ * @author Kuba
+ * @param actualPassword akualne hasło
+ * @param newPassword nowe hasło
+ * @param activity activty
+ */
+public void changePassword(String actualPassword,String newPassword,Activity activity)
+        {
+
+        Call<Void> call=user.getUserIDbyEmail(User.getUser().getEmail(),User.getUser().getToken());
         call.enqueue(new Callback<Void>()
         {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                String userID = response.headers().get("idUser");
-                Call<Void> call2 = user.deleteAccount(userID, User.getUser().getToken());
-                call2.enqueue(new Callback<Void>()
-                {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        int code =  response.code();
-                        Log.e("kod błędu", String.valueOf(code));
-                        User.getUser().setToken(null);
-                        HomePage.redirectActivity(activity, MainActivity.class);
-                    }
+@Override
+public void onResponse(Call<Void> call,Response<Void> response){
+        String userID=response.headers().get("idUser");
+        Call<Void> call2=user.changePassword(userID,User.getUser().getToken(),new ChangePassUser(User.getUser().getEmail(),actualPassword,newPassword));
+        call2.enqueue(new Callback<Void>()
+        {
+@Override
+public void onResponse(Call<Void> call,Response<Void> response){
 
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Log.e(" Błąd  ", "usuwanie konta: "+ t.toString());
-                    }
-                });
-            }
+        int code=response.code();
+        if(code==409)
+        {
+        Toast.makeText(activity,"Błędne stare hasło",Toast.LENGTH_SHORT).show();
+        }else{
+        activity.startActivity(new Intent(activity,Setting.class));
+        Toast.makeText(activity,"Zmieniono hasło !",Toast.LENGTH_SHORT).show();
+        }
+        Log.e("kod błędu",String.valueOf(code));
+        }
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.e(" błąd  ", "pobiereanie id poprzez email : "+ t.toString());
-            }
+@Override
+public void onFailure(Call<Void> call,Throwable t){
+        Log.e(" błąd  ","zmiana hasła : "+t.toString());
+        }
         });
-    }
-}
+
+        }
+
+@Override
+public void onFailure(Call<Void> call,Throwable t){
+        Log.e(" błąd  ","pobiereanie id poprzez email : "+t.toString());
+        }
+        });
+        }
+
+/**
+ * @author Kuba
+ * @param activity  activity
+ */
+public void deleteAccount(Activity activity)
+        {
+        Call<Void> call=user.getUserIDbyEmail(User.getUser().getEmail(),User.getUser().getToken());
+        call.enqueue(new Callback<Void>()
+        {
+@Override
+public void onResponse(Call<Void> call,Response<Void> response){
+        String userID=response.headers().get("idUser");
+        Call<Void> call2=user.deleteAccount(userID,User.getUser().getToken());
+        call2.enqueue(new Callback<Void>()
+        {
+@Override
+public void onResponse(Call<Void> call,Response<Void> response){
+        int code=response.code();
+        Log.e("kod błędu",String.valueOf(code));
+        User.getUser().setToken(null);
+        HomePage.redirectActivity(activity,MainActivity.class);
+        }
+
+@Override
+public void onFailure(Call<Void> call,Throwable t){
+        Log.e(" Błąd  ","usuwanie konta: "+t.toString());
+        }
+        });
+        }
+
+@Override
+public void onFailure(Call<Void> call,Throwable t){
+        Log.e(" błąd  ","pobiereanie id poprzez email : "+t.toString());
+        }
+        });
+        }
+        }
