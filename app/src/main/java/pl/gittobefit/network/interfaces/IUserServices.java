@@ -1,5 +1,6 @@
 package pl.gittobefit.network.interfaces;
 
+import pl.gittobefit.network.object.ChangeEmailUser;
 import pl.gittobefit.network.object.ChangePassUser;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
@@ -19,57 +20,69 @@ import retrofit2.http.Path;
 public interface IUserServices
 {
     /**
-     *logowanie kontem aplikacji
+     * logowanie kontem aplikacji
+     *
      * @param user RespondUser
      * @return void
      * @author czapla
      */
     @POST("/user/login")
-Call<Void> login(@Body RespondUser user);
+    Call<Void> login(@Body RespondUser user);
 
     /**
      * logowanie kontem google
+     *
      * @param token token otrzymany przez google
      * @return void
      * @author czapla
      */
     @POST("/user/login/google")
-Call<Void> loginGoogle(@Body TokenUser token);
+    Call<Void> loginGoogle(@Body TokenUser token);
 
     /**
-     *logowanie kontem facebook
+     * logowanie kontem facebook
+     *
      * @param token token otrzymany przez fb
      * @return void
      * @author czapla
      */
     @POST("/user/login/facebook")
-Call<Void> loginFacebook(@Body TokenUser token);
+    Call<Void> loginFacebook(@Body TokenUser token);
 
     /**
-     * @author Kuba
-     * @param email email zalogowanego usera
+     * @param email      email zalogowanego usera
      * @param authHeader token usera
      * @return void
+     * @author Kuba
      */
     @GET("/user/search/{user_email}")
-Call<Void> getUserIDbyEmail(@Path("user_email") String email, @Header("Authorization") String authHeader);
+    Call<Void> getUserIDbyEmail(@Path("user_email") String email, @Header("Authorization") String authHeader);
 
     /**
-     * @author Kuba
-     * @param id idUser
-     * @param authHeader token usera
+     * @param id             idUser
+     * @param authHeader     token usera
      * @param changePassUser body do zmiany hasła
      * @return void
+     * @author Kuba
      */
     @PUT("/user/{user_id}/password-update")
-Call<Void> changePassword(@Path("user_id") String id, @Header("Authorization") String authHeader, @Body ChangePassUser changePassUser);
+    Call<Void> changePassword(@Path("user_id") String id, @Header("Authorization") String authHeader, @Body ChangePassUser changePassUser);
 
     /**
-     * @author Kuba
-     * @param id idUser
+     * @param id         idUser
      * @param authHeader token usera
      * @return void
+     * @author Kuba
      */
     @DELETE("/user/{user_id}")
-Call<Void> deleteAccount(@Path("user_id") String id, @Header("Authorization") String authHeader);
+    Call<Void> deleteAccount(@Path("user_id") String id, @Header("Authorization") String authHeader);
+
+    /**
+     * @param id         idUser
+     * @param authHeader token usera
+     * @return void
+     * @author Kuba
+     */
+    @PUT("/user/{user_id}/email-update")
+    Call<Void> changeEmail(@Path("user_id") String id,@Header("Authorization") String authHeader, @Body ChangeEmailUser changeEmailUser);
 }

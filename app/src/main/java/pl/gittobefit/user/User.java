@@ -10,9 +10,18 @@ import pl.gittobefit.database.entity.EntityUser;
  */
 public class User
 {
+    public enum WayOfLogin
+    {
+        DEFAULT,
+        OUR_SERVER,
+        GOOGLE,
+        FACEBOOK
+    }
+
     private String email ="";
     private String auth ="";
-    private String idServer ="";
+    private String id ="";
+    private WayOfLogin loggedBy = WayOfLogin.DEFAULT;
 
     private static volatile User INSTANCE;
 
@@ -21,7 +30,7 @@ public class User
      * @return instancje usera
      * @author czapla
      */
-    static public User getUser()
+    static public User getInstance()
     {
         if (INSTANCE == null)
         {
@@ -44,11 +53,12 @@ public class User
      * @param context context
      * @author czapla
      */
-    public void add(String email, String password, String auth, String id, Context context)
+    public void add(String email, String password, String auth, String id, WayOfLogin loggedBy, Context context)
     {
         this.email=email;
-        this.idServer =id;
+        this.id=id;
         this.auth=auth;
+        this.loggedBy = loggedBy;
         AppDataBase.getDatabase(context).user().addUser(new EntityUser(id, email, password));
     }
     /**
@@ -59,11 +69,12 @@ public class User
      * @param context context
      * @author czapla
      */
-    public void add(String email, String auth, String id, Context context)
+    public void add(String email, String auth, String id, WayOfLogin loggedBy, Context context)
     {
         this.email=email;
-        this.idServer =id;
+        this.id=id;
         this.auth=auth;
+        this.loggedBy = loggedBy;
         AppDataBase.getDatabase(context).user().addUser(new EntityUser(id, email, ""));
     }
     //getter do emaila - Kuba
@@ -79,5 +90,17 @@ public class User
     //setter do tokena - Kuba
     public void setToken(String auth) {
         this.auth = auth;
+    }
+    //getter do sposobu zalogowania - Kuba
+    public WayOfLogin getLoggedBy() {
+        return loggedBy;
+    }
+    //setter do sposobu zalogowania - Kuba
+    public void setLoggedBy(WayOfLogin loggedBy) {
+        this.loggedBy = loggedBy;
+    }
+    //setter email - Kuba
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

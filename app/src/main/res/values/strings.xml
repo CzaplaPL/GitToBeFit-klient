@@ -24,6 +24,8 @@
     <string name="fb_login_protocol_scheme">fb204805201285094</string>
     <string name="change">change</string>
     <string name="email">email</string>
+    <string name="newEmail">new email</string>
     <string name="delete">delete</string>
+    <string name="google_token">57028483820-2fdhd5l8e0vc3knl5o3urda3n2di4gu9.apps.googleusercontent.com</string>
 
 </resources>

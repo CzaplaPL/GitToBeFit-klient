@@ -14,6 +14,7 @@ import pl.gittobefit.network.ConnectionToServer;
 
 /**
  * @author Kuba
+ * @deprecated
  */
 public class ChangePassword extends AppCompatActivity
 {
@@ -42,7 +43,7 @@ public class ChangePassword extends AppCompatActivity
                 String actualPassword = currentPass.getText().toString();
                 String newPassword = newPass.getText().toString();
                 if (newPassword.matches(passValidation)) {
-                    ConnectionToServer.getConect().userServices.changePassword(actualPassword, newPassword, activity);
+                    ConnectionToServer.getInstance().userServices.changePassword(actualPassword, newPassword, activity);
                 }
                 else {
                     Toast.makeText(ChangePassword.this, errMsg, Toast.LENGTH_LONG).show();

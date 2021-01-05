@@ -14,7 +14,7 @@ public class ConnectionToServer
 {
     public final UserServices userServices;
     private static volatile ConnectionToServer INSTANCE;
-    static public ConnectionToServer getConect()
+    static public ConnectionToServer getInstance()
     {
         if (INSTANCE == null)
         {

@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//przęjęcie buttona żeby po wylogowaniu nie wrócić do apki
-        if (User.getUser().getToken() == null)
+    //przęjęcie buttona żeby po wylogowaniu nie wrócić do apki
+        if (User.getInstance().getLoggedBy() == User.WayOfLogin.DEFAULT)
         {
             OnBackPressedCallback callback = new OnBackPressedCallback(true)
             {
@@ -88,23 +88,20 @@ public class MainActivity extends AppCompatActivity
         });
         ////////////////
         //logowanie google
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("167652090961-5dkah0ddinbeh8clnq81ieg3h2onkvjp.apps.googleusercontent.com")
-                .requestEmail()
-                .build();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(String.valueOf(R.string.google_token)).requestEmail().build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         //automatyczne logowanie google
         if(GoogleSignIn.getLastSignedInAccount(this)!=null)
         {
             Log.w("auto login google =" , "     login " );
             GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-            ConnectionToServer.getConect().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this);
+            ConnectionToServer.getInstance().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this);
         }
         //autologowanie facebook
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if( accessToken != null && !accessToken.isExpired())
         {
-            ConnectionToServer.getConect().userServices.loginFacebook(accessToken,this);
+            ConnectionToServer.getInstance().userServices.loginFacebook(accessToken,this);
         }
         //chowanie actionBara
         ActionBar actionBar = getSupportActionBar();
@@ -120,7 +117,7 @@ public class MainActivity extends AppCompatActivity
     {
         TextInputLayout email =(TextInputLayout)findViewById(R.id.loginMailKontener);
         TextInputLayout pass =(TextInputLayout)findViewById(R.id.loginPassKontener);
-        ConnectionToServer.getConect().userServices.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this);
+        ConnectionToServer.getInstance().userServices.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this);
     }
     /***
      * funkcja zmieniajaca activity po udanym logowaniu
@@ -129,6 +126,7 @@ public class MainActivity extends AppCompatActivity
     {
         Intent intet = new Intent(MainActivity.this,HomePage.class);
         startActivity(intet);
+        Toast.makeText(this, "Zalogowano z " + User.getInstance().getLoggedBy(), Toast.LENGTH_SHORT).show();
     }
     /**
      * wyswietla komunikat o nieudamym logowaniu
@@ -164,7 +162,7 @@ public class MainActivity extends AppCompatActivity
      */
     public void loginFacebook(AccessToken token)
     {
-        ConnectionToServer.getConect().userServices.loginFacebook(token,this);
+        ConnectionToServer.getInstance().userServices.loginFacebook(token,this);
 
     }
     /**
@@ -177,7 +175,7 @@ public class MainActivity extends AppCompatActivity
         {
             Log.w("logowanie google = ", "     ok");
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            ConnectionToServer.getConect().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this);
+            ConnectionToServer.getInstance().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this);
         } catch (ApiException e) {
             Log.w("logowanie google", "signInResult:failed code=" + e.getStatusCode());
             loginFail(true);
