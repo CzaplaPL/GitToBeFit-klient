@@ -29,7 +29,10 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def room_version = "2.2.6"
+    def fragment_version = "1.2.5"
+    implementation "androidx.fragment:fragment:$fragment_version"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'

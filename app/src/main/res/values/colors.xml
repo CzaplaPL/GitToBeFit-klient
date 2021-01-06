@@ -6,4 +6,5 @@
     <color name="ourBlack">#191919</color>
     <color name="facebook">#1877F2</color>
     <color name="google">#DD4B39</color>
+    <color name="none">#00DD4B39</color>
 </resources>

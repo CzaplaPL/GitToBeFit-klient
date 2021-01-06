@@ -27,6 +27,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Collections;
 
+import pl.gittobefit.dialog.RemindPasswoedDialog;
 import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.user.User;
 
@@ -47,14 +48,17 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    //przęjęcie buttona żeby po wylogowaniu nie wrócić do apki
+        //przęjęcie buttona żeby po wylogowaniu nie wrócić do apki
         if (User.getInstance().getLoggedBy() == User.WayOfLogin.DEFAULT)
         {
             OnBackPressedCallback callback = new OnBackPressedCallback(true)
             {
                 @Override
                 public void handleOnBackPressed() {
-                    Toast.makeText(MainActivity.this, "Musisz się zalogować", Toast.LENGTH_SHORT).show();
+                    Intent startMain = new Intent(Intent.ACTION_MAIN);
+                    startMain.addCategory(Intent.CATEGORY_HOME);
+                    startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(startMain);
                 }
             };
             this.getOnBackPressedDispatcher().addCallback(this, callback);
@@ -88,7 +92,10 @@ public class MainActivity extends AppCompatActivity
         });
         ////////////////
         //logowanie google
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(String.valueOf(R.string.google_token)).requestEmail().build();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("167652090961-5dkah0ddinbeh8clnq81ieg3h2onkvjp.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         //automatyczne logowanie google
         if(GoogleSignIn.getLastSignedInAccount(this)!=null)
@@ -199,5 +206,11 @@ public class MainActivity extends AppCompatActivity
         {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public void remindPassword(View view)
+    {
+        RemindPasswoedDialog dialog = new RemindPasswoedDialog();
+        dialog.show(getSupportFragmentManager(),"remind password");
     }
 }
