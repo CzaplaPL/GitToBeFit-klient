@@ -27,5 +27,12 @@
     <string name="newEmail">new email</string>
     <string name="delete">delete</string>
     <string name="google_token">57028483820-2fdhd5l8e0vc3knl5o3urda3n2di4gu9.apps.googleusercontent.com</string>
+    <string name="rE_mail">Adres e-mail</string>
+    <string name="rPassword">Hasło</string>
+    <string name="rRewersePassword">Ponów Hasło</string>
+    <string name="robot">Nie jestem robotem</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="statute">Akceptuje Regulamin</string>
+    <string name="registr">Zarejestruj </string>
 
 </resources>

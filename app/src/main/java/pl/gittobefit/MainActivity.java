@@ -200,4 +200,10 @@ public class MainActivity extends AppCompatActivity
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+    public void register(View view)
+    {
+        Intent intet = new Intent(MainActivity.this,Registration.class);
+        startActivity(intet);
+    }
 }

@@ -78,7 +78,6 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/forgotPassword"
                 android:text="@string/forgotPassword"
-                android:onClick="remindPassword"
                 android:textColor="@color/ourGreen"
                 android:textStyle="italic" />
         </LinearLayout>
@@ -132,6 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/register"
+                android:onClick="register"
                 android:textColor="@color/ourBlack"
                 app:shapeAppearanceOverlay="@style/roundButton"
                 app:strokeColor="@color/ourGreen" />
