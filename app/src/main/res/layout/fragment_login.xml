@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".user.fragments.Login">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-16dp">
+        <!--zdjecie loga -->
+        <ImageView
+            android:id="@+id/loginLogo"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:contentDescription="@string/app_name"
+            app:srcCompat="@drawable/logo" />
+        <!--wpisywanie e-mail -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginMailKontener"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/e_mail"
+            android:textColorHint="@color/ourBlack"
+            app:boxStrokeColor="@color/ourGreen"
+            app:boxStrokeWidth="2dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true"
+            app:startIconContentDescription="@string/e_mail"
+            app:startIconDrawable="@drawable/baseline_email_24">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginMail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textWebEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--wpisywanie hasla -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginPassKontener"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:textColorHint="@color/ourBlack"
+            app:boxStrokeColor="@color/ourGreen"
+            app:boxStrokeWidth="2dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTintMode="multiply"
+            app:startIconContentDescription="@string/password"
+            app:startIconDrawable="@drawable/baseline_lock_open_24">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginPass"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textWebPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Space
+                android:layout_width="155dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <!--przypominanie hasla -->
+            <TextView
+                android:id="@+id/loginForgotPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="@string/forgotPassword"
+                android:text="@string/forgotPassword"
+                android:onClick="remindPassword"
+                android:textColor="@color/ourGreen"
+                android:textStyle="italic"
+                tools:ignore="OnClick" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <!--pomijanie-->
+            <Button
+                android:id="@+id/loginSkip"
+                style="style/Widget.MaterialComponents.Button"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="7dp"
+                android:text="@string/skip"
+                android:textColor="@color/ourBlack"
+                app:shapeAppearanceOverlay="@style/roundedButton" />
+            <!--zaloguj-->
+            <Button
+                android:id="@+id/loginZaloguj"
+                style="style/Widget.MaterialComponents.Button"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginStart="7dp"
+                android:text="@string/login"
+                android:textColor="@color/ourBlack"
+                app:shapeAppearanceOverlay="@style/roundedButton" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="245dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <!--brak konta?-->
+            <TextView
+                android:id="@+id/loginNoAccount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/noAccount"
+                android:textColor="@color/ourGreen" />
+            <!--rejestracja-->
+            <Button
+                android:id="@+id/loginRegister"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:textColor="@color/ourBlack"
+                app:shapeAppearanceOverlay="@style/roundButton"
+                app:strokeColor="@color/ourGreen" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <!-- google-->
+            <Button
+                android:id="@+id/loginGoogle"
+                style="style/Widget.MaterialComponents.Button"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="7dp"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/google"
+                android:textColor="@color/ourWhite"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/google"
+                app:shapeAppearanceOverlay="@style/roundedButton" />
+            <!-- facebook-->
+            <FrameLayout
+                android:id="@+id/facebook"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_height="match_parent">
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/loginFacebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/loginButtonFacebook"
+                    style="style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+
+                    android:fontFamily="sans-serif-black"
+                    android:text="@string/facebook"
+                    android:textColor="@color/ourWhite"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/facebook"
+                    app:shapeAppearanceOverlay="@style/roundedButton" />
+            </FrameLayout>
+
+        </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="60dp" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -11,13 +12,14 @@ import com.facebook.AccessToken;
 import pl.gittobefit.HomePage;
 import pl.gittobefit.MainActivity;
 import pl.gittobefit.R;
-import pl.gittobefit.Setting;
+import pl.gittobefit.user.acticity.Setting;
 import pl.gittobefit.network.interfaces.IUserServices;
 import pl.gittobefit.network.object.ChangeEmailUser;
 import pl.gittobefit.network.object.ChangePassUser;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
 import pl.gittobefit.user.User;
+import pl.gittobefit.user.fragments.Login;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,10 +42,10 @@ public class UserServices
      *
      * @param email    email
      * @param password hasło
-     * @param main     activity
+     * @param fragment     activity
      * @author czapla
      */
-    public void login(String email, String password, MainActivity main)
+    public void login(String email, String password, Login fragment, View view)
     {
 
         Log.w("Network", "      user.login");
@@ -52,7 +54,7 @@ public class UserServices
 
         if(!email.matches("^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
         {
-            main.loginFail(false);
+            fragment.loginFail(false);
             return;
         }
         Call<Void> call = user.login(new RespondUser(email, password));
@@ -74,8 +76,8 @@ public class UserServices
                         {
                             if(response2.isSuccessful())
                             {
-                                User.getInstance().add(email, password, response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.OUR_SERVER, main.getApplicationContext());
-                                main.loginSuccess();
+                                User.getInstance().add(email, password, response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.OUR_SERVER, fragment.getContext());
+                                fragment.loginSuccess(view);
                             }else
                             {
                                 if(response2.code() != 404)
@@ -85,7 +87,7 @@ public class UserServices
                                 {
                                     Log.w("get_id error : ", "    404 zły użytkownik ");
                                 }
-                                main.loginFail(true);
+                                fragment.loginFail(true);
                             }
                         }
 
@@ -100,11 +102,11 @@ public class UserServices
                     if(response.code() != 403)
                     {
                         Log.e("logowanie error : ", String.valueOf(response.code()));
-                        main.loginFail(true);
+                        fragment.loginFail(true);
                     }else
                     {
                         Log.w("logowanie error : ", " 403 zły użytkownik ");
-                        main.loginFail(false);
+                        fragment.loginFail(false);
                     }
                 }
             }
@@ -120,10 +122,10 @@ public class UserServices
      *
      * @param email email
      * @param token token google
-     * @param main  activity
+     * @param fragment  activity
      * @author czapla
      */
-    public void loginGoogle(String email, String token, MainActivity main)
+    public void loginGoogle(String email, String token, Login fragment, View view)
     {
 
         Log.w("Network", "user.logingoogle");
@@ -147,8 +149,8 @@ public class UserServices
                         {
                             if(response2.isSuccessful())
                             {
-                                User.getInstance().add(email, response.headers().get("Authorization"), "1", User.WayOfLogin.GOOGLE, main.getApplicationContext());
-                                main.loginSuccess();
+                                User.getInstance().add(email, response.headers().get("Authorization"), "1", User.WayOfLogin.GOOGLE, fragment.getContext());
+                                fragment.loginSuccess(view);
                             }else
                             {
                                 if(response2.code() != 404)
@@ -158,7 +160,7 @@ public class UserServices
                                 {
                                     Log.w("get_id error :  ", " 404 zły użytkownik ");
                                 }
-                                main.loginFail(true);
+                                fragment.loginFail(true);
                             }
                         }
 
@@ -166,7 +168,7 @@ public class UserServices
                         public void onFailure(Call<Void> call, Throwable t)
                         {
                             Log.e("  get_id error  ", "logowanie google = : " + t.toString());
-                            main.loginFail(true);
+                            fragment.loginFail(true);
                         }
                     });
                 }else
@@ -174,11 +176,11 @@ public class UserServices
                     if(response.code() != 400)
                     {
                         Log.e("network google error : ", String.valueOf(response.code()));
-                        main.loginFail(false);
+                        fragment.loginFail(false);
                     }else
                     {
                         Log.w("network google error : ", " 400 zły użytkownik ");
-                        main.loginFail(true);
+                        fragment.loginFail(true);
                     }
                 }
             }
@@ -187,7 +189,7 @@ public class UserServices
             public void onFailure(Call<Void> call, Throwable t)
             {
                 Log.e(" google error   ", "  logowanie google = : " + t.toString());
-                main.loginFail(true);
+                fragment.loginFail(true);
             }
         });
     }
@@ -217,17 +219,17 @@ public class UserServices
 
 
                     User.getInstance().add(response.headers().get("email"), response.headers().get("Authorization"), response.headers().get("idUser"), User.WayOfLogin.FACEBOOK, main.getApplicationContext());
-                    main.loginSuccess();
+                 //   main.loginSuccess();
                 }else
                 {
                     if(response.code() != 400)
                     {
                         Log.e("response error : ", String.valueOf(response.code()));
-                        main.loginFail(true);
+                     //   main.loginFail(true);
                     }else
                     {
                         Log.w("glowne pytanie  ", " 400 zły użytkownik ");
-                        main.loginFail(false);
+                     //   main.loginFail(false);
                     }
                 }
             }

@@ -1,4 +1,4 @@
-package pl.gittobefit;
+package pl.gittobefit.user.acticity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,27 +13,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import pl.gittobefit.R;
+
 
 /**
  * @author Kuba
  */
-
-public class ChangeMailDialog extends AppCompatDialogFragment
+public class ChangePasswordDialog extends AppCompatDialogFragment
 {
-
-    private EditText editTextUserNewEmail;
-    private EditText editTextUserPassword;
-    private DialogListener dialogListener;
+    private EditText editTextUserOldPassword;
+    private EditText editTextUserNewPassword;
+    private ChangePasswordDialog.DialogListener dialogListener;
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.layout_dialog_email, null);
+        View view = inflater.inflate(R.layout.layout_change_password_dialog, null);
 
         builder.setView(view)
-                .setTitle("Zmień email")
+                .setTitle("Zmień hasło")
                 .setNegativeButton("Anuluj", new DialogInterface.OnClickListener()
                 {
                     @Override
@@ -45,14 +45,14 @@ public class ChangeMailDialog extends AppCompatDialogFragment
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String email = editTextUserNewEmail.getText().toString();
-                        String password = editTextUserPassword.getText().toString();
-                        dialogListener.applyTexts(email, password);
+                        String oldP = editTextUserOldPassword.getText().toString();
+                        String newP = editTextUserNewPassword.getText().toString();
+                        dialogListener.applyTexts2(oldP, newP);
                     }
                 });
 
-        editTextUserNewEmail = view.findViewById(R.id.edit_new_email);
-        editTextUserPassword = view.findViewById(R.id.passwordToChangeEmail);
+        editTextUserOldPassword = view.findViewById(R.id.oldPassword);
+        editTextUserNewPassword = view.findViewById(R.id.newPassword);
         return builder.create();
     }
 
@@ -60,7 +60,7 @@ public class ChangeMailDialog extends AppCompatDialogFragment
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            dialogListener = (DialogListener)context;
+            dialogListener = (ChangePasswordDialog.DialogListener)context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "musi implementowac dialog listner");
         }
@@ -68,6 +68,6 @@ public class ChangeMailDialog extends AppCompatDialogFragment
 
     public interface DialogListener
     {
-        void applyTexts(String newEmail, String password);
+        void applyTexts2(String oldPassword, String newPassword);
     }
 }
