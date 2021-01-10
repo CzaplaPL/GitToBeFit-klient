@@ -30,7 +30,13 @@
     <string name="sendPasswordError">nie ma takiego uzytkownika</string>
     <string name="delete">delete</string>
     <string name="google_token">167652090961-5dkah0ddinbeh8clnq81ieg3h2onkvjp.apps.googleusercontent.com</string>
-
+    <string name="rE_mail">Adres e-mail</string>
+    <string name="rPassword">Hasło</string>
+    <string name="rRewersePassword">Ponów Hasło</string>
+    <string name="robot">Nie jestem robotem</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="statute">Akceptuje Regulamin</string>
+    <string name="registr">Zarejestruj </string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -120,5 +126,7 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

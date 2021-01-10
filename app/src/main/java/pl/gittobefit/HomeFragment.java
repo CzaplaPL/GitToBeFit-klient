@@ -44,7 +44,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        Log.w("czy ja sie robie  ", "nie klik");
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         Button button =  view.findViewById(R.id.button7);
         button.setOnClickListener(this);

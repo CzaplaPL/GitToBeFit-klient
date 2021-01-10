@@ -68,6 +68,8 @@ public class Login extends Fragment implements View.OnClickListener
         button.setOnClickListener(this);
         button =  view.findViewById(R.id.loginGoogle);
         button.setOnClickListener(this);
+        button =  view.findViewById(R.id.loginRegister);
+        button.setOnClickListener(this);
         TextView textview =view.findViewById(R.id.loginForgotPass);
         textview.setOnClickListener(this);
 
@@ -155,7 +157,7 @@ public class Login extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view)
     {
-        Log.w("nie  klik", "klik");
+
         switch (view.getId())
         {
             case R.id.loginZaloguj:
@@ -174,9 +176,9 @@ public class Login extends Fragment implements View.OnClickListener
                 dialog.show(getSupportFragmentManager(),"remind password");*/
 
                 break;
-            case R.id.button7:
-                Log.w("klik", "klik");
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_options);
+            case R.id.loginRegister:
+
+                Navigation.findNavController(view).navigate(R.id.action_login_to_registration);
                 break;
         }
     }

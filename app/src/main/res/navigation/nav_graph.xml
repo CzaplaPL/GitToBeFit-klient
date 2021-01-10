@@ -14,6 +14,9 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@+id/login"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_login_to_registration"
+            app:destination="@id/registration" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -29,4 +32,8 @@
         android:name="pl.gittobefit.workout.fragments.Options"
         android:label="fragment_options"
         tools:layout="@layout/fragment_options" />
+    <fragment
+        android:id="@+id/registration"
+        android:name="pl.gittobefit.user.fragments.Registration"
+        android:label="Registration" />
 </navigation>
