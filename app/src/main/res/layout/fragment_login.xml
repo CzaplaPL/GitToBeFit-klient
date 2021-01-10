@@ -79,7 +79,6 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/forgotPassword"
                 android:text="@string/forgotPassword"
-                android:onClick="remindPassword"
                 android:textColor="@color/ourGreen"
                 android:textStyle="italic"
                 tools:ignore="OnClick" />

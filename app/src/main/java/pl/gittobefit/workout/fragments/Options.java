@@ -11,8 +11,14 @@ import androidx.annotation.Nullable;
 
 import pl.gittobefit.R;
 
-class Options extends Fragment
+public class Options extends Fragment
 {
+
+
+    public Options()
+    {
+
+    }
 
     @Nullable
     @Override

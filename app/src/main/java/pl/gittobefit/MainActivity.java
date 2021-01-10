@@ -10,7 +10,12 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -37,10 +42,7 @@ import pl.gittobefit.user.User;
  */
 public class MainActivity extends AppCompatActivity
 {
-    // logowania przez fb
-    CallbackManager callbackManager = CallbackManager.Factory.create();
-    Button facebookButton;
-    /////////
+    private DrawerLayout drawerLayout;
 
     //////
     @Override
@@ -50,93 +52,32 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
-        //logowanie facebook
-        facebookButton = (Button) findViewById(R.id.loginButtonFacebook);
-        LoginButton fbButton = (LoginButton) findViewById(R.id.loginFacebook);
-        facebookButton.setOnClickListener(v -> fbButton.performClick());
-        fbButton.setPermissions(Collections.singletonList("email"));
-        fbButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>()
-        {
-            @Override
-            public void onSuccess(LoginResult loginResult)
-            {
-                Log.i("login facebook =" , "sukces " );
-                loginFacebook(loginResult.getAccessToken());
-            }
-            @Override
-            public void onCancel()
-            {
-                Log.w("login facebook Main = " , "   cancel " );
-            }
-            @Override
-            public void onError(FacebookException exception)
-            {
-                Log.w("login facebook Main  =" , "  błąd " );
-                Log.w("login facebook Main  =" , "       " +exception.toString() );
-            }
-        });
+        drawerLayout = findViewById(R.id.drawer_layout);
         ////////////////
 
-        //autologowanie facebook
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        if( accessToken != null && !accessToken.isExpired())
-        {
-            ConnectionToServer.getInstance().userServices.loginFacebook(accessToken,this);
-        }
+
         //chowanie actionBara
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.topAppBar);
+        setSupportActionBar(myToolbar);
+        myToolbar.setNavigationOnClickListener(v -> openDrawer(drawerLayout));
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.hide();
 
     }
-    /***
-     * funkcja obługująca przycisk zalogouj
-     * @param view ""
-     */
-    /*public void login(View view)
-    {
-        TextInputLayout email =(TextInputLayout)findViewById(R.id.loginMailKontener);
-        TextInputLayout pass =(TextInputLayout)findViewById(R.id.loginPassKontener);
-        ConnectionToServer.getInstance().userServices.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this);
-    }*/
-    /***
-     * funkcja zmieniajaca activity po udanym logowaniu
-     */
 
-    /**
-     * funkcja wywoływana podczas logowania przez google
-     * @param view ""
-     */
-    public void loginGoogle(View view)
-    {
-
-    }
-    /**
-     * logowanie przez fb
-     * @param token token otrzymany od fb
-     */
-    public void loginFacebook(AccessToken token)
-    {
-        ConnectionToServer.getInstance().userServices.loginFacebook(token,this);
-
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        /*if (requestCode == 1)
-        {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-        }else
-        {
-            callbackManager.onActivityResult(requestCode, resultCode, data);
-        }*/
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.my_nav_host_fragment);
+        Fragment fragment =  navHostFragment.getChildFragmentManager().getFragments().get(0);
+        fragment.onActivityResult(requestCode, resultCode, data);
+
+    }
+    public static void openDrawer(DrawerLayout drawerLayout)
+    {
+        drawerLayout.openDrawer(GravityCompat.START);
     }
 
-    public void remindPassword(View view)
-    {
-        RemindPasswoedDialog dialog = new RemindPasswoedDialog();
-        dialog.show(getSupportFragmentManager(),"remind password");
-    }
 }

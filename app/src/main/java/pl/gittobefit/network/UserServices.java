@@ -198,10 +198,10 @@ public class UserServices
      * logowanie przez facebooka
      *
      * @param token token google
-     * @param main  activity
+     * @param fragment  activity
      * @author czapla
      */
-    public void loginFacebook(AccessToken token, MainActivity main)
+    public void loginFacebook(AccessToken token, Login fragment, View view)
     {
 
         Log.w("Network", "user.loginfacebook");
@@ -218,18 +218,18 @@ public class UserServices
                     Log.d("logowanie fb ", "zalogowano");
 
 
-                    User.getInstance().add(response.headers().get("email"), response.headers().get("Authorization"), response.headers().get("idUser"), User.WayOfLogin.FACEBOOK, main.getApplicationContext());
-                 //   main.loginSuccess();
+                    User.getInstance().add(response.headers().get("email"), response.headers().get("Authorization"), response.headers().get("idUser"), User.WayOfLogin.FACEBOOK, fragment.getContext());
+                    fragment.loginSuccess(view);
                 }else
                 {
                     if(response.code() != 400)
                     {
                         Log.e("response error : ", String.valueOf(response.code()));
-                     //   main.loginFail(true);
+                        fragment.loginFail(true);
                     }else
                     {
                         Log.w("glowne pytanie  ", " 400 zły użytkownik ");
-                     //   main.loginFail(false);
+                        fragment.loginFail(false);
                     }
                 }
             }

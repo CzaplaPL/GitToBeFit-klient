@@ -3,6 +3,7 @@ package pl.gittobefit.user.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -11,8 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -21,7 +29,10 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Collections;
+
 import pl.gittobefit.R;
+import pl.gittobefit.dialog.RemindPasswoedDialog;
 import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.user.User;
 
@@ -30,6 +41,10 @@ public class Login extends Fragment implements View.OnClickListener
 {
     // logowanie google
     GoogleSignInClient mGoogleSignInClient;
+    // logowania przez fb
+    CallbackManager callbackManager = CallbackManager.Factory.create();
+    Button facebookButton;
+
     public Login()
     {
 
@@ -49,19 +64,64 @@ public class Login extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        Button login =  view.findViewById(R.id.loginZaloguj);
-        login.setOnClickListener(this);
-        login =  view.findViewById(R.id.loginGoogle);
-        login.setOnClickListener(this);
+        Button button =  view.findViewById(R.id.loginZaloguj);
+        button.setOnClickListener(this);
+        button =  view.findViewById(R.id.loginGoogle);
+        button.setOnClickListener(this);
+        TextView textview =view.findViewById(R.id.loginForgotPass);
+        textview.setOnClickListener(this);
+
+
+
+
+
+
+
+        //logowanie facebook
+        facebookButton = (Button) view.findViewById(R.id.loginButtonFacebook);
+        LoginButton fbButton = (LoginButton) view.findViewById(R.id.loginFacebook);
+        facebookButton.setOnClickListener(v -> fbButton.performClick());
+        fbButton.setPermissions(Collections.singletonList("email"));
+        fbButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>()
+        {
+            @Override
+            public void onSuccess(LoginResult loginResult)
+            {
+                Log.i("login facebook =" , "sukces " );
+                loginFacebook(loginResult.getAccessToken());
+            }
+            @Override
+            public void onCancel()
+            {
+                Log.w("login facebook Main = " , "   cancel " );
+            }
+            @Override
+            public void onError(FacebookException exception)
+            {
+                Log.w("login facebook Main  =" , "  błąd " );
+                Log.w("login facebook Main  =" , "       " +exception.toString() );
+            }
+        });
+
+        //autologowanie facebook
+       /*AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if( accessToken != null && !accessToken.isExpired())
+        {
+            ConnectionToServer.getInstance().userServices.loginFacebook(accessToken,this,getView());
+        }*/
+
+
+
+
         //Logowanie google
         GoogleLogin();
         //automatyczne logowanie google
-        if(GoogleSignIn.getLastSignedInAccount(getContext())!=null)
+        /*if(GoogleSignIn.getLastSignedInAccount(getContext())!=null)
         {
             Log.w("auto login google =" , "     login " );
             GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
             ConnectionToServer.getInstance().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this,view);
-        }
+        }*/
 
         return view;
     }
@@ -95,6 +155,7 @@ public class Login extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view)
     {
+        Log.w("nie  klik", "klik");
         switch (view.getId())
         {
             case R.id.loginZaloguj:
@@ -107,9 +168,30 @@ public class Login extends Fragment implements View.OnClickListener
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, 1);
                 break;
+            case R.id.loginForgotPass:
+                ///TODO przypomnienie hasła
+            /*    RemindPasswoedDialog dialog = new RemindPasswoedDialog();
+                dialog.show(getSupportFragmentManager(),"remind password");*/
 
+                break;
+            case R.id.button7:
+                Log.w("klik", "klik");
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_options);
+                break;
         }
     }
+
+
+    public void loginFacebook(AccessToken token)
+    {
+        ConnectionToServer.getInstance().userServices.loginFacebook(token,this,getView());
+
+    }
+
+
+
+
+
     private void GoogleLogin()
     {
         //logowanie google
@@ -136,6 +218,7 @@ public class Login extends Fragment implements View.OnClickListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        Log.w("odpowiedz "," jest");
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1)
         {
@@ -143,7 +226,7 @@ public class Login extends Fragment implements View.OnClickListener
             handleSignInResult(task);
         }else
         {
-         //   callbackManager.onActivityResult(requestCode, resultCode, data);
+           callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
