@@ -14,8 +14,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -56,13 +59,13 @@ public class MainActivity extends AppCompatActivity
         ////////////////
 
 
-        //chowanie actionBara
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.topAppBar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-        myToolbar.setNavigationOnClickListener(v -> openDrawer(drawerLayout));
-        ActionBar actionBar = getSupportActionBar();
+        //chowanie actionBara
+
+        /*ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
-        actionBar.hide();
+        actionBar.hide();*/
 
     }
 
