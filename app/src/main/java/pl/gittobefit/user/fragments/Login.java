@@ -178,7 +178,7 @@ public class Login extends Fragment implements View.OnClickListener
                 break;
             case R.id.loginRegister:
 
-                Navigation.findNavController(view).navigate(R.id.action_login_to_registration);
+              //  Navigation.findNavController(view).navigate(R.id.action_login_to_registration);
                 break;
         }
     }

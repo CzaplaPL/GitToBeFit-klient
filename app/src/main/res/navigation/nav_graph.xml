@@ -14,26 +14,15 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@+id/login"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_login_to_registration"
-            app:destination="@id/registration" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="pl.gittobefit.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_options"
-            app:destination="@id/options" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/options"
         android:name="pl.gittobefit.workout.fragments.Options"
         android:label="fragment_options"
         tools:layout="@layout/fragment_options" />
-    <fragment
-        android:id="@+id/registration"
-        android:name="pl.gittobefit.user.fragments.Registration"
-        android:label="Registration" />
 </navigation>

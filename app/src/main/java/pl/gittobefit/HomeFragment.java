@@ -45,8 +45,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        Button button =  view.findViewById(R.id.button7);
-        button.setOnClickListener(this);
+
 
         return view;
     }
@@ -56,10 +55,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
         switch (view.getId())
         {
-            case R.id.button7:
 
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_options);
-                break;
 
 
         }
