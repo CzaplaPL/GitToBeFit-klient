@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_registration"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_end="20dp" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="155dp"
+        android:layout_height="155dp"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rE_mail"
+        app:layout_constraintBottom_toTopOf="@+id/loginMailKontener"
+        app:layout_constraintStart_toStartOf="@+id/loginMailKontener" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loginMailKontener"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textColorHint="@color/ourBlack"
+        app:boxStrokeColor="@color/ourGreen"
+        app:boxStrokeWidth="2dp"
+        app:errorEnabled="true"
+        app:hintEnabled="true"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/logo">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loginMail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textWebEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/text_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rPassword"
+        app:layout_constraintBottom_toTopOf="@+id/loginPasswordKontener"
+        app:layout_constraintStart_toStartOf="@+id/loginPasswordKontener"
+        app:layout_constraintTop_toBottomOf="@+id/loginMailKontener" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loginPasswordKontener"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textColorHint="@color/ourBlack"
+        app:boxStrokeColor="@color/ourGreen"
+        app:boxStrokeWidth="2dp"
+        app:errorEnabled="true"
+        app:hintEnabled="true"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/loginMailKontener">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textWebPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/text_rewerse_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rRewersePassword"
+        app:layout_constraintBottom_toTopOf="@+id/loginRewersePasswordKontener"
+        app:layout_constraintStart_toStartOf="@+id/loginRewersePasswordKontener" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loginRewersePasswordKontener"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textColorHint="@color/ourBlack"
+        app:boxStrokeColor="@color/ourGreen"
+        app:boxStrokeWidth="2dp"
+        app:errorEnabled="true"
+        app:hintEnabled="true"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/loginPasswordKontener">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loginRewersePassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textWebPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/checkBox_robot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="@string/robot"
+        app:layout_constraintStart_toStartOf="@+id/loginRewersePasswordKontener"
+        app:layout_constraintTop_toBottomOf="@+id/loginRewersePasswordKontener" />
+
+    <CheckBox
+        android:id="@+id/checkBox_statute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="@string/statute"
+        app:layout_constraintStart_toStartOf="@+id/checkBox_robot"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_robot" />
+
+    <Button
+        android:id="@+id/buttonRegistr"
+        style="style/Widget.MaterialComponents.Button"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/registr"
+        android:textColor="@color/ourBlack"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_statute"
+        app:shapeAppearanceOverlay="@style/roundedButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

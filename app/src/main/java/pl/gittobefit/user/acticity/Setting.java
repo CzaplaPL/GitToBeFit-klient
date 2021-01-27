@@ -1,16 +1,12 @@
-package pl.gittobefit;
+package pl.gittobefit.user.acticity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.preference.EditTextPreference;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
 
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,8 +16,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
+import pl.gittobefit.HomePage;
+import pl.gittobefit.MainActivity;
+import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.user.acticity.AboutUs;
 import pl.gittobefit.user.User;
+import pl.gittobefit.user.acticity.ChangeMailDialog;
+import pl.gittobefit.user.acticity.ChangePasswordDialog;
 
 
 /**

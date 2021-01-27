@@ -43,6 +43,11 @@ public class ConnectionToServer
                 .build();
         userServices = new UserServices(restAdapter);
     }
+
+    /**
+     * sprawdza czy użytkownik ma internet
+     * @return true jezeli ma 
+     */
     public static boolean isNetwork()
     {
         try

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/login">
+    <fragment
+        android:id="@+id/login"
+        android:name="pl.gittobefit.user.fragments.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login2_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_login_to_registration"
+            app:destination="@id/registration" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="pl.gittobefit.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_options"
+            app:destination="@id/options" />
+    </fragment>
+    <fragment
+        android:id="@+id/options"
+        android:name="pl.gittobefit.workout.fragments.Options"
+        android:label="fragment_options"
+        tools:layout="@layout/fragment_options" />
+    <fragment
+        android:id="@+id/registration"
+        android:name="pl.gittobefit.user.fragments.Registration"
+        android:label="Registration" />
+</navigation>

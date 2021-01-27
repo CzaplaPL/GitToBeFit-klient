@@ -19,7 +19,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
+import pl.gittobefit.user.acticity.AboutUs;
 import pl.gittobefit.user.User;
+import pl.gittobefit.user.acticity.Setting;
 
 /**
  * @author Kuba

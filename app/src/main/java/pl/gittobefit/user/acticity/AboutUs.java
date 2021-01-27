@@ -1,4 +1,4 @@
-package pl.gittobefit;
+package pl.gittobefit.user.acticity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -15,6 +15,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
+import pl.gittobefit.HomePage;
+import pl.gittobefit.MainActivity;
+import pl.gittobefit.R;
 import pl.gittobefit.user.User;
 
 public class AboutUs extends AppCompatActivity

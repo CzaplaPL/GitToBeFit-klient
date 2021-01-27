@@ -10,6 +10,16 @@ import pl.gittobefit.database.entity.EntityUser;
  */
 public class User
 {
+    public String getIdSerwer()
+    {
+        return idSerwer;
+    }
+
+    public void setIdSerwer(String idSerwer)
+    {
+        this.idSerwer = idSerwer;
+    }
+
     public enum WayOfLogin
     {
         DEFAULT,
@@ -18,9 +28,9 @@ public class User
         FACEBOOK
     }
 
-    private String email ="";
+    private String email ="" ;
     private String auth ="";
-    private String id ="";
+    private String idSerwer = "";
     private WayOfLogin loggedBy = WayOfLogin.DEFAULT;
 
     private static volatile User INSTANCE;
@@ -44,6 +54,7 @@ public class User
         }
         return INSTANCE;
     }
+
     /**
      * funkcja dodaje użytkownika
      * @param email email
@@ -56,10 +67,9 @@ public class User
     public void add(String email, String password, String auth, String id, WayOfLogin loggedBy, Context context)
     {
         this.email=email;
-        this.id=id;
+        this.idSerwer =id;
         this.auth=auth;
         this.loggedBy = loggedBy;
-        AppDataBase.getDatabase(context).user().addUser(new EntityUser(id, email, password));
     }
     /**
      * funkcja dodaje uzytkownika z pustym hasłem
@@ -72,10 +82,9 @@ public class User
     public void add(String email, String auth, String id, WayOfLogin loggedBy, Context context)
     {
         this.email=email;
-        this.id=id;
+        this.idSerwer =id;
         this.auth=auth;
         this.loggedBy = loggedBy;
-        AppDataBase.getDatabase(context).user().addUser(new EntityUser(id, email, ""));
     }
     //getter do emaila - Kuba
     public String getEmail()
@@ -103,4 +112,5 @@ public class User
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

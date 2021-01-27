@@ -4,7 +4,6 @@ import pl.gittobefit.network.object.ChangeEmailUser;
 import pl.gittobefit.network.object.ChangePassUser;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
-import pl.gittobefit.user.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -13,6 +12,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * interfejs(dao) do komunikacji sieciowej o użytkowniku
@@ -50,6 +50,7 @@ public interface IUserServices
     Call<Void> loginFacebook(@Body TokenUser token);
 
     /**
+     * pobieranie id po emailu
      * @param email      email zalogowanego usera
      * @param authHeader token usera
      * @return void
@@ -59,6 +60,7 @@ public interface IUserServices
     Call<Void> getUserIDbyEmail(@Path("user_email") String email, @Header("Authorization") String authHeader);
 
     /**
+     * zmiana hasła
      * @param id             idUser
      * @param authHeader     token usera
      * @param changePassUser body do zmiany hasła
@@ -69,6 +71,7 @@ public interface IUserServices
     Call<Void> changePassword(@Path("user_id") String id, @Header("Authorization") String authHeader, @Body ChangePassUser changePassUser);
 
     /**
+     * usuwanie konta
      * @param id         idUser
      * @param authHeader token usera
      * @return void
@@ -78,6 +81,7 @@ public interface IUserServices
     Call<Void> deleteAccount(@Path("user_id") String id, @Header("Authorization") String authHeader);
 
     /**
+     * zmiana maila
      * @param id         idUser
      * @param authHeader token usera
      * @return void
@@ -85,4 +89,8 @@ public interface IUserServices
      */
     @PUT("/user/{user_id}/email-update")
     Call<Void> changeEmail(@Path("user_id") String id,@Header("Authorization") String authHeader, @Body ChangeEmailUser changeEmailUser);
+
+
+    @POST("/user/remind-password")
+    Call<Void> remindPass( @Query("email") String email);
 }
