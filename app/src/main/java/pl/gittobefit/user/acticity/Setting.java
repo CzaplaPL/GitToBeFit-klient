@@ -165,7 +165,7 @@ public class Setting extends AppCompatActivity implements ChangeMailDialog.Dialo
             builder.setTitle("Usuń konto");
             builder.setMessage("Czy na pewno chcesz usunąć konto ?");
             builder.setPositiveButton("Tak", (dialog, which) -> {
-                ConnectionToServer.getInstance().userServices.deleteAccount(this);
+                ConnectionToServer.getInstance().userServices.deleteAccount();
 
             });
             builder.setNegativeButton("Nie", (dialog, which) -> dialog.dismiss());
@@ -177,7 +177,7 @@ public class Setting extends AppCompatActivity implements ChangeMailDialog.Dialo
         }
 
     }
-
+/*
     public void appVersion(View view)
     {
         Toast.makeText(this, "Version 2.0.0", Toast.LENGTH_SHORT).show();
@@ -187,5 +187,5 @@ public class Setting extends AppCompatActivity implements ChangeMailDialog.Dialo
     protected void onPause() {
         super.onPause();
         HomePage.closeDrawer(drawerLayout);
-    }
+    }*/
 }

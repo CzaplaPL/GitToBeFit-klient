@@ -32,9 +32,19 @@
     </fragment>
     <fragment
         android:id="@+id/setting"
-        android:name="pl.gittobefit.workout.fragments.Options"
+        android:name="pl.gittobefit.user.fragments.Settings"
         android:label="fragment_options"
-        tools:layout="@layout/fragment_options" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_setting_to_changeMailDialog"
+            app:destination="@id/changeMailDialog" />
+        <action
+            android:id="@+id/action_setting_to_changePasswordDialog"
+            app:destination="@id/changePasswordDialog" />
+        <action
+            android:id="@+id/action_setting_to_login"
+            app:destination="@id/login" />
+    </fragment>
     <fragment
         android:id="@+id/aboutUs"
         android:name="pl.gittobefit.AboutUsFragment"
@@ -62,9 +72,18 @@
     <dialog
         android:id="@+id/remindPasswoedDialog"
         android:name="pl.gittobefit.user.dialog.RemindPasswordDialog"
+        tools:layout="@layout/layout_remind_password_dialog"
         android:label="RemindPasswoedDialog" />
     <dialog
         android:id="@+id/registrationSuccesDialog"
         android:name="pl.gittobefit.user.dialog.RegistrationSuccesDialog"
         android:label="RegistrationSuccesDialog" />
+    <dialog
+        android:id="@+id/changeMailDialog"
+        android:name="pl.gittobefit.user.acticity.ChangeMailDialog"
+        android:label="ChangeMailDialog" />
+    <dialog
+        android:id="@+id/changePasswordDialog"
+        android:name="pl.gittobefit.user.acticity.ChangePasswordDialog"
+        android:label="ChangePasswordDialog" />
 </navigation>
