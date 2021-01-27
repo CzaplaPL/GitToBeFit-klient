@@ -3,6 +3,7 @@ package pl.gittobefit.user.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -53,6 +54,7 @@ public class Login extends Fragment implements View.OnClickListener
     {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
@@ -102,11 +104,11 @@ public class Login extends Fragment implements View.OnClickListener
         });
 
         //autologowanie facebook
-       /*AccessToken accessToken = AccessToken.getCurrentAccessToken();
+       AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if( accessToken != null && !accessToken.isExpired())
         {
             ConnectionToServer.getInstance().userServices.loginFacebook(accessToken,this,getView());
-        }*/
+        }
 
 
 
@@ -114,12 +116,12 @@ public class Login extends Fragment implements View.OnClickListener
         //Logowanie google
         GoogleLogin();
         //automatyczne logowanie google
-        /*if(GoogleSignIn.getLastSignedInAccount(getContext())!=null)
+        if(GoogleSignIn.getLastSignedInAccount(getContext())!=null)
         {
             Log.w("auto login google =" , "     login " );
             GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
             ConnectionToServer.getInstance().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this,view);
-        }*/
+        }
 
         return view;
     }

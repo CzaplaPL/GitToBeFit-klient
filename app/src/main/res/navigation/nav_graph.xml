@@ -29,15 +29,17 @@
         android:name="pl.gittobefit.HomeFragment"
         android:label="siema wiktor"
         tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_options"
-            app:destination="@id/options" />
     </fragment>
     <fragment
-        android:id="@+id/options"
+        android:id="@+id/setting"
         android:name="pl.gittobefit.workout.fragments.Options"
         android:label="fragment_options"
         tools:layout="@layout/fragment_options" />
+    <fragment
+        android:id="@+id/aboutUs"
+        android:name="pl.gittobefit.AboutUsFragment"
+        android:label="fragment_options"
+        tools:layout="@layout/fragment_about_us" />
     <fragment
         android:id="@+id/registration"
         android:name="pl.gittobefit.user.fragments.Registration"
@@ -46,6 +48,17 @@
             android:id="@+id/action_registration_to_login2"
             app:destination="@id/login" />
     </fragment>
+
+    <fragment
+        android:id="@+id/logout"
+        android:name="pl.gittobefit.user.fragments.Logout"
+        android:label="wylogowanie"
+        tools:layout="@layout/fragment_logout" >
+        <action
+            android:id="@+id/action_logout_to_login"
+            app:destination="@id/login" />
+    </fragment>
+
     <dialog
         android:id="@+id/remindPasswoedDialog"
         android:name="pl.gittobefit.user.dialog.RemindPasswordDialog"
