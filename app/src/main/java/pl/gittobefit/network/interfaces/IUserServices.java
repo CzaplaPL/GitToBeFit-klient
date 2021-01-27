@@ -93,4 +93,8 @@ public interface IUserServices
 
     @POST("/user/remind-password")
     Call<Void> remindPass( @Query("email") String email);
+
+    @POST("/user/signup")
+    Call<Void> signup( @Body RespondUser user);
+
 }

@@ -17,11 +17,17 @@
         <action
             android:id="@+id/action_login_to_registration"
             app:destination="@id/registration" />
+        <action
+            android:id="@+id/action_login_to_remindPasswordDialog"
+            app:destination="@id/remindPasswoedDialog" />
+        <action
+            android:id="@+id/action_login_to_registrationSuccesDialog"
+            app:destination="@id/registrationSuccesDialog" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="pl.gittobefit.HomeFragment"
-        android:label="fragment_home"
+        android:label="siema wiktor"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_options"
@@ -35,5 +41,17 @@
     <fragment
         android:id="@+id/registration"
         android:name="pl.gittobefit.user.fragments.Registration"
-        android:label="Registration" />
+        android:label="Registration" >
+        <action
+            android:id="@+id/action_registration_to_login2"
+            app:destination="@id/login" />
+    </fragment>
+    <dialog
+        android:id="@+id/remindPasswoedDialog"
+        android:name="pl.gittobefit.user.dialog.RemindPasswordDialog"
+        android:label="RemindPasswoedDialog" />
+    <dialog
+        android:id="@+id/registrationSuccesDialog"
+        android:name="pl.gittobefit.user.dialog.RegistrationSuccesDialog"
+        android:label="RegistrationSuccesDialog" />
 </navigation>

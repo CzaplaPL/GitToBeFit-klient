@@ -43,17 +43,36 @@ import pl.gittobefit.user.User;
 public class MainActivity extends AppCompatActivity
 {
     private DrawerLayout drawerLayout;
-
+    private AppBarConfiguration mAppBarConfiguration;
     //////
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         drawerLayout = findViewById(R.id.drawer_layout);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.topAppBar);
+        setSupportActionBar(myToolbar);
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDrawer(drawerLayout);
+
+            }
+        });
+
+
+
+
         ////////////////
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.options, R.id.homeFragment)
+                .setDrawerLayout(drawerLayout)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
 
 
         //chowanie actionBara
@@ -70,7 +89,7 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.my_nav_host_fragment);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         Fragment fragment =  navHostFragment.getChildFragmentManager().getFragments().get(0);
         fragment.onActivityResult(requestCode, resultCode, data);
 

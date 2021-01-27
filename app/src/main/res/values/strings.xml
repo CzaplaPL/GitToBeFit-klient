@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">GitToBeFit</string>
     <string name="menu_home">Home</string>
     <string name="menu_setting">Setting</string>
@@ -20,6 +20,8 @@
     <string name="remindPasswordText">Podaj email twojego konta. Zostanie na nie wysłane nowe hasło </string>
     <string name="remindPasswordTitle">Przypomnij hasło </string>
     <string name="incorrectData">Błędne dane</string>
+    <string name="duplicateEmail">Ten Email jest zajęty</string>
+    <string name="incorrectpassword">hasła różnią się </string>
     <string name="serwerError">Błąd serwera</string>
     <string name="facebook_app_id">204805201285094</string>
     <string name="fb_login_protocol_scheme">fb204805201285094</string>
@@ -37,14 +39,9 @@
     <string name="checkbox">CheckBox</string>
     <string name="statute">Akceptuje Regulamin</string>
     <string name="registr">Zarejestruj </string>
-    <string name="google_token">167652090961-5dkah0ddinbeh8clnq81ieg3h2onkvjp.apps.googleusercontent.com</string>
-    <string name="rE_mail">Adres e-mail</string>
-    <string name="rPassword">Hasło</string>
-    <string name="rRewersePassword">Ponów Hasło</string>
-    <string name="robot">Nie jestem robotem</string>
-    <string name="checkbox">CheckBox</string>
-    <string name="statute">Akceptuje Regulamin</string>
-    <string name="registr">Zarejestruj </string>
+    <string name="registrsucces">Rejestracja zakończona sukcesem </string>
+    <string name="registrsuccesinfo">Na podany email została wysłana wiadomość z linkiem aktywującym konto</string>
+    <string name="ok">ok</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

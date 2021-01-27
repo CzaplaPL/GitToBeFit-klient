@@ -13,10 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
 
 import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.user.User;
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener
@@ -38,6 +40,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         if (activity != null) {
             activity.getSupportActionBar().show();
         }
+
     }
 
     @Override
@@ -45,9 +48,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        Button button =  view.findViewById(R.id.button7);
-        button.setOnClickListener(this);
-
+        /*TextView userEmailDisplay = view.findViewById(R.id.user_email_display);
+        userEmailDisplay.setText(User.getInstance().getEmail());*/
         return view;
     }
     @Override
@@ -56,10 +58,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
         switch (view.getId())
         {
-            case R.id.button7:
 
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_options);
-                break;
 
 
         }
