@@ -12,7 +12,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.GitToBeFit.NoActionBar">
+    <style name="Theme.GitToBeFit.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/ourWhite</item>
         <item name="colorPrimary">@color/ourGreen</item>
         <item name="colorPrimaryVariant">@color/ourBlack</item>

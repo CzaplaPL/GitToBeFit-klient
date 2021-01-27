@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -55,6 +56,8 @@ public class Registration extends Fragment implements View.OnClickListener
     {
         View view = inflater.inflate(R.layout.fragment_registration, container, false);
         CheckBox checkBox =  view.findViewById(R.id.checkBox_robot);
+        Button registr =  view.findViewById(R.id.buttonRegistr);
+        registr.setOnClickListener(this);
         checkBox.setOnClickListener(this);
         return view;
     }
@@ -68,11 +71,45 @@ public class Registration extends Fragment implements View.OnClickListener
                 TextInputLayout email =(TextInputLayout)getView().findViewById(R.id.loginMailKontener);
                 TextInputLayout pass =(TextInputLayout)getView().findViewById(R.id.loginPasswordKontener);
                 TextInputLayout pass2 =(TextInputLayout)getView().findViewById(R.id.loginRewersePasswordKontener);
-                CheckBox robot =  view.findViewById(R.id.checkBox_robot);
-                CheckBox terms =  view.findViewById(R.id.checkBox_statute);
+                CheckBox robot = (CheckBox) getView().findViewById(R.id.checkBox_robot);
+                CheckBox terms = (CheckBox) getView().findViewById(R.id.checkBox_statute);
+                boolean correct =true;
+                if(!email.getEditText().getText().toString().matches(emailValidation))
+                {
+                    email.setError(getResources().getString(R.string.incorrectData));
+                    correct =false;
+                }else email.setErrorEnabled(false);
 
-
-
+                if(!pass.getEditText().getText().toString().matches(passValidation))
+                {
+                    pass.setError(getResources().getString(R.string.incorrectData));
+                    correct =false;
+                }else pass.setErrorEnabled(false);
+                if(!pass2.getEditText().getText().toString().matches(passValidation))
+                {
+                    pass2.setError(getResources().getString(R.string.incorrectData));
+                    correct =false;
+                }else if(!pass.getEditText().getText().toString().equals(pass2.getEditText().getText().toString()))
+                {
+                    pass.setError(getResources().getString(R.string.incorrectpassword));
+                    pass2.setError(getResources().getString(R.string.incorrectpassword));
+                    correct =false;
+                }else pass2.setErrorEnabled(false);
+                if(!robot.isChecked())
+                {
+                    robot.setTextColor(ContextCompat.getColor(getContext(), R.color.ourRed));
+                    correct =false;
+                }else robot.setTextColor(ContextCompat.getColor(getContext(), R.color.ourGray));
+                if(!terms.isChecked())
+                {
+                    terms.setTextColor(ContextCompat.getColor(getContext(), R.color.ourRed));
+                    correct =false;
+                }else terms.setTextColor(ContextCompat.getColor(getContext(), R.color.ourGray));
+                if(correct)
+                {
+                    Log.w("rejestracja" ,"jest");
+                    ConnectionToServer.getInstance().userServices.singup(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this,getView());
+                }
                 break;
             case R.id.checkBox_robot:
                 CheckBox checkBox =  view.findViewById(R.id.checkBox_robot);
@@ -109,5 +146,23 @@ public class Registration extends Fragment implements View.OnClickListener
                 break;
 
         }
+    }
+
+    public void Fail(boolean duplicate)
+    {
+        TextInputLayout email =(TextInputLayout)getView().findViewById(R.id.loginMailKontener);
+        if(duplicate)
+        {
+            email.setError(getResources().getString(R.string.duplicateEmail));
+        }else
+        {
+            email.setError(getResources().getString(R.string.serwerError));
+        }
+    }
+
+    public void Success(View view)
+    {
+        Navigation.findNavController(view).navigate(R.id.action_registration_to_login2);
+        Navigation.findNavController(view).navigate(R.id.action_login_to_registrationSuccesDialog);
     }
 }

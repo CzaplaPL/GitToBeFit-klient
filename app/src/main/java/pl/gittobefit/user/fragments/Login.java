@@ -3,7 +3,6 @@ package pl.gittobefit.user.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -32,9 +30,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Collections;
 
 import pl.gittobefit.R;
-import pl.gittobefit.dialog.RemindPasswoedDialog;
 import pl.gittobefit.network.ConnectionToServer;
-import pl.gittobefit.user.User;
 
 
 public class Login extends Fragment implements View.OnClickListener
@@ -171,14 +167,11 @@ public class Login extends Fragment implements View.OnClickListener
                 startActivityForResult(signInIntent, 1);
                 break;
             case R.id.loginForgotPass:
-                ///TODO przypomnienie hasła
-            /*    RemindPasswoedDialog dialog = new RemindPasswoedDialog();
-                dialog.show(getSupportFragmentManager(),"remind password");*/
-
+                Navigation.findNavController(view).navigate(R.id.action_login_to_remindPasswordDialog);
                 break;
             case R.id.loginRegister:
 
-              //  Navigation.findNavController(view).navigate(R.id.action_login_to_registration);
+                Navigation.findNavController(view).navigate(R.id.action_login_to_registration);
                 break;
         }
     }

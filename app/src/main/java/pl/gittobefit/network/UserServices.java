@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.navigation.Navigation;
+
 import com.facebook.AccessToken;
 
 import pl.gittobefit.HomePage;
@@ -20,6 +22,7 @@ import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
 import pl.gittobefit.user.User;
 import pl.gittobefit.user.fragments.Login;
+import pl.gittobefit.user.fragments.Registration;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -419,6 +422,50 @@ public class UserServices
             public void onFailure(Call<Void> call, Throwable t)
             {
                 Log.e(" błąd  hasła ", "przypominanie hasła " + t.toString());
+            }
+        });
+    }
+    public void singup(String email, String password, Registration fragment, View view)
+    {
+
+        Log.w("Network", "      rejestracja");
+        Log.w("Network", "   " + email + " " + password);
+        //przygotowanie zapytania zapytania
+
+
+        Call<Void> call = user.signup(new RespondUser(email, password));
+        //wywołanie zapytania
+        call.enqueue(new Callback<Void>()
+        {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response)
+            {
+                if(response.isSuccessful())
+                {
+                    Log.w("Rejestracja  ", "  sukces");
+                    fragment.Success(view);
+                }else
+                {
+                    if(response.code() != 409)
+                    {
+                        Log.e("Rejestracja error : ", String.valueOf(response.code()));
+                        fragment.Fail(false);
+                    }else
+                    {
+                        if(response.headers().get("Cause").equals("duplicate entry"))
+                        {
+                            fragment.Fail(true);
+                        }
+                        Log.w("Rejestracja error : ", " 409  =  " + response.headers().get("Cause"));
+                        fragment.Fail(false);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t)
+            {
+                Log.e(" CRejestracja error   ",  t.toString());
+                fragment.Fail(false);
             }
         });
     }

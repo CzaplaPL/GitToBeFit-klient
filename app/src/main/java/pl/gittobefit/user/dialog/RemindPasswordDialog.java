@@ -1,4 +1,4 @@
-package pl.gittobefit.dialog;
+package pl.gittobefit.user.dialog;
 
 
 
@@ -21,7 +21,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
 
-public class RemindPasswoedDialog extends AppCompatDialogFragment
+public class RemindPasswordDialog extends AppCompatDialogFragment
 {
     @NonNull
     @Override
@@ -34,22 +34,18 @@ public class RemindPasswoedDialog extends AppCompatDialogFragment
         TextInputLayout email =(TextInputLayout)view.findViewById(R.id.remindPassEmail);
         builder.setView(view)
                 .setTitle(getResources().getString(R.string.remindPasswordTitle))
-                .setPositiveButton(getResources().getString(R.string.remindPassword), new DialogInterface.OnClickListener()
+                .setPositiveButton(getResources().getString(R.string.remindPassword), (dialog, which) ->
                 {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
+                    String mail=email.getEditText().getText().toString();
+                    if(!mail.matches("^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
                     {
-                        String mail=email.getEditText().getText().toString();
-                        if(!mail.matches("^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
-                        {
-                            Toast.makeText(context,context.getResources().getString(R.string.incorrectData),Toast.LENGTH_SHORT).show();
-                            email.setErrorEnabled(true);
-                            email.setError(getResources().getString(R.string.incorrectData));
+                        Toast.makeText(context,context.getResources().getString(R.string.incorrectData),Toast.LENGTH_SHORT).show();
+                        email.setErrorEnabled(true);
+                        email.setError(getResources().getString(R.string.incorrectData));
 
-                        }else
-                        {
-                           ConnectionToServer.getInstance().userServices.remindPassword(mail,context);
-                        }
+                    }else
+                    {
+                       ConnectionToServer.getInstance().userServices.remindPassword(mail,context);
                     }
                 });
         return builder.create();
