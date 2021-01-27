@@ -48,8 +48,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        TextView userEmailDisplay = view.findViewById(R.id.user_email_display);
-        userEmailDisplay.setText(User.getInstance().getEmail());
+        /*TextView userEmailDisplay = view.findViewById(R.id.user_email_display);
+        userEmailDisplay.setText(User.getInstance().getEmail());*/
         return view;
     }
     @Override

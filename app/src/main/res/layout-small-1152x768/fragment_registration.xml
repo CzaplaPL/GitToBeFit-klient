@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_registration"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -36,14 +37,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.28" />
+        app:layout_constraintGuide_percent="0.18" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/panel"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_down"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintHorizontal_bias="0.0"
@@ -70,7 +70,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="zmiana"
+            android:text="@string/rE_mail"
             app:layout_constraintStart_toStartOf="@+id/guideline_panel"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -95,6 +95,7 @@
                 android:inputType="textWebEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
             android:id="@+id/text_password"
@@ -179,19 +180,20 @@
             app:layout_constraintStart_toStartOf="@+id/guideline_panel"
             app:layout_constraintTop_toBottomOf="@+id/checkBox_robot" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/buttonRegistr"
+            style="style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/registr"
+            android:textColor="@color/ourBlack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_panel2"
+            app:layout_constraintStart_toStartOf="@+id/guideline_panel"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox_statute"
+            app:shapeAppearanceOverlay="@style/roundedButton" />
 
-    <Button
-        android:id="@+id/buttonRegistr"
-        style="style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/registr"
-        android:textColor="@color/ourBlack"
-        app:layout_constraintBottom_toBottomOf="@+id/panel"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:shapeAppearanceOverlay="@style/roundedButton" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_down"

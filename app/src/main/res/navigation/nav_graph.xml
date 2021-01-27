@@ -28,7 +28,11 @@
         android:id="@+id/homeFragment"
         android:name="pl.gittobefit.HomeFragment"
         android:label="siema wiktor"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_options"
+            app:destination="@id/options" />
+    </fragment>
     <fragment
         android:id="@+id/options"
         android:name="pl.gittobefit.workout.fragments.Options"

@@ -47,7 +47,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginTop="-5dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/down"
         app:layout_constraintEnd_toEndOf="@+id/main_guideline_right"
