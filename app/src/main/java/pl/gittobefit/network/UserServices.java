@@ -19,7 +19,6 @@ import pl.gittobefit.network.object.ChangePassUser;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
 import pl.gittobefit.user.User;
-import pl.gittobefit.user.acticity.Setting;
 import pl.gittobefit.user.fragments.Login;
 import pl.gittobefit.user.fragments.Registration;
 import retrofit2.Call;
@@ -248,10 +247,9 @@ public class UserServices
     /**
      * @param actualPassword akualne hasło
      * @param newPassword    nowe hasło
-     * @param activity       activty
      * @author Kuba
      */
-    public void changePassword(String actualPassword, String newPassword, Activity activity)
+    public void changePassword(String actualPassword, String newPassword, Context context)
     {
 
         Call<Void> call = user.getUserIDbyEmail(User.getInstance().getEmail(), User.getInstance().getToken());
@@ -271,11 +269,10 @@ public class UserServices
                         int code = response.code();
                         if(code == 409)
                         {
-                            Toast.makeText(activity, "Błędne stare hasło", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Błędne stare hasło", Toast.LENGTH_SHORT).show();
                         }else
                         {
-                            activity.startActivity(new Intent(activity, Setting.class));
-                            Toast.makeText(activity, "Zmieniono hasło !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Zmieniono hasło !", Toast.LENGTH_SHORT).show();
                         }
                         Log.e("kod błędu", String.valueOf(code));
                     }
@@ -336,7 +333,7 @@ public class UserServices
         });
     }
 
-    public void changeEmail(String newEmail, String password, Activity activity)
+    public void changeEmail(String newEmail, String password, Context context)
     {
         Call<Void> call = user.getUserIDbyEmail(User.getInstance().getEmail(), User.getInstance().getToken());
         call.enqueue(new Callback<Void>()
@@ -355,16 +352,11 @@ public class UserServices
                         Log.e("kod błędu", String.valueOf(code));
                         if(code == 409)
                         {
-                            Toast.makeText(activity, "Błędne stare hasło", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Błędne stare hasło", Toast.LENGTH_SHORT).show();
                         }else
                         {
                             User.getInstance().setEmail(newEmail);
-                            Intent intent = new Intent(activity, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            activity.startActivity(intent);
-                            User.getInstance().setToken(null);
-                            User.getInstance().setLoggedBy(User.WayOfLogin.DEFAULT);
-                            Toast.makeText(activity, "Zmieniono email !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Zmieniono email !", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -461,13 +453,7 @@ public class UserServices
                         fragment.Fail(false);
                     }else
                     {
-                        if(Objects.equals(response.headers().get("Cause"), "duplicate entry"))
-                        {
-                            fragment.Fail(true);
-                        }else
-                        {
-                            fragment.Fail(false);
-                        }
+                        fragment.Fail(Objects.equals(response.headers().get("Cause"), "duplicate entry"));
                         Log.w("Rejestracja error : ", " 409  =  " + response.headers().get("Cause"));
                     }
                 }

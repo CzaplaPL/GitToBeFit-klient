@@ -1,13 +1,11 @@
 package pl.gittobefit.user.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,33 +13,24 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputLayout;
-
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.user.User;
-import pl.gittobefit.user.acticity.ChangePasswordDialog;
 
-
+/**
+ * fragment ustawien
+ */
 public class Settings extends Fragment implements View.OnClickListener
 {
-
-
-
     public Settings()
     {
         // Required empty public constructor
     }
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -57,7 +46,6 @@ public class Settings extends Fragment implements View.OnClickListener
         button.setOnClickListener(this);
         return view;
     }
-
     @Override
     public void onClick(View view)
     {
@@ -91,7 +79,7 @@ public class Settings extends Fragment implements View.OnClickListener
                     builder.setTitle("Usuń konto");
                     builder.setMessage("Czy na pewno chcesz usunąć konto ?");
                     builder.setPositiveButton("Tak", (dialog, which) -> {
-                     //   ConnectionToServer.getInstance().userServices.deleteAccount();
+                        ConnectionToServer.getInstance().userServices.deleteAccount();
                         Navigation.findNavController(view).navigate(R.id.action_setting_to_login);
                     });
                     builder.setNegativeButton("Nie", (dialog, which) -> dialog.dismiss());

@@ -27,13 +27,13 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="pl.gittobefit.HomeFragment"
-        android:label="siema wiktor"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_home" >
     </fragment>
     <fragment
         android:id="@+id/setting"
         android:name="pl.gittobefit.user.fragments.Settings"
-        android:label="fragment_options"
+        android:label="@string/menu_setting"
         tools:layout="@layout/fragment_settings" >
         <action
             android:id="@+id/action_setting_to_changeMailDialog"
@@ -48,7 +48,7 @@
     <fragment
         android:id="@+id/aboutUs"
         android:name="pl.gittobefit.AboutUsFragment"
-        android:label="fragment_options"
+        android:label="@string/about_us"
         tools:layout="@layout/fragment_about_us" />
     <fragment
         android:id="@+id/registration"
@@ -62,7 +62,7 @@
     <fragment
         android:id="@+id/logout"
         android:name="pl.gittobefit.user.fragments.Logout"
-        android:label="wylogowanie"
+        android:label="@string/logout"
         tools:layout="@layout/fragment_logout" >
         <action
             android:id="@+id/action_logout_to_login"
@@ -80,10 +80,14 @@
         android:label="RegistrationSuccesDialog" />
     <dialog
         android:id="@+id/changeMailDialog"
-        android:name="pl.gittobefit.user.acticity.ChangeMailDialog"
-        android:label="ChangeMailDialog" />
+        android:name="pl.gittobefit.user.dialog.ChangeMailDialog"
+        android:label="ChangeMailDialog" >
+        <action
+            android:id="@+id/action_changeMailDialog_to_login"
+            app:destination="@id/login" />
+    </dialog>
     <dialog
         android:id="@+id/changePasswordDialog"
-        android:name="pl.gittobefit.user.acticity.ChangePasswordDialog"
+        android:name="pl.gittobefit.user.dialog.ChangePasswordDialog"
         android:label="ChangePasswordDialog" />
 </navigation>

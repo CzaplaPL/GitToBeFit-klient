@@ -1,4 +1,4 @@
-package pl.gittobefit.user.acticity;
+package pl.gittobefit.user.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 import pl.gittobefit.R;
+import pl.gittobefit.network.ConnectionToServer;
 
 
 /**
@@ -23,7 +25,7 @@ public class ChangePasswordDialog extends AppCompatDialogFragment
 {
     private EditText editTextUserOldPassword;
     private EditText editTextUserNewPassword;
-    private ChangePasswordDialog.DialogListener dialogListener;
+    String passValidation = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -45,9 +47,14 @@ public class ChangePasswordDialog extends AppCompatDialogFragment
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String oldP = editTextUserOldPassword.getText().toString();
-                        String newP = editTextUserNewPassword.getText().toString();
-                        dialogListener.applyTexts2(oldP, newP);
+                        String oldPassword = editTextUserOldPassword.getText().toString();
+                        String newPassword = editTextUserNewPassword.getText().toString();
+                        if (newPassword.matches(passValidation)) {
+                            ConnectionToServer.getInstance().userServices.changePassword(oldPassword, newPassword, getContext());
+                        }
+                        else {
+                            Toast.makeText(getContext(), "errMsg", Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
 
@@ -56,18 +63,5 @@ public class ChangePasswordDialog extends AppCompatDialogFragment
         return builder.create();
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            dialogListener = (ChangePasswordDialog.DialogListener)context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "musi implementowac dialog listner");
-        }
-    }
 
-    public interface DialogListener
-    {
-        void applyTexts2(String oldPassword, String newPassword);
-    }
 }

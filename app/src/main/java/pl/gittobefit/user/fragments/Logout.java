@@ -1,7 +1,9 @@
 package pl.gittobefit.user.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,34 +11,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
-import pl.gittobefit.MainActivity;
 import pl.gittobefit.R;
 import pl.gittobefit.user.User;
 
+/**
+ * fragment odpowiedzialny za wylogowanie
+ */
 
 public class Logout extends Fragment
 {
-
     GoogleSignInClient mGoogleApiClient;
-
     public Logout()
     {
         // Required empty public constructor
     }
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -46,15 +40,11 @@ public class Logout extends Fragment
             activity.getSupportActionBar().hide();
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-
-        View view = inflater.inflate(R.layout.fragment_logout, container, false);
-
-        return view ;
+        return inflater.inflate(R.layout.fragment_logout, container, false);
     }
 
     @Override
@@ -78,7 +68,6 @@ public class Logout extends Fragment
                     LoginManager.getInstance().logOut();
                 }
                 User.getInstance().setLoggedBy(User.WayOfLogin.DEFAULT);
-
                 break;
         }
         Navigation.findNavController(getView()).navigate(R.id.action_logout_to_login);

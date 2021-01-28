@@ -33,7 +33,9 @@ import java.util.Collections;
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
 
-
+/**
+ * fragment logowania
+ */
 public class Login extends Fragment implements View.OnClickListener
 {
     // logowanie google
@@ -70,49 +72,14 @@ public class Login extends Fragment implements View.OnClickListener
         button.setOnClickListener(this);
         TextView textview =view.findViewById(R.id.loginForgotPass);
         textview.setOnClickListener(this);
-
-
-
-
-
-
-
-        //logowanie facebook
-        facebookButton = (Button) view.findViewById(R.id.loginButtonFacebook);
-        LoginButton fbButton = (LoginButton) view.findViewById(R.id.loginFacebook);
-        facebookButton.setOnClickListener(v -> fbButton.performClick());
-        fbButton.setPermissions(Collections.singletonList("email"));
-        fbButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>()
-        {
-            @Override
-            public void onSuccess(LoginResult loginResult)
-            {
-                Log.i("login facebook =" , "sukces " );
-                loginFacebook(loginResult.getAccessToken());
-            }
-            @Override
-            public void onCancel()
-            {
-                Log.w("login facebook Main = " , "   cancel " );
-            }
-            @Override
-            public void onError(FacebookException exception)
-            {
-                Log.w("login facebook Main  =" , "  błąd " );
-                Log.w("login facebook Main  =" , "       " +exception.toString() );
-            }
-        });
-
+        //Logowanie facebook
+        FacebookeLogin(view);
         //autologowanie facebook
        AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if( accessToken != null && !accessToken.isExpired())
         {
             ConnectionToServer.getInstance().userServices.loginFacebook(accessToken,this,getView());
         }
-
-
-
-
         //Logowanie google
         GoogleLogin();
         //automatyczne logowanie google
@@ -127,7 +94,7 @@ public class Login extends Fragment implements View.OnClickListener
     }
 
     /***
-     * funkcja zmieniajaca activity po udanym logowaniu
+     * funkcja zmieniajaca fragment po udanym logowaniu
      */
     public void loginSuccess(View view)
     {
@@ -152,6 +119,10 @@ public class Login extends Fragment implements View.OnClickListener
         pass.setError(getResources().getString(R.string.incorrectData));
     }
 
+    /**
+     * obsługa klikniecia
+     * @param view element klikniety
+     */
     @Override
     public void onClick(View view)
     {
@@ -178,20 +149,44 @@ public class Login extends Fragment implements View.OnClickListener
         }
     }
 
-
+    /** logowanie facebook*/
     public void loginFacebook(AccessToken token)
     {
         ConnectionToServer.getInstance().userServices.loginFacebook(token,this,getView());
-
     }
 
+    private void FacebookeLogin(View view)
+    {
+        //logowanie facebook
+        facebookButton = (Button) view.findViewById(R.id.loginButtonFacebook);
+        LoginButton fbButton = (LoginButton) view.findViewById(R.id.loginFacebook);
+        facebookButton.setOnClickListener(v -> fbButton.performClick());
+        fbButton.setPermissions(Collections.singletonList("email"));
+        fbButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>()
+        {
+            @Override
+            public void onSuccess(LoginResult loginResult)
+            {
+                Log.i("login facebook =" , "sukces " );
+                loginFacebook(loginResult.getAccessToken());
+            }
+            @Override
+            public void onCancel()
+            {
+                Log.w("login facebook Main = " , "   cancel " );
+            }
+            @Override
+            public void onError(FacebookException exception)
+            {
+                Log.w("login facebook Main  =" , "  błąd " );
+                Log.w("login facebook Main  =" , "       " +exception.toString() );
+            }
+        });
 
-
-
-
+    }
+    /** logowanie google*/
     private void GoogleLogin()
     {
-        //logowanie google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("167652090961-5dkah0ddinbeh8clnq81ieg3h2onkvjp.apps.googleusercontent.com")
                 .requestEmail()
