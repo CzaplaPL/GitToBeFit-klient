@@ -1,4 +1,4 @@
-package pl.gittobefit.user.acticity;
+package pl.gittobefit.user.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.navigation.Navigation;
 
 import pl.gittobefit.R;
+import pl.gittobefit.network.ConnectionToServer;
 
 
 /**
@@ -22,10 +25,9 @@ import pl.gittobefit.R;
 
 public class ChangeMailDialog extends AppCompatDialogFragment
 {
-
+    String emailValidation = "^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
     private EditText editTextUserNewEmail;
     private EditText editTextUserPassword;
-    private DialogListener dialogListener;
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -49,7 +51,11 @@ public class ChangeMailDialog extends AppCompatDialogFragment
                     public void onClick(DialogInterface dialog, int which) {
                         String email = editTextUserNewEmail.getText().toString();
                         String password = editTextUserPassword.getText().toString();
-                        dialogListener.applyTexts(email, password);
+                        if (email.matches(emailValidation)) {
+                            ConnectionToServer.getInstance().userServices.changeEmail(email, password, getContext());
+                        } else {
+                            Toast.makeText(getContext(), "Zły format emaila :/", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
@@ -58,18 +64,7 @@ public class ChangeMailDialog extends AppCompatDialogFragment
         return builder.create();
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            dialogListener = (DialogListener)context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "musi implementowac dialog listner");
-        }
-    }
 
-    public interface DialogListener
-    {
-        void applyTexts(String newEmail, String password);
-    }
+
+
 }

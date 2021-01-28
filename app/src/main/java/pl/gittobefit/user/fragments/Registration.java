@@ -29,27 +29,23 @@ import java.util.concurrent.Executor;
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
 
-
+/**
+ * fragment rejestracji
+ */
 public class Registration extends Fragment implements View.OnClickListener
 {
-
     String passValidation = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
     String emailValidation = "^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
     public Registration()
     {
         // Required empty public constructor
     }
-
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -61,7 +57,6 @@ public class Registration extends Fragment implements View.OnClickListener
         checkBox.setOnClickListener(this);
         return view;
     }
-
     @Override
     public void onClick(View view)
     {
@@ -147,7 +142,6 @@ public class Registration extends Fragment implements View.OnClickListener
 
         }
     }
-
     public void Fail(boolean duplicate)
     {
         TextInputLayout email =(TextInputLayout)getView().findViewById(R.id.loginMailKontener);
@@ -159,7 +153,6 @@ public class Registration extends Fragment implements View.OnClickListener
             email.setError(getResources().getString(R.string.serwerError));
         }
     }
-
     public void Success(View view)
     {
         Navigation.findNavController(view).navigate(R.id.action_registration_to_login2);

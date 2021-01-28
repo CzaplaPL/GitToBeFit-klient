@@ -3,6 +3,7 @@ package pl.gittobefit;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.textfield.TextInputLayout;
 
 import pl.gittobefit.network.ConnectionToServer;
@@ -48,8 +52,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        /*TextView userEmailDisplay = view.findViewById(R.id.user_email_display);
-        userEmailDisplay.setText(User.getInstance().getEmail());*/
+
+
+
+
+
+
         return view;
     }
     @Override

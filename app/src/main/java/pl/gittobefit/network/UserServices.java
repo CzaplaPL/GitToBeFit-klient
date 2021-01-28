@@ -7,14 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.navigation.Navigation;
-
 import com.facebook.AccessToken;
 
-import pl.gittobefit.HomePage;
+import java.util.Objects;
+
 import pl.gittobefit.MainActivity;
 import pl.gittobefit.R;
-import pl.gittobefit.user.acticity.Setting;
 import pl.gittobefit.network.interfaces.IUserServices;
 import pl.gittobefit.network.object.ChangeEmailUser;
 import pl.gittobefit.network.object.ChangePassUser;
@@ -53,8 +51,7 @@ public class UserServices
 
         Log.w("Network", "      user.login");
         Log.w("Network", "   " + email + " " + password);
-        //przygotowanie zapytania zapytania
-
+        //przygotowanie zapytania
         if(!email.matches("^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
         {
             fragment.loginFail(false);
@@ -250,10 +247,9 @@ public class UserServices
     /**
      * @param actualPassword akualne hasło
      * @param newPassword    nowe hasło
-     * @param activity       activty
      * @author Kuba
      */
-    public void changePassword(String actualPassword, String newPassword, Activity activity)
+    public void changePassword(String actualPassword, String newPassword, Context context)
     {
 
         Call<Void> call = user.getUserIDbyEmail(User.getInstance().getEmail(), User.getInstance().getToken());
@@ -273,11 +269,10 @@ public class UserServices
                         int code = response.code();
                         if(code == 409)
                         {
-                            Toast.makeText(activity, "Błędne stare hasło", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Błędne stare hasło", Toast.LENGTH_SHORT).show();
                         }else
                         {
-                            activity.startActivity(new Intent(activity, Setting.class));
-                            Toast.makeText(activity, "Zmieniono hasło !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Zmieniono hasło !", Toast.LENGTH_SHORT).show();
                         }
                         Log.e("kod błędu", String.valueOf(code));
                     }
@@ -300,10 +295,9 @@ public class UserServices
     }
 
     /**
-     * @param activity activity
      * @author Kuba
      */
-    public void deleteAccount(Activity activity)
+    public void deleteAccount()
     {
         Call<Void> call = user.getUserIDbyEmail(User.getInstance().getEmail(), User.getInstance().getToken());
         call.enqueue(new Callback<Void>()
@@ -321,8 +315,6 @@ public class UserServices
                         int code = response.code();
                         Log.e("kod błędu", String.valueOf(code));
                         User.getInstance().setToken(null);
-                        HomePage.redirectActivity(activity, MainActivity.class);
-                        Toast.makeText(activity, "Konto usunięto !", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -341,7 +333,7 @@ public class UserServices
         });
     }
 
-    public void changeEmail(String newEmail, String password, Activity activity)
+    public void changeEmail(String newEmail, String password, Context context)
     {
         Call<Void> call = user.getUserIDbyEmail(User.getInstance().getEmail(), User.getInstance().getToken());
         call.enqueue(new Callback<Void>()
@@ -360,16 +352,11 @@ public class UserServices
                         Log.e("kod błędu", String.valueOf(code));
                         if(code == 409)
                         {
-                            Toast.makeText(activity, "Błędne stare hasło", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Błędne stare hasło", Toast.LENGTH_SHORT).show();
                         }else
                         {
                             User.getInstance().setEmail(newEmail);
-                            Intent intent = new Intent(activity, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            activity.startActivity(intent);
-                            User.getInstance().setToken(null);
-                            User.getInstance().setLoggedBy(User.WayOfLogin.DEFAULT);
-                            Toast.makeText(activity, "Zmieniono email !", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Zmieniono email !", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -388,6 +375,12 @@ public class UserServices
             }
         });
     }
+
+    /***
+     * przypomnienie hasła
+     * @param email email
+     * @param context context do toast
+     */
     public void remindPassword(String email, Context context)
     {
         Log.d("network  ", "przypominanie hasła");
@@ -425,6 +418,14 @@ public class UserServices
             }
         });
     }
+
+    /**
+     *
+     * @param email email
+     * @param password hasło
+     * @param fragment fragment do sukcesu/fail
+     * @param view view do sukcesu
+     */
     public void singup(String email, String password, Registration fragment, View view)
     {
 
@@ -452,19 +453,15 @@ public class UserServices
                         fragment.Fail(false);
                     }else
                     {
-                        if(response.headers().get("Cause").equals("duplicate entry"))
-                        {
-                            fragment.Fail(true);
-                        }
+                        fragment.Fail(Objects.equals(response.headers().get("Cause"), "duplicate entry"));
                         Log.w("Rejestracja error : ", " 409  =  " + response.headers().get("Cause"));
-                        fragment.Fail(false);
                     }
                 }
             }
             @Override
             public void onFailure(Call<Void> call, Throwable t)
             {
-                Log.e(" CRejestracja error   ",  t.toString());
+                Log.e(" FRejestracja error   ",  t.toString());
                 fragment.Fail(false);
             }
         });

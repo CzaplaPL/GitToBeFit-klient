@@ -12,8 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/main_toolbar"/>
+
 
         <FrameLayout
             android:id="@+id/settings"
@@ -27,7 +26,6 @@
 
                 <Button
                     android:id="@+id/change_email"
-                    android:onClick="clickChangeEmail"
                     android:layout_width="300dp"
                     android:layout_height="50dp"
                     android:text="Zmień email"
@@ -82,15 +80,6 @@
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/ourWhite">
 
-        <include
-            layout="@layout/main_nav_drawer"/>
-
-    </RelativeLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -90,10 +90,20 @@ public interface IUserServices
     @PUT("/user/{user_id}/email-update")
     Call<Void> changeEmail(@Path("user_id") String id,@Header("Authorization") String authHeader, @Body ChangeEmailUser changeEmailUser);
 
-
+    /**
+     * przypominanie hasła
+     * @param email email
+     * @return void
+     * @author czapla
+     */
     @POST("/user/remind-password")
     Call<Void> remindPass( @Query("email") String email);
 
+    /***
+     * rejestracja
+     * @param user dane do rejestracji
+     * @return void
+     */
     @POST("/user/signup")
     Call<Void> signup( @Body RespondUser user);
 
