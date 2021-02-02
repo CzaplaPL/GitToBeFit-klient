@@ -78,7 +78,7 @@ public class Login extends Fragment implements View.OnClickListener
        AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if( accessToken != null && !accessToken.isExpired())
         {
-            ConnectionToServer.getInstance().userServices.loginFacebook(accessToken,this,getView());
+            ConnectionToServer.getInstance().userServices.loginFacebook(accessToken,this,view);
         }
         //Logowanie google
         GoogleLogin();

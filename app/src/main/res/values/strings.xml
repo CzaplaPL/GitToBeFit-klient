@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">GitToBeFit</string>
     <string name="menu_home">Strona główna</string>
     <string name="menu_setting">Ustawienia</string>
@@ -31,7 +31,7 @@
     <string name="sendPassword">Hasło zostało wysłane</string>
     <string name="sendPasswordError">nie ma takiego uzytkownika</string>
     <string name="delete">delete</string>
-    <string name="google_token">167652090961-5dkah0ddinbeh8clnq81ieg3h2onkvjp.apps.googleusercontent.com</string>
+    <string name="google_token">57028483820-2fdhd5l8e0vc3knl5o3urda3n2di4gu9.apps.googleusercontent.com</string>
     <string name="rE_mail">Adres e-mail</string>
     <string name="rPassword">Hasło</string>
     <string name="rRewersePassword">Ponów Hasło</string>
