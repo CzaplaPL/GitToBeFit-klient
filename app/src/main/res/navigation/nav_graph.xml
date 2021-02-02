@@ -56,7 +56,8 @@
         android:label="Registration" >
         <action
             android:id="@+id/action_registration_to_login2"
-            app:destination="@id/login" />
+            app:destination="@id/login"
+/>
     </fragment>
 
     <fragment
@@ -66,7 +67,9 @@
         tools:layout="@layout/fragment_logout" >
         <action
             android:id="@+id/action_logout_to_login"
-            app:destination="@id/login" />
+            app:destination="@id/login"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <dialog
