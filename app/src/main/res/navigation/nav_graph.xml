@@ -29,6 +29,9 @@
         android:name="pl.gittobefit.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_equipment"
+            app:destination="@id/equipment" />
     </fragment>
     <fragment
         android:id="@+id/setting"
@@ -93,4 +96,11 @@
         android:id="@+id/changePasswordDialog"
         android:name="pl.gittobefit.user.dialog.ChangePasswordDialog"
         android:label="ChangePasswordDialog" />
+    <fragment
+        android:id="@+id/equipment"
+        android:name="pl.gittobefit.workout.fragments.Equipment"
+        android:label="@string/equipment"
+        tools:layout="@layout/fragment_equipment" />
+
+
 </navigation>

@@ -31,14 +31,13 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        drawerLayout = findViewById(R.id.drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.topAppBar);
         setSupportActionBar(myToolbar);
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDrawer(drawerLayout);
-
             }
         });
 
@@ -48,8 +47,8 @@ public class MainActivity extends AppCompatActivity
         ////////////////
         NavigationView navigationView = findViewById(R.id.nav_view);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.setting,R.id.aboutUs, R.id.homeFragment)
-                .setDrawerLayout(drawerLayout)
+                R.id.setting,R.id.aboutUs, R.id.homeFragment,R.id.equipment)
+                .setOpenableLayout(drawerLayout)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
