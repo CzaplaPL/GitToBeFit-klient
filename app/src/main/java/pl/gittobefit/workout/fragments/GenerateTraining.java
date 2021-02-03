@@ -1,6 +1,6 @@
 package pl.gittobefit.workout.fragments;
 
-import android.app.Fragment;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,16 +8,22 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 
 import pl.gittobefit.R;
 
-public class GenerateTraining extends Fragment
+public class GenerateTraining  extends Fragment
 {
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+
+
+    ViewPagerAdapter demoCollectionAdapter;
+    ViewPager2 viewPager;
 
     public GenerateTraining()
     {
@@ -36,8 +42,14 @@ public class GenerateTraining extends Fragment
         View view = inflater.inflate(R.layout.fragment_generate_training, container, false);
         tabLayout = view.findViewById(R.id.tabLayoutId);
         viewPager = view.findViewById(R.id.viewPagerId);
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+       // ViewPagerAdapter adapter = new ViewPagerAdapter();
 
         return view;
+    }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
+        demoCollectionAdapter = new ViewPagerAdapter(this);
+        viewPager = view.findViewById(R.id.viewPagerId);
+        viewPager.setAdapter(demoCollectionAdapter);
     }
 }
