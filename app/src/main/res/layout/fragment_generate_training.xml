@@ -7,17 +7,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".workout.fragments.GenerateTraining">
-<com.google.android.material.tabs.TabLayout
-    android:layout_width="match_parent"
-    android:layout_height="?actionBarSize"
-    app:tabGravity="fill"
-    app:tabMode="fixed"
-    android:id="@+id/tabLayoutId"
-    app:tabTextColor="@color/ourBlack"
-    app:tabIndicatorColor="@color/ourGray"
-    android:background="@color/ourGreen"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:id="@+id/tabLayoutId"
+        app:tabTextColor="@color/ourBlack"
+        app:tabIndicatorColor="@color/ourGray"
+        app:tabSelectedTextColor="@color/ourGray"
+        android:background="@color/ourGreen">
+    </com.google.android.material.tabs.TabLayout>
+
     <androidx.viewpager2.widget.ViewPager2
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/viewPagerId"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
