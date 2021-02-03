@@ -1,6 +1,5 @@
 package pl.gittobefit.workout.fragments;
 
-import android.animation.Animator;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
