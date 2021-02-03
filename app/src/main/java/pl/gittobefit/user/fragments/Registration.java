@@ -78,7 +78,7 @@ public class Registration extends Fragment implements View.OnClickListener
                 if(!pass.getEditText().getText().toString().matches(passValidation))
                 {
                     pass.setError(getResources().getString(R.string.incorrectData));
-                    correct =false;
+                   correct =false;
                 }else pass.setErrorEnabled(false);
                 if(!pass2.getEditText().getText().toString().matches(passValidation))
                 {

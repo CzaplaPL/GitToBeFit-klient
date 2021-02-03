@@ -140,7 +140,12 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
-    <string name="equipment">sprzęt</string>
     <string name="loading">trwa wczytywanie...</string>
+    <string name="generateTraining">Generate Training</string>
+    <string name="equipment">Equipment</string>
+    <string name="tab2">Tab 2</string>
+    <string name="tab3">Tab 3</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
