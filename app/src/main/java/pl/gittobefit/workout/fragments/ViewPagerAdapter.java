@@ -1,38 +1,31 @@
 package pl.gittobefit.workout.fragments;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
+import pl.gittobefit.workout.fragments.GenerateTraining;
 
-@SuppressWarnings("ALL")
-public class ViewPagerAdapter extends FragmentPagerAdapter {
-
-    private final List<Fragment> fragmentList = new ArrayList<>();
-    private final List<String> fragmentListTitles = new ArrayList<>();
-    public ViewPagerAdapter(@NonNull FragmentManager fm) {
-        super(fm);
+public class ViewPagerAdapter extends FragmentStateAdapter
+{
+    public ViewPagerAdapter(Fragment fragment) {
+        super(fragment);
     }
+
     @NonNull
     @Override
-    public Fragment getItem(int position) {
-        return fragmentList.get(position);
+    public Fragment createFragment(int position) {
+        // Return a NEW fragment instance in createFragment(int)
+        Fragment fragment = new GenerateTraining();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    public int getCount() {
-        return fragmentListTitles.size();
-    }
-
-    public CharSequence getPageTitle(int position){
-        return fragmentListTitles.get(position);
-    }
-
-    public void AddFragment(Fragment fragment, String title){
-        fragmentList.add(fragment);
-        fragmentListTitles.add(title);
+    public int getItemCount() {
+        return 100;
     }
 }
