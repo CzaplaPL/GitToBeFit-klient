@@ -68,10 +68,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         switch (view.getId())
         {
             case R.id.gnerate:
-               Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_equipment);
+               Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_generateTraining);
                 break;
-
-
         }
     }
 }
