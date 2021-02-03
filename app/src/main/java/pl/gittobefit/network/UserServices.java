@@ -11,6 +11,7 @@ import com.facebook.AccessToken;
 
 import java.util.Objects;
 
+import pl.gittobefit.LogUtils;
 import pl.gittobefit.MainActivity;
 import pl.gittobefit.R;
 import pl.gittobefit.network.interfaces.IUserServices;
@@ -160,8 +161,10 @@ public class UserServices
                                 {
                                     Log.w("get_id error :  ", " 404 zły użytkownik ");
                                 }
+                                LogUtils.logCause(response.headers().get("Cause"));
                                 fragment.loginFail(true);
                             }
+
                         }
 
                         @Override
@@ -173,6 +176,7 @@ public class UserServices
                     });
                 }else
                 {
+                    LogUtils.logCause(response.headers().get("Cause"));
                     if(response.code() != 400)
                     {
                         Log.e("network google error : ", String.valueOf(response.code()));
@@ -224,13 +228,15 @@ public class UserServices
                 {
                     if(response.code() != 400)
                     {
-                        Log.e("response error : ", String.valueOf(response.code()));
+                        Log.e("fb error : ", String.valueOf(response.code()));
                         fragment.loginFail(true);
                     }else
                     {
-                        Log.w("glowne pytanie  ", " 400 zły użytkownik ");
+                        Log.w("fb  ", " 400 zły użytkownik ");
                         fragment.loginFail(false);
                     }
+
+                    LogUtils.logCause(response.headers().get("Cause"));
                 }
             }
 
@@ -406,8 +412,8 @@ public class UserServices
                     {
                         Log.w("przypominanie hasła   ", " 404 zły użytkownik ");
                         Toast.makeText(context,context.getResources().getString(R.string.sendPasswordError),Toast.LENGTH_SHORT).show();
-
                     }
+                    LogUtils.logCause(response.headers().get("Cause"));
                 }
             }
 
@@ -456,6 +462,7 @@ public class UserServices
                         fragment.Fail(Objects.equals(response.headers().get("Cause"), "duplicate entry"));
                         Log.w("Rejestracja error : ", " 409  =  " + response.headers().get("Cause"));
                     }
+                    LogUtils.logCause(response.headers().get("Cause"));
                 }
             }
             @Override

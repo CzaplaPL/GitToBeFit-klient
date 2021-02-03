@@ -21,9 +21,6 @@ public interface IUserServices
 {
     /**
      * logowanie kontem aplikacji
-     *
-     * @param user RespondUser
-     * @return void
      * @author czapla
      */
     @POST("/user/login")
@@ -31,9 +28,6 @@ public interface IUserServices
 
     /**
      * logowanie kontem google
-     *
-     * @param token token otrzymany przez google
-     * @return void
      * @author czapla
      */
     @POST("/user/login/google")
@@ -41,9 +35,6 @@ public interface IUserServices
 
     /**
      * logowanie kontem facebook
-     *
-     * @param token token otrzymany przez fb
-     * @return void
      * @author czapla
      */
     @POST("/user/login/facebook")
@@ -51,9 +42,6 @@ public interface IUserServices
 
     /**
      * pobieranie id po emailu
-     * @param email      email zalogowanego usera
-     * @param authHeader token usera
-     * @return void
      * @author Kuba
      */
     @GET("/user/search/{user_email}")
@@ -61,10 +49,6 @@ public interface IUserServices
 
     /**
      * zmiana hasła
-     * @param id             idUser
-     * @param authHeader     token usera
-     * @param changePassUser body do zmiany hasła
-     * @return void
      * @author Kuba
      */
     @PUT("/user/{user_id}/password-update")
@@ -72,9 +56,6 @@ public interface IUserServices
 
     /**
      * usuwanie konta
-     * @param id         idUser
-     * @param authHeader token usera
-     * @return void
      * @author Kuba
      */
     @DELETE("/user/{user_id}")
@@ -82,9 +63,6 @@ public interface IUserServices
 
     /**
      * zmiana maila
-     * @param id         idUser
-     * @param authHeader token usera
-     * @return void
      * @author Kuba
      */
     @PUT("/user/{user_id}/email-update")
@@ -92,16 +70,13 @@ public interface IUserServices
 
     /**
      * przypominanie hasła
-     * @param email email
-     * @return void
      * @author czapla
      */
     @POST("/user/remind-password")
     Call<Void> remindPass( @Query("email") String email);
 
-    /***
+    /**
      * rejestracja
-     * @param user dane do rejestracji
      * @return void
      */
     @POST("/user/signup")

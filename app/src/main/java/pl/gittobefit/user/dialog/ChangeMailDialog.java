@@ -25,7 +25,7 @@ import pl.gittobefit.network.ConnectionToServer;
 
 public class ChangeMailDialog extends AppCompatDialogFragment
 {
-    String emailValidation = "^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+    String emailValidation = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!`'@#$%^&()\\\\{}\\[\\]:;<>,.?/~_+\\-=|])(?=\\S+$).{8,}";
     private EditText editTextUserNewEmail;
     private EditText editTextUserPassword;
     @NonNull

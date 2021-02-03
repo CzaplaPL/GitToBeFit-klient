@@ -25,7 +25,7 @@ public class ChangePasswordDialog extends AppCompatDialogFragment
 {
     private EditText editTextUserOldPassword;
     private EditText editTextUserNewPassword;
-    String passValidation = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+    String passValidation = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!`'@#$%^&()\\\\{}\\[\\]:;<>,.?/~_+\\-=|])(?=\\S+$).{8,}";
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

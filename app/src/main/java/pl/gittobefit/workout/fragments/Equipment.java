@@ -24,6 +24,8 @@ public class Equipment extends Fragment
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState)
     {
-        return inflater.inflate(R.layout.fragment_equipment, container, false);
+        View view =inflater.inflate(R.layout.fragment_equipment, container, false);
+
+        return view;
     }
 }

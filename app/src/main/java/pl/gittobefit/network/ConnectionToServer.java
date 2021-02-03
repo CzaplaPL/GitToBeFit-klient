@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ConnectionToServer
 {
     public final UserServices userServices;
+    public final WorkoutFormsServices WorkoutFormsServices;
     private static volatile ConnectionToServer INSTANCE;
     static public ConnectionToServer getInstance()
     {
@@ -42,6 +43,7 @@ public class ConnectionToServer
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         userServices = new UserServices(restAdapter);
+        WorkoutFormsServices = new WorkoutFormsServices(restAdapter);
     }
 
     /**
@@ -58,6 +60,4 @@ public class ConnectionToServer
             return false;
         }
     }
-
-
 }

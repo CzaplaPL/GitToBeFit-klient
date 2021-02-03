@@ -141,5 +141,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="equipment">sprzęt</string>
+    <string name="loading">trwa wczytywanie...</string>
 
 </resources>
