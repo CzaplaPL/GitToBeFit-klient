@@ -19,7 +19,7 @@
 
                 <Button
                     android:layout_margin="20dp"
-                    android:id="@+id/gnerate"
+                    android:id="@+id/generate"
                     android:layout_width="330dp"
                     android:layout_height="180dp"
                     android:layout_weight="1"

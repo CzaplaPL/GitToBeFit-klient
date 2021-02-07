@@ -12,7 +12,7 @@ import pl.gittobefit.database.entity.EntityUser;
 /**
  * klasa bazy danych
  */
-@Database(entities = {EntityUser.class}, version = 1)
+@Database(entities = {EntityUser.class}, version = 2, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase
 {
     private static volatile AppDataBase INSTANCE;
@@ -27,13 +27,14 @@ public abstract class AppDataBase extends RoomDatabase
      * zwraca instancje bazy danych
      * @return instancja bazy danych
      */
-    public static AppDataBase getDatabase(final Context context) {
+    public static AppDataBase getInstance(final Context context) {
         if (INSTANCE == null) {
             synchronized (AppDataBase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             AppDataBase.class, "room-db")
                             .allowMainThreadQueries()
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

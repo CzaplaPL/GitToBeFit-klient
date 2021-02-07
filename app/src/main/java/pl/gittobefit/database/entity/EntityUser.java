@@ -8,47 +8,49 @@ import androidx.room.PrimaryKey;
  * encja uzytkownika przechowywana w bazie
  * bedzie zmiana przetrzymywania automatycznego logowania
  * @author Czapla
- * @deprecated
  */
 @Entity
 public class EntityUser {
     @PrimaryKey(autoGenerate = true)
-    private   int id;
+    private int id;
 
-    private String idSerwer;
     private String email;
-    private String password;
+    private String token;
 
-    public EntityUser(String idSerwer,String email,String password)
+
+    public EntityUser(String email,String token)
     {
-        this.idSerwer = idSerwer;
         this.email = email;
-        this.password = password;
+        this.token = token;
 
     }
-    public int getId()
-    {
+
+    public int getId() {
         return id;
     }
-    public void setId(int id)
-    {
-        this.id = id;
-    }
-    public String getIdSerwer()
-    {
-        return idSerwer;
-    }
-    public String getEmail()
-    {
+
+    public String getEmail() {
         return email;
     }
-    public String getPassword()
-    {
-        return password;
+
+    public String getToken() {
+        return token;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     @Override
-    public String toString()
-    {
-        return "EntityUser " + "email='" + email + '\'' +password;
+    public String toString() {
+        return "EntityUser{" + "id=" + id + ", email='" + email + '\'' + ", token='" + token + '\'' + '}';
     }
 }

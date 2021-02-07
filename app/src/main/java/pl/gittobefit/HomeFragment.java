@@ -15,18 +15,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import pl.gittobefit.database.AppDataBase;
+import pl.gittobefit.database.entity.EntityUser;
 import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.user.User;
 
 
 public class HomeFragment extends Fragment implements View.OnClickListener
 {
+
+    private Button button;
 
 
     public HomeFragment()
@@ -44,7 +52,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         if (activity != null) {
             activity.getSupportActionBar().show();
         }
-
     }
 
     @Override
@@ -53,10 +60,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        button =  view.findViewById(R.id.generate);
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
 
+                String token;
+                token =  AppDataBase.getInstance(getContext()).user().getToken(2);
 
-
-
+               // Toast.makeText(getContext(),token, Toast.LENGTH_SHORT).show();
+                //System.out.println(token);
+                System.out.println(AppDataBase.getInstance(getContext()).user().getUser().isEmpty());
+            }
+        });
 
         return view;
     }
@@ -66,8 +83,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
         switch (view.getId())
         {
-
-
 
         }
     }
