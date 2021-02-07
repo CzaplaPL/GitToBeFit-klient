@@ -1,4 +1,4 @@
-package pl.gittobefit.workout.fragments;
+package pl.gittobefit.workoutforms.fragments;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

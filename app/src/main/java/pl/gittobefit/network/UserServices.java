@@ -1,8 +1,6 @@
 package pl.gittobefit.network;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -12,7 +10,6 @@ import com.facebook.AccessToken;
 import java.util.Objects;
 
 import pl.gittobefit.LogUtils;
-import pl.gittobefit.MainActivity;
 import pl.gittobefit.R;
 import pl.gittobefit.network.interfaces.IUserServices;
 import pl.gittobefit.network.object.ChangeEmailUser;

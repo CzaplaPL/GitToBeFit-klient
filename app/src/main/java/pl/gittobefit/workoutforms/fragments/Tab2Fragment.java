@@ -1,9 +1,11 @@
-package pl.gittobefit.workout.fragments;
+package pl.gittobefit.workoutforms.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -25,5 +27,14 @@ public class Tab2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate ( R.layout.fragment_tab2, container, false );
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        TextView text =getView().findViewById(R.id.tmpppp);
+        text.setText("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        Log.w("eeeeeee","bbbbbbbbbbbbbbbbbbbbbbbbbb");
     }
 }

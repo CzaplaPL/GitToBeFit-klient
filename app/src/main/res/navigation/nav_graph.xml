@@ -98,7 +98,7 @@
         android:label="ChangePasswordDialog" />
     <fragment
         android:id="@+id/generateTraining"
-        android:name="pl.gittobefit.workout.fragments.GenerateTraining"
+        android:name="pl.gittobefit.workoutforms.fragments.GenerateTraining"
         android:label="@string/generateTraining"
         tools:layout="@layout/fragment_generate_training" />
 

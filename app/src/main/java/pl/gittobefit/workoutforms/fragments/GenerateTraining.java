@@ -1,4 +1,4 @@
-package pl.gittobefit.workout.fragments;
+package pl.gittobefit.workoutforms.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
