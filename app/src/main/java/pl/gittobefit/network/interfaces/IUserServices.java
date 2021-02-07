@@ -66,7 +66,7 @@ public interface IUserServices
      * @author Kuba
      */
     @PUT("/user/{user_id}/email-update")
-    Call<Void> changeEmail(@Path("user_id") String id,@Header("Authorization") String authHeader, @Body ChangeEmailUser changeEmailUser);
+    Call<Void> changeEmail(@Path("user_id") String id, @Header("Authorization") String authHeader, @Body ChangeEmailUser changeEmailUser);
 
     /**
      * przypominanie hasła
@@ -82,4 +82,10 @@ public interface IUserServices
     @POST("/user/signup")
     Call<Void> signup( @Body RespondUser user);
 
+    /***
+     * @author Kuba
+     * @return void
+     */
+    @POST("/user/token-verification")
+    Call<Void> verify(@Header("token") String token);
 }

@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import pl.gittobefit.R;
+import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.user.User;
 
 /**
@@ -61,6 +62,8 @@ public class Logout extends Fragment
             case OUR_SERVER:
                 User.getInstance().setToken(null);
                 User.getInstance().setLoggedBy(User.WayOfLogin.DEFAULT);
+                int id = AppDataBase.getInstance(getContext()).user().getID(User.getInstance().getEmail());
+                AppDataBase.getInstance(getContext()).user().deleteByUserId(id);
                 break;
             case FACEBOOK:
                 AccessToken.setCurrentAccessToken(null);

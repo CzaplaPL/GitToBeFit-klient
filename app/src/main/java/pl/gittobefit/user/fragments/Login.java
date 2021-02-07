@@ -35,7 +35,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Collections;
 
 import pl.gittobefit.R;
+import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.user.User;
 
 /**
  * fragment logowania
@@ -92,6 +94,11 @@ public class Login extends Fragment implements View.OnClickListener
             Log.w("auto login google =" , "     login " );
             GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
             ConnectionToServer.getInstance().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this,view);
+        }
+        //automatyczne logowanie nasz server
+        if(!AppDataBase.getInstance(getContext()).user().getUser().isEmpty())
+        {
+            ConnectionToServer.getInstance().userServices.verify(this);
         }
 
         return view;

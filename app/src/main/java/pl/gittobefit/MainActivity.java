@@ -18,6 +18,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
+import pl.gittobefit.network.UserServices;
+
 /***
  * author:Dominik
  */
@@ -40,8 +42,6 @@ public class MainActivity extends AppCompatActivity
                 openDrawer(drawerLayout);
             }
         });
-
-
 
 
         ////////////////

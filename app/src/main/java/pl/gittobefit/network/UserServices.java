@@ -11,6 +11,8 @@ import java.util.Objects;
 
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
+import pl.gittobefit.database.AppDataBase;
+import pl.gittobefit.database.entity.EntityUser;
 import pl.gittobefit.network.interfaces.IUserServices;
 import pl.gittobefit.network.object.ChangeEmailUser;
 import pl.gittobefit.network.object.ChangePassUser;
@@ -75,6 +77,8 @@ public class UserServices
                             if(response2.isSuccessful())
                             {
                                 User.getInstance().add(email, password, response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.OUR_SERVER, fragment.getContext());
+                                AppDataBase.getInstance(fragment.getContext()).user().addUser(new EntityUser(email, response.headers().get("Authorization")));
+                                AppDataBase.getInstance(fragment.getContext()).user().setID(1, email);
                                 fragment.loginSuccess(view);
                             }else
                             {
@@ -467,6 +471,30 @@ public class UserServices
             {
                 Log.e(" FRejestracja error   ",  t.toString());
                 fragment.Fail(false);
+            }
+        });
+    }
+
+    public void verify(Login fragment)
+    {
+        Call<Void> call = user.verify(AppDataBase.getInstance(fragment.getContext()).user().getToken(1));
+
+        call.enqueue(new Callback<Void>()
+        {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.w("Autologwanie  ", "  sukces");
+                System.out.println("Kod zwracany przez autoLog: " + response.code());
+                //System.out.println("otrzymany token: " + response.headers().get("Authorization"));
+                AppDataBase.getInstance(fragment.getContext()).user().setToken(response.headers().get("Authorization"),1);
+                String email = AppDataBase.getInstance(fragment.getContext()).user().getEmail(1);
+                User.getInstance().add(email, "password", response.headers().get("Authorization"), "id", User.WayOfLogin.OUR_SERVER, fragment.getContext());
+                fragment.loginSuccess(fragment.getView());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e(" Autologowanie error   ",  t.toString());
             }
         });
     }
