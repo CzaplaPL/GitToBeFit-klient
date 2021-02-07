@@ -6,13 +6,13 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import pl.gittobefit.database.dao.DaoUser;
-import pl.gittobefit.database.entity.EntityUser;
+import pl.gittobefit.database.dao.IUserDao;
+import pl.gittobefit.database.entity.UserEntity;
 
 /**
  * klasa bazy danych
  */
-@Database(entities = {EntityUser.class}, version = 2, exportSchema = false)
+@Database(entities = {UserEntity.class}, version = 2, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase
 {
     private static volatile AppDataBase INSTANCE;
@@ -21,7 +21,7 @@ public abstract class AppDataBase extends RoomDatabase
      * daje dostep do dao usera
      * @return funkcje dao encji user
      */
-    public abstract DaoUser user();
+    public abstract IUserDao user();
 
     /**
      * zwraca instancje bazy danych

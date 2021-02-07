@@ -1,10 +1,10 @@
 package pl.gittobefit.network.object;
 
-public class ChangeEmailUser
+public class UserChangeEmail
 {
     private String email;
     private String password;
-    public ChangeEmailUser(String email,String password)
+    public UserChangeEmail(String email, String password)
     {
         this.email = email;
         this.password = password;

@@ -13,9 +13,10 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import pl.gittobefit.R;
+import pl.gittobefit.workoutforms.adapters.WorkoutFormAdapter;
 
-public class GenerateTraining extends Fragment {
-    public GenerateTraining() {
+public class GenerateTrainingForm extends Fragment {
+    public GenerateTrainingForm() {
     }
 
     @Override
@@ -30,7 +31,7 @@ public class GenerateTraining extends Fragment {
         View view = inflater.inflate ( R.layout.fragment_generate_training, container, false );;
         TabLayout tabLayout = view.findViewById (R.id.tabLayoutId);;
         ViewPager2 viewPager2 = view.findViewById ( R.id.viewPagerId);;
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
+        WorkoutFormAdapter adapter = new WorkoutFormAdapter (this);
         viewPager2.setAdapter(adapter);
         // Metoda ustawiania tekstu formularza
         new TabLayoutMediator (tabLayout, viewPager2,

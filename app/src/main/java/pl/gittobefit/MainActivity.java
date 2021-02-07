@@ -18,8 +18,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
-import pl.gittobefit.network.UserServices;
-
 /***
  * author:Dominik
  */
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         ////////////////
         NavigationView navigationView = findViewById(R.id.nav_view);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.setting,R.id.aboutUs, R.id.homeFragment,R.id.generateTraining)
+                R.id.setting,R.id.aboutUs, R.id.homeFragment,R.id.generateTrainingForm)
                 .setOpenableLayout(drawerLayout)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

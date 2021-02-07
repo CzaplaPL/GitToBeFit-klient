@@ -2,7 +2,6 @@ package pl.gittobefit.user.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,10 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.navigation.Navigation;
 
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.user.Validation;
 
 
 /**
@@ -25,7 +24,6 @@ import pl.gittobefit.network.ConnectionToServer;
 
 public class ChangeMailDialog extends AppCompatDialogFragment
 {
-    String emailValidation = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!`'@#$%^&()\\\\{}\\[\\]:;<>,.?/~_+\\-=|])(?=\\S+$).{8,}";
     private EditText editTextUserNewEmail;
     private EditText editTextUserPassword;
     @NonNull
@@ -35,7 +33,8 @@ public class ChangeMailDialog extends AppCompatDialogFragment
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_dialog_email, null);
-
+        editTextUserNewEmail = view.findViewById(R.id.edit_new_email);
+        editTextUserPassword = view.findViewById(R.id.passwordToChangeEmail);
         builder.setView(view)
                 .setTitle("Zmień email")
                 .setNegativeButton("Anuluj", new DialogInterface.OnClickListener()
@@ -51,16 +50,13 @@ public class ChangeMailDialog extends AppCompatDialogFragment
                     public void onClick(DialogInterface dialog, int which) {
                         String email = editTextUserNewEmail.getText().toString();
                         String password = editTextUserPassword.getText().toString();
-                        if (email.matches(emailValidation)) {
+                        if (email.matches(Validation.emailValidation )) {
                             ConnectionToServer.getInstance().userServices.changeEmail(email, password, getContext());
                         } else {
                             Toast.makeText(getContext(), "Zły format emaila :/", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-
-        editTextUserNewEmail = view.findViewById(R.id.edit_new_email);
-        editTextUserPassword = view.findViewById(R.id.passwordToChangeEmail);
         return builder.create();
     }
 

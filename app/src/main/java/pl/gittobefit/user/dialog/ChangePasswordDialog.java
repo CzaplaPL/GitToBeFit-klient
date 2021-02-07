@@ -2,7 +2,6 @@ package pl.gittobefit.user.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +15,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.user.Validation;
 
 
 /**
@@ -25,7 +25,6 @@ public class ChangePasswordDialog extends AppCompatDialogFragment
 {
     private EditText editTextUserOldPassword;
     private EditText editTextUserNewPassword;
-    String passValidation = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!`'@#$%^&()\\\\{}\\[\\]:;<>,.?/~_+\\-=|])(?=\\S+$).{8,}";
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class ChangePasswordDialog extends AppCompatDialogFragment
                     public void onClick(DialogInterface dialog, int which) {
                         String oldPassword = editTextUserOldPassword.getText().toString();
                         String newPassword = editTextUserNewPassword.getText().toString();
-                        if (newPassword.matches(passValidation)) {
+                        if (newPassword.matches(Validation.passValidation)) {
                             ConnectionToServer.getInstance().userServices.changePassword(oldPassword, newPassword, getContext());
                         }
                         else {

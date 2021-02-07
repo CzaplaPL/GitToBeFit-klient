@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey;
  * @author Czapla
  */
 @Entity
-public class EntityUser {
+public class UserEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
@@ -18,7 +18,7 @@ public class EntityUser {
     private String token;
 
 
-    public EntityUser(String email,String token)
+    public UserEntity(String email, String token)
     {
         this.email = email;
         this.token = token;

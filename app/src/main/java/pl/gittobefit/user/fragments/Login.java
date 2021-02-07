@@ -2,11 +2,6 @@ package pl.gittobefit.user.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,21 +9,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInApi;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -37,7 +31,6 @@ import java.util.Collections;
 import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.network.ConnectionToServer;
-import pl.gittobefit.user.User;
 
 /**
  * fragment logowania
@@ -50,12 +43,7 @@ public class Login extends Fragment implements View.OnClickListener
     CallbackManager callbackManager = CallbackManager.Factory.create();
     Button facebookButton;
 
-    public Login()
-    {
-
-    }
-
-
+    public Login() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -81,7 +69,7 @@ public class Login extends Fragment implements View.OnClickListener
         //Logowanie facebook
         FacebookeLogin(view);
         //autologowanie facebook
-       AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if( accessToken != null && !accessToken.isExpired())
         {
             ConnectionToServer.getInstance().userServices.loginFacebook(accessToken,this,view);

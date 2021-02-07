@@ -2,20 +2,19 @@ package pl.gittobefit.database.dao;
 
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
 
-import pl.gittobefit.database.entity.EntityUser;
+import pl.gittobefit.database.entity.UserEntity;
 
 /**
  * Dao dla encji uzytkownnika
  */
 @Dao
-public interface DaoUser
+public interface IUserDao
 {
     /**
      * umieszczanie uzytkownika w bazie
@@ -23,32 +22,32 @@ public interface DaoUser
      * @author czapla
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addUser(EntityUser user );
+    void addUser(UserEntity user );
 
     /**
      * zwraca uzytkownikow z bazy
      * @return encje uzytkownika
      * @author czapla
      */
-    @Query("SELECT * FROM EntityUser")
-    List<EntityUser> getUser();
+    @Query("SELECT * FROM UserEntity")
+    List<UserEntity> getUser();
 
-    @Query("SELECT token FROM EntityUser WHERE id = :myId")
+    @Query("SELECT token FROM UserEntity WHERE id = :myId")
     String getToken(int myId);
 
-    @Query("SELECT email FROM EntityUser WHERE id = :myId")
+    @Query("SELECT email FROM UserEntity WHERE id = :myId")
     String getEmail(int myId);
 
-    @Query("SELECT id FROM EntityUser WHERE email = :myEmail")
+    @Query("SELECT id FROM UserEntity WHERE email = :myEmail")
     int getID(String myEmail);
 
-    @Query("UPDATE EntityUser SET token = :token WHERE id = :id")
+    @Query("UPDATE UserEntity SET token = :token WHERE id = :id")
     void setToken(String token, int id);
 
-    @Query("UPDATE EntityUser SET id = :myId WHERE email = :myEmail")
+    @Query("UPDATE UserEntity SET id = :myId WHERE email = :myEmail")
     void setID(int myId, String myEmail);
 
-    @Query("DELETE FROM EntityUser WHERE id = :userId")
+    @Query("DELETE FROM UserEntity WHERE id = :userId")
     void deleteByUserId(int userId);
 
 }

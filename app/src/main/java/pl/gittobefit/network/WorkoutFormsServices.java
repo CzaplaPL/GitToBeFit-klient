@@ -15,6 +15,7 @@ import retrofit2.Retrofit;
 public class WorkoutFormsServices
 {
     private final IWorkoutFormsServices workout;
+
     WorkoutFormsServices(Retrofit adapter)
     {
         workout = adapter.create(IWorkoutFormsServices.class);

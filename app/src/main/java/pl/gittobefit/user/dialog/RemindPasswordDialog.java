@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.user.Validation;
 
 /**
  *  formularz przypominania hasła
@@ -38,7 +39,7 @@ public class RemindPasswordDialog extends AppCompatDialogFragment
                 .setPositiveButton(getResources().getString(R.string.remindPassword), (dialog, which) ->
                 {
                     String mail=email.getEditText().getText().toString();
-                    if(!mail.matches("^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
+                    if(!mail.matches(Validation.emailValidation ))
                     {
                         Toast.makeText(context,context.getResources().getString(R.string.incorrectData),Toast.LENGTH_SHORT).show();
                         email.setErrorEnabled(true);

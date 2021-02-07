@@ -15,6 +15,7 @@ public class ConnectionToServer
     public final UserServices userServices;
     public final WorkoutFormsServices WorkoutFormsServices;
     private static volatile ConnectionToServer INSTANCE;
+
     static public ConnectionToServer getInstance()
     {
         if (INSTANCE == null)

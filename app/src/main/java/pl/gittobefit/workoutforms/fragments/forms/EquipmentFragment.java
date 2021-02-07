@@ -1,4 +1,4 @@
-package pl.gittobefit.workoutforms.fragments;
+package pl.gittobefit.workoutforms.fragments.forms;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,11 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import pl.gittobefit.R;
 import pl.gittobefit.workoutforms.adapters.EquipmentAdapter;
-import pl.gittobefit.workoutforms.object.EquipmentType;
 
 /**
  fragment wyposażenia

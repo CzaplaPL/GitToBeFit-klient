@@ -12,13 +12,14 @@ import java.util.Objects;
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
-import pl.gittobefit.database.entity.EntityUser;
+import pl.gittobefit.database.entity.UserEntity;
 import pl.gittobefit.network.interfaces.IUserServices;
-import pl.gittobefit.network.object.ChangeEmailUser;
-import pl.gittobefit.network.object.ChangePassUser;
+import pl.gittobefit.network.object.UserChangeEmail;
+import pl.gittobefit.network.object.UserChangePass;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
 import pl.gittobefit.user.User;
+import pl.gittobefit.user.Validation;
 import pl.gittobefit.user.fragments.Login;
 import pl.gittobefit.user.fragments.Registration;
 import retrofit2.Call;
@@ -52,7 +53,7 @@ public class UserServices
         Log.w("Network", "      user.login");
         Log.w("Network", "   " + email + " " + password);
         //przygotowanie zapytania
-        if(!email.matches("^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
+        if(!email.matches( Validation.emailValidation ))
         {
             fragment.loginFail(false);
             return;
@@ -77,7 +78,7 @@ public class UserServices
                             if(response2.isSuccessful())
                             {
                                 User.getInstance().add(email, password, response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.OUR_SERVER, fragment.getContext());
-                                AppDataBase.getInstance(fragment.getContext()).user().addUser(new EntityUser(email, response.headers().get("Authorization")));
+                                AppDataBase.getInstance(fragment.getContext()).user().addUser(new UserEntity (email, response.headers().get("Authorization")));
                                 AppDataBase.getInstance(fragment.getContext()).user().setID(1, email);
                                 fragment.loginSuccess(view);
                             }else
@@ -266,7 +267,7 @@ public class UserServices
             public void onResponse(Call<Void> call, Response<Void> response)
             {
                 String userID = response.headers().get("idUser");
-                Call<Void> call2 = user.changePassword(userID, User.getInstance().getToken(), new ChangePassUser(User.getInstance().getEmail(), actualPassword, newPassword));
+                Call<Void> call2 = user.changePassword(userID, User.getInstance().getToken(), new UserChangePass (User.getInstance().getEmail(), actualPassword, newPassword));
                 call2.enqueue(new Callback<Void>()
                 {
                     @Override
@@ -349,7 +350,7 @@ public class UserServices
             public void onResponse(Call<Void> call, Response<Void> response)
             {
                 String userID = response.headers().get("idUser");
-                Call<Void> call2 = user.changeEmail(userID, User.getInstance().getToken(), new ChangeEmailUser(newEmail, password));
+                Call<Void> call2 = user.changeEmail(userID, User.getInstance().getToken(), new UserChangeEmail (newEmail, password));
                 call2.enqueue(new Callback<Void>()
                 {
                     @Override

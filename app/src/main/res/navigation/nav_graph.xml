@@ -31,7 +31,7 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_generateTraining"
-            app:destination="@id/generateTraining" />
+            app:destination="@id/generateTrainingForm" />
     </fragment>
     <fragment
         android:id="@+id/setting"
@@ -97,9 +97,9 @@
         android:name="pl.gittobefit.user.dialog.ChangePasswordDialog"
         android:label="ChangePasswordDialog" />
     <fragment
-        android:id="@+id/generateTraining"
-        android:name="pl.gittobefit.workoutforms.fragments.GenerateTraining"
-        android:label="@string/generateTraining"
+        android:id="@+id/generateTrainingForm"
+        android:name="pl.gittobefit.workoutforms.fragments.GenerateTrainingForm"
+        android:label="@string/generateTrainingForm"
         tools:layout="@layout/fragment_generate_training" />
 
 

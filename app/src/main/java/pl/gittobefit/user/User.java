@@ -2,14 +2,17 @@ package pl.gittobefit.user;
 
 import android.content.Context;
 
-import pl.gittobefit.database.AppDataBase;
-import pl.gittobefit.database.entity.EntityUser;
-
 /**
  * klasa przechowująca informacje o użytkowniku
  */
 public class User
 {
+    private String email ="" ;
+    private String auth ="";
+    private String idSerwer = "";
+    private WayOfLogin loggedBy = WayOfLogin.DEFAULT;
+    private static volatile User INSTANCE;
+
     public String getIdSerwer()
     {
         return idSerwer;
@@ -27,13 +30,6 @@ public class User
         GOOGLE,
         FACEBOOK
     }
-
-    private String email ="" ;
-    private String auth ="";
-    private String idSerwer = "";
-    private WayOfLogin loggedBy = WayOfLogin.DEFAULT;
-
-    private static volatile User INSTANCE;
 
     /**
      * pobieranie instancji usera

@@ -1,20 +1,18 @@
 package pl.gittobefit.user.fragments;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -24,18 +22,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.concurrent.Executor;
-
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.user.Validation;
 
 /**
  * fragment rejestracji
  */
 public class Registration extends Fragment implements View.OnClickListener
 {
-    String passValidation = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!`'@#$%^&()\\\\{}\\[\\]:;<>,.?/~_+\\-=|])(?=\\S+$).{8,}";
-    String emailValidation = "^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
     public Registration()
     {
         // Required empty public constructor
@@ -69,18 +64,18 @@ public class Registration extends Fragment implements View.OnClickListener
                 CheckBox robot = (CheckBox) getView().findViewById(R.id.checkBox_robot);
                 CheckBox terms = (CheckBox) getView().findViewById(R.id.checkBox_statute);
                 boolean correct =true;
-                if(!email.getEditText().getText().toString().matches(emailValidation))
+                if(!email.getEditText().getText().toString().matches( Validation.emailValidation ))
                 {
                     email.setError(getResources().getString(R.string.incorrectData));
                     correct =false;
                 }else email.setErrorEnabled(false);
 
-                if(!pass.getEditText().getText().toString().matches(passValidation))
+                if(!pass.getEditText().getText().toString().matches(Validation.passValidation))
                 {
                     pass.setError(getResources().getString(R.string.incorrectData));
                    correct =false;
                 }else pass.setErrorEnabled(false);
-                if(!pass2.getEditText().getText().toString().matches(passValidation))
+                if(!pass2.getEditText().getText().toString().matches(Validation.passValidation))
                 {
                     pass2.setError(getResources().getString(R.string.incorrectData));
                     correct =false;
@@ -106,7 +101,8 @@ public class Registration extends Fragment implements View.OnClickListener
                     ConnectionToServer.getInstance().userServices.singup(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this,getView());
                 }
                 break;
-            case R.id.checkBox_robot:
+
+                case R.id.checkBox_robot:
                 CheckBox checkBox =  view.findViewById(R.id.checkBox_robot);
                 SafetyNet.getClient(getActivity()).verifyWithRecaptcha("6LdH0ScaAAAAAOAnxd_zMOzmbco0_VRrazkQvdUQ")
                         .addOnSuccessListener(new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {

@@ -5,12 +5,12 @@ package pl.gittobefit.network.object;
  * body do zmiany hasła
  */
 
-public class ChangePassUser
+public class UserChangePass
 {
     private String email;
     private String actualPassword;
     private String newPassword;
-    public ChangePassUser(String email,String actualPassword,  String newPassword)
+    public UserChangePass(String email, String actualPassword, String newPassword)
     {
         this.email = email;
         this.actualPassword = actualPassword;

@@ -10,17 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-
 public class HomeFragment extends Fragment implements View.OnClickListener
 {
-
-    //fdasda
-    public HomeFragment()
-    {
-        // Required empty public constructor
-    }
-
-
+    public HomeFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -41,10 +33,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
        Button button =  view.findViewById(R.id.generate);
         button.setOnClickListener(this);
-
-
-
-
         return view;
     }
     @Override

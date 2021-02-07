@@ -1,7 +1,7 @@
 package pl.gittobefit.network.interfaces;
 
-import pl.gittobefit.network.object.ChangeEmailUser;
-import pl.gittobefit.network.object.ChangePassUser;
+import pl.gittobefit.network.object.UserChangeEmail;
+import pl.gittobefit.network.object.UserChangePass;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
 import retrofit2.Call;
@@ -52,7 +52,7 @@ public interface IUserServices
      * @author Kuba
      */
     @PUT("/user/{user_id}/password-update")
-    Call<Void> changePassword(@Path("user_id") String id, @Header("Authorization") String authHeader, @Body ChangePassUser changePassUser);
+    Call<Void> changePassword(@Path("user_id") String id, @Header("Authorization") String authHeader, @Body UserChangePass userChangePass);
 
     /**
      * usuwanie konta
@@ -66,7 +66,7 @@ public interface IUserServices
      * @author Kuba
      */
     @PUT("/user/{user_id}/email-update")
-    Call<Void> changeEmail(@Path("user_id") String id, @Header("Authorization") String authHeader, @Body ChangeEmailUser changeEmailUser);
+    Call<Void> changeEmail(@Path("user_id") String id, @Header("Authorization") String authHeader, @Body UserChangeEmail userChangeEmail);
 
     /**
      * przypominanie hasła
