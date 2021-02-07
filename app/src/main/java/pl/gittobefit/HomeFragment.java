@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-       Button button =  view.findViewById(R.id.gnerate);
+       Button button =  view.findViewById(R.id.generate);
         button.setOnClickListener(this);
 
 
@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener
 
         switch (view.getId())
         {
-            case R.id.gnerate:
+            case R.id.generate:
                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_generateTraining);
                 break;
         }
