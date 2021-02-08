@@ -1,28 +1,13 @@
 package pl.gittobefit.workoutforms.object;
 
-public class EquipmentType
+import android.view.View;
+
+public class EquipmentType extends EquipmentForm
 {
+
     public EquipmentType(int id, String name, String url, int id1, String name1, String url1)
     {
-        this.id = id1;
+        super(id, name, url, id1, name1, url1);
+    }
 
-        this.name = name1;
-        this.url = url1;
-    }
-    final private int id;
-    final private String name;
-    final private String url;
-
-    public int getId()
-    {
-        return id;
-    }
-    public String getName()
-    {
-        return name;
-    }
-    public String getUrl()
-    {
-        return url;
-    }
 }

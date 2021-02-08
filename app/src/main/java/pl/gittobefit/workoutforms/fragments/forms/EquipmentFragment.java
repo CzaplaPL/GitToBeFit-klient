@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,14 +16,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import pl.gittobefit.R;
+import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.workoutforms.adapters.EquipmentAdapter;
+import pl.gittobefit.workoutforms.object.EquipmentForm;
+import pl.gittobefit.workoutforms.object.EquipmentType;
 
 /**
  fragment wyposażenia
  */
-public class EquipmentFragment extends Fragment {
-
-   
+public class EquipmentFragment extends Fragment
+{
+    ArrayList<EquipmentForm> data ;
+    EquipmentAdapter adapter;
     public EquipmentFragment() { }
 
     @Override
@@ -34,36 +39,23 @@ public class EquipmentFragment extends Fragment {
                              Bundle savedInstanceState)
     {
         View view =inflater.inflate ( R.layout.fragment_equipment, container, false );
-        RecyclerView rvContacts = (RecyclerView) view.findViewById(R.id.rvContacts);
-        ArrayList<String> data = new ArrayList<String>();
-        data.add("silownia");
-        data.add("cos");
-        data.add("innego");
-        data.add("czwarty");
-        data.add("dziesiąty");
-        data.add("ten");
-        // Create adapter passing in the sample user data
-        EquipmentAdapter adapter = new EquipmentAdapter(data);
-        // Attach the adapter to the recyclerview to populate items
-        rvContacts.setAdapter(adapter);
-        // Set layout manager to position the items
-        rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
-        // That's all!
         return view;
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        // Lookup the recyclerview in activity layout
-
+        ConnectionToServer.getInstance().WorkoutFormsServices.getEquipmentType(this);
     }
-
-
-    @Override
-    public void onResume()
+    public void createList(ArrayList<EquipmentType> equipmentType)
     {
-        super.onResume();
-        Log.w("eeeeeee","bbbbbbbbbbbbbbbbbbbbbbbbbb");
+
+        data =new ArrayList<EquipmentForm>(equipmentType);
+        RecyclerView rvContacts = (RecyclerView) getView().findViewById(R.id.rvContacts);
+        adapter = new EquipmentAdapter(data);
+        rvContacts.setAdapter(adapter);
+        rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
+        /*LinearLayout loading = getView().findViewById(R.id.equipmentLoading);
+        loading.setVisibility(View.GONE);*/
     }
 
 

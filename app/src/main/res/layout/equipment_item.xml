@@ -17,18 +17,33 @@
         app:srcCompat="@drawable/baseline_email_24" />
 
     <TextView
-        android:id="@+id/equipment_item_text"
+        android:id="@+id/equipment_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="przykład text" />
 
     <Button
-        android:id="@+id/message_button"
+        android:id="@+id/drop_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:textSize="10sp"
         />
+
+    <TextView
+        android:id="@+id/equipment_item_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=""
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/equipment_item_id_server"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text=""
+        android:visibility="gone" />
 </LinearLayout>
