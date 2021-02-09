@@ -50,7 +50,7 @@ public class ChangeMailDialog extends AppCompatDialogFragment
                     public void onClick(DialogInterface dialog, int which) {
                         String email = editTextUserNewEmail.getText().toString();
                         String password = editTextUserPassword.getText().toString();
-                        if (email.matches(Validation.emailValidation )) {
+                        if (email.matches(Validation.EMAIL_REGEX)) {
                             ConnectionToServer.getInstance().userServices.changeEmail(email, password, getContext());
                         } else {
                             Toast.makeText(getContext(), "Zły format emaila :/", Toast.LENGTH_SHORT).show();

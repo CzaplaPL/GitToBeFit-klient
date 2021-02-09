@@ -64,18 +64,18 @@ public class Registration extends Fragment implements View.OnClickListener
                 CheckBox robot = (CheckBox) getView().findViewById(R.id.checkBox_robot);
                 CheckBox terms = (CheckBox) getView().findViewById(R.id.checkBox_statute);
                 boolean correct =true;
-                if(!email.getEditText().getText().toString().matches( Validation.emailValidation ))
+                if(!email.getEditText().getText().toString().matches( Validation.EMAIL_REGEX))
                 {
                     email.setError(getResources().getString(R.string.incorrectData));
                     correct =false;
                 }else email.setErrorEnabled(false);
 
-                if(!pass.getEditText().getText().toString().matches(Validation.passValidation))
+                if(!pass.getEditText().getText().toString().matches(Validation.PASSWORD_REGEX))
                 {
                     pass.setError(getResources().getString(R.string.incorrectData));
                    correct =false;
                 }else pass.setErrorEnabled(false);
-                if(!pass2.getEditText().getText().toString().matches(Validation.passValidation))
+                if(!pass2.getEditText().getText().toString().matches(Validation.PASSWORD_REGEX))
                 {
                     pass2.setError(getResources().getString(R.string.incorrectData));
                     correct =false;
