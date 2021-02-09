@@ -53,7 +53,7 @@ public class UserServices
         Log.w("Network", "      user.login");
         Log.w("Network", "   " + email + " " + password);
         //przygotowanie zapytania
-        if(!email.matches( Validation.emailValidation ))
+        if(!email.matches( Validation.EMAIL_REGEX))
         {
             fragment.loginFail(false);
             return;

@@ -39,7 +39,7 @@ public class RemindPasswordDialog extends AppCompatDialogFragment
                 .setPositiveButton(getResources().getString(R.string.remindPassword), (dialog, which) ->
                 {
                     String mail=email.getEditText().getText().toString();
-                    if(!mail.matches(Validation.emailValidation ))
+                    if(!mail.matches(Validation.EMAIL_REGEX))
                     {
                         Toast.makeText(context,context.getResources().getString(R.string.incorrectData),Toast.LENGTH_SHORT).show();
                         email.setErrorEnabled(true);

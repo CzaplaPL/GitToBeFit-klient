@@ -48,7 +48,7 @@ public class ChangePasswordDialog extends AppCompatDialogFragment
                     public void onClick(DialogInterface dialog, int which) {
                         String oldPassword = editTextUserOldPassword.getText().toString();
                         String newPassword = editTextUserNewPassword.getText().toString();
-                        if (newPassword.matches(Validation.passValidation)) {
+                        if (newPassword.matches(Validation.PASSWORD_REGEX)) {
                             ConnectionToServer.getInstance().userServices.changePassword(oldPassword, newPassword, getContext());
                         }
                         else {
