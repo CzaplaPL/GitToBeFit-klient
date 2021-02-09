@@ -391,7 +391,7 @@ public class UserServices
      */
     public void remindPassword(String email, Context context)
     {
-        Log.d("network  ", "przypominanie hasła");
+        Log.w("network  ", "przypominanie hasła");
 
         Call<Void> call = user.remindPass(email);
         call.enqueue(new Callback<Void>()
@@ -401,7 +401,7 @@ public class UserServices
             {
                 if(response.isSuccessful())
                 {
-                    Log.d("przypominanie hasła ", "sukces");
+                    Log.w("przypominanie hasła ", "sukces");
                     Toast.makeText(context,context.getResources().getString(R.string.sendPassword),Toast.LENGTH_SHORT).show();
                 }else
                 {

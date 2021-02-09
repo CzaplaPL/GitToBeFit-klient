@@ -18,15 +18,16 @@ import java.util.ArrayList;
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.workoutforms.adapters.EquipmentAdapter;
+import pl.gittobefit.workoutforms.adapters.EquipmentList;
 import pl.gittobefit.workoutforms.object.EquipmentForm;
 import pl.gittobefit.workoutforms.object.EquipmentType;
 
 /**
  fragment wyposażenia
  */
-public class EquipmentFragment extends Fragment
+public class EquipmentFragment extends Fragment implements EquipmentAdapter.EquipmentListener
 {
-    ArrayList<EquipmentForm> data ;
+    EquipmentList equipmentList=new EquipmentList();
     EquipmentAdapter adapter;
     public EquipmentFragment() { }
 
@@ -48,15 +49,19 @@ public class EquipmentFragment extends Fragment
     }
     public void createList(ArrayList<EquipmentType> equipmentType)
     {
-
-        data =new ArrayList<EquipmentForm>(equipmentType);
+        equipmentList.setData(new ArrayList<EquipmentForm>(equipmentType));
+        equipmentList.init(this);
         RecyclerView rvContacts = (RecyclerView) getView().findViewById(R.id.rvContacts);
-        adapter = new EquipmentAdapter(data);
-        rvContacts.setAdapter(adapter);
+        rvContacts.setAdapter(equipmentList.getAdapter());
         rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
-        /*LinearLayout loading = getView().findViewById(R.id.equipmentLoading);
-        loading.setVisibility(View.GONE);*/
+        LinearLayout loading = getView().findViewById(R.id.equipmentLoading);
+        loading.setVisibility(View.GONE);
     }
 
 
+    @Override
+    public void onItemClick(int position)
+    {
+        equipmentList.click(position);
+    }
 }

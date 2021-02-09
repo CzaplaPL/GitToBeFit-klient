@@ -5,12 +5,13 @@ public class EquipmentForm
     final private int id;
     final private String name;
     final private String url;
-    public EquipmentForm(int id, String name, String url, int id1, String name1, String url1)
-    {
-        this.id = id1;
+    private boolean isEqiupment=false;
 
-        this.name = name1;
-        this.url = url1;
+    public EquipmentForm(int id, String name, String url)
+    {
+        this.id = id;
+        this.name = name;
+        this.url = url;
     }
     public int getId()
     {
@@ -25,4 +26,20 @@ public class EquipmentForm
         return url;
     }
 
+    @Override
+    public String toString()
+    {
+        return "name='" + name + '\'' +
+                '}';
+    }
+
+    public boolean isEqiupment()
+    {
+        return isEqiupment;
+    }
+
+    public void setEqiupment(boolean eqiupment)
+    {
+        isEqiupment = eqiupment;
+    }
 }

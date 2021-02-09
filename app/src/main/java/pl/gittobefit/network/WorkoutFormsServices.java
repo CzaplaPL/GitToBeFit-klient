@@ -3,10 +3,10 @@ package pl.gittobefit.network;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
+import pl.gittobefit.workoutforms.adapters.EquipmentList;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
@@ -50,7 +50,7 @@ public class WorkoutFormsServices
 
         });
     }
-    public void getEquipmentType(int typeid)
+    public void getEquipment(int typeid, int position, EquipmentList list)
     {
         Log.w("Network", "WorkoutForms.getEquipmentType");
         ArrayList<Equipment> data =new ArrayList<Equipment>();
@@ -62,7 +62,7 @@ public class WorkoutFormsServices
             {
                 if(response.isSuccessful())
                 {
-                  //  EquipmentType.loadEquipmentSucces();
+                 list.loadEquipment(position,response.body());
                 }else
                 {
                     Log.e("Network ", "WorkoutForms.getEquipmentType error " +String.valueOf(response.code()));

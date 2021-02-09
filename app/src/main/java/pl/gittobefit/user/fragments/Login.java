@@ -77,12 +77,12 @@ public class Login extends Fragment implements View.OnClickListener
         //Logowanie google
         GoogleLogin();
         //automatyczne logowanie google
-        if(GoogleSignIn.getLastSignedInAccount(getContext())!=null)
+        /*if(GoogleSignIn.getLastSignedInAccount(getContext())!=null)
         {
             Log.w("auto login google =" , "     login " );
             GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
             ConnectionToServer.getInstance().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this,view);
-        }
+        }*/
         //automatyczne logowanie nasz server
         if(!AppDataBase.getInstance(getContext()).user().getUser().isEmpty())
         {

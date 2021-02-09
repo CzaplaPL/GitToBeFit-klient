@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class RemindPasswordDialog extends AppCompatDialogFragment
                     String mail=email.getEditText().getText().toString();
                     if(!mail.matches(Validation.emailValidation ))
                     {
+                        Log.w("eeeeee","eeeeeeee");
                         Toast.makeText(context,context.getResources().getString(R.string.incorrectData),Toast.LENGTH_SHORT).show();
                         email.setErrorEnabled(true);
                         email.setError(getResources().getString(R.string.incorrectData));
