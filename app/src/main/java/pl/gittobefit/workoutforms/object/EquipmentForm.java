@@ -6,6 +6,7 @@ public class EquipmentForm
     final private String name;
     final private String url;
     private boolean isEqiupment=false;
+    private boolean ischecked=false;
 
     public EquipmentForm(int id, String name, String url)
     {
@@ -41,5 +42,15 @@ public class EquipmentForm
     public void setEqiupment(boolean eqiupment)
     {
         isEqiupment = eqiupment;
+    }
+
+    public boolean isIschecked()
+    {
+        return ischecked;
+    }
+
+    public void setIschecked(boolean ischecked)
+    {
+        this.ischecked = ischecked;
     }
 }

@@ -13,10 +13,9 @@ import pl.gittobefit.workoutforms.object.EquipmentType;
 public class EquipmentList
 {
     private ArrayList<EquipmentForm> data = new ArrayList<EquipmentForm>();
-    private ArrayList<Integer> loadType = new ArrayList<Integer>();
     private EquipmentAdapter adapter;
-    private int loading = -1;
-    private int loadingEnd = -1;
+    private int loadingIndex = -1;
+    private int loadingEndIndex = -1;
 
     public void setData(ArrayList<EquipmentForm> data)
     {
@@ -34,57 +33,74 @@ public class EquipmentList
         return adapter;
     }
 
-    public void click(int position)
+    public void click(int position )
     {
-        if(position == loading)
+        if(position == loadingIndex)
         {
-            Log.w("==", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loading) + " loadingend = " + String.valueOf(loadingEnd));
+            Log.w("==", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));
             //chowanie
-        }else if(position > loading && position <= loadingEnd)
+        }else if(position > loadingIndex && position <= loadingEndIndex)
         {
-            Log.w(">", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loading) + " loadingend = " + String.valueOf(loadingEnd));
+            Log.w(">", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));
             //klikanie w sprzed
         }else
         {
-            Log.w("!=", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loading) + " loadingend = " + String.valueOf(loadingEnd));
-            if(loading != -1)
+            Log.w("!=", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));
+            if(loadingIndex != -1)
             {
-                if(loadingEnd - loading == 1)
+           /*     if(loadingEndIndex - loadingIndex == 1)
                 {
-                    data.remove(loading + 1);
-                    adapter.notifyItemRemoved(loading + 1);
-                    if(loading < position) position -= 1;
+                    Log.w("!=", "position 1" );
+                    data.remove(loadingIndex + 1);
+                    adapter.notifyItemRemoved(loadingIndex + 1);
+                    if(loadingIndex < position) position -= 1;
                 }else
                 {
-                    ///
-                }
+                    Log.w("!=", "position many" );
+                   for(int i=loadingIndex+1;i<=loadingEndIndex;i++)
+                   {
+                       data.remove(loadingIndex+1);
+                   }
+                   Log.w("rozmiar",String.valueOf(data.size()));
+                    adapter.notifyItemRangeRemoved(loadingIndex,loadingEndIndex);
+                    if(loadingIndex < position) position -= loadingEndIndex - loadingIndex;
+                }*/
             }
-            loading = position;
-            loadingEnd = position + 1;
+            loadingIndex = position;
+            loadingEndIndex = position + 1;
             data.add(position + 1, new EquipmentType(-1, "", ""));
             adapter.notifyItemInserted(position + 1);
 
-            ConnectionToServer.getInstance().WorkoutFormsServices.getEquipment(data.get(position).getId(), position, this);
+//            ConnectionToServer.getInstance().WorkoutFormsServices.getEquipment(data.get(position).getId(), position, this);
         }
     }
 
     public void loadEquipment(int position, ArrayList<Equipment> response)
     {
-        if(loading == position)
+        if(loadingIndex == position)
         {
-            data.remove(loading + 1);
-            adapter.notifyItemRemoved(loading + 1);
-            loadingEnd = position;
+            data.remove(loadingIndex + 1);
+            adapter.notifyItemRemoved(loadingIndex + 1);
+            loadingEndIndex = position;
             for(Equipment equipment : response)
             {
-                Log.w("odp",equipment.toString());
-                loadingEnd+=1;
+                loadingEndIndex +=1;
                 equipment.setEqiupment(true);
-                data.add(loadingEnd,equipment);
+                data.add(loadingEndIndex,equipment);
 
             }
-
              adapter.notifyDataSetChanged();
         }
+    }
+
+    public void tmp()
+    {
+        adapter.notifyDataSetChanged();
+    }
+
+    public void wczytaj(int position, int loadingIndex, int loadingEndIndex)
+    {
+        data.add(position + 1, new EquipmentType(-1, "", ""));
+        adapter.notifyItemInserted(position + 1);
     }
 }

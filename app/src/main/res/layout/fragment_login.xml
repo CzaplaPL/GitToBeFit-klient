@@ -69,6 +69,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:startIconTint="@color/google"
             app:startIconContentDescription="@string/e_mail"
             app:startIconDrawable="@drawable/baseline_email_24">
 

@@ -1,34 +1,33 @@
 package pl.gittobefit.workoutforms.fragments.forms;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import pl.gittobefit.R;
-import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.databinding.FragmentEquipmentBinding;
 import pl.gittobefit.workoutforms.adapters.EquipmentAdapter;
 import pl.gittobefit.workoutforms.adapters.EquipmentList;
 import pl.gittobefit.workoutforms.object.EquipmentForm;
 import pl.gittobefit.workoutforms.object.EquipmentType;
+import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
 /**
  fragment wyposażenia
  */
 public class EquipmentFragment extends Fragment implements EquipmentAdapter.EquipmentListener
 {
-    EquipmentList equipmentList=new EquipmentList();
-    EquipmentAdapter adapter;
+    private FragmentEquipmentBinding binding;
+
+    private GenerateTraningViewModel model;
     public EquipmentFragment() { }
 
     @Override
@@ -39,29 +38,34 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View view =inflater.inflate ( R.layout.fragment_equipment, container, false );
-        return view;
+        binding = FragmentEquipmentBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        ConnectionToServer.getInstance().WorkoutFormsServices.getEquipmentType(this);
+        model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
+        model.loadEqiupmentTypes(this);
     }
     public void createList(ArrayList<EquipmentType> equipmentType)
     {
-        equipmentList.setData(new ArrayList<EquipmentForm>(equipmentType));
-        equipmentList.init(this);
-        RecyclerView rvContacts = (RecyclerView) getView().findViewById(R.id.rvContacts);
-        rvContacts.setAdapter(equipmentList.getAdapter());
-        rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
-        LinearLayout loading = getView().findViewById(R.id.equipmentLoading);
-        loading.setVisibility(View.GONE);
+        model.initList(equipmentType,this);
+        binding.rvContacts.setAdapter(model.getListAdapter());
+        binding.rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.equipmentLoading.setVisibility(View.GONE);
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
     @Override
     public void onItemClick(int position)
     {
-        equipmentList.click(position);
+        model.equipmentListClick(position);
+       // model.tmp();
     }
+
+
 }
