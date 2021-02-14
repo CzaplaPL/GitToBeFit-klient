@@ -1,6 +1,5 @@
 package pl.gittobefit.workoutforms.viewmodel;
 
-import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
@@ -11,6 +10,7 @@ import java.util.ArrayList;
 import pl.gittobefit.workoutforms.adapters.EquipmentAdapter;
 import pl.gittobefit.workoutforms.adapters.EquipmentList;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
+import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentForm;
 import pl.gittobefit.workoutforms.object.EquipmentType;
 import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
@@ -20,7 +20,6 @@ public class GenerateTraningViewModel extends ViewModel
     private WorkoutFormsRepository repository =new WorkoutFormsRepository() ;
     private EquipmentList equipmentList=new EquipmentList();
     private ArrayList<EquipmentForm> listData = new ArrayList<EquipmentForm>();
-
 
     private int loadingIndex = -1;
     private int loadingEndIndex = -1;
@@ -37,24 +36,9 @@ public class GenerateTraningViewModel extends ViewModel
     {
         repository.loadEquipmentTypes(equipmentFragment);
     }
-
-
-
-    public ArrayList<EquipmentForm> getListData()
-    {
-        return listData;
-    }
-
-
     public RecyclerView.Adapter getListAdapter()
     {
         return equipmentList.getAdapter();
-    }
-
-    public void tmp()
-    {
-        listData.add(0,new EquipmentForm(0,"llllll",""));
-        equipmentList.tmp();
     }
 
     public void equipmentListClick(int position)
@@ -62,7 +46,7 @@ public class GenerateTraningViewModel extends ViewModel
         if(position == loadingIndex)
         {
             Log.w("==", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));
-            //chowanie
+          //  equipmentList.clickInTypes(loadingIndex,loadingEndIndex,position);
         }else if(position > loadingIndex && position <= loadingEndIndex)
         {
             Log.w(">", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));
@@ -70,10 +54,31 @@ public class GenerateTraningViewModel extends ViewModel
         }else
         {
             Log.w("!=", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));
+            position = equipmentList.clickInTypes(loadingIndex,loadingEndIndex,position);
             loadingIndex = position;
             loadingEndIndex = position + 1;
-            equipmentList.wczytaj(position,loadingIndex,loadingEndIndex);
+            equipmentList.addLoading(position,loadingIndex,loadingEndIndex);
+            repository.loadEquipment(listData.get(position).getId(), position, this);
 
+        }
+    }
+
+    public void loadEquipment(int position, ArrayList<Equipment> body)
+    {
+
+        if(loadingIndex == position)
+        {
+            listData.remove(loadingIndex + 1);
+            equipmentList.getAdapter().notifyItemRemoved(loadingIndex + 1);
+            loadingEndIndex = position;
+            for(Equipment equipment : body)
+            {
+                loadingEndIndex +=1;
+                equipment.setEqiupment(true);
+                listData.add(loadingEndIndex,equipment);
+
+            }
+            equipmentList.getAdapter().notifyDataSetChanged();
         }
     }
 }

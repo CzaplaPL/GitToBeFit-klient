@@ -51,6 +51,8 @@ private EquipmentListener equipmentListener;
             viewHolder.getImage().setVisibility(View.VISIBLE);
             viewHolder.getNameView().setText(localDataSet.get(position).getName());
             viewHolder.getCheckBox().setVisibility(View.VISIBLE);
+            if(localDataSet.get(position).isIschecked())viewHolder.getCheckBox().setChecked(true);
+            else viewHolder.getCheckBox().setChecked(false);
         }else
         {
             viewHolder.getButton().setVisibility(View.VISIBLE);
@@ -80,7 +82,8 @@ private EquipmentListener equipmentListener;
             image =(ImageView) view.findViewById(R.id.equipment_item_image) ;
             button =(Button) view.findViewById(R.id.equipment_drop_button) ;
             checkBox =(CheckBox) view.findViewById(R.id.equipment_checbox) ;
-
+            button.setOnClickListener(this);
+            checkBox.setOnClickListener(this);
             view.setOnClickListener(this);
         }
 

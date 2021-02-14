@@ -10,6 +10,7 @@ import pl.gittobefit.workoutforms.adapters.EquipmentList;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
+import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,7 +51,7 @@ public class WorkoutFormsServices
 
         });
     }
-    public void getEquipment(int typeid, int position, EquipmentList list)
+    public void getEquipment(int typeid, int position, GenerateTraningViewModel ViewModel)
     {
         Log.w("Network", "WorkoutForms.getEquipmentType");
         ArrayList<Equipment> data =new ArrayList<Equipment>();
@@ -62,7 +63,7 @@ public class WorkoutFormsServices
             {
                 if(response.isSuccessful())
                 {
-                 list.loadEquipment(position,response.body());
+                 ViewModel.loadEquipment(position,response.body());
                 }else
                 {
                     Log.e("Network ", "WorkoutForms.getEquipmentType error " +String.valueOf(response.code()));
