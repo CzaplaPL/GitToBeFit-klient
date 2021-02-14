@@ -31,6 +31,8 @@ public class GenerateTraningViewModel extends ViewModel
         repository.setEqiupmentTypes(equipmentTypes);
         equipmentList.setData(listData);
         equipmentList.init(equipmentListener);
+         loadingIndex = -1;
+         loadingEndIndex = -1;
     }
 
     public void loadEqiupmentTypes(EquipmentFragment equipmentFragment)
@@ -53,8 +55,15 @@ public class GenerateTraningViewModel extends ViewModel
         }else if(position > loadingIndex && position <= loadingEndIndex)
         {
             Log.w(">", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));
-            listData.get(position).isIschecked();
-            repository.setEqiupmentChecked(listData.get(position).getId());
+            if(listData.get(position).isIschecked())
+            {
+                listData.get(position).setIschecked(false);
+                equipmentList.getAdapter().notifyItemChanged(position);
+            }else
+            {
+                listData.get(position).setIschecked(true);
+                equipmentList.getAdapter().notifyItemChanged(position);
+            }
         }else
         {
             Log.w("!=", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));

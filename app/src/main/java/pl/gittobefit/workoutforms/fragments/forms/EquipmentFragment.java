@@ -1,6 +1,7 @@
 package pl.gittobefit.workoutforms.fragments.forms;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 public class EquipmentFragment extends Fragment implements EquipmentAdapter.EquipmentListener
 {
     private FragmentEquipmentBinding binding;
-
     private GenerateTraningViewModel model;
     public EquipmentFragment() { }
 
@@ -46,7 +46,9 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
     {
         model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
         model.loadEqiupmentTypes(this);
+
     }
+
     public void createList(ArrayList<EquipmentType> equipmentType)
     {
         model.initList(equipmentType,this);
@@ -66,6 +68,7 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
         model.equipmentListClick(position);
        // model.tmp();
     }
+
 
 
 }

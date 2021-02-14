@@ -14,8 +14,7 @@ public class EquipmentList
 {
     private ArrayList<EquipmentForm> data = new ArrayList<EquipmentForm>();
     private EquipmentAdapter adapter;
-    private int loadingIndex = -1;
-    private int loadingEndIndex = -1;
+
 
     public void setData(ArrayList<EquipmentForm> data)
     {
@@ -26,6 +25,7 @@ public class EquipmentList
     public void init(EquipmentAdapter.EquipmentListener equipmentListener)
     {
         adapter = new EquipmentAdapter(data, equipmentListener);
+
     }
 
     public EquipmentAdapter getAdapter()

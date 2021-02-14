@@ -12,8 +12,6 @@ import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 public class WorkoutFormsRepository
 {
     ArrayList<EquipmentType> equipmentTypes = new ArrayList<>();
-    ArrayList<Integer> checkedEquipment = new ArrayList<Integer>();
-
     public void loadEquipmentTypes(EquipmentFragment equipmentFragment)
     {
         ConnectionToServer.getInstance().WorkoutFormsServices.getEquipmentType(equipmentFragment);
@@ -25,8 +23,7 @@ public class WorkoutFormsRepository
         {
             if(equipmentTypes.get(i).getId()==id)
             {
-                boolean odp = equipmentTypes.get(i).isLoad();
-                if(odp)
+                if(equipmentTypes.get(i).isLoad())
                 {
                     generateTraningViewModel.loadEquipment(position, equipmentTypes.get(i).getEquipment());
                     return;
@@ -34,11 +31,6 @@ public class WorkoutFormsRepository
             }
         }
         ConnectionToServer.getInstance().WorkoutFormsServices.getEquipment(id, position, generateTraningViewModel);
-    }
-
-    public void setEqiupmentChecked(int id)
-    {
-        checkedEquipment.add(id);
     }
 
     public void addEquipment(int typeid, ArrayList<Equipment> body)
