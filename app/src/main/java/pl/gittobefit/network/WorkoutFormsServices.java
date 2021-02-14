@@ -63,7 +63,7 @@ public class WorkoutFormsServices
             {
                 if(response.isSuccessful())
                 {
-                 ViewModel.loadEquipment(position,response.body());
+                 ViewModel.loadEquipment(position,response.body(),typeid);
                 }else
                 {
                     Log.e("Network ", "WorkoutForms.getEquipmentType error " +String.valueOf(response.code()));

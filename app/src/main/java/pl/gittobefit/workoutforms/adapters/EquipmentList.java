@@ -45,19 +45,19 @@ public class EquipmentList
         {
             if(loadingEndIndex - loadingIndex == 1)
             {
-                Log.w("!=", "position 1" );
+                Log.w("1!=", "position 1" );
                 data.remove(loadingIndex + 1);
                 adapter.notifyItemRemoved(loadingIndex + 1);
                 if(loadingIndex < position) position -= 1;
             }else
             {
-                Log.w("!=", "position many" );
+                Log.w("1!=", "position many" );
                 for(int i=loadingIndex+1;i<=loadingEndIndex;i++)
                 {
                     data.remove(loadingIndex+1);
                 }
                 Log.w("rozmiar",String.valueOf(data.size()));
-                adapter.notifyItemRangeRemoved(loadingIndex,loadingEndIndex);
+                adapter.notifyDataSetChanged();
                 if(loadingIndex < position) position -= loadingEndIndex - loadingIndex;
             }
         }

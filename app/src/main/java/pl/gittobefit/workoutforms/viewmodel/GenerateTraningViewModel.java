@@ -28,6 +28,7 @@ public class GenerateTraningViewModel extends ViewModel
     public void initList(ArrayList<EquipmentType> equipmentTypes , EquipmentAdapter.EquipmentListener equipmentListener)
     {
         this.listData = new ArrayList<EquipmentForm>(equipmentTypes);
+        repository.setEqiupmentTypes(equipmentTypes);
         equipmentList.setData(listData);
         equipmentList.init(equipmentListener);
     }
@@ -46,11 +47,14 @@ public class GenerateTraningViewModel extends ViewModel
         if(position == loadingIndex)
         {
             Log.w("==", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));
-          //  equipmentList.clickInTypes(loadingIndex,loadingEndIndex,position);
+            equipmentList.clickInTypes(loadingIndex,loadingEndIndex,position);
+            loadingIndex=-1;
+            loadingEndIndex=-1;
         }else if(position > loadingIndex && position <= loadingEndIndex)
         {
             Log.w(">", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));
-            //klikanie w sprzed
+            listData.get(position).isIschecked();
+            repository.setEqiupmentChecked(listData.get(position).getId());
         }else
         {
             Log.w("!=", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));
@@ -63,9 +67,27 @@ public class GenerateTraningViewModel extends ViewModel
         }
     }
 
+    public void loadEquipment(int position, ArrayList<Equipment> body, int typeid)
+    {
+        repository.addEquipment(typeid,body);
+        if(loadingIndex == position)
+        {
+            listData.remove(loadingIndex + 1);
+            equipmentList.getAdapter().notifyItemRemoved(loadingIndex + 1);
+            loadingEndIndex = position;
+            for(Equipment equipment : body)
+            {
+                loadingEndIndex +=1;
+                equipment.setEqiupment(true);
+                listData.add(loadingEndIndex,equipment);
+
+            }
+            equipmentList.getAdapter().notifyDataSetChanged();
+        }
+    }
+
     public void loadEquipment(int position, ArrayList<Equipment> body)
     {
-
         if(loadingIndex == position)
         {
             listData.remove(loadingIndex + 1);

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class EquipmentType extends EquipmentForm
 {
-    private ArrayList<Equipment> equipment = new ArrayList<Equipment>();
+    private ArrayList<Equipment> equipment ;
     public EquipmentType(int id, String name, String url)
     {
         super(id, name, url);
@@ -14,7 +14,8 @@ public class EquipmentType extends EquipmentForm
 
     public boolean isLoad()
     {
-        return (equipment.size() != 0);
+        if(equipment==null) return false;
+        return (!equipment.isEmpty());
     }
     public ArrayList<Equipment> getEquipment()
     {
