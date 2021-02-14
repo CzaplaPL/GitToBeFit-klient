@@ -1,61 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout2"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="horizontal"
+    android:padding="5dp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_left"
+    <LinearLayout
+        android:id="@+id/item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.15" />
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="5dp"
+        android:padding="3dp">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/main_guideline_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85" />
-
-    <ImageView
-        android:id="@+id/equipment_item_image"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_email_24" />
+        <ImageView
+            android:id="@+id/equipment_item_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_email_24"
+            android:contentDescription="@string/todo" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/equipment_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="81dp"
-        android:text="przykład text"
-        app:layout_constraintStart_toStartOf="@+id/equipment_item_image"
-        tools:layout_editor_absoluteY="358dp" />
+        android:layout_toEndOf="@+id/item"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:text="@string/example"
+        android:textColor="#040404"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        tools:ignore="RelativeOverlap" />
 
     <Button
         android:id="@+id/equipment_drop_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:textSize="10sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/equipment_checbox"
-        app:layout_constraintEnd_toStartOf="@+id/equipment_checbox"
-        app:layout_constraintStart_toEndOf="@+id/equipment_item_image" />
+        android:layout_height="50dp"
+        android:layout_width="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5dp"
+        tools:ignore="RelativeOverlap"/>
 
     <CheckBox
         android:id="@+id/equipment_checbox"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
-        app:layout_constraintStart_toEndOf="@+id/equipment_item_name"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        tools:ignore="RelativeOverlap"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
