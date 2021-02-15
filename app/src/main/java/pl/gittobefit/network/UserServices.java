@@ -53,11 +53,6 @@ public class UserServices
         Log.w("Network", "      user.login");
         Log.w("Network", "   " + email + " " + password);
         //przygotowanie zapytania
-        if(!email.matches( Validation.EMAIL_REGEX))
-        {
-            fragment.loginFail(false);
-            return;
-        }
         Call<Void> call = user.login(new RespondUser(email, password));
         //wywołanie zapytania
         call.enqueue(new Callback<Void>()
