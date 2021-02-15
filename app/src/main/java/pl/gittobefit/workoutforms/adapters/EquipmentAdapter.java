@@ -25,11 +25,13 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
 
 private ArrayList<EquipmentForm> localDataSet;
 private EquipmentListener equipmentListener;
+
     public EquipmentAdapter(ArrayList<EquipmentForm> dataSet,EquipmentListener equipmentListener)
     {
         localDataSet = dataSet;
         this.equipmentListener= equipmentListener;
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType)
     {

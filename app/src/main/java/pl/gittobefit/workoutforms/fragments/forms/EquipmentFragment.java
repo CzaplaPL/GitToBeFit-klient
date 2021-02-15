@@ -49,6 +49,10 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
 
     }
 
+    /**
+     * inicjalizacja listy kategori sprzętów
+     * @param equipmentType ArrayList którą uzupełnić liste
+     */
     public void createList(ArrayList<EquipmentType> equipmentType)
     {
         model.initList(equipmentType,this);
@@ -66,7 +70,6 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
     public void onItemClick(int position)
     {
         model.equipmentListClick(position);
-       // model.tmp();
     }
 
 
