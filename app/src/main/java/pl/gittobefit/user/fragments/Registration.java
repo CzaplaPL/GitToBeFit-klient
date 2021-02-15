@@ -66,23 +66,23 @@ public class Registration extends Fragment implements View.OnClickListener
                 boolean correct =true;
                 if(!email.getEditText().getText().toString().matches( Validation.EMAIL_REGEX))
                 {
-                    email.setError(getResources().getString(R.string.incorrectData));
+                    email.setError(getResources().getString(R.string.wrongEmail));
                     correct =false;
                 }else email.setErrorEnabled(false);
 
                 if(!pass.getEditText().getText().toString().matches(Validation.PASSWORD_REGEX))
                 {
-                    pass.setError(getResources().getString(R.string.incorrectData));
+                    pass.setError(getResources().getString(R.string.wrongPassword));
                    correct =false;
                 }else pass.setErrorEnabled(false);
                 if(!pass2.getEditText().getText().toString().matches(Validation.PASSWORD_REGEX))
                 {
-                    pass2.setError(getResources().getString(R.string.incorrectData));
+                    pass2.setError(getResources().getString(R.string.wrongPassword));
                     correct =false;
                 }else if(!pass.getEditText().getText().toString().equals(pass2.getEditText().getText().toString()))
                 {
-                    pass.setError(getResources().getString(R.string.incorrectpassword));
-                    pass2.setError(getResources().getString(R.string.incorrectpassword));
+                    pass.setError(getResources().getString(R.string.wrongPasswoed2));
+                    pass2.setError(getResources().getString(R.string.wrongPasswoed2));
                     correct =false;
                 }else pass2.setErrorEnabled(false);
                 if(!robot.isChecked())

@@ -31,6 +31,7 @@ import java.util.Collections;
 import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.user.Validation;
 
 /**
  * fragment logowania
@@ -63,6 +64,8 @@ public class Login extends Fragment implements View.OnClickListener
         button =  view.findViewById(R.id.loginGoogle);
         button.setOnClickListener(this);
         button =  view.findViewById(R.id.loginRegister);
+        button.setOnClickListener(this);
+        button =  view.findViewById(R.id.loginSkip);
         button.setOnClickListener(this);
         TextView textview =view.findViewById(R.id.loginForgotPass);
         textview.setOnClickListener(this);
@@ -114,8 +117,8 @@ public class Login extends Fragment implements View.OnClickListener
             email.setError(getResources().getString(R.string.serwerError));
             pass.setError(getResources().getString(R.string.serwerError));
         }
-        email.setError(getResources().getString(R.string.incorrectData));
-        pass.setError(getResources().getString(R.string.incorrectData));
+        email.setError(getResources().getString(R.string.notLogin));
+        pass.setError(getResources().getString(R.string.notLogin));
     }
 
     /**
@@ -131,7 +134,21 @@ public class Login extends Fragment implements View.OnClickListener
             case R.id.loginZaloguj:
                 TextInputLayout email =(TextInputLayout)getView().findViewById(R.id.loginMailKontener);
                 TextInputLayout pass =(TextInputLayout)getView().findViewById(R.id.loginPassKontener);
+                if(!email.getEditText().getText().toString().matches( Validation.EMAIL_REGEX))
+                {
+                    email.setError(getResources().getString(R.string.wrongEmail));
+                   return;
+                }else email.setErrorEnabled(false);
+
+                if(!pass.getEditText().getText().toString().matches(Validation.PASSWORD_REGEX))
+                {
+                    pass.setError(getResources().getString(R.string.wrongPassword));
+                   return;
+                }else pass.setErrorEnabled(false);
                 ConnectionToServer.getInstance().userServices.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this,view);
+                break;
+            case R.id.loginSkip:
+               Navigation.findNavController(view).navigate(R.id.action_login2_to_homeFragment);
                 break;
             case R.id.loginGoogle:
                 Log.w("logowanie google = ", "         uruchamianie ");

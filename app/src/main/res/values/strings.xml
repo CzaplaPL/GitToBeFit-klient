@@ -149,5 +149,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="todo">TODO</string>
+    <string name="notLogin">"Nie udało się zalogować "</string>
+    <string name="wrongEmail">Błędny Email</string>
+    <string name="wrongPassword">błędne Hasło. Hasło musi składać się z 8 znaków i zawierać Wielką litere,cyfre i znak specjalny  </string>
+    <string name="wrongPasswoed2">Hasła różnią się</string>
 
 </resources>

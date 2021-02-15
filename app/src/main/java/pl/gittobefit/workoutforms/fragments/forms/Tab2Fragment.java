@@ -7,15 +7,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+
 import pl.gittobefit.R;
+import pl.gittobefit.databinding.FragmentEquipmentBinding;
+import pl.gittobefit.databinding.FragmentTab2Binding;
 
 /**
  fragment tab2
  */
 public class Tab2Fragment extends Fragment {
-
+    private FragmentTab2Binding binding;
     public Tab2Fragment() { }
 
     @Override
@@ -26,7 +32,15 @@ public class Tab2Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate ( R.layout.fragment_tab2, container, false );
+        binding = FragmentTab2Binding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
     @Override

@@ -1,5 +1,7 @@
 package pl.gittobefit.workoutforms.adapters;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -53,6 +57,12 @@ private EquipmentListener equipmentListener;
             viewHolder.getCheckBox().setVisibility(View.VISIBLE);
             if(localDataSet.get(position).isIschecked())viewHolder.getCheckBox().setChecked(true);
             else viewHolder.getCheckBox().setChecked(false);
+                String url = "http://c4szkolenia.pl/img/zuraw.jpg";
+                Log.w("url",url);
+            Glide.with(viewHolder.getContext())
+                        .load(url)
+                        .placeholder(R.drawable.baseline_email_24)
+                        .into(viewHolder.getImage());
         }else
         {
             viewHolder.getButton().setVisibility(View.VISIBLE);
@@ -73,10 +83,12 @@ private EquipmentListener equipmentListener;
         private final Button button;
         private final CheckBox checkBox;
         private final EquipmentListener equipmentListener;
+        private final Context context;
 
         public ViewHolder(View view,EquipmentListener equipmentListener)
         {
             super(view);
+
             this.equipmentListener=equipmentListener;
             nameView = (TextView) view.findViewById(R.id.equipment_item_name);
             image =(ImageView) view.findViewById(R.id.equipment_item_image) ;
@@ -84,6 +96,7 @@ private EquipmentListener equipmentListener;
             checkBox =(CheckBox) view.findViewById(R.id.equipment_checbox) ;
             button.setOnClickListener(this);
             checkBox.setOnClickListener(this);
+            context = view.getContext();
             view.setOnClickListener(this);
         }
 
@@ -94,6 +107,8 @@ private EquipmentListener equipmentListener;
         public ImageView getImage() {return image;}
         public Button getButton() {return button;}
         public CheckBox getCheckBox(){ return checkBox; }
+        public Context getContext() { return context; }
+
 
         @Override
         public void onClick(View v)
