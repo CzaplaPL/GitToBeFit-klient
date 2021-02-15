@@ -35,14 +35,16 @@
         android:textStyle="bold"
         tools:ignore="RelativeOverlap" />
 
-    <Button
+    <ImageView
         android:id="@+id/equipment_drop_button"
-        android:layout_height="50dp"
         android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_baseline_arrow_drop_down_24"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="5dp"
-        tools:ignore="RelativeOverlap"/>
+        tools:ignore="RelativeOverlap" />
+
 
     <CheckBox
         android:id="@+id/equipment_checbox"

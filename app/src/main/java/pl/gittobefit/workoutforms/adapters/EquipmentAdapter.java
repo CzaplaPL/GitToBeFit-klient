@@ -18,13 +18,13 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import pl.gittobefit.R;
+import pl.gittobefit.databinding.EquipmentItemBinding;
 import pl.gittobefit.workoutforms.object.EquipmentForm;
 
 public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.ViewHolder> {
 
 private ArrayList<EquipmentForm> localDataSet;
 private EquipmentListener equipmentListener;
-
     public EquipmentAdapter(ArrayList<EquipmentForm> dataSet,EquipmentListener equipmentListener)
     {
         localDataSet = dataSet;
@@ -57,17 +57,19 @@ private EquipmentListener equipmentListener;
             viewHolder.getCheckBox().setVisibility(View.VISIBLE);
             if(localDataSet.get(position).isIschecked())viewHolder.getCheckBox().setChecked(true);
             else viewHolder.getCheckBox().setChecked(false);
-                String url = "http://c4szkolenia.pl/img/zuraw.jpg";
-                Log.w("url",url);
             Glide.with(viewHolder.getContext())
-                        .load(url)
-                        .placeholder(R.drawable.baseline_email_24)
+                        .load("http://c4szkolenia.pl/"+localDataSet.get(position).getUrl())
+                        .placeholder(R.drawable.ic_baseline_downloading_24)
                         .into(viewHolder.getImage());
         }else
         {
             viewHolder.getButton().setVisibility(View.VISIBLE);
             viewHolder.getImage().setVisibility(View.VISIBLE);
             viewHolder.getNameView().setText(localDataSet.get(position).getName());
+            Glide.with(viewHolder.getContext())
+                    .load("http://c4szkolenia.pl/"+localDataSet.get(position).getUrl())
+                    .placeholder(R.drawable.baseline_email_24)
+                    .into(viewHolder.getImage());
             viewHolder.getCheckBox().setVisibility(View.GONE);
         }
     }
@@ -76,11 +78,15 @@ private EquipmentListener equipmentListener;
     public int getItemCount() {
         return localDataSet.size();
     }
+
+    /**
+     * View Holder
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         private final TextView nameView;
         private final ImageView image;
-        private final Button button;
+        private final ImageView button;
         private final CheckBox checkBox;
         private final EquipmentListener equipmentListener;
         private final Context context;
@@ -90,10 +96,10 @@ private EquipmentListener equipmentListener;
             super(view);
 
             this.equipmentListener=equipmentListener;
-            nameView = (TextView) view.findViewById(R.id.equipment_item_name);
-            image =(ImageView) view.findViewById(R.id.equipment_item_image) ;
-            button =(Button) view.findViewById(R.id.equipment_drop_button) ;
-            checkBox =(CheckBox) view.findViewById(R.id.equipment_checbox) ;
+            nameView = view.findViewById(R.id.equipment_item_name);
+            image = view.findViewById(R.id.equipment_item_image) ;
+            button = view.findViewById(R.id.equipment_drop_button) ;
+            checkBox =view.findViewById(R.id.equipment_checbox) ;
             button.setOnClickListener(this);
             checkBox.setOnClickListener(this);
             context = view.getContext();
@@ -105,7 +111,7 @@ private EquipmentListener equipmentListener;
             return nameView;
         }
         public ImageView getImage() {return image;}
-        public Button getButton() {return button;}
+        public ImageView getButton() {return button;}
         public CheckBox getCheckBox(){ return checkBox; }
         public Context getContext() { return context; }
 
