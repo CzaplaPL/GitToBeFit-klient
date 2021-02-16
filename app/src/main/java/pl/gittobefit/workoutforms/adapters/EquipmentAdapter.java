@@ -1,12 +1,10 @@
 package pl.gittobefit.workoutforms.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,7 +16,6 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import pl.gittobefit.R;
-import pl.gittobefit.databinding.EquipmentItemBinding;
 import pl.gittobefit.workoutforms.object.EquipmentForm;
 
 public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.ViewHolder> {
@@ -57,8 +54,7 @@ private EquipmentListener equipmentListener;
             viewHolder.getImage().setVisibility(View.VISIBLE);
             viewHolder.getNameView().setText(localDataSet.get(position).getName());
             viewHolder.getCheckBox().setVisibility(View.VISIBLE);
-            if(localDataSet.get(position).isIschecked())viewHolder.getCheckBox().setChecked(true);
-            else viewHolder.getCheckBox().setChecked(false);
+            viewHolder.getCheckBox().setChecked(localDataSet.get(position).isIschecked());
             Glide.with(viewHolder.getContext())
                         .load("http://c4szkolenia.pl/"+localDataSet.get(position).getUrl())
                         .placeholder(R.drawable.ic_baseline_downloading_24)

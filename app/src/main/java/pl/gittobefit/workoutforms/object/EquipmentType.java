@@ -1,7 +1,5 @@
 package pl.gittobefit.workoutforms.object;
 
-import android.view.View;
-
 import java.util.ArrayList;
 
 public class EquipmentType extends EquipmentForm
@@ -11,7 +9,6 @@ public class EquipmentType extends EquipmentForm
     {
         super(id, name, url);
     }
-
     public boolean isLoad()
     {
         if(equipment==null) return false;
@@ -21,7 +18,6 @@ public class EquipmentType extends EquipmentForm
     {
         return equipment;
     }
-
     public void setEquipment(ArrayList<Equipment> equipment)
     {
         this.equipment = equipment;

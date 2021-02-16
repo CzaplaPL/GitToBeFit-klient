@@ -26,29 +26,18 @@ public class EquipmentForm
     {
         return url;
     }
-
-    @Override
-    public String toString()
-    {
-        return "name='" + name + '\'' +
-                '}';
-    }
-
     public boolean isEqiupment()
     {
         return isEqiupment;
     }
-
     public void setEqiupment(boolean eqiupment)
     {
         isEqiupment = eqiupment;
     }
-
     public boolean isIschecked()
     {
         return ischecked;
     }
-
     public void setIschecked(boolean ischecked)
     {
         this.ischecked = ischecked;

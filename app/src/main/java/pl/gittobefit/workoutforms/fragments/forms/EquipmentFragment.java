@@ -1,7 +1,6 @@
 package pl.gittobefit.workoutforms.fragments.forms;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,6 @@ import java.util.ArrayList;
 
 import pl.gittobefit.databinding.FragmentEquipmentBinding;
 import pl.gittobefit.workoutforms.adapters.EquipmentAdapter;
-import pl.gittobefit.workoutforms.adapters.EquipmentList;
-import pl.gittobefit.workoutforms.object.EquipmentForm;
 import pl.gittobefit.workoutforms.object.EquipmentType;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
