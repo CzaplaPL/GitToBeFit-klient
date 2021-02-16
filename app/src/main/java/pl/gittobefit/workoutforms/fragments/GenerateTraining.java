@@ -41,7 +41,7 @@ public class GenerateTraining extends Fragment {
                             tab.setText("Equipment");
                         }
                         else if(position == 1){
-                            tab.setText("Tab2");
+                            tab.setText("Details");
                         }
                         else if(position == 2){
                             tab.setText ("Tab3");

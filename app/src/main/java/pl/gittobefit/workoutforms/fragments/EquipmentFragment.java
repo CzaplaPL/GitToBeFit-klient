@@ -57,7 +57,6 @@ public class EquipmentFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         // Lookup the recyclerview in activity layout
-
     }
 
 

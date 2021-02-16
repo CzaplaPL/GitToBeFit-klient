@@ -52,8 +52,6 @@ public static class ViewHolder extends RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-
-
         viewHolder.getTextView().setText(localDataSet.get(position));
     }
 

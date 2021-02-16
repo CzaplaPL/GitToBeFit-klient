@@ -10,16 +10,6 @@ import pl.gittobefit.database.entity.EntityUser;
  */
 public class User
 {
-    public String getIdSerwer()
-    {
-        return idSerwer;
-    }
-
-    public void setIdSerwer(String idSerwer)
-    {
-        this.idSerwer = idSerwer;
-    }
-
     public enum WayOfLogin
     {
         DEFAULT,
@@ -86,6 +76,15 @@ public class User
         this.auth=auth;
         this.loggedBy = loggedBy;
     }
+
+    public String getIdSerwer()
+    {
+        return idSerwer;
+    }
+    public void setIdSerwer(String idSerwer)
+    {
+        this.idSerwer = idSerwer;
+    }
     //getter do emaila - Kuba
     public String getEmail()
     {
@@ -112,5 +111,6 @@ public class User
     public void setEmail(String email) {
         this.email = email;
     }
+
 
 }
