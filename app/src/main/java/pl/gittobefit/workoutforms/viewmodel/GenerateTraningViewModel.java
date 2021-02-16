@@ -17,16 +17,19 @@ import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
 
 public class GenerateTraningViewModel extends ViewModel
 {
-    private WorkoutFormsRepository repository =new WorkoutFormsRepository() ;
+    private WorkoutFormsRepository repository =new WorkoutFormsRepository(this) ;
     private EquipmentList equipmentList=new EquipmentList();
-    private ArrayList<EquipmentForm> listData = new ArrayList<EquipmentForm>();
+    private ArrayList<EquipmentForm> listData = new ArrayList<>();
 
 
-
+    public RecyclerView.Adapter getListAdapter()
+    {
+        return equipmentList.getAdapter();
+    }
 
     public void initList(ArrayList<EquipmentType> equipmentTypes , EquipmentAdapter.EquipmentListener equipmentListener)
     {
-        this.listData = new ArrayList<EquipmentForm>(equipmentTypes);
+        this.listData = new ArrayList<>(equipmentTypes);
         repository.setEqiupmentTypes(equipmentTypes);
         equipmentList.setData(listData);
         equipmentList.init(equipmentListener);
@@ -36,21 +39,19 @@ public class GenerateTraningViewModel extends ViewModel
     {
         repository.loadEquipmentTypes(equipmentFragment);
     }
-    public RecyclerView.Adapter getListAdapter()
-    {
-        return equipmentList.getAdapter();
-    }
 
+    /**
+     * obsługiwanie klikniecia w liste
+     * @param position pozycja w której wystąpiło wciśnięcie
+     */
     public void equipmentListClick(int position)
     {
         if(position == equipmentList.getLoadingIndex())
-        {
-         //   Log.w("==", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));
+        {//klikanie w kategorie która jest rozwinieta
             equipmentList.clickInTypes(position);
 
         }else if(position > equipmentList.getLoadingIndex() && position <= equipmentList.getLoadingEndIndex())
-        {
-          //  Log.w(">", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));
+        {//klikanie w sprzet
             if(listData.get(position).isIschecked())
             {
                 listData.get(position).setIschecked(false);
@@ -61,22 +62,13 @@ public class GenerateTraningViewModel extends ViewModel
                 equipmentList.getAdapter().notifyItemChanged(position);
             }
         }else
-        {
-          //  Log.w("!=", "position = " + String.valueOf(position) + " loading = " + String.valueOf(loadingIndex) + " loadingend = " + String.valueOf(loadingEndIndex));
+        {//klikanie w kategorie nie rozwinieta
             position = equipmentList.clickInTypes(position);
-
             equipmentList.addLoading(position);
-            repository.loadEquipment(listData.get(position).getId(), position, this);
-
+            repository.loadEquipment(listData.get(position).getId(), position);
         }
     }
 
-    public void loadEquipment(int position, ArrayList<Equipment> body, int typeid)
-    {
-        repository.addEquipment(typeid,body);
-        equipmentList.showEquipment(position,body);
-
-    }
 
     public void loadEquipment(int position, ArrayList<Equipment> body)
     {
