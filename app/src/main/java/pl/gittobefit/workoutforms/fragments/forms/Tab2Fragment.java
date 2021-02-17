@@ -1,4 +1,4 @@
-package pl.gittobefit.workoutforms.fragments;
+package pl.gittobefit.workoutforms.fragments.forms;
 
 import android.os.Bundle;
 import android.util.Log;

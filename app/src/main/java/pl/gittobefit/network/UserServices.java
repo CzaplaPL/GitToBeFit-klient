@@ -13,10 +13,10 @@ import java.util.Objects;
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
-import pl.gittobefit.database.entity.EntityUser;
+import pl.gittobefit.database.entity.UserEntity;
 import pl.gittobefit.network.interfaces.IUserServices;
-import pl.gittobefit.network.object.ChangeEmailUser;
-import pl.gittobefit.network.object.ChangePassUser;
+import pl.gittobefit.network.object.UserChangeEmail;
+import pl.gittobefit.network.object.UserChangePass;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
 import pl.gittobefit.user.User;
@@ -78,7 +78,7 @@ public class UserServices
                             if(response2.isSuccessful())
                             {
                                 User.getInstance().add(email, password, response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.OUR_SERVER, fragment.getContext());
-                                AppDataBase.getInstance(fragment.getContext()).user().addUser(new EntityUser(Integer.parseInt(response2.headers().get("idUser")),email, response.headers().get("Authorization")));
+                                AppDataBase.getInstance(fragment.getContext()).user().addUser(new UserEntity(Integer.parseInt(response2.headers().get("idUser")),email, response.headers().get("Authorization")));
                                 //AppDataBase.getInstance(fragment.getContext()).user().setID(1, email);
                                 fragment.loginSuccess(view);
                             }else
@@ -260,7 +260,7 @@ public class UserServices
     public void changePassword(String actualPassword, String newPassword, Context context)
     {
         String userID =  User.getInstance().getIdSerwer();
-        Call<Void> call2 = user.changePassword(userID, User.getInstance().getToken(), new ChangePassUser(User.getInstance().getEmail(), actualPassword, newPassword));
+        Call<Void> call2 = user.changePassword(userID, User.getInstance().getToken(), new UserChangePass(User.getInstance().getEmail(), actualPassword, newPassword));
         call2.enqueue(new Callback<Void>()
         {
             @Override
@@ -325,7 +325,7 @@ public class UserServices
     public void changeEmail(String newEmail, String password, Context context)
     {
         String userID = User.getInstance().getIdSerwer();
-        Call<Void> call2 = user.changeEmail(userID, User.getInstance().getToken(), new ChangeEmailUser(newEmail, password));
+        Call<Void> call2 = user.changeEmail(userID, User.getInstance().getToken(), new UserChangeEmail(newEmail, password));
         call2.enqueue(new Callback<Void>()
         {
             @Override
@@ -450,8 +450,8 @@ public class UserServices
 
     public void verify(Login fragment)
     {
-        List<EntityUser> result = AppDataBase.getInstance(fragment.getContext()).user().getUser();
-        EntityUser userEntity = result.get(0);
+        List<UserEntity> result = AppDataBase.getInstance(fragment.getContext()).user().getUser();
+        UserEntity userEntity = result.get(0);
 
         Call<Void> call = user.verify(userEntity.getToken());
 

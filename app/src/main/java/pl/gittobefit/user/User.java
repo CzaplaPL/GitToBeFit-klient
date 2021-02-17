@@ -2,9 +2,6 @@ package pl.gittobefit.user;
 
 import android.content.Context;
 
-import pl.gittobefit.database.AppDataBase;
-import pl.gittobefit.database.entity.EntityUser;
-
 /**
  * klasa przechowująca informacje o użytkowniku
  */
