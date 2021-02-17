@@ -79,7 +79,6 @@ public class UserServices
                             {
                                 User.getInstance().add(email, password, response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.OUR_SERVER, fragment.getContext());
                                 AppDataBase.getInstance(fragment.getContext()).user().addUser(new UserEntity(Integer.parseInt(response2.headers().get("idUser")),email, response.headers().get("Authorization")));
-                                //AppDataBase.getInstance(fragment.getContext()).user().setID(1, email);
                                 fragment.loginSuccess(view);
                             }else
                             {
@@ -463,9 +462,7 @@ public class UserServices
                 {
                     Log.w("Autologwanie  ", "  sukces");
                     System.out.println("Kod zwracany przez autoLog: " + response.code());
-                    //System.out.println("otrzymany token: " + response.headers().get("Authorization"));
                     AppDataBase.getInstance(fragment.getContext()).user().setToken(response.headers().get("Authorization"),userEntity.getId());
-                    //String email = AppDataBase.getInstance(fragment.getContext()).user().getEmail(1);
                     User.getInstance().add(userEntity.getEmail(), response.headers().get("Authorization"), String.valueOf(userEntity.getId()), User.WayOfLogin.OUR_SERVER, fragment.getContext());
                     fragment.loginSuccess(fragment.getView());
                 }

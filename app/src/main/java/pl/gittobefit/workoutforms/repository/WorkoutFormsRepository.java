@@ -64,7 +64,6 @@ public class WorkoutFormsRepository
                 observer.loadEquipment(position, equipmentTypes.get(i).getEquipment());
                break;
             }
-
         }
     }
 

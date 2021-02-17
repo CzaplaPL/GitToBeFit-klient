@@ -178,11 +178,13 @@
         <item>4 dni</item>
     </string-array>
     <string-array name="fintess_duration">
-        <item>8 minut</item>
+        <item>9 minut</item>
         <item>12 minut</item>
-        <item>16 minut</item>
-        <item>20 minut</item>
-        <item>25 minut</item>
+        <item>15 minut</item>
+        <item>18 minut</item>
+        <item>21 minut</item>
+        <item>24 minut</item>
+        <item>27 minut</item>
         <item>30 minut</item>
     </string-array>
 
