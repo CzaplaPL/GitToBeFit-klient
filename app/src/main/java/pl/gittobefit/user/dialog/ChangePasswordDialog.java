@@ -52,7 +52,7 @@ public class ChangePasswordDialog extends AppCompatDialogFragment
                             ConnectionToServer.getInstance().userServices.changePassword(oldPassword, newPassword, getContext());
                         }
                         else {
-                            Toast.makeText(getContext(), "errMsg", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Hasło musi składać sie z:\n- 8 znaków\n- jednej wielkiej litery\n- jendej małej litery\n- znaku specjalnego", Toast.LENGTH_LONG).show();
                         }
                     }
                 });

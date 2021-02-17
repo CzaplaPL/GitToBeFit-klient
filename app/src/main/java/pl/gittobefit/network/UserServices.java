@@ -7,19 +7,19 @@ import android.widget.Toast;
 
 import com.facebook.AccessToken;
 
+import java.util.List;
 import java.util.Objects;
 
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
-import pl.gittobefit.database.entity.UserEntity;
+import pl.gittobefit.database.entity.EntityUser;
 import pl.gittobefit.network.interfaces.IUserServices;
-import pl.gittobefit.network.object.UserChangeEmail;
-import pl.gittobefit.network.object.UserChangePass;
+import pl.gittobefit.network.object.ChangeEmailUser;
+import pl.gittobefit.network.object.ChangePassUser;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
 import pl.gittobefit.user.User;
-import pl.gittobefit.user.Validation;
 import pl.gittobefit.user.fragments.Login;
 import pl.gittobefit.user.fragments.Registration;
 import retrofit2.Call;
@@ -44,7 +44,7 @@ public class UserServices
      *
      * @param email    email
      * @param password hasło
-     * @param fragment     activity
+     * @param fragment activity
      * @author czapla
      */
     public void login(String email, String password, Login fragment, View view)
@@ -53,6 +53,11 @@ public class UserServices
         Log.w("Network", "      user.login");
         Log.w("Network", "   " + email + " " + password);
         //przygotowanie zapytania
+        if(!email.matches("^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
+        {
+            fragment.loginFail(false);
+            return;
+        }
         Call<Void> call = user.login(new RespondUser(email, password));
         //wywołanie zapytania
         call.enqueue(new Callback<Void>()
@@ -73,8 +78,8 @@ public class UserServices
                             if(response2.isSuccessful())
                             {
                                 User.getInstance().add(email, password, response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.OUR_SERVER, fragment.getContext());
-                                AppDataBase.getInstance(fragment.getContext()).user().addUser(new UserEntity (email, response.headers().get("Authorization")));
-                                AppDataBase.getInstance(fragment.getContext()).user().setID(1, email);
+                                AppDataBase.getInstance(fragment.getContext()).user().addUser(new EntityUser(Integer.parseInt(response2.headers().get("idUser")),email, response.headers().get("Authorization")));
+                                //AppDataBase.getInstance(fragment.getContext()).user().setID(1, email);
                                 fragment.loginSuccess(view);
                             }else
                             {
@@ -254,45 +259,33 @@ public class UserServices
      */
     public void changePassword(String actualPassword, String newPassword, Context context)
     {
-
-        Call<Void> call = user.getUserIDbyEmail(User.getInstance().getEmail(), User.getInstance().getToken());
-        call.enqueue(new Callback<Void>()
+        String userID =  User.getInstance().getIdSerwer();
+        Call<Void> call2 = user.changePassword(userID, User.getInstance().getToken(), new ChangePassUser(User.getInstance().getEmail(), actualPassword, newPassword));
+        call2.enqueue(new Callback<Void>()
         {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response)
             {
-                String userID = response.headers().get("idUser");
-                Call<Void> call2 = user.changePassword(userID, User.getInstance().getToken(), new UserChangePass (User.getInstance().getEmail(), actualPassword, newPassword));
-                call2.enqueue(new Callback<Void>()
+                if (response.isSuccessful())
                 {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response)
+                    Toast.makeText(context, "Hasło zostało zmienione", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    int code = response.code();
+                    if(code == 409)
                     {
-
-                        int code = response.code();
-                        if(code == 409)
-                        {
-                            Toast.makeText(context, "Błędne stare hasło", Toast.LENGTH_SHORT).show();
-                        }else
-                        {
-                            Toast.makeText(context, "Zmieniono hasło !", Toast.LENGTH_SHORT).show();
-                        }
-                        Log.e("kod błędu", String.valueOf(code));
+                        Toast.makeText(context, "Niepoprawne stare hasło !", Toast.LENGTH_SHORT).show();
                     }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t)
-                    {
-                        Log.e(" błąd  ", "zmiana hasła : " + t.toString());
-                    }
-                });
-
+                    Log.e("kod błędu", String.valueOf(code));
+                    LogUtils.logCause(response.headers().get("Cause"));
+                }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t)
             {
-                Log.e(" błąd  ", "pobiereanie id poprzez email : " + t.toString());
+                Log.e(" błąd  ", "zmiana hasła : " + t.toString());
             }
         });
     }
@@ -302,79 +295,63 @@ public class UserServices
      */
     public void deleteAccount()
     {
-        Call<Void> call = user.getUserIDbyEmail(User.getInstance().getEmail(), User.getInstance().getToken());
-        call.enqueue(new Callback<Void>()
+        String userID = User.getInstance().getIdSerwer();
+        Call<Void> call2 = user.deleteAccount(userID, User.getInstance().getToken());
+        call2.enqueue(new Callback<Void>()
         {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response)
             {
-                String userID = response.headers().get("idUser");
-                Call<Void> call2 = user.deleteAccount(userID, User.getInstance().getToken());
-                call2.enqueue(new Callback<Void>()
+                if (response.isSuccessful())
                 {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response)
-                    {
-                        int code = response.code();
-                        Log.e("kod błędu", String.valueOf(code));
-                        User.getInstance().setToken(null);
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t)
-                    {
-                        Log.e(" Błąd  ", "usuwanie konta: " + t.toString());
-                    }
-                });
+                    User.getInstance().setToken(null);
+                }
+                else
+                {
+                    int code = response.code();
+                    Log.e("kod błędu", String.valueOf(code));
+                    LogUtils.logCause(response.headers().get("Cause"));
+                }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t)
             {
-                Log.e(" błąd  ", "pobiereanie id poprzez email : " + t.toString());
+                Log.e(" Błąd  ", "usuwanie konta: " + t.toString());
             }
         });
     }
 
     public void changeEmail(String newEmail, String password, Context context)
     {
-        Call<Void> call = user.getUserIDbyEmail(User.getInstance().getEmail(), User.getInstance().getToken());
-        call.enqueue(new Callback<Void>()
+        String userID = User.getInstance().getIdSerwer();
+        Call<Void> call2 = user.changeEmail(userID, User.getInstance().getToken(), new ChangeEmailUser(newEmail, password));
+        call2.enqueue(new Callback<Void>()
         {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response)
             {
-                String userID = response.headers().get("idUser");
-                Call<Void> call2 = user.changeEmail(userID, User.getInstance().getToken(), new UserChangeEmail (newEmail, password));
-                call2.enqueue(new Callback<Void>()
+                if(response.isSuccessful())
                 {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response)
+                    User.getInstance().setEmail(newEmail);
+                    Toast.makeText(context, "Zmieniono email !", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    int code = response.code();
+                    Log.e("kod błędu", String.valueOf(code));
+                    if(code == 409)
                     {
-                        int code = response.code();
-                        Log.e("kod błędu", String.valueOf(code));
-                        if(code == 409)
-                        {
-                            Toast.makeText(context, "Błędne stare hasło", Toast.LENGTH_SHORT).show();
-                        }else
-                        {
-                            User.getInstance().setEmail(newEmail);
-                            Toast.makeText(context, "Zmieniono email !", Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(context, response.headers().get("Cause"), Toast.LENGTH_SHORT).show();
                     }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t)
-                    {
-                        Log.e(" Błąd  ", "zmiana emaila: " + t.toString());
-                    }
-                });
+                    LogUtils.logCause(response.headers().get("Cause"));
+                }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t)
             {
-                Log.e(" błąd  ", "pobiereanie id poprzez email : " + t.toString());
+                Log.e(" Błąd  ", "zmiana emaila: " + t.toString());
             }
         });
     }
@@ -386,7 +363,7 @@ public class UserServices
      */
     public void remindPassword(String email, Context context)
     {
-        Log.w("network  ", "przypominanie hasła");
+        Log.d("network  ", "przypominanie hasła");
 
         Call<Void> call = user.remindPass(email);
         call.enqueue(new Callback<Void>()
@@ -396,7 +373,7 @@ public class UserServices
             {
                 if(response.isSuccessful())
                 {
-                    Log.w("przypominanie hasła ", "sukces");
+                    Log.d("przypominanie hasła ", "sukces");
                     Toast.makeText(context,context.getResources().getString(R.string.sendPassword),Toast.LENGTH_SHORT).show();
                 }else
                 {
@@ -473,19 +450,29 @@ public class UserServices
 
     public void verify(Login fragment)
     {
-        Call<Void> call = user.verify(AppDataBase.getInstance(fragment.getContext()).user().getToken(1));
+        List<EntityUser> result = AppDataBase.getInstance(fragment.getContext()).user().getUser();
+        EntityUser userEntity = result.get(0);
+
+        Call<Void> call = user.verify(userEntity.getToken());
 
         call.enqueue(new Callback<Void>()
         {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.w("Autologwanie  ", "  sukces");
-                System.out.println("Kod zwracany przez autoLog: " + response.code());
-                //System.out.println("otrzymany token: " + response.headers().get("Authorization"));
-                AppDataBase.getInstance(fragment.getContext()).user().setToken(response.headers().get("Authorization"),1);
-                String email = AppDataBase.getInstance(fragment.getContext()).user().getEmail(1);
-                User.getInstance().add(email, "password", response.headers().get("Authorization"), "id", User.WayOfLogin.OUR_SERVER, fragment.getContext());
-                fragment.loginSuccess(fragment.getView());
+                if (response.isSuccessful())
+                {
+                    Log.w("Autologwanie  ", "  sukces");
+                    System.out.println("Kod zwracany przez autoLog: " + response.code());
+                    //System.out.println("otrzymany token: " + response.headers().get("Authorization"));
+                    AppDataBase.getInstance(fragment.getContext()).user().setToken(response.headers().get("Authorization"),userEntity.getId());
+                    //String email = AppDataBase.getInstance(fragment.getContext()).user().getEmail(1);
+                    User.getInstance().add(userEntity.getEmail(), response.headers().get("Authorization"), String.valueOf(userEntity.getId()), User.WayOfLogin.OUR_SERVER, fragment.getContext());
+                    fragment.loginSuccess(fragment.getView());
+                }
+                else
+                {
+                    LogUtils.logCause(response.headers().get("Cause"));
+                }
             }
 
             @Override

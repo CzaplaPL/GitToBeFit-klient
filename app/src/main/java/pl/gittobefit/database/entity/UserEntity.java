@@ -10,19 +10,19 @@ import androidx.room.PrimaryKey;
  * @author Czapla
  */
 @Entity
-public class UserEntity {
-    @PrimaryKey(autoGenerate = true)
+public class EntityUser {
+    @PrimaryKey()
     private int id;
 
     private String email;
     private String token;
 
 
-    public UserEntity(String email, String token)
+    public EntityUser(int id, String email,String token)
     {
+        this.id = id;
         this.email = email;
         this.token = token;
-
     }
 
     public int getId() {

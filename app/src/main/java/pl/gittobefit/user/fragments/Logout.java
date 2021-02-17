@@ -62,8 +62,7 @@ public class Logout extends Fragment
             case OUR_SERVER:
                 User.getInstance().setToken(null);
                 User.getInstance().setLoggedBy(User.WayOfLogin.DEFAULT);
-                int id = AppDataBase.getInstance(getContext()).user().getID(User.getInstance().getEmail());
-                AppDataBase.getInstance(getContext()).user().deleteByUserId(id);
+                AppDataBase.getInstance(getContext()).user().deleteByUserId(Integer.parseInt(User.getInstance().getIdSerwer()));
                 break;
             case FACEBOOK:
                 AccessToken.setCurrentAccessToken(null);
