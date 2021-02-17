@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class EquipmentType extends EquipmentForm
 {
+
     private ArrayList<Equipment> equipment ;
     public EquipmentType(int id, String name, String url)
     {
