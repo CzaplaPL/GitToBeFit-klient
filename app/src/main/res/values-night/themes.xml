@@ -2,10 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.GitToBeFit" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:windowBackground">@color/ourWhite</item>
-        <item name="colorPrimary">@color/ourGreen</item>
+        <item name="colorPrimary">@color/ourBlackBar</item>
         <item name="colorPrimaryVariant">@color/ourBlack</item>
-        <item name="colorOnPrimary">@color/ourGray</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/ourGreen</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/ourBlackBar</item>
+        <item name="colorAccent">@color/ourGreen</item>
+        <item name="android:navigationBarColor">@color/ourBlackBar</item>
     </style>
     <style name="Theme.GitToBeFit.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/background_activity</item>
@@ -13,11 +15,12 @@
         <item name="colorPrimaryVariant">@color/ourWhite</item>
         <item name="colorOnSurface">@color/ourWhite</item>
         <item name="colorOnPrimary">@color/ourGray</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/ourBlackBar</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorAccent">@color/ourGreen</item>
+        <item name="android:navigationBarColor">@color/ourBlackBar</item>
     </style>
-
     <!--style przycisków -->
     <style name="roundedButton" parent="">
         <item name="cornerFamily">rounded</item>
@@ -40,6 +43,4 @@
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
-
-
 </resources>

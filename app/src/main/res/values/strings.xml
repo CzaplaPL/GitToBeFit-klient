@@ -17,7 +17,7 @@
     <string name="register">Załóż je</string>
     <string name="skip">Pomiń</string>
     <string name="remindPassword">Przypomnij Hasło</string>
-    <string name="remindPasswordText">Podaj email twojego konta. Zostanie na nie wysłane nowe hasło </string>
+    <string name="remindPasswordText">Podaj email twojego konta. Zostanie na nie wysłane nowe hasło.</string>
     <string name="remindPasswordTitle">Przypomnij hasło </string>
     <string name="incorrectData">Błędne dane</string>
     <string name="duplicateEmail">Ten Email jest zajęty</string>
