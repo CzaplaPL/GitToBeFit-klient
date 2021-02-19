@@ -154,4 +154,38 @@
     <string name="wrongPassword">błędne Hasło. Hasło musi składać się z 8 znaków i zawierać Wielką litere,cyfre i znak specjalny  </string>
     <string name="wrongPasswoed2">Hasła różnią się</string>
 
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="array1">
+        <item>Trening split</item>
+        <item>Trening fbw</item>
+        <item>Trening cardio</item>
+        <item>Trening fitness</item>
+    </string-array>
+    <string-array name="training_subtype">
+        <item>Serie</item>
+        <item>Czas</item>
+    </string-array>
+    <string-array name="split_duration">
+        <item>3 dni</item>
+        <item>4 dni</item>
+        <item>5 dni</item>
+    </string-array>
+    <string-array name="fbw_duration">
+        <item>3 dni</item>
+        <item>4 dni</item>
+    </string-array>
+    <string-array name="fintess_duration">
+        <item>9 minut</item>
+        <item>12 minut</item>
+        <item>15 minut</item>
+        <item>18 minut</item>
+        <item>21 minut</item>
+        <item>24 minut</item>
+        <item>27 minut</item>
+        <item>30 minut</item>
+    </string-array>
+
 </resources>

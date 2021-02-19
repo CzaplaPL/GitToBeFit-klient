@@ -2,27 +2,14 @@ package pl.gittobefit.user;
 
 import android.content.Context;
 
+import pl.gittobefit.database.AppDataBase;
+import pl.gittobefit.database.entity.UserEntity;
+
 /**
  * klasa przechowująca informacje o użytkowniku
  */
 public class User
 {
-    private String email ="" ;
-    private String auth ="";
-    private String idSerwer = "";
-    private WayOfLogin loggedBy = WayOfLogin.DEFAULT;
-    private static volatile User INSTANCE;
-
-    public String getIdSerwer()
-    {
-        return idSerwer;
-    }
-
-    public void setIdSerwer(String idSerwer)
-    {
-        this.idSerwer = idSerwer;
-    }
-
     public enum WayOfLogin
     {
         DEFAULT,
@@ -30,6 +17,13 @@ public class User
         GOOGLE,
         FACEBOOK
     }
+
+    private String email ="" ;
+    private String auth ="";
+    private String idSerwer = "";
+    private WayOfLogin loggedBy = WayOfLogin.DEFAULT;
+
+    private static volatile User INSTANCE;
 
     /**
      * pobieranie instancji usera
@@ -82,6 +76,15 @@ public class User
         this.auth=auth;
         this.loggedBy = loggedBy;
     }
+
+    public String getIdSerwer()
+    {
+        return idSerwer;
+    }
+    public void setIdSerwer(String idSerwer)
+    {
+        this.idSerwer = idSerwer;
+    }
     //getter do emaila - Kuba
     public String getEmail()
     {
@@ -108,5 +111,6 @@ public class User
     public void setEmail(String email) {
         this.email = email;
     }
+
 
 }
