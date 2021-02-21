@@ -103,14 +103,16 @@ public class MainActivity extends AppCompatActivity
         TextView emailText = navigationView.getHeaderView(0).findViewById(R.id.user_email_display);
         if(User.getInstance().getLoggedBy()== User.WayOfLogin.DEFAULT)
         {
-            navigationView.getMenu().getItem(3).setTitle("Zaloguj");
+            navigationView.getMenu().getItem(3).setTitle(getString(R.string.login));
             emailText.setText("");
         }else
         {
-            navigationView.getMenu().getItem(3).setTitle("Wyloguj");
+            navigationView.getMenu().getItem(3).setTitle(getString(R.string.logout));
             emailText.setText(User.getInstance().getEmail());
         }
+        if(User.getInstance().getLoggedBy()!= User.WayOfLogin.OUR_SERVER)  navigationView.getMenu().getItem(1).setEnabled(false);
         drawerLayout.openDrawer(GravityCompat.START);
+
     }
 
 }
