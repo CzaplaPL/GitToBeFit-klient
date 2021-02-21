@@ -94,6 +94,7 @@
             app:layout_constraintTop_toBottomOf="@+id/loginMailKontener"
             app:passwordToggleEnabled="true"
             app:passwordToggleTintMode="multiply"
+            android:nextFocusForward="@+id/loginZaloguj"
             app:startIconContentDescription="@string/password"
             app:startIconDrawable="@drawable/baseline_lock_open_24">
 
