@@ -50,7 +50,15 @@
             Michał Puchawski - sekretarz zespołu, backend developer, application architect,DevOps\n
             Dominik Daniłowski - Android Developer, application architect\n
             Jakub Turlej - Android Developer, application architect
-            Wiktor Kwiatkowski - Android Developer, application architect</string>
+            Wiktor Kwiatkowski - Android Developer, application architect
+    changeLog:
+    0.1.1
+        poprawki w trybie ciemnym
+        poprawki layatów logowanie i rejestracja
+        dodanie formularza wyboru sprzętu
+        dodanie formularza wyboru opcji treningu
+        dodanie do bazy id użytkownika z serwera oraz dodstosowanie niektórych funkcji do korzystania z zapisanego id
+    </string>
     <string name="logout">wylogowywanie</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"

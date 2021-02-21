@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -24,12 +26,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Collections;
 
 import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
+import pl.gittobefit.databinding.MainNavDrawerBinding;
 import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.user.Validation;
 
@@ -58,6 +62,7 @@ public class Login extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         Button button =  view.findViewById(R.id.loginZaloguj);
         button.setOnClickListener(this);
@@ -79,13 +84,7 @@ public class Login extends Fragment implements View.OnClickListener
         }
         //Logowanie google
         GoogleLogin();
-        //automatyczne logowanie google
-        /*if(GoogleSignIn.getLastSignedInAccount(getContext())!=null)
-        {
-            Log.w("auto login google =" , "     login " );
-            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
-            ConnectionToServer.getInstance().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this,view);
-        }*/
+
         //automatyczne logowanie nasz server
         if(!AppDataBase.getInstance(getContext()).user().getUser().isEmpty())
         {
@@ -93,6 +92,13 @@ public class Login extends Fragment implements View.OnClickListener
         }
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+
     }
 
     /***

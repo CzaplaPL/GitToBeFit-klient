@@ -14,14 +14,16 @@ tools:openDrawer="start">
         android:layout_height="match_parent"
         />
 
-<com.google.android.material.navigation.NavigationView
-    android:id="@+id/nav_view"
-    android:background="@drawable/gradient_green"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_gravity="start"
-    android:fitsSystemWindows="true"
-    app:headerLayout="@layout/main_nav_drawer"
-    app:menu="@menu/drawer_menu" />
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/main_nav_drawer"
+        android:background="@drawable/gradient_green"
+        app:menu="@menu/drawer_menu"/>
+
+
 </androidx.drawerlayout.widget.DrawerLayout>
 

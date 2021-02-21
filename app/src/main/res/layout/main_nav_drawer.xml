@@ -24,11 +24,10 @@
         android:id="@+id/user_email_display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@color/ourGray"/>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
