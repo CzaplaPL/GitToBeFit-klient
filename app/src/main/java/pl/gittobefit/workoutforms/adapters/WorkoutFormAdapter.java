@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import pl.gittobefit.workoutforms.fragments.GenerateTrainingForm;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.fragments.forms.Tab2Fragment;
-import pl.gittobefit.workoutforms.fragments.forms.Tab3Fragment;
+import pl.gittobefit.workoutforms.fragments.forms.SummaryFragment;
 
 
 /**
@@ -29,7 +29,7 @@ public class WorkoutFormAdapter extends FragmentStateAdapter {
             case 1:
                 return  new Tab2Fragment ();
             default:
-                return  new Tab3Fragment ();
+                return  new SummaryFragment();
         }
     }
     @Override

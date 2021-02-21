@@ -77,6 +77,7 @@
                 android:id="@+id/loginMail"
                 android:layout_width="match_parent"
                 android:layout_height="53dp"
+                android:autofillHints="emailAddress"
                 android:inputType="textWebEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 

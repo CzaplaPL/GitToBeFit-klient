@@ -20,7 +20,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
-import pl.gittobefit.databinding.MainNavDrawerBinding;
 import pl.gittobefit.user.User;
 
 /***
