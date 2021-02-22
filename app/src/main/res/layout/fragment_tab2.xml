@@ -8,8 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="24dp"
-        android:background="#FCBD1F"
+        android:textSize="20sp"
+        android:textColor="#040404"
+        android:textStyle="bold"
+        android:background="#C2B280"
+        android:padding="3dp"
         />
     <Spinner
         android:id="@+id/spinner1"
@@ -26,13 +29,17 @@
         android:background="@drawable/textview_email_border" />
 
     <TextView
+        android:id="@+id/way_of_training"
         android:text="Wybierz sposób odbywania treningu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="24dp"
-        android:background="#FCBD1F"
+        android:textStyle="bold"
+        android:textColor="#040404"
+        android:textSize="20sp"
+        android:background="#C2B280"
         android:layout_marginTop="8dp"
+        android:padding="3dp"
         />
 
     <Spinner
@@ -55,9 +62,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="24dp"
-        android:background="#FCBD1F"
+        android:textSize="20sp"
+        android:textColor="#040404"
+        android:textStyle="bold"
+        android:background="#C2B280"
         android:layout_marginTop="8dp"
+        android:padding="3dp"
         />
 
     <Spinner
@@ -74,4 +84,25 @@
         android:padding="20sp"
         android:justificationMode="inter_word"
         android:background="@drawable/textview_email_border" />
+
+    <TextView
+        android:id="@+id/bodyPartsText"
+        android:text="Wybierz interesujące Cię partie ciała"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="#040404"
+        android:textStyle="bold"
+        android:background="#C2B280"
+        android:layout_marginTop="8dp"
+        android:padding="3dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/myRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>

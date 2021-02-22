@@ -46,6 +46,7 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
 
     }
 
+
     /**
      * inicjalizacja listy kategori sprzętów
      * @param equipmentType ArrayList którą uzupełnić liste

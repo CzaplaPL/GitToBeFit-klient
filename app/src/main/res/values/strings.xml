@@ -188,4 +188,12 @@
         <item>30 minut</item>
     </string-array>
 
+    <string name="split">Split to inaczej trening dzielony. Polega na ćwiczeniu każdej partii mięśni .Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.</string>
+    <string name="fbw">Trening FBW to ćwiczenia całego ciała. W trakcie jego wykonywania angażujesz wiele partii mięśniowych. Głównym założeniem jest wywołanie jak największej odpowiedzi anabolicznej twojego ciała, poprzez pobudzanie go ćwiczeniami wielostawowymi.</string>
+    <string name="cardio">Trening cardio to ćwiczenia wytrzymałościowe dotleniające organizm, poprawiające pracę układu krążenia oraz kondycję organizmu. Zwiększa ilość oddechów na minutę oraz przyspiesza tętno, co sprawia, że komórki i tkanki mięśniowe są lepiej dotlenione.</string>
+    <string name="fitness">Trening prozdrowotny. Głównym założeniem treningu fitness jest jego pozasportowy, prozdrowotny charakter. Do zajęć fitness można więc zaliczyć wszelkie formy aktywności fizycznej, ale podejmowane świadomie i systematycznie w celu poprawy szeroko pojmowanego zdrowia.</string>
+    <string name="series">Wykonywanie ćwiczenia na ilość serii.</string>
+    <string name="circuit">Wykonywanie ćwiczenia przez określony czas.</string>
+    <string name="days">Dostarczymy Ci plan treningowy na wybraną przez Ciebie ilość dni.</string>
+    <string name="minutes">Dostarczymy Ci pojedyńczy trening w wybranych przez Ciebie ramach czaowych.</string>
 </resources>

@@ -3,8 +3,12 @@
     android:id="@+id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="5dp"
     android:maxLines="1"
-    android:textSize="22sp"
+    android:textSize="18sp"
+    android:textStyle="bold"
     android:gravity="center"
-    android:background="@color/ourGray">
+    android:background="@color/ourGray"
+    android:textColor="#040404"
+   >
 </TextView>
