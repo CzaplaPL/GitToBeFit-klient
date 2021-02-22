@@ -11,6 +11,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/titleEquipment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="15dp"
+            android:layout_toEndOf="@+id/itemPicture"
+            android:text="@string/titleEquipment"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:ignore="RelativeOverlap" />
+
         <LinearLayout
             android:id="@+id/equipmentLoading"
             android:layout_width="match_parent"
@@ -38,7 +54,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvContacts"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
         </androidx.recyclerview.widget.RecyclerView>
 

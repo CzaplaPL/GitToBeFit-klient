@@ -16,11 +16,13 @@
         <item name="colorOnSurface">@color/ourBlack</item>
         <item name="colorPrimaryVariant">@color/ourBlack</item>
         <item name="colorOnPrimary">@color/ourGray</item>
+        <item name="colorOnBackground">@color/ourGreenDay</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="drawerArrowStyle">@style/DrawerIcon</item>
         <item name="colorAccent">@color/ourGreenDay</item>
+        <item name="colorSurface">@color/ourGray</item>
         <item name="android:navigationBarColor">@color/ourBlack</item>
     </style>
 

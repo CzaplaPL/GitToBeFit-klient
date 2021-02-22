@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:maxLines="1"
-    android:textSize="22sp"
-    android:gravity="center"
-    android:background="@color/ourGray">
+    android:textColor="?attr/colorOnSurface"
+    android:layout_centerVertical="true"
+    android:background="@drawable/custom_spinner"
+    android:padding="15dp"
+    android:textSize="15sp">
 </TextView>

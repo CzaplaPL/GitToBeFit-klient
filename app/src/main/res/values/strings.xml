@@ -43,6 +43,8 @@
     <string name="registrsuccesinfo">Na podany email została wysłana wiadomość z linkiem aktywującym konto</string>
     <string name="ok">OK</string>
     <string name="example">przykładowy tekst</string>
+    <string name="titleEquipment">Wybierz swój sprzęt do wykonania treningu:</string>
+    <string name="next">Przejdź Dalej</string>
     <string name="aboutUsInfo">Numer zespołu: 8\n
         Opiekun zespołu: Daniel Borucki\n
         Zespół:\n

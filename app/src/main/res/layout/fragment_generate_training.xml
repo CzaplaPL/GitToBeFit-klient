@@ -9,17 +9,36 @@
     tools:context=".workoutforms.fragments.GenerateTrainingForm">
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutId"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:id="@+id/tabLayoutId"
-        app:tabTextColor="@color/ourBlack"
+        android:layout_marginBottom="30dp"
+        android:background="@color/ourGreen"
         app:tabIndicatorColor="@color/ourGray"
         app:tabSelectedTextColor="@color/ourGray"
-        android:background="@color/ourGreen">
-    </com.google.android.material.tabs.TabLayout>
+        app:tabTextColor="@color/ourBlack"></com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPagerId"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="577dp">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/next"
+            style="style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="14sp"
+            app:shapeAppearanceOverlay="@style/roundedButton" />
+    </LinearLayout>
+
 </LinearLayout>
