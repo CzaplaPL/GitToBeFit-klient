@@ -53,11 +53,6 @@ public class UserServices
         Log.w("Network", "      user.login");
         Log.w("Network", "   " + email + " " + password);
         //przygotowanie zapytania
-        if(!email.matches("^[\\w!#$%&'+/=?`{|}~^-]+(?:\\.[\\w!#$%&'+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$"))
-        {
-            fragment.loginFail(false);
-            return;
-        }
         Call<Void> call = user.login(new RespondUser(email, password));
         //wywołanie zapytania
         call.enqueue(new Callback<Void>()
@@ -152,6 +147,7 @@ public class UserServices
                             if(response2.isSuccessful())
                             {
                                 User.getInstance().add(email, response.headers().get("Authorization"), "1", User.WayOfLogin.GOOGLE, fragment.getContext());
+                                AppDataBase.getInstance(fragment.getContext()).user().addUser(new UserEntity(Integer.parseInt(response2.headers().get("idUser")),email, response.headers().get("Authorization")));
                                 fragment.loginSuccess(view);
                             }else
                             {
