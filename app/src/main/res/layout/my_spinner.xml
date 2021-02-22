@@ -3,12 +3,10 @@
     android:id="@+id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
     android:maxLines="1"
-    android:textSize="18sp"
-    android:textStyle="bold"
-    android:gravity="center"
-    android:background="@color/ourGray"
-    android:textColor="#040404"
-   >
+    android:textColor="?attr/colorOnSurface"
+    android:layout_centerVertical="true"
+    android:background="@drawable/custom_spinner"
+    android:padding="15dp"
+    android:textSize="15sp">
 </TextView>
