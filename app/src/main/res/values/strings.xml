@@ -109,6 +109,13 @@
         dodanie formularza wyboru sprzętu\n
         dodanie formularza wyboru opcji treningu\n
         dodanie do bazy id użytkownika z serwera oraz dodstosowanie niektórych funkcji do korzystania z zapisanego id\n
+        0.1.2\n
+        poprawki leyautow : \n
+        logowanie,rejestracja,formularz wyboru sprzetu oraz formularz details \n
+        poprawki w drawerbar\n
+        dodanie wyboru parti ciała w formularzu szczegułów \n
+        zapisywanie danych z formularza szczegułów do viewmodel \n
+        zarys wyglądu podsumowania formularza \n
     </string>
 
     <string name="split">Split to inaczej trening dzielony. Polega na ćwiczeniu każdej partii mięśni .Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.</string>

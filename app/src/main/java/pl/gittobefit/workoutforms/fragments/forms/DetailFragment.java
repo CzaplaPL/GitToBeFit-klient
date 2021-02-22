@@ -26,9 +26,9 @@ import pl.gittobefit.workoutforms.viewmodel.DetailsViewModel;
 /**
  fragment tab2
  */
-public class Tab2Fragment extends Fragment {
+public class DetailFragment extends Fragment {
 
-    public Tab2Fragment() { }
+    public DetailFragment() { }
     DetailsViewModel detailsViewModel;
     ArrayList<BodyParts> bodyPartsToChoose;
     TextView td;
@@ -43,16 +43,16 @@ public class Tab2Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate ( R.layout.fragment_tab2, container, false );
+        return inflater.inflate ( R.layout.fragment_detail_form, container, false );
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         detailsViewModel =  new ViewModelProvider(requireActivity()).get(DetailsViewModel.class);
-        td = getView().findViewById(R.id.training_description);
-        dd = getView().findViewById(R.id.duration_description);
-        std = getView().findViewById(R.id.subtraining_description);
+        td = getView().findViewById(R.id.typeDesciption);
+        dd = getView().findViewById(R.id.frequencyDescription);
+        std = getView().findViewById(R.id.wayDescription);
 
         switch (detailsViewModel.getPositionSpinner1())
         {
@@ -101,9 +101,9 @@ public class Tab2Fragment extends Fragment {
 
 
         Spinner spinner1, spinner2, spinner3;
-        spinner1 = (Spinner) getView().findViewById(R.id.spinner1);
-        spinner2 = (Spinner) getView().findViewById(R.id.spinner2);
-        spinner3 = (Spinner) getView().findViewById(R.id.spinner3);
+        spinner1 = (Spinner) getView().findViewById(R.id.typeSpinner);
+        spinner2 = (Spinner) getView().findViewById(R.id.waySpinner);
+        spinner3 = (Spinner) getView().findViewById(R.id.frequencySpinner);
 
         bodyPartsToChoose = detailsViewModel.getList();
 
@@ -113,9 +113,7 @@ public class Tab2Fragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
 
-        spinner1 = (Spinner) getView().findViewById(R.id.typeSpinner);
-        spinner2 = (Spinner) getView().findViewById(R.id.waySpinner);
-        spinner3 = (Spinner) getView().findViewById(R.id.frequencySpinner);
+
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getContext(),
                 R.array.array1, R.layout.my_spinner);
         spinner1.setAdapter(adapter1);
@@ -136,7 +134,7 @@ public class Tab2Fragment extends Fragment {
         TextView dd = getView().findViewById(R.id.frequencyDescription);
         dd.setText(days);
         TextView wot;
-        wot = getView().findViewById(R.id.way_of_training);
+        wot = getView().findViewById(R.id.titleWay);
 
         TextView bp = getView().findViewById(R.id.bodyPartsText);
 
