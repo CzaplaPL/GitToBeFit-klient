@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import pl.gittobefit.R;
 import pl.gittobefit.databinding.FragmentEquipmentBinding;
-import pl.gittobefit.databinding.FragmentSummaryFragmentBinding;
+import pl.gittobefit.databinding.FragmentSummaryFormBinding;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
 /**
@@ -20,7 +20,7 @@ import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
  */
 public class SummaryFragment extends Fragment {
 
-    private FragmentSummaryFragmentBinding binding ;
+    private FragmentSummaryFormBinding binding ;
     private GenerateTraningViewModel model;
     public SummaryFragment() { }
 
@@ -32,7 +32,7 @@ public class SummaryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentSummaryFragmentBinding.inflate(inflater, container, false);
+        binding = FragmentSummaryFormBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
     @Override
