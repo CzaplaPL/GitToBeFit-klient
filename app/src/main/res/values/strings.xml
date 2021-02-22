@@ -6,7 +6,7 @@
     <string name="menu_logout">Wyloguj</string>
     <string name="e_mail">e-mail</string>
     <string name="password">hasło</string>
-    <string name="forgotPassword">Nie pamiętasz hasła ?</string>
+    <string name="forgotPassword">Nie pamiętasz hasła?</string>
     <string name="login">Zaloguj</string>
     <string name="otherLogin">lub zaloguj się z</string>
     <string name="google">Google</string>
@@ -34,10 +34,10 @@
     <string name="google_token">57028483820-2fdhd5l8e0vc3knl5o3urda3n2di4gu9.apps.googleusercontent.com</string>
     <string name="rE_mail">Adres e-mail</string>
     <string name="rPassword">Hasło</string>
-    <string name="rRewersePassword">Ponów Hasło</string>
+    <string name="rRewersePassword">powtórz hasło</string>
     <string name="robot">Nie jestem robotem</string>
     <string name="checkbox">CheckBox</string>
-    <string name="statute">Akceptuje Regulamin</string>
+    <string name="statute">Akceptuję Regulamin</string>
     <string name="registr">Zarejestruj </string>
     <string name="registrsucces">Rejestracja zakończona sukcesem </string>
     <string name="registrsuccesinfo">Na podany email została wysłana wiadomość z linkiem aktywującym konto</string>
