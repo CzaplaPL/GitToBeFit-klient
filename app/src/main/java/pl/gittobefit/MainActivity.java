@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity
             emailText.setText(User.getInstance().getEmail());
         }
         if(User.getInstance().getLoggedBy()!= User.WayOfLogin.OUR_SERVER)  navigationView.getMenu().getItem(1).setEnabled(false);
+        else navigationView.getMenu().getItem(1).setEnabled(true);
         drawerLayout.openDrawer(GravityCompat.START);
 
     }
