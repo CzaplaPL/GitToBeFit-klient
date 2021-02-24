@@ -36,14 +36,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.28" />
+        app:layout_constraintGuide_percent="0.18" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/panel"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline_down"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"
         app:layout_constraintHorizontal_bias="0.0"
@@ -70,7 +69,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="zmiana"
+            android:text="@string/rE_mail"
             app:layout_constraintStart_toStartOf="@+id/guideline_panel"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -79,14 +78,15 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/ourBlack"
             app:boxStrokeColor="@drawable/kontener_background"
             app:boxStrokeWidth="2dp"
             app:errorEnabled="true"
             app:hintEnabled="true"
             app:layout_constraintEnd_toStartOf="@+id/guideline_panel2"
             app:layout_constraintStart_toStartOf="@+id/guideline_panel"
-            app:layout_constraintTop_toBottomOf="@+id/text_email">
+            app:layout_constraintTop_toBottomOf="@+id/text_email"
+            app:startIconContentDescription="@string/e_mail"
+            app:startIconDrawable="@drawable/baseline_email_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginMail"
@@ -95,6 +95,7 @@
                 android:inputType="textWebEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <TextView
             android:id="@+id/text_password"
@@ -111,12 +112,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textColorHint="@color/ourBlack"
             android:visibility="visible"
+            app:hintEnabled="true"
+            app:startIconDrawable="@drawable/baseline_lock_open_24"
+            app:startIconContentDescription="@string/password"
             app:boxStrokeColor="@drawable/kontener_background"
             app:boxStrokeWidth="2dp"
             app:errorEnabled="true"
-            app:hintEnabled="true"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTintMode="multiply"
             app:layout_constraintEnd_toStartOf="@+id/guideline_panel2"
             app:layout_constraintStart_toStartOf="@+id/guideline_panel"
             app:layout_constraintTop_toBottomOf="@+id/text_password">
@@ -142,12 +146,15 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/ourBlack"
-            android:visibility="visible"
+            app:hintEnabled="true"
+            app:startIconDrawable="@drawable/baseline_lock_open_24"
+            app:startIconContentDescription="@string/password"
             app:boxStrokeColor="@drawable/kontener_background"
+            android:visibility="visible"
             app:boxStrokeWidth="2dp"
             app:errorEnabled="true"
-            app:hintEnabled="true"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTintMode="multiply"
             app:layout_constraintEnd_toStartOf="@+id/guideline_panel2"
             app:layout_constraintStart_toStartOf="@+id/guideline_panel"
             app:layout_constraintTop_toBottomOf="@+id/text_rewerse_password">
@@ -179,19 +186,20 @@
             app:layout_constraintStart_toStartOf="@+id/guideline_panel"
             app:layout_constraintTop_toBottomOf="@+id/checkBox_robot" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/buttonRegistr"
+            style="style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/registr"
+            android:textColor="?attr/colorPrimaryVariant"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_panel2"
+            app:layout_constraintStart_toStartOf="@+id/guideline_panel"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox_statute"
+            app:shapeAppearanceOverlay="@style/roundedButton" />
 
-    <Button
-        android:id="@+id/buttonRegistr"
-        style="style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/registr"
-        android:textColor="?attr/colorPrimaryVariant"
-        app:layout_constraintBottom_toBottomOf="@+id/panel"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/guideline_left"
-        app:shapeAppearanceOverlay="@style/roundedButton" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_down"

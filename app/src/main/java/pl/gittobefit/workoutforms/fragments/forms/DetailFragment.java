@@ -26,9 +26,9 @@ import pl.gittobefit.workoutforms.viewmodel.DetailsViewModel;
 /**
  fragment tab2
  */
-public class Tab2Fragment extends Fragment {
+public class DetailFragment extends Fragment {
 
-    public Tab2Fragment() { }
+    public DetailFragment() { }
     DetailsViewModel detailsViewModel;
     ArrayList<BodyParts> bodyPartsToChoose;
     TextView td;
@@ -43,16 +43,16 @@ public class Tab2Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate ( R.layout.fragment_tab2, container, false );
+        return inflater.inflate ( R.layout.fragment_detail_form, container, false );
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         detailsViewModel =  new ViewModelProvider(requireActivity()).get(DetailsViewModel.class);
-        td = getView().findViewById(R.id.training_description);
-        dd = getView().findViewById(R.id.duration_description);
-        std = getView().findViewById(R.id.subtraining_description);
+        td = getView().findViewById(R.id.typeDesciption);
+        dd = getView().findViewById(R.id.frequencyDescription);
+        std = getView().findViewById(R.id.wayDescription);
 
         switch (detailsViewModel.getPositionSpinner1())
         {
@@ -101,9 +101,9 @@ public class Tab2Fragment extends Fragment {
 
 
         Spinner spinner1, spinner2, spinner3;
-        spinner1 = (Spinner) getView().findViewById(R.id.spinner1);
-        spinner2 = (Spinner) getView().findViewById(R.id.spinner2);
-        spinner3 = (Spinner) getView().findViewById(R.id.spinner3);
+        spinner1 = (Spinner) getView().findViewById(R.id.typeSpinner);
+        spinner2 = (Spinner) getView().findViewById(R.id.waySpinner);
+        spinner3 = (Spinner) getView().findViewById(R.id.frequencySpinner);
 
         bodyPartsToChoose = detailsViewModel.getList();
 
@@ -111,6 +111,7 @@ public class Tab2Fragment extends Fragment {
         BodyPartsAdapter bodyPartsAdapter = new BodyPartsAdapter(bodyPartsToChoose);
         recyclerView.setAdapter(bodyPartsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
 
 
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getContext(),
@@ -124,10 +125,16 @@ public class Tab2Fragment extends Fragment {
         spinner2.setSelection(detailsViewModel.getPositionSpinner2());
 
         spinner3.setSelection(detailsViewModel.getPositionSpinner3());
+        TextView td = getView().findViewById(R.id.typeDesciption);
+        td.setText(split);
 
+        TextView std = getView().findViewById(R.id.wayDescription);
+        std.setText(series);
 
+        TextView dd = getView().findViewById(R.id.frequencyDescription);
+        dd.setText(days);
         TextView wot;
-        wot = getView().findViewById(R.id.way_of_training);
+        wot = getView().findViewById(R.id.titleWay);
 
         TextView bp = getView().findViewById(R.id.bodyPartsText);
 
@@ -138,8 +145,9 @@ public class Tab2Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (spinner1.getSelectedItem().equals("Trening split")) {
+
                     ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
-                            R.array.split_duration, R.layout.my_spinner);
+                            R.array.split_duration, R.layout.support_simple_spinner_dropdown_item);
                     spinner3.setAdapter(adapter3);
 
                     spinner2.setVisibility(View.GONE);
@@ -157,7 +165,7 @@ public class Tab2Fragment extends Fragment {
                 }
                 else if (spinner1.getSelectedItem().equals("Trening fbw")){
                     ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
-                            R.array.fbw_duration, R.layout.my_spinner);
+                            R.array.fbw_duration, R.layout.support_simple_spinner_dropdown_item);
                     spinner3.setAdapter(adapter3);
 
                     spinner2.setVisibility(View.GONE);
@@ -175,7 +183,7 @@ public class Tab2Fragment extends Fragment {
                 }
                 else if (spinner1.getSelectedItem().equals("Trening cardio")){
                     ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
-                            R.array.fintess_duration, R.layout.my_spinner);
+                            R.array.fintess_duration, R.layout.support_simple_spinner_dropdown_item);
                     spinner3.setAdapter(adapter3);
 
                     spinner2.setVisibility(View.VISIBLE);
@@ -193,7 +201,7 @@ public class Tab2Fragment extends Fragment {
                 }
                 else if (spinner1.getSelectedItem().equals("Trening fitness")){
                     ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
-                            R.array.fintess_duration, R.layout.my_spinner);
+                            R.array.fintess_duration, R.layout.support_simple_spinner_dropdown_item);
                     spinner3.setAdapter(adapter3);
 
                     spinner2.setVisibility(View.VISIBLE);

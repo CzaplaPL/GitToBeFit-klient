@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="15dp"
     android:orientation="horizontal"
     android:padding="5dp">
 
     <LinearLayout
-        android:id="@+id/item"
+        android:id="@+id/itemPicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -18,19 +20,19 @@
             android:id="@+id/equipment_item_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/baseline_email_24"
+            android:src="@drawable/ic_baseline_downloading_24"
             android:contentDescription="@string/todo" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/equipment_item_name"
+        android:id="@+id/titleType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/item"
         android:layout_centerVertical="true"
         android:layout_marginStart="15dp"
+        android:layout_toEndOf="@+id/itemPicture"
         android:text="@string/example"
-        android:textColor="#040404"
+        android:textColor="?attr/colorPrimaryVariant"
         android:textSize="15sp"
         android:textStyle="bold"
         tools:ignore="RelativeOverlap" />
@@ -39,10 +41,10 @@
         android:id="@+id/equipment_drop_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_baseline_arrow_drop_down_24"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_baseline_arrow_drop_down_24"
         tools:ignore="RelativeOverlap" />
 
 
@@ -52,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        tools:ignore="RelativeOverlap"/>
+        android:textColorLink="#FFFFFF"
+        tools:ignore="RelativeOverlap" />
 
 </RelativeLayout>

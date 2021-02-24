@@ -24,6 +24,9 @@ import pl.gittobefit.user.Validation;
 
 public class ChangeMailDialog extends AppCompatDialogFragment
 {
+    public interface ChangeMailDialogInterface {
+        void onChangeMail(Boolean sukces,String message );
+    }
     private EditText editTextUserNewEmail;
     private EditText editTextUserPassword;
     @NonNull
@@ -50,10 +53,13 @@ public class ChangeMailDialog extends AppCompatDialogFragment
                     public void onClick(DialogInterface dialog, int which) {
                         String email = editTextUserNewEmail.getText().toString();
                         String password = editTextUserPassword.getText().toString();
+                        ChangeMailDialogInterface activity = (ChangeMailDialogInterface) getActivity();
                         if (email.matches(Validation.EMAIL_REGEX)) {
-                            ConnectionToServer.getInstance().userServices.changeEmail(email, password, getContext());
+                            activity.onChangeMail(false ,getString(R.string.changingMail));
+                            ConnectionToServer.getInstance().userServices.changeEmail(email, password, getContext(),activity);
                         } else {
-                            Toast.makeText(getContext(), "Zły format emaila :/", Toast.LENGTH_SHORT).show();
+
+                           activity.onChangeMail(false ,getString(R.string.wrongEmail));
                         }
                     }
                 });

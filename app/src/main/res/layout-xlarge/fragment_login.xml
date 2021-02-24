@@ -25,7 +25,7 @@
         android:id="@+id/loginLogo"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"
         android:scaleType="fitCenter"
@@ -75,6 +75,7 @@
                 android:id="@+id/loginMail"
                 android:layout_width="match_parent"
                 android:layout_height="53dp"
+                android:autofillHints="emailAddress"
                 android:inputType="textWebEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -94,6 +95,7 @@
             app:layout_constraintTop_toBottomOf="@+id/loginMailKontener"
             app:passwordToggleEnabled="true"
             app:passwordToggleTintMode="multiply"
+            android:nextFocusForward="@+id/loginZaloguj"
             app:startIconContentDescription="@string/password"
             app:startIconDrawable="@drawable/baseline_lock_open_24">
 
@@ -109,7 +111,6 @@
             android:id="@+id/loginForgotPass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:contentDescription="@string/forgotPassword"
             android:text="@string/forgotPassword"
             android:textColor="@color/ourGreen"
@@ -172,6 +173,18 @@
             app:strokeColor="@color/ourGreen" />
 
 
+    <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/loginwith"
+            android:textColor="@color/ourGreen"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/loginGoogle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
             android:id="@+id/loginGoogle"
             style="style/Widget.MaterialComponents.Button"
@@ -180,6 +193,7 @@
             android:layout_marginTop="20dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/google"
+            android:drawableLeft="@drawable/ic_google"
             android:textColor="@color/ourWhite"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -204,6 +218,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/ic_facebook_3"
             android:fontFamily="sans-serif-black"
             android:text="@string/facebook"
             android:textColor="@color/ourWhite"

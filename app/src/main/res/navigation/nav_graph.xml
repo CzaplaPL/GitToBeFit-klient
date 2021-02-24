@@ -108,6 +108,11 @@
         android:name="pl.gittobefit.workoutforms.fragments.GenerateTrainingForm"
         android:label="@string/generateTrainingForm"
         tools:layout="@layout/fragment_generate_training" />
+    <action
+        android:id="@+id/action_global_logout"
+        app:destination="@id/logout"
+        app:popUpTo="@id/login"
+        app:popUpToInclusive="true" />
 
 
 </navigation>

@@ -25,7 +25,7 @@
         android:id="@+id/loginLogo"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"
         android:scaleType="fitCenter"
@@ -47,8 +47,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="30dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/down"
         app:layout_constraintEnd_toEndOf="@+id/main_guideline_right"
@@ -77,6 +75,7 @@
                 android:id="@+id/loginMail"
                 android:layout_width="match_parent"
                 android:layout_height="53dp"
+                android:autofillHints="emailAddress"
                 android:inputType="textWebEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,6 +96,7 @@
             app:layout_constraintTop_toBottomOf="@+id/loginMailKontener"
             app:passwordToggleEnabled="true"
             app:passwordToggleTintMode="multiply"
+            android:nextFocusForward="@+id/loginZaloguj"
             app:startIconContentDescription="@string/password"
             app:startIconDrawable="@drawable/baseline_lock_open_24">
 

@@ -101,9 +101,9 @@ public class Registration extends Fragment implements View.OnClickListener
                     ConnectionToServer.getInstance().userServices.singup(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this,getView());
                 }
                 break;
-
                 case R.id.checkBox_robot:
                 CheckBox checkBox =  view.findViewById(R.id.checkBox_robot);
+                checkBox.setChecked(false);
                 SafetyNet.getClient(getActivity()).verifyWithRecaptcha("6LdH0ScaAAAAAOAnxd_zMOzmbco0_VRrazkQvdUQ")
                         .addOnSuccessListener(new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
                             @Override
@@ -143,7 +143,7 @@ public class Registration extends Fragment implements View.OnClickListener
         TextInputLayout email =(TextInputLayout)getView().findViewById(R.id.loginMailKontener);
         if(duplicate)
         {
-            email.setError(getResources().getString(R.string.duplicateEmail));
+            email.setError(getResources().getString(R.string.duplicatedEmail));
         }else
         {
             email.setError(getResources().getString(R.string.serwerError));
