@@ -25,6 +25,7 @@ import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
 import pl.gittobefit.user.User;
 import pl.gittobefit.user.dialog.ChangeMailDialog;
+import pl.gittobefit.user.dialog.DeleteAccountDialog;
 import pl.gittobefit.user.fragments.Login;
 import pl.gittobefit.user.fragments.Registration;
 import retrofit2.Call;
@@ -223,7 +224,6 @@ public class UserServices
                 {
                     Log.d("logowanie fb ", "zalogowano");
 
-
                     User.getInstance().add(response.headers().get("email"), response.headers().get("Authorization"), response.headers().get("idUser"), User.WayOfLogin.FACEBOOK, fragment.getContext());
                     fragment.loginSuccess(view);
                 }else
@@ -293,7 +293,7 @@ public class UserServices
     /**
      * @author Kuba
      */
-    public void deleteAccount(String password, Fragment fragment)
+    public void deleteAccount(String password, Fragment fragment, DeleteAccountDialog.DeleteAccountDialogInterface activity)
     {
         String userID = User.getInstance().getIdSerwer();
         Call<Void> call2 = user.deleteAccount(userID, User.getInstance().getToken(), password);
@@ -305,6 +305,7 @@ public class UserServices
                 if (response.isSuccessful())
                 {
                     User.getInstance().setToken(null);
+                    activity.onAccountDelete(true ,"Konto usnięte");
                 }
                 else
                 {

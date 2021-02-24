@@ -24,11 +24,12 @@ import com.google.android.material.snackbar.Snackbar;
 
 import pl.gittobefit.user.User;
 import pl.gittobefit.user.dialog.ChangeMailDialog;
+import pl.gittobefit.user.dialog.DeleteAccountDialog;
 
 /***
  * author:Dominik
  */
-public class MainActivity extends AppCompatActivity implements ChangeMailDialog.ChangeMailDialogInterface
+public class MainActivity extends AppCompatActivity implements ChangeMailDialog.ChangeMailDialogInterface, DeleteAccountDialog.DeleteAccountDialogInterface
 {
     private DrawerLayout drawerLayout;
     private AppBarConfiguration mAppBarConfiguration;
@@ -56,10 +57,7 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
                 .setOpenableLayout(drawerLayout)
                 .build();
 
-
-
         ////////////////
-
 
         navigationView = findViewById(R.id.nav_view);
 
@@ -67,16 +65,12 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
        NavigationUI.setupWithNavController(navigationView, navController);
 
-
-        //chowanie actionBara
+        //chowanie actionBar
 
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.hide();
-
     }
-
-
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState)
@@ -97,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         Fragment fragment =  navHostFragment.getChildFragmentManager().getFragments().get(0);
         fragment.onActivityResult(requestCode, resultCode, data);
-
     }
 
     public void openDrawer(DrawerLayout drawerLayout)
@@ -112,16 +105,28 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
             navigationView.getMenu().getItem(3).setTitle(getString(R.string.logout));
             emailText.setText(User.getInstance().getEmail());
         }
-        if(User.getInstance().getLoggedBy()!= User.WayOfLogin.OUR_SERVER)  navigationView.getMenu().getItem(1).setEnabled(false);
-        else navigationView.getMenu().getItem(1).setEnabled(true);
+        if(User.getInstance().getLoggedBy()!= User.WayOfLogin.OUR_SERVER)
+            navigationView.getMenu().getItem(1).setEnabled(false);
+        else
+            navigationView.getMenu().getItem(1).setEnabled(true);
         drawerLayout.openDrawer(GravityCompat.START);
-
     }
 
     @Override
     public void onChangeMail(Boolean sukces,String message )
     {
         if(sukces)
+        {
+            Navigation.findNavController(findViewById(R.id.nav_host_fragment)).navigate(R.id.action_global_logout);
+        }
+        Snackbar.make(findViewById(R.id.nav_host_fragment), message, Snackbar.LENGTH_SHORT)
+                .show();
+    }
+
+
+    @Override
+    public void onAccountDelete(Boolean success, String message) {
+        if(success)
         {
             Navigation.findNavController(findViewById(R.id.nav_host_fragment)).navigate(R.id.action_global_logout);
         }

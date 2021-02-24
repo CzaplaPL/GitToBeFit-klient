@@ -19,6 +19,9 @@ import pl.gittobefit.network.ConnectionToServer;
 
 public class DeleteAccountDialog extends AppCompatDialogFragment
 {
+    public interface DeleteAccountDialogInterface {
+        void onAccountDelete(Boolean success,String message );
+    }
     private EditText userPassword;
 
     @NonNull
@@ -44,7 +47,8 @@ public class DeleteAccountDialog extends AppCompatDialogFragment
                     public void onClick(DialogInterface dialog, int which) {
 
                         String newPassword = userPassword.getText().toString();
-                        ConnectionToServer.getInstance().userServices.deleteAccount(newPassword, getParentFragment());
+                        DeleteAccountDialogInterface activity = (DeleteAccountDialogInterface) getActivity();
+                        ConnectionToServer.getInstance().userServices.deleteAccount(newPassword, getParentFragment(), activity);
                     }
                 });
 
