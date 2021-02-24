@@ -7,8 +7,6 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import androidx.navigation.Navigation;
-
 import com.facebook.AccessToken;
 
 import java.util.List;
@@ -349,10 +347,12 @@ public class UserServices
                         if(response.headers().get("Cause").equals("wrong password"))
                         {
                             activity.onChangeMail(false, context.getString(R.string.incoredPassword));
-                        }else if(response.headers().get("Cause").equals("duplicated email"))
+                        }
+                        else if(response.headers().get("Cause").equals("duplicated email"))
                         {
                             activity.onChangeMail(false, context.getString(R.string.duplicatedEmail));
-                        } else
+                        }
+                        else
                         {
                             activity.onChangeMail(false, context.getString(R.string.serwerError));
                         }
