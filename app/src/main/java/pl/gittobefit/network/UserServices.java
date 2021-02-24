@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import com.facebook.AccessToken;
 
 import java.util.List;
@@ -292,10 +294,10 @@ public class UserServices
     /**
      * @author Kuba
      */
-    public void deleteAccount()
+    public void deleteAccount(String password, Fragment fragment)
     {
         String userID = User.getInstance().getIdSerwer();
-        Call<Void> call2 = user.deleteAccount(userID, User.getInstance().getToken());
+        Call<Void> call2 = user.deleteAccount(userID, User.getInstance().getToken(), password);
         call2.enqueue(new Callback<Void>()
         {
             @Override
@@ -308,6 +310,10 @@ public class UserServices
                 else
                 {
                     int code = response.code();
+                    if(code == 409)
+                    {
+                        Toast.makeText(fragment.getContext(), "Błędne hasło", Toast.LENGTH_SHORT).show();
+                    }
                     Log.e("kod błędu", String.valueOf(code));
                     LogUtils.logCause(response.headers().get("Cause"));
                 }

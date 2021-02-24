@@ -61,6 +61,4 @@ public class ChangePasswordDialog extends AppCompatDialogFragment
         editTextUserNewPassword = view.findViewById(R.id.newPassword);
         return builder.create();
     }
-
-
 }

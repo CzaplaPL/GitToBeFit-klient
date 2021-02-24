@@ -74,17 +74,7 @@ public class Settings extends Fragment implements View.OnClickListener
             case R.id.delete_account:
                 if (User.getInstance().getLoggedBy() == User.WayOfLogin.OUR_SERVER)
                 {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-                    builder.setTitle("Usuń konto");
-                    builder.setMessage("Czy na pewno chcesz usunąć konto ?");
-                    builder.setPositiveButton("Tak", (dialog, which) -> {
-                        ConnectionToServer.getInstance().userServices.deleteAccount();
-                        Navigation.findNavController(view).navigate(R.id.action_setting_to_login);
-                    });
-                    builder.setNegativeButton("Nie", (dialog, which) -> dialog.dismiss());
-                    builder.show();
-
+                    Navigation.findNavController(view).navigate(R.id.action_setting_to_delete_account);
                 }
                 else
                 {
