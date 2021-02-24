@@ -30,7 +30,6 @@ public class BodyPartsAdapter extends RecyclerView.Adapter<BodyPartsAdapter.View
             textView = (TextView) view.findViewById(R.id.bodyPartsTextView);
             checkBox = (CheckBox) view.findViewById(R.id.bodyPartsCheckBox);
         }
-
     }
 
     public BodyPartsAdapter(ArrayList<BodyParts> dataSet)
