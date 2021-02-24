@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.navigation.Navigation;
+
 import com.facebook.AccessToken;
 
 import java.util.List;
@@ -20,6 +22,7 @@ import pl.gittobefit.network.object.UserChangePass;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
 import pl.gittobefit.user.User;
+import pl.gittobefit.user.dialog.ChangeMailDialog;
 import pl.gittobefit.user.fragments.Login;
 import pl.gittobefit.user.fragments.Registration;
 import retrofit2.Call;
@@ -317,7 +320,7 @@ public class UserServices
         });
     }
 
-    public void changeEmail(String newEmail, String password, Context context)
+    public void changeEmail(String newEmail, String password, Context context, ChangeMailDialog.ChangeMailDialogInterface activity)
     {
         String userID = User.getInstance().getIdSerwer();
         Call<Void> call2 = user.changeEmail(userID, User.getInstance().getToken(), new UserChangeEmail(newEmail, password));
@@ -328,8 +331,7 @@ public class UserServices
             {
                 if(response.isSuccessful())
                 {
-                    User.getInstance().setEmail(newEmail);
-                    Toast.makeText(context, "Zmieniono email !", Toast.LENGTH_SHORT).show();
+                    activity.onChangeMail(true,context.getString(R.string.change_email));
                 }
                 else
                 {
@@ -337,7 +339,16 @@ public class UserServices
                     Log.e("kod błędu", String.valueOf(code));
                     if(code == 409)
                     {
-                        Toast.makeText(context, response.headers().get("Cause"), Toast.LENGTH_SHORT).show();
+                        if(response.headers().get("Cause").equals("wrong password"))
+                        {
+                            activity.onChangeMail(false, context.getString(R.string.incoredPassword));
+                        }else if(response.headers().get("Cause").equals("duplicated email"))
+                        {
+                            activity.onChangeMail(false, context.getString(R.string.duplicatedEmail));
+                        } else
+                        {
+                            activity.onChangeMail(false, context.getString(R.string.serwerError));
+                        }
                     }
                     LogUtils.logCause(response.headers().get("Cause"));
                 }

@@ -1,5 +1,6 @@
 package pl.gittobefit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,13 +20,15 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import pl.gittobefit.user.User;
+import pl.gittobefit.user.dialog.ChangeMailDialog;
 
 /***
  * author:Dominik
  */
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements ChangeMailDialog.ChangeMailDialogInterface
 {
     private DrawerLayout drawerLayout;
     private AppBarConfiguration mAppBarConfiguration;
@@ -115,4 +118,14 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onChangeMail(Boolean sukces,String message )
+    {
+        if(sukces)
+        {
+            Navigation.findNavController(findViewById(R.id.nav_host_fragment)).navigate(R.id.action_global_logout);
+        }
+        Snackbar.make(findViewById(R.id.nav_host_fragment), message, Snackbar.LENGTH_SHORT)
+                .show();
+    }
 }

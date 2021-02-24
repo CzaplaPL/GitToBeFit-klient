@@ -140,17 +140,6 @@ public class Login extends Fragment implements View.OnClickListener
             case R.id.loginZaloguj:
                 TextInputLayout email =(TextInputLayout)getView().findViewById(R.id.loginMailKontener);
                 TextInputLayout pass =(TextInputLayout)getView().findViewById(R.id.loginPassKontener);
-                if(!email.getEditText().getText().toString().matches( Validation.EMAIL_REGEX))
-                {
-                    email.setError(getResources().getString(R.string.wrongEmail));
-                   return;
-                }else email.setErrorEnabled(false);
-
-                if(!pass.getEditText().getText().toString().matches(Validation.PASSWORD_REGEX))
-                {
-                    pass.setError(getResources().getString(R.string.wrongPassword));
-                   return;
-                }else pass.setErrorEnabled(false);
                 ConnectionToServer.getInstance().userServices.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this,view);
                 break;
             case R.id.loginSkip:

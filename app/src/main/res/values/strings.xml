@@ -20,7 +20,7 @@
     <string name="remindPasswordText">Podaj email twojego konta. Zostanie na nie wysłane nowe hasło.</string>
     <string name="remindPasswordTitle">Przypomnij hasło </string>
     <string name="incorrectData">Błędne dane</string>
-    <string name="duplicateEmail">Ten Email jest zajęty</string>
+
     <string name="incorrectpassword">hasła różnią się </string>
     <string name="serwerError">Błąd serwera</string>
     <string name="facebook_app_id">204805201285094</string>
@@ -59,6 +59,7 @@
     <string name="notLogin">"Nie udało się zalogować "</string>
     <string name="wrongEmail">Błędny Email</string>
     <string name="wrongPassword">błędne Hasło. Hasło musi składać się z 8 znaków i zawierać Wielką litere,cyfre i znak specjalny  </string>
+    <string name="incoredPassword">Podano błędne Hasło.  </string>
     <string name="wrongPasswoed2">Hasła różnią się</string>
 
 
@@ -94,6 +95,20 @@
         <item>27 minut</item>
         <item>30 minut</item>
     </string-array>
+
+
+    <string name="split">Split to inaczej trening dzielony. Polega na ćwiczeniu każdej partii mięśni .Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.</string>
+    <string name="fbw">Trening FBW to ćwiczenia całego ciała. W trakcie jego wykonywania angażujesz wiele partii mięśniowych. Głównym założeniem jest wywołanie jak największej odpowiedzi anabolicznej twojego ciała, poprzez pobudzanie go ćwiczeniami wielostawowymi.</string>
+    <string name="cardio">Trening cardio to ćwiczenia wytrzymałościowe dotleniające organizm, poprawiające pracę układu krążenia oraz kondycję organizmu. Zwiększa ilość oddechów na minutę oraz przyspiesza tętno, co sprawia, że komórki i tkanki mięśniowe są lepiej dotlenione.</string>
+    <string name="fitness">Trening prozdrowotny. Głównym założeniem treningu fitness jest jego pozasportowy, prozdrowotny charakter. Do zajęć fitness można więc zaliczyć wszelkie formy aktywności fizycznej, ale podejmowane świadomie i systematycznie w celu poprawy szeroko pojmowanego zdrowia.</string>
+    <string name="series">Wykonywanie ćwiczenia na ilość serii.</string>
+    <string name="circuit">Wykonywanie ćwiczenia przez określony czas.</string>
+    <string name="days">Dostarczymy Ci plan treningowy na wybraną przez Ciebie ilość dni.</string>
+    <string name="minutes">Dostarczymy Ci pojedyńczy trening w wybranych przez Ciebie ramach czaowych.</string>
+    <string name="change_email">zmieniono e-mail pomyślnie. Na podany mail został wysłany link aktywujący konto</string>
+    <string name="duplicatedEmail">Podany email jest już zajęty</string>
+    <string name="changingMail">Trwa zmiana emaila</string>
+    <string name="loginwith">Lub zaloguj się za pomocą</string>
     <string name="aboutUsInfo">Numer zespołu: 8\n
         Opiekun zespołu: Daniel Borucki\n
         Zespół:\n
@@ -116,14 +131,15 @@
         dodanie wyboru parti ciała w formularzu szczegułów \n
         zapisywanie danych z formularza szczegułów do viewmodel \n
         zarys wyglądu podsumowania formularza \n
+        0.1.2-hotfix-1\n
+        wylogowywanie po zmianie maila \n
+        usunieto możliwość pominięcia rechapta \n
+        zmiana toast na snackbar podczas zmiany maila\n
+        0.1.2-hotfix-2\n
+logo na tej samej pozycji w logowaniu i rejestracji \n
+możliwość podglądu hasła w rejestracji \n
+dodanie loga do przycisku fb i google oraz napis nad nimi \n
+         0.1.2-hotfix-3\n
+        usunięcie walidacji z logowania\n
     </string>
-
-    <string name="split">Split to inaczej trening dzielony. Polega na ćwiczeniu każdej partii mięśni .Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.</string>
-    <string name="fbw">Trening FBW to ćwiczenia całego ciała. W trakcie jego wykonywania angażujesz wiele partii mięśniowych. Głównym założeniem jest wywołanie jak największej odpowiedzi anabolicznej twojego ciała, poprzez pobudzanie go ćwiczeniami wielostawowymi.</string>
-    <string name="cardio">Trening cardio to ćwiczenia wytrzymałościowe dotleniające organizm, poprawiające pracę układu krążenia oraz kondycję organizmu. Zwiększa ilość oddechów na minutę oraz przyspiesza tętno, co sprawia, że komórki i tkanki mięśniowe są lepiej dotlenione.</string>
-    <string name="fitness">Trening prozdrowotny. Głównym założeniem treningu fitness jest jego pozasportowy, prozdrowotny charakter. Do zajęć fitness można więc zaliczyć wszelkie formy aktywności fizycznej, ale podejmowane świadomie i systematycznie w celu poprawy szeroko pojmowanego zdrowia.</string>
-    <string name="series">Wykonywanie ćwiczenia na ilość serii.</string>
-    <string name="circuit">Wykonywanie ćwiczenia przez określony czas.</string>
-    <string name="days">Dostarczymy Ci plan treningowy na wybraną przez Ciebie ilość dni.</string>
-    <string name="minutes">Dostarczymy Ci pojedyńczy trening w wybranych przez Ciebie ramach czaowych.</string>
 </resources>
