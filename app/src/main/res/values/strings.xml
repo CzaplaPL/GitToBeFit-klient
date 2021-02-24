@@ -97,7 +97,7 @@
     </string-array>
 
 
-    <string name="split">Split to inaczej trening dzielony. Polega na ćwiczeniu każdej partii mięśni .Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.</string>
+    <string name="split">Split to inaczej trening dzielony. Polega na ćwiczeniu konkretnej partii mięśni w danym dniu treningowym.Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.</string>
     <string name="fbw">Trening FBW to ćwiczenia całego ciała. W trakcie jego wykonywania angażujesz wiele partii mięśniowych. Głównym założeniem jest wywołanie jak największej odpowiedzi anabolicznej twojego ciała, poprzez pobudzanie go ćwiczeniami wielostawowymi.</string>
     <string name="cardio">Trening cardio to ćwiczenia wytrzymałościowe dotleniające organizm, poprawiające pracę układu krążenia oraz kondycję organizmu. Zwiększa ilość oddechów na minutę oraz przyspiesza tętno, co sprawia, że komórki i tkanki mięśniowe są lepiej dotlenione.</string>
     <string name="fitness">Trening prozdrowotny. Głównym założeniem treningu fitness jest jego pozasportowy, prozdrowotny charakter. Do zajęć fitness można więc zaliczyć wszelkie formy aktywności fizycznej, ale podejmowane świadomie i systematycznie w celu poprawy szeroko pojmowanego zdrowia.</string>
@@ -142,4 +142,14 @@ dodanie loga do przycisku fb i google oraz napis nad nimi \n
          0.1.2-hotfix-3\n
         usunięcie walidacji z logowania\n
     </string>
+    <string name="chest">Klatka piersiowa</string>
+    <string name="sixpack">Brzuch</string>
+    <string name="back">Plecy</string>
+    <string name="thighs">Uda</string>
+    <string name="calfs">Łydki</string>
+    <string name="biceps">Biceps</string>
+    <string name="triceps">Triceps</string>
+    <string name="shoulders">barki</string>
+    <string name="legs">nogi</string>
+    <string name="arms">ręce</string>
 </resources>

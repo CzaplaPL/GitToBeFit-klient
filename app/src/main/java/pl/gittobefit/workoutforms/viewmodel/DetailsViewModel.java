@@ -91,14 +91,7 @@ public class DetailsViewModel extends ViewModel
         {
             list = new ArrayList<>();
 
-            list.add(new BodyParts("Klatka piersiowa"));
-            list.add(new BodyParts("Brzuch"));
-            list.add(new BodyParts("Plecy"));
-            list.add(new BodyParts("Uda"));
-            list.add(new BodyParts("Łydki"));
-            list.add(new BodyParts("Biceps"));
-            list.add(new BodyParts("Triceps"));
-            list.add(new BodyParts("Ramiona"));
+
         }
 
         return list;

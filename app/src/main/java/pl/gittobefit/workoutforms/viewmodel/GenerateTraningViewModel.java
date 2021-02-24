@@ -1,15 +1,24 @@
 package pl.gittobefit.workoutforms.viewmodel;
 
+import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
+import pl.gittobefit.R;
+import pl.gittobefit.workoutforms.adapters.BodyPartsAdapter;
 import pl.gittobefit.workoutforms.adapters.EquipmentAdapter;
 import pl.gittobefit.workoutforms.adapters.EquipmentList;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
+import pl.gittobefit.workoutforms.object.BodyParts;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentForm;
 import pl.gittobefit.workoutforms.object.EquipmentType;
@@ -20,7 +29,18 @@ public class GenerateTraningViewModel extends ViewModel
     private WorkoutFormsRepository repository =new WorkoutFormsRepository(this) ;
     private EquipmentList equipmentList=new EquipmentList();
     private ArrayList<EquipmentForm> listData = new ArrayList<>();
+    private MutableLiveData<String> typeDesciptionText =new  MutableLiveData<String>();
+    private MutableLiveData<String> detailDesciptionText =new  MutableLiveData<String>();
+    private MutableLiveData<String> timeDesciptionText =new  MutableLiveData<String>();
+    private  ArrayList<BodyParts> bodyPartsToChoose = new ArrayList<>();
+    private MutableLiveData<Integer> typeSpinnerChose =new  MutableLiveData<Integer>();
 
+
+
+    public GenerateTraningViewModel()
+    {
+        setTypeSpinnerChose(0);
+    }
 
     public RecyclerView.Adapter getListAdapter()
     {
@@ -73,5 +93,73 @@ public class GenerateTraningViewModel extends ViewModel
     public void loadEquipment(int position, ArrayList<Equipment> body)
     {
         equipmentList.showEquipment(position,body);
+    }
+
+
+    public MutableLiveData<String> getTypeDesciptionText()
+    {
+        return typeDesciptionText;
+    }
+
+    public void setTypeDesciptionText(String typeDesciptionText)
+    {
+        this.typeDesciptionText.setValue(typeDesciptionText);
+    }
+
+    public MutableLiveData<String> getDetailDesciptionText()
+    {
+        return detailDesciptionText;
+    }
+
+    public void setDetailDesciptionText(String detailDesciptionText)
+    {
+        this.detailDesciptionText.setValue(detailDesciptionText);
+    }
+
+    public MutableLiveData<String> getTimeDesciptionText()
+    {
+        return timeDesciptionText;
+    }
+
+    public void setTimeDesciptionText(String timeDesciptionText)
+    {
+        this.timeDesciptionText.setValue(timeDesciptionText);
+    }
+
+    public void setBodyPartsSplit(Context context)
+    {
+        bodyPartsToChoose.clear();
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.chest)));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.sixpack)));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.back)));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.thighs)));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.calfs)));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.biceps)));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.triceps)));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.shoulders )));
+    }
+    public void setBodyPartsFitnes(Context context)
+    {
+        bodyPartsToChoose.clear();
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.chest)));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.sixpack)));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.back)));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.legs)));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.arms)));
+
+    }
+    public ArrayList<BodyParts> getBodyParts()
+    {
+        return bodyPartsToChoose;
+    }
+
+    public MutableLiveData<Integer> getTypeSpinnerChose()
+    {
+        return typeSpinnerChose;
+    }
+
+    public void setTypeSpinnerChose(Integer typeSpinnerChose)
+    {
+        this.typeSpinnerChose.setValue(typeSpinnerChose);
     }
 }
