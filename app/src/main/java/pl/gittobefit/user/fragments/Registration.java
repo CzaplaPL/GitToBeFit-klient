@@ -101,7 +101,6 @@ public class Registration extends Fragment implements View.OnClickListener
                     ConnectionToServer.getInstance().userServices.singup(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this,getView());
                 }
                 break;
-
                 case R.id.checkBox_robot:
                 CheckBox checkBox =  view.findViewById(R.id.checkBox_robot);
                 SafetyNet.getClient(getActivity()).verifyWithRecaptcha("6LdH0ScaAAAAAOAnxd_zMOzmbco0_VRrazkQvdUQ")
