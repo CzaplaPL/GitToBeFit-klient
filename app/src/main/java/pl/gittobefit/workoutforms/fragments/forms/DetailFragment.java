@@ -24,7 +24,7 @@ import pl.gittobefit.workoutforms.object.TrainingDetails;
 import pl.gittobefit.workoutforms.viewmodel.DetailsViewModel;
 
 /**
- fragment tab2
+ fragment szczegóły treningu
  */
 public class DetailFragment extends Fragment {
 
@@ -59,6 +59,7 @@ public class DetailFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         detailsViewModel.setSplitList(bodyPartsToChooseForSplit);
+        detailsViewModel.setFitnessList(bodyPartsToChooseForFitness);
     }
 
     @Override
