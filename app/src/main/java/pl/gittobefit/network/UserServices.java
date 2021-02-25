@@ -253,9 +253,13 @@ public class UserServices
                     {
                         activity.showSnackbar(context.getString(R.string.wrong_old_pass));
                     }
+                    else
+                    {
+                        activity.showSnackbar(context.getString(R.string.serwerError));
+                    }
                     Log.e("kod błędu", String.valueOf(code));
                     LogUtils.logCause(response.headers().get("Cause"));
-                    activity.showSnackbar(context.getString(R.string.serwerError));
+
                 }
             }
             @Override
@@ -291,9 +295,13 @@ public class UserServices
                     {
                         activity.onAccountDelete(false ,context.getString(R.string.incoredPassword));
                     }
+                    else
+                    {
+                        activity.onAccountDelete(false ,context.getString(R.string.serwerError));
+                    }
                     Log.e("kod błędu", String.valueOf(code));
                     LogUtils.logCause(response.headers().get("Cause"));
-                    activity.onAccountDelete(false ,context.getString(R.string.serwerError));
+
                 }
             }
             @Override
