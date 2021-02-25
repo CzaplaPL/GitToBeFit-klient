@@ -5,10 +5,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,9 +14,9 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
-import pl.gittobefit.user.Validation;
 
 /**
  *  formularz przypominania hasła
@@ -39,18 +37,9 @@ public class RemindPasswordDialog extends AppCompatDialogFragment
                 .setTitle(getResources().getString(R.string.remindPasswordTitle))
                 .setPositiveButton(getResources().getString(R.string.remindPassword), (dialog, which) ->
                 {
+                    IShowSnackbar activity = (IShowSnackbar) getActivity();
                     String mail=email.getEditText().getText().toString();
-                    if(!mail.matches(Validation.EMAIL_REGEX))
-                    {
-                        Log.w("eeeeee","eeeeeeee");
-                        Toast.makeText(context,context.getResources().getString(R.string.incorrectData),Toast.LENGTH_SHORT).show();
-                        email.setErrorEnabled(true);
-                        email.setError(getResources().getString(R.string.incorrectData));
-
-                    }else
-                    {
-                       ConnectionToServer.getInstance().userServices.remindPassword(mail,context);
-                    }
+                    ConnectionToServer.getInstance().userServices.remindPassword(mail,context,activity);
                 });
         return builder.create();
     }

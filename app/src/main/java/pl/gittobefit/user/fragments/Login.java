@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -26,16 +24,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Collections;
 
 import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
-import pl.gittobefit.databinding.MainNavDrawerBinding;
 import pl.gittobefit.network.ConnectionToServer;
-import pl.gittobefit.user.Validation;
 
 /**
  * fragment logowania
@@ -54,15 +49,12 @@ public class Login extends Fragment implements View.OnClickListener
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         Button button =  view.findViewById(R.id.loginZaloguj);
         button.setOnClickListener(this);
@@ -80,7 +72,7 @@ public class Login extends Fragment implements View.OnClickListener
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         if( accessToken != null && !accessToken.isExpired())
         {
-            ConnectionToServer.getInstance().userServices.loginFacebook(accessToken,this,view);
+            ConnectionToServer.getInstance().userServices.loginFacebook(accessToken,this);
         }
         //Logowanie google
         GoogleLogin();
@@ -90,23 +82,25 @@ public class Login extends Fragment implements View.OnClickListener
         {
             ConnectionToServer.getInstance().userServices.verify(this);
         }
-
         return view;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
-
+    public void onResume()
+    {
+        super.onResume();
+        //sprawdzanie czy jest polączenie z internetem
+        if(!ConnectionToServer.isNetwork(getContext()))
+        {
+            Navigation.findNavController(getView()).navigate(LoginDirections.actionLogin2ToHomeFragment());
+        }
     }
-
     /***
      * funkcja zmieniajaca fragment po udanym logowaniu
      */
-    public void loginSuccess(View view)
+    public void loginSuccess()
     {
-        Navigation.findNavController(view).navigate(R.id.action_login2_to_homeFragment);
+        Navigation.findNavController(getView()).navigate(LoginDirections.actionLogin2ToHomeFragment());
     }
     /**
      * wyswietla komunikat o nieudamym logowaniu
@@ -140,10 +134,10 @@ public class Login extends Fragment implements View.OnClickListener
             case R.id.loginZaloguj:
                 TextInputLayout email =(TextInputLayout)getView().findViewById(R.id.loginMailKontener);
                 TextInputLayout pass =(TextInputLayout)getView().findViewById(R.id.loginPassKontener);
-                ConnectionToServer.getInstance().userServices.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this,view);
+                ConnectionToServer.getInstance().userServices.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this);
                 break;
             case R.id.loginSkip:
-               Navigation.findNavController(view).navigate(R.id.action_login2_to_homeFragment);
+                Navigation.findNavController(getView()).navigate(LoginDirections.actionLogin2ToHomeFragment());
                 break;
             case R.id.loginGoogle:
                 Log.w("logowanie google = ", "         uruchamianie ");
@@ -163,7 +157,7 @@ public class Login extends Fragment implements View.OnClickListener
     /** logowanie facebook*/
     public void loginFacebook(AccessToken token)
     {
-        ConnectionToServer.getInstance().userServices.loginFacebook(token,this,getView());
+        ConnectionToServer.getInstance().userServices.loginFacebook(token,this);
     }
 
     private void FacebookeLogin(View view)
@@ -212,7 +206,7 @@ public class Login extends Fragment implements View.OnClickListener
         {
             Log.w("logowanie google = ", "     ok");
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            ConnectionToServer.getInstance().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this,getView());
+            ConnectionToServer.getInstance().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this);
         } catch (ApiException e) {
             Log.w("logowanie google", "signInResult:failed code=" + e.getStatusCode());
         }
