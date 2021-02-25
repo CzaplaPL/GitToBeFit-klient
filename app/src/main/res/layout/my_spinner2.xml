@@ -15,7 +15,6 @@
         android:text="@string/example"
         android:textColor="#040404"
         android:textSize="15sp"
-        android:textStyle="bold"
         tools:ignore="RelativeOverlap"
         />
     <CheckBox

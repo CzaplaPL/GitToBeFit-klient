@@ -14,7 +14,8 @@ public class DetailsViewModel extends ViewModel
     private int position1;
     private int position2;
     private int position3;
-    private ArrayList<BodyParts> list;
+    private ArrayList<BodyParts> splitList;
+    private ArrayList<BodyParts> fitnessList;
 
     private TrainingDetails trainingDetails;
 
@@ -80,31 +81,48 @@ public class DetailsViewModel extends ViewModel
     public void setTrainingDetails(int i)
     {
         i = i*3 + 9;
-        trainingDetails.setDuration(String.valueOf(i) + " minut");
+        trainingDetails.setDuration(i + " minut");
         select(trainingDetails);
     }
 
 
-
-    public ArrayList<BodyParts> getList() {
-        if (list == null)
+    public ArrayList<BodyParts> getSplitList() {
+        if (splitList == null)
         {
-            list = new ArrayList<>();
+            splitList = new ArrayList<>();
 
-            list.add(new BodyParts("Klatka piersiowa"));
-            list.add(new BodyParts("Brzuch"));
-            list.add(new BodyParts("Plecy"));
-            list.add(new BodyParts("Uda"));
-            list.add(new BodyParts("Łydki"));
-            list.add(new BodyParts("Biceps"));
-            list.add(new BodyParts("Triceps"));
-            list.add(new BodyParts("Ramiona"));
+            splitList.add(new BodyParts("Klatka piersiowa"));
+            splitList.add(new BodyParts("Brzuch"));
+            splitList.add(new BodyParts("Plecy"));
+            splitList.add(new BodyParts("Uda"));
+            splitList.add(new BodyParts("Łydki"));
+            splitList.add(new BodyParts("Biceps"));
+            splitList.add(new BodyParts("Triceps"));
+            splitList.add(new BodyParts("Ramiona"));
         }
 
-        return list;
+        return splitList;
     }
 
-    public void setList(ArrayList<BodyParts> list) {
-        this.list = list;
+    public void setSplitList(ArrayList<BodyParts> splitList) {
+        this.splitList = splitList;
+    }
+
+    public ArrayList<BodyParts> getFitnessList() {
+        if (fitnessList == null)
+        {
+            fitnessList = new ArrayList<>();
+
+            fitnessList.add(new BodyParts("Klatka piersiowa"));
+            fitnessList.add(new BodyParts("Brzuch"));
+            fitnessList.add(new BodyParts("Plecy"));
+            fitnessList.add(new BodyParts("Nogi"));
+            fitnessList.add(new BodyParts("Ramiona"));
+        }
+        return fitnessList;
+    }
+
+    public void setFitnessList(ArrayList<BodyParts> fitnessList) {
+        this.fitnessList = fitnessList;
     }
 }

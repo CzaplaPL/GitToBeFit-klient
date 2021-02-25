@@ -47,6 +47,9 @@
         <action
             android:id="@+id/action_setting_to_login"
             app:destination="@id/login" />
+        <action
+            android:id="@+id/action_setting_to_delete_account"
+            app:destination="@id/deleteAccountDialog" />
     </fragment>
     <fragment
         android:id="@+id/aboutUs"
@@ -60,7 +63,8 @@
         <action
             android:id="@+id/action_registration_to_login2"
             app:destination="@id/login"
-/>
+            app:popUpTo="@+id/registration"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -96,6 +100,10 @@
         android:id="@+id/changePasswordDialog"
         android:name="pl.gittobefit.user.dialog.ChangePasswordDialog"
         android:label="ChangePasswordDialog" />
+    <dialog
+        android:id="@+id/deleteAccountDialog"
+        android:name="pl.gittobefit.user.dialog.DeleteAccountDialog"
+        android:label="DeleteAccountDialog" />
     <fragment
         android:id="@+id/generateTrainingForm"
         android:name="pl.gittobefit.workoutforms.fragments.GenerateTrainingForm"

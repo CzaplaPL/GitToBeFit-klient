@@ -59,7 +59,7 @@ public interface IUserServices
      * @author Kuba
      */
     @DELETE("/user/{user_id}")
-    Call<Void> deleteAccount(@Path("user_id") String id, @Header("Authorization") String authHeader);
+    Call<Void> deleteAccount(@Path("user_id") String id, @Header("Authorization") String authHeader, @Header("password") String userPassword);
 
     /**
      * zmiana maila

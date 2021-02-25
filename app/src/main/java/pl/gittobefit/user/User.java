@@ -2,9 +2,6 @@ package pl.gittobefit.user;
 
 import android.content.Context;
 
-import pl.gittobefit.database.AppDataBase;
-import pl.gittobefit.database.entity.UserEntity;
-
 /**
  * klasa przechowująca informacje o użytkowniku
  */
@@ -12,7 +9,7 @@ public class User
 {
     public enum WayOfLogin
     {
-        DEFAULT,
+        NO_LOGIN,
         OUR_SERVER,
         GOOGLE,
         FACEBOOK
@@ -21,7 +18,7 @@ public class User
     private String email ="" ;
     private String auth ="";
     private String idSerwer = "";
-    private WayOfLogin loggedBy = WayOfLogin.DEFAULT;
+    private WayOfLogin loggedBy = WayOfLogin.NO_LOGIN;
 
     private static volatile User INSTANCE;
 

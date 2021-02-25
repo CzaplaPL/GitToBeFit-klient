@@ -7,13 +7,15 @@ public class TrainingDetails
     private String trainingType;
     private String duration;
     private String subType;
-    private ArrayList<BodyParts> bodyPartsArrayList;
+    private ArrayList<BodyParts> bodyPartsArrayListForSplit;
+    private ArrayList<BodyParts> bodyPartsArrayListForFitness;
 
-    public TrainingDetails(String trainingType, String duration, String subType, ArrayList<BodyParts> bodyPartsArrayList) {
+    public TrainingDetails(String trainingType, String duration, String subType, ArrayList<BodyParts> bodyPartsArrayListForSplit,  ArrayList<BodyParts> bodyPartsArrayListForFitness) {
         this.trainingType = trainingType;
         this.duration = duration;
         this.subType = subType;
-        this.bodyPartsArrayList = bodyPartsArrayList;
+        this.bodyPartsArrayListForSplit = bodyPartsArrayListForSplit;
+        this.bodyPartsArrayListForFitness = bodyPartsArrayListForFitness;
     }
 
     public String getTrainingType() {
@@ -40,11 +42,11 @@ public class TrainingDetails
         this.subType = subType;
     }
 
-    public ArrayList<BodyParts> getBodyPartsArrayList() {
-        return bodyPartsArrayList;
+    public ArrayList<BodyParts> getBodyPartsArrayListForSplit() {
+        return bodyPartsArrayListForSplit;
     }
 
-    public void setBodyPartsArrayList(ArrayList<BodyParts> bodyPartsArrayList) {
-        this.bodyPartsArrayList = bodyPartsArrayList;
+    public void setBodyPartsArrayListForSplit(ArrayList<BodyParts> bodyPartsArrayListForSplit) {
+        this.bodyPartsArrayListForSplit = bodyPartsArrayListForSplit;
     }
 }
