@@ -1,6 +1,8 @@
 package pl.gittobefit.network;
 
-import java.net.InetAddress;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -51,14 +53,10 @@ public class ConnectionToServer
      * sprawdza czy użytkownik ma internet
      * @return true jezeli ma 
      */
-    public static boolean isNetwork()
+    public static boolean isNetwork(Context context)
     {
-        try
-        {
-            InetAddress ipAddr = InetAddress.getByName("google.com");
-            return !ipAddr.equals("");
-        } catch (Exception e) {
-            return false;
-        }
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return  activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 }

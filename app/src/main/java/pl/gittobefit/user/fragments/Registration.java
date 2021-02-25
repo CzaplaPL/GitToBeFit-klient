@@ -81,8 +81,8 @@ public class Registration extends Fragment implements View.OnClickListener
                     correct =false;
                 }else if(!pass.getEditText().getText().toString().equals(pass2.getEditText().getText().toString()))
                 {
-                    pass.setError(getResources().getString(R.string.wrongPasswoed2));
-                    pass2.setError(getResources().getString(R.string.wrongPasswoed2));
+                    pass.setError(getResources().getString(R.string.wrongPassword2));
+                    pass2.setError(getResources().getString(R.string.wrongPassword2));
                     correct =false;
                 }else pass2.setErrorEnabled(false);
                 if(!robot.isChecked())
@@ -105,33 +105,27 @@ public class Registration extends Fragment implements View.OnClickListener
                 CheckBox checkBox =  view.findViewById(R.id.checkBox_robot);
                 checkBox.setChecked(false);
                 SafetyNet.getClient(getActivity()).verifyWithRecaptcha("6LdH0ScaAAAAAOAnxd_zMOzmbco0_VRrazkQvdUQ")
-                        .addOnSuccessListener(new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
-                            @Override
-                            public void onSuccess(SafetyNetApi.RecaptchaTokenResponse recaptchaTokenResponse)
+                        .addOnSuccessListener(recaptchaTokenResponse ->
+                        {
+                            String userResponseToken = recaptchaTokenResponse.getTokenResult();
+                            if (!userResponseToken.isEmpty())
                             {
-                                String userResponseToken = recaptchaTokenResponse.getTokenResult();
-                                if (!userResponseToken.isEmpty())
-                                {
-                                    checkBox.setChecked(true);
-                                }
+                                checkBox.setChecked(true);
                             }
                         })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e)
+                        .addOnFailureListener(e ->
+                        {
+                            checkBox.setChecked(false);
+                            checkBox.setBackgroundColor(Color.RED);
+                            if (e instanceof ApiException)
                             {
-                                checkBox.setChecked(false);
-                                checkBox.setBackgroundColor(Color.RED);
-                                if (e instanceof ApiException)
-                                {
-                                    ApiException apiException = (ApiException) e;
-                                    int statusCode = apiException.getStatusCode();
-                                    Log.e("Recaptcha", "Error: " + CommonStatusCodes
-                                            .getStatusCodeString(statusCode));
-                                } else
-                                {
-                                    Log.e("Recaptcha", "Error: " + e.getMessage());
-                                }
+                                ApiException apiException = (ApiException) e;
+                                int statusCode = apiException.getStatusCode();
+                                Log.e("Recaptcha", "Error: " + CommonStatusCodes
+                                        .getStatusCodeString(statusCode));
+                            } else
+                            {
+                                Log.e("Recaptcha", "Error: " + e.getMessage());
                             }
                         });
                 break;

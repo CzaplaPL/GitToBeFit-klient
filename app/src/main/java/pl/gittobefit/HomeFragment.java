@@ -12,13 +12,14 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import pl.gittobefit.databinding.MainNavDrawerBinding;
+import pl.gittobefit.network.ConnectionToServer;
 
 public class HomeFragment extends Fragment implements View.OnClickListener
 {
     public HomeFragment() { }
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -35,11 +36,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
        Button button =  view.findViewById(R.id.generate);
         button.setOnClickListener(this);
         return view;
     }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if(!ConnectionToServer.isNetwork(getContext()))
+        {
+            Snackbar.make(getView(),getString(R.string.noNetwork),Snackbar.LENGTH_SHORT)
+                    .show();
+        }
+    }
+
     @Override
     public void onClick(View view)
     {

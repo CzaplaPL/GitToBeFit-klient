@@ -1,11 +1,6 @@
 package pl.gittobefit.user.fragments;
 
 import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +8,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import pl.gittobefit.R;
-import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.user.User;
 
 /**
@@ -74,17 +71,7 @@ public class Settings extends Fragment implements View.OnClickListener
             case R.id.delete_account:
                 if (User.getInstance().getLoggedBy() == User.WayOfLogin.OUR_SERVER)
                 {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-                    builder.setTitle("Usuń konto");
-                    builder.setMessage("Czy na pewno chcesz usunąć konto ?");
-                    builder.setPositiveButton("Tak", (dialog, which) -> {
-                        ConnectionToServer.getInstance().userServices.deleteAccount();
-                        Navigation.findNavController(view).navigate(R.id.action_setting_to_login);
-                    });
-                    builder.setNegativeButton("Nie", (dialog, which) -> dialog.dismiss());
-                    builder.show();
-
+                    Navigation.findNavController(view).navigate(R.id.action_setting_to_delete_account);
                 }
                 else
                 {
