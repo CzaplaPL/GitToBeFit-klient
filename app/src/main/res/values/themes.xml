@@ -27,7 +27,7 @@
     </style>
 
     <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/ourGreenDay</item>
+        <item name="color">?attr/colorPrimaryVariant</item>
     </style>
 
 <!--style przycisków -->

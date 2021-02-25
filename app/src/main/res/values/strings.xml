@@ -108,7 +108,11 @@
     <string name="change_email">zmieniono e-mail pomyślnie. Na podany mail został wysłany link aktywujący konto</string>
     <string name="duplicatedEmail">Podany email jest już zajęty</string>
     <string name="changingMail">Trwa zmiana emaila</string>
-    <string name="loginwith">Lub zaloguj się za pomocą</string>
+    <string name="loginwith">Alternatywne opcje logowania</string>
+    <string name="titleTypeTraining">Wybierz rodzaj treningu:</string>
+    <string name="titleWayTraining">Wybierz sposób odbywania treningu:</string>
+    <string name="titleFrequencyTraining">Wybierz sposób odbywania treningu:</string>
+    <string name="titleBodyParts">Wybierz interesujące Cię partie ciała:</string>
     <string name="aboutUsInfo">Numer zespołu: 8\n
         Opiekun zespołu: Daniel Borucki\n
         Zespół:\n
