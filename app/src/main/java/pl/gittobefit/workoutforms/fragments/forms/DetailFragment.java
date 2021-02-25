@@ -94,42 +94,15 @@ public class DetailFragment extends Fragment {
 
             }
         });
-    }
 
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-/*
-        ArrayAdapter adapter2 = ArrayAdapter.createFromResource(getContext(),
+       /* ArrayAdapter adapter2 = ArrayAdapter.createFromResource(getContext(),
                 R.array.training_subtype, R.layout.my_spinner);
-        spinner2.setAdapter(adapter2);
-        spinner2.setSelection(detailsViewModel.getPositionSpinner2());
-
-        spinner3.setSelection(detailsViewModel.getPositionSpinner3());
-        TextView td = getView().findViewById(R.id.typeDesciption);
-        td.setText(split);
-
-        TextView std = getView().findViewById(R.id.wayDescription);
-        std.setText(series);
-
-        TextView dd = getView().findViewById(R.id.frequencyDescription);
-        dd.setText(days);
-        TextView wot;
-        wot = getView().findViewById(R.id.titleWay);
-
-        TextView bp = getView().findViewById(R.id.bodyPartsText);
-
-        detailsViewModel.select(new TrainingDetails("Trening fbw", "3 dni", null, detailsViewModel.getList()));
-
-
-
-        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        binding.waySpinner.setAdapter(adapter2);
+        binding.waySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (spinner2.getSelectedItem().equals("Serie"))
+                if (position==0)
                 {
                     std.setText(series);
                     detailsViewModel.setPositionSpinner2(position);
@@ -149,6 +122,36 @@ public class DetailFragment extends Fragment {
 
             }
         });
+*/
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+/*
+
+
+        spinner3.setSelection(detailsViewModel.getPositionSpinner3());
+        TextView td = getView().findViewById(R.id.typeDesciption);
+        td.setText(split);
+
+        TextView std = getView().findViewById(R.id.wayDescription);
+        std.setText(series);
+
+        TextView dd = getView().findViewById(R.id.frequencyDescription);
+        dd.setText(days);
+        TextView wot;
+        wot = getView().findViewById(R.id.titleWay);
+
+        TextView bp = getView().findViewById(R.id.bodyPartsText);
+
+        detailsViewModel.select(new TrainingDetails("Trening fbw", "3 dni", null, detailsViewModel.getList()));
+
+
+
+
 
         spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
