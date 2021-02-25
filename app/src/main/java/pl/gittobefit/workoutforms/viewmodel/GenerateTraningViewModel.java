@@ -34,12 +34,17 @@ public class GenerateTraningViewModel extends ViewModel
     private MutableLiveData<String> timeDesciptionText =new  MutableLiveData<String>();
     private  ArrayList<BodyParts> bodyPartsToChoose = new ArrayList<>();
     private MutableLiveData<Integer> typeSpinnerChose =new  MutableLiveData<Integer>();
-
+    private MutableLiveData<Integer> waySpinnerChose =new  MutableLiveData<Integer>();
+    private MutableLiveData<Integer> frequencySpinnerChose =new  MutableLiveData<Integer>();
+    private MutableLiveData<Integer> timeSpinnerChose =new  MutableLiveData<Integer>();
 
 
     public GenerateTraningViewModel()
     {
         setTypeSpinnerChose(0);
+        setWaySpinnerChose(0);
+        setfrequencySpinnerChose(0);
+        setTimeSpinnerChose(0);
     }
 
     public RecyclerView.Adapter getListAdapter()
@@ -161,5 +166,35 @@ public class GenerateTraningViewModel extends ViewModel
     public void setTypeSpinnerChose(Integer typeSpinnerChose)
     {
         this.typeSpinnerChose.setValue(typeSpinnerChose);
+    }
+
+    public MutableLiveData<Integer> getWaySpinnerChose()
+    {
+        return waySpinnerChose;
+    }
+
+    public void setWaySpinnerChose(int position)
+    {
+        this.waySpinnerChose.setValue(position);
+    }
+
+    public MutableLiveData<Integer> getfrequencySpinnerChose()
+    {
+        return frequencySpinnerChose;
+    }
+
+    public void setfrequencySpinnerChose(int position)
+    {
+        frequencySpinnerChose.setValue(position);
+    }
+
+    public MutableLiveData<Integer> getTimeSpinnerChose()
+    {
+        return timeSpinnerChose;
+    }
+
+    public void setTimeSpinnerChose(int position)
+    {
+        timeSpinnerChose.setValue(position);
     }
 }

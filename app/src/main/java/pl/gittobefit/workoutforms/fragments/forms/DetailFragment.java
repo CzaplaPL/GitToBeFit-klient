@@ -1,13 +1,10 @@
 package pl.gittobefit.workoutforms.fragments.forms;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,17 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
 
 import pl.gittobefit.R;
 import pl.gittobefit.databinding.FragmentDetailFormBinding;
-import pl.gittobefit.databinding.FragmentEquipmentBinding;
 import pl.gittobefit.workoutforms.adapters.BodyPartsAdapter;
-import pl.gittobefit.workoutforms.object.BodyParts;
-import pl.gittobefit.workoutforms.object.TrainingDetails;
-import pl.gittobefit.workoutforms.viewmodel.DetailsViewModel;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
 /**
@@ -60,12 +50,12 @@ public class DetailFragment extends Fragment {
         model.setTypeDesciptionText(getString(R.string.split));
         model.setDetailDesciptionText(getString(R.string.series));
         model.setTimeDesciptionText(getString(R.string.days));
-        model.getTypeDesciptionText().observe(getViewLifecycleOwner(), string -> binding.typeDesciption.setText(string));
+        /*model.getTypeDesciptionText().observe(getViewLifecycleOwner(), string -> binding.typeDesciption.setText(string));
         model.getDetailDesciptionText().observe(getViewLifecycleOwner(), string -> binding.wayDescription.setText(string));
-        model.getTimeDesciptionText().observe(getViewLifecycleOwner(), string -> binding.frequencyDescription.setText(string));
+        model.getTimeDesciptionText().observe(getViewLifecycleOwner(), string -> binding.frequencyDescription.setText(string));*/
         model.setBodyPartsSplit(getContext());
 
-
+        //tworzenie 1 spinera
         bodyPartsAdapter = new BodyPartsAdapter(model.getBodyParts());
         binding.myRecycleView.setAdapter(bodyPartsAdapter);
         binding.myRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -94,26 +84,23 @@ public class DetailFragment extends Fragment {
 
             }
         });
-
-       /* ArrayAdapter adapter2 = ArrayAdapter.createFromResource(getContext(),
+        //tworzenie 2 spinera
+        ArrayAdapter adapter2 = ArrayAdapter.createFromResource(getContext(),
                 R.array.training_subtype, R.layout.my_spinner);
         binding.waySpinner.setAdapter(adapter2);
+        model.getWaySpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
+        {
+            @Override
+            public void onChanged(Integer position)
+            {
+                waySelect(position);
+            }
+        });
         binding.waySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position==0)
-                {
-                    std.setText(series);
-                    detailsViewModel.setPositionSpinner2(position);
-                    detailsViewModel.setTrainingDetails("Serie");
-                }
-                else
-                {
-                    std.setText(circuit);
-                    detailsViewModel.setPositionSpinner2(position);
-                    detailsViewModel.setTrainingDetails("Czas");
-                }
+                model.setWaySpinnerChose(position);
 
             }
 
@@ -122,63 +109,24 @@ public class DetailFragment extends Fragment {
 
             }
         });
-*/
-    }
 
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-
-/*
-
-
-        spinner3.setSelection(detailsViewModel.getPositionSpinner3());
-        TextView td = getView().findViewById(R.id.typeDesciption);
-        td.setText(split);
-
-        TextView std = getView().findViewById(R.id.wayDescription);
-        std.setText(series);
-
-        TextView dd = getView().findViewById(R.id.frequencyDescription);
-        dd.setText(days);
-        TextView wot;
-        wot = getView().findViewById(R.id.titleWay);
-
-        TextView bp = getView().findViewById(R.id.bodyPartsText);
-
-        detailsViewModel.select(new TrainingDetails("Trening fbw", "3 dni", null, detailsViewModel.getList()));
-
-
-
-
-
-        spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        //tworzenie 3 spinera
+        ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
+                R.array.split_duration, R.layout.my_spinner);
+        binding.frequencySpinner.setAdapter(adapter3);
+        model.getfrequencySpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
+        {
+            @Override
+            public void onChanged(Integer position)
+            {
+                frequencySelect(position);
+            }
+        });
+        binding.frequencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                detailsViewModel.setPositionSpinner3(spinner3.getSelectedItemPosition());
-
-                if (spinner3.getSelectedItem().equals("3 dni"))
-                {
-                    dd.setText(days);
-                    detailsViewModel.setTrainingDetails("3 dni",2);
-                }
-                else if  (spinner3.getSelectedItem().equals("4 dni"))
-                {
-                    dd.setText(days);
-                    detailsViewModel.setTrainingDetails("4 dni",2);
-                }
-                else if (spinner3.getSelectedItem().equals("5 dni"))
-                {
-                    dd.setText(days);
-                    detailsViewModel.setTrainingDetails("5 dni",2);
-                }
-                else
-                {
-                    dd.setText(minutes);
-                    detailsViewModel.setTrainingDetails(position);
-                }
+                model.setfrequencySpinnerChose(position);
 
             }
 
@@ -186,7 +134,37 @@ public class DetailFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });*/
+        });
+
+
+
+        //tworzenie 4 spinera
+        ArrayAdapter adapter4 = ArrayAdapter.createFromResource(getContext(),
+                R.array.fintess_duration, R.layout.my_spinner);
+        binding.timeSpinner.setAdapter(adapter4);
+        model.getTimeSpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
+        {
+            @Override
+            public void onChanged(Integer position)
+            {
+                timeSelect(position);
+            }
+        });
+        binding.timeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                model.setTimeSpinnerChose(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+    binding.timeSpinner.setVisibility(View.GONE);
+    binding.titleTime.setVisibility(View.GONE);
+    }
+
+    private void timeSelect(Integer position)
+    {
 
     }
 
@@ -265,5 +243,47 @@ public class DetailFragment extends Fragment {
             spinner3.setSelection(detailsViewModel.getPositionSpinner3());
             detailsViewModel.setTrainingDetails("Trening fitness","Serie","9 minut");
         }*/
+    }
+
+    private void waySelect(int position)
+    {
+        if (position==0)
+        {
+                  /*  std.setText(series);
+                    detailsViewModel.setPositionSpinner2(position);
+                    detailsViewModel.setTrainingDetails("Serie");*/
+        }
+        else
+        {
+                   /* std.setText(circuit);
+                    detailsViewModel.setPositionSpinner2(position);
+                    detailsViewModel.setTrainingDetails("Czas");*/
+        }
+    }
+    private void frequencySelect(Integer position)
+    {
+       /* detailsViewModel.setPositionSpinner3(spinner3.getSelectedItemPosition());
+
+        if (spinner3.getSelectedItem().equals("3 dni"))
+        {
+            dd.setText(days);
+            detailsViewModel.setTrainingDetails("3 dni",2);
+        }
+        else if  (spinner3.getSelectedItem().equals("4 dni"))
+        {
+            dd.setText(days);
+            detailsViewModel.setTrainingDetails("4 dni",2);
+        }
+        else if (spinner3.getSelectedItem().equals("5 dni"))
+        {
+            dd.setText(days);
+            detailsViewModel.setTrainingDetails("5 dni",2);
+        }
+        else
+        {
+            dd.setText(minutes);
+            detailsViewModel.setTrainingDetails(position);
+        }
+*/
     }
 }

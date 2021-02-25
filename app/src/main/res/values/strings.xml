@@ -53,8 +53,6 @@
     <string name="equipment">Equipment</string>
     <string name="tab2">Tab 2</string>
     <string name="tab3">Tab 3</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="todo">TODO</string>
     <string name="notLogin">"Nie udało się zalogować "</string>
     <string name="wrongEmail">Błędny Email</string>
@@ -141,6 +139,9 @@ możliwość podglądu hasła w rejestracji \n
 dodanie loga do przycisku fb i google oraz napis nad nimi \n
          0.1.2-hotfix-3\n
         usunięcie walidacji z logowania\n
+        0.1.2-hotfix-4k\n
+        dodanie pytania o hasło podczas usuwania uzytkownika \n
+
     </string>
     <string name="chest">Klatka piersiowa</string>
     <string name="sixpack">Brzuch</string>
@@ -159,4 +160,5 @@ dodanie loga do przycisku fb i google oraz napis nad nimi \n
     <string name="change_email_title">Zmień email</string>
     <string name="change_pass_title">Zmień hasło</string>
     <string name="delete_acount_title">Usuń konto</string>
+    <string name="set_time">Czas trwania treningu </string>
 </resources>
