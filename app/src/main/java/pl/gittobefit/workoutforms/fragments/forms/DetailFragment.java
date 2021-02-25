@@ -72,7 +72,6 @@ public class DetailFragment extends Fragment {
         spinner2 = (Spinner) getView().findViewById(R.id.waySpinner);
         spinner3 = (Spinner) getView().findViewById(R.id.frequencySpinner);
 
-
         recyclerView = getView().findViewById(R.id.myRecycleView);
 
         if(detailsViewModel.getPositionSpinner1() == 3)
