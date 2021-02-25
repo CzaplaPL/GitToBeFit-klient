@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,9 +51,6 @@ public class DetailFragment extends Fragment {
         model.setTypeDesciptionText(getString(R.string.split));
         model.setDetailDesciptionText(getString(R.string.series));
         model.setTimeDesciptionText(getString(R.string.days));
-        /*model.getTypeDesciptionText().observe(getViewLifecycleOwner(), string -> binding.typeDesciption.setText(string));
-        model.getDetailDesciptionText().observe(getViewLifecycleOwner(), string -> binding.wayDescription.setText(string));
-        model.getTimeDesciptionText().observe(getViewLifecycleOwner(), string -> binding.frequencyDescription.setText(string));*/
         model.setBodyPartsSplit(getContext());
 
         //tworzenie 1 spinera
@@ -88,25 +86,15 @@ public class DetailFragment extends Fragment {
         ArrayAdapter adapter2 = ArrayAdapter.createFromResource(getContext(),
                 R.array.training_subtype, R.layout.my_spinner);
         binding.waySpinner.setAdapter(adapter2);
-        model.getWaySpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
-        {
-            @Override
-            public void onChanged(Integer position)
-            {
-                waySelect(position);
-            }
-        });
         binding.waySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 model.setWaySpinnerChose(position);
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -114,14 +102,7 @@ public class DetailFragment extends Fragment {
         ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
                 R.array.split_duration, R.layout.my_spinner);
         binding.frequencySpinner.setAdapter(adapter3);
-        model.getfrequencySpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
-        {
-            @Override
-            public void onChanged(Integer position)
-            {
-                frequencySelect(position);
-            }
-        });
+
         binding.frequencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
@@ -142,14 +123,6 @@ public class DetailFragment extends Fragment {
         ArrayAdapter adapter4 = ArrayAdapter.createFromResource(getContext(),
                 R.array.fintess_duration, R.layout.my_spinner);
         binding.timeSpinner.setAdapter(adapter4);
-        model.getTimeSpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
-        {
-            @Override
-            public void onChanged(Integer position)
-            {
-                timeSelect(position);
-            }
-        });
         binding.timeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
@@ -163,13 +136,23 @@ public class DetailFragment extends Fragment {
     binding.titleTime.setVisibility(View.GONE);
     }
 
-    private void timeSelect(Integer position)
-    {
 
-    }
 
     private void changeTypeSpiner(Integer position)
     {
+        switch(position)
+        {
+            case 0:
+                model.setBodyPartsSplit(getContext());
+                bodyPartsAdapter.notifyDataSetChanged();
+                break;
+
+            case 1:
+              model.setBodyPartsFitnes(getContext());
+              bodyPartsAdapter.notifyDataSetChanged();
+              break;
+        }
+
       /*  if (spinner1.getSelectedItem().equals("Trening split")) {
 
             ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
@@ -245,45 +228,5 @@ public class DetailFragment extends Fragment {
         }*/
     }
 
-    private void waySelect(int position)
-    {
-        if (position==0)
-        {
-                  /*  std.setText(series);
-                    detailsViewModel.setPositionSpinner2(position);
-                    detailsViewModel.setTrainingDetails("Serie");*/
-        }
-        else
-        {
-                   /* std.setText(circuit);
-                    detailsViewModel.setPositionSpinner2(position);
-                    detailsViewModel.setTrainingDetails("Czas");*/
-        }
-    }
-    private void frequencySelect(Integer position)
-    {
-       /* detailsViewModel.setPositionSpinner3(spinner3.getSelectedItemPosition());
 
-        if (spinner3.getSelectedItem().equals("3 dni"))
-        {
-            dd.setText(days);
-            detailsViewModel.setTrainingDetails("3 dni",2);
-        }
-        else if  (spinner3.getSelectedItem().equals("4 dni"))
-        {
-            dd.setText(days);
-            detailsViewModel.setTrainingDetails("4 dni",2);
-        }
-        else if (spinner3.getSelectedItem().equals("5 dni"))
-        {
-            dd.setText(days);
-            detailsViewModel.setTrainingDetails("5 dni",2);
-        }
-        else
-        {
-            dd.setText(minutes);
-            detailsViewModel.setTrainingDetails(position);
-        }
-*/
-    }
 }
