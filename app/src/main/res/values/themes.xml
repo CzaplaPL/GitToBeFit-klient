@@ -16,6 +16,7 @@
         <item name="colorOnSurface">@color/ourBlack</item>
         <item name="colorPrimaryVariant">@color/ourBlack</item>
         <item name="colorOnPrimary">@color/ourGray</item>
+        <item name="colorPrimarySurface">@color/ourGreen</item>
         <item name="colorOnBackground">@color/ourGreenDay</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="windowActionBar">false</item>

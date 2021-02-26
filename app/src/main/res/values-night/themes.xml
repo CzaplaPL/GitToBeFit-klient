@@ -16,6 +16,7 @@
         <item name="colorOnSurface">@color/ourWhite</item>
         <item name="colorOnPrimary">@color/ourGray</item>
         <item name="colorOnBackground">@color/appBarNight</item>
+        <item name="colorPrimarySurface">@color/ourGray</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/ourBlackBar</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
