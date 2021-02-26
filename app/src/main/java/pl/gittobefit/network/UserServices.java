@@ -138,7 +138,7 @@ public class UserServices
                         {
                             if(response2.isSuccessful())
                             {
-                                User.getInstance().add(email, response.headers().get("Authorization"), "1", User.WayOfLogin.GOOGLE, fragment.getContext());
+                                User.getInstance().add(email, response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.GOOGLE, fragment.getContext());
                                 AppDataBase.getInstance(fragment.getContext()).user().addUser(new UserEntity(Integer.parseInt(response2.headers().get("idUser")),email, response.headers().get("Authorization")));
                                 fragment.loginSuccess();
                             }else
