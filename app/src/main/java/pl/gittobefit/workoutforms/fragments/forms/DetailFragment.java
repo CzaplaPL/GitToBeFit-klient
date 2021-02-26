@@ -56,6 +56,12 @@ public class DetailFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        detailsViewModel.clear();
+    }
+
+    @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         detailsViewModel.setSplitList(bodyPartsToChooseForSplit);
