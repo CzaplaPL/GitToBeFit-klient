@@ -51,11 +51,52 @@
                 android:textSize="24sp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/bez_sprzetu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/equipment_item_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_baseline_clear_24" />
+
+
+            <TextView
+                android:id="@+id/titleType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@+id/itemPicture"
+                android:text="@string/noeqiupment"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap" />
+
+
+            <CheckBox
+                android:id="@+id/equipment_checbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:checked="true"
+                android:textColorLink="#FFFFFF"
+                tools:ignore="RelativeOverlap" />
+
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvContacts"
             android:layout_width="match_parent"
-            tools:listitem="@layout/equipment_item"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            tools:listitem="@layout/equipment_item">
 
         </androidx.recyclerview.widget.RecyclerView>
 

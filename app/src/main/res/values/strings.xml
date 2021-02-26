@@ -145,6 +145,24 @@ dodanie loga do przycisku fb i google oraz napis nad nimi \n
         usunięcie walidacji z logowania\n
         0.1.2-hotfix-4k\n
         dodanie pytania o hasło podczas usuwania uzytkownika \n
+        0.1.2-hotfix-4k\n
+        dodanie pytania o hasło podczas usuwania uzytkownika \n
+        0.1.2-hotfix-4k\n
+        dodanie pytania o hasło podczas usuwania uzytkownika \n
+        0.1.2-hotfix-4k\n
+        dodanie pytania o hasło podczas usuwania uzytkownika \n
+        0.1.2-hotfix-5d\n
+        Poprawa błędów w nawigacji\n
+przerobienie toast na snackbary\n
+sprawdzanie czy użytkownik ma internet\n
+         0.1.2-hotfix-6k\n
+        poprawa komunikatów \n
+         0.1.2-hotfix-7d\n
+        poprawa nawigacji oraz logowania google \n
+          0.1.2-hotfix-8w\n
+        poprawa leyautow logowania i rejestracji \n
+
+
 
     </string>
     <string name="chest">Klatka piersiowa</string>
@@ -166,4 +184,5 @@ dodanie loga do przycisku fb i google oraz napis nad nimi \n
     <string name="delete_acount_title">Usuń konto</string>
     <string name="set_time">Czas trwania treningu </string>
     <string name="set_schedule">sposób generowania</string>
+    <string name="noeqiupment">Ćwiczenia bez sprzętu</string>
 </resources>

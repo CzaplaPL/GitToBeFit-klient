@@ -55,6 +55,7 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
     {
         model.initList(equipmentType,this);
         binding.titleEquipment.setVisibility(View.VISIBLE);
+        binding.bezSprzetu.setVisibility(View.VISIBLE);
         binding.rvContacts.setAdapter(model.getListAdapter());
         binding.rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.equipmentLoading.setVisibility(View.GONE);
