@@ -60,6 +60,25 @@
         android:spinnerMode="dropdown"/>
 
     <TextView
+        android:id="@+id/titleScheduleType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="@string/set_schedule"
+        android:textColor="?attr/colorPrimaryVariant"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        tools:visibility="gone" />
+
+    <Spinner
+        android:id="@+id/scheduleTypeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:popupBackground="?attr/colorSurface"
+        android:spinnerMode="dropdown"
+        tools:visibility="gone" />
+    <TextView
         android:id="@+id/titleTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

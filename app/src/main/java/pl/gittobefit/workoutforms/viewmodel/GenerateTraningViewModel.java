@@ -37,6 +37,7 @@ public class GenerateTraningViewModel extends ViewModel
     private MutableLiveData<Integer> waySpinnerChose =new  MutableLiveData<Integer>();
     private MutableLiveData<Integer> frequencySpinnerChose =new  MutableLiveData<Integer>();
     private MutableLiveData<Integer> timeSpinnerChose =new  MutableLiveData<Integer>();
+    private MutableLiveData<Integer> scheduleSpinnerChose =new  MutableLiveData<Integer>();
 
 
     public GenerateTraningViewModel()
@@ -196,5 +197,10 @@ public class GenerateTraningViewModel extends ViewModel
     public void setTimeSpinnerChose(int position)
     {
         timeSpinnerChose.setValue(position);
+    }
+
+    public void setScheduleSpinnerChose(int position)
+    {
+scheduleSpinnerChose.setValue(position);
     }
 }

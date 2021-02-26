@@ -137,7 +137,7 @@ public class Login extends Fragment implements View.OnClickListener
                 ConnectionToServer.getInstance().userServices.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this);
                 break;
             case R.id.loginSkip:
-                Navigation.findNavController(view).navigate(LoginDirections.actionLogin2ToHomeFragment());
+             Navigation.findNavController(view).navigate(LoginDirections.actionLogin2ToHomeFragment());
                 break;
             case R.id.loginGoogle:
                 Log.w("logowanie google = ", "         uruchamianie ");

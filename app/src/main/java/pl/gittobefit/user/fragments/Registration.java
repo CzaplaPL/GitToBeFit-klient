@@ -145,7 +145,7 @@ public class Registration extends Fragment implements View.OnClickListener
     }
     public void Success(View view)
     {
-        Navigation.findNavController(view).navigate(R.id.action_registration_to_login2);
+        Navigation.findNavController(view).navigate(RegistrationDirections.actionRegistrationToLogin2());
         Navigation.findNavController(view).navigate(R.id.action_login_to_registrationSuccesDialog);
     }
 }

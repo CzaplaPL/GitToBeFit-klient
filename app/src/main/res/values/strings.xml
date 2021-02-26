@@ -83,6 +83,10 @@
         <item>3 dni</item>
         <item>4 dni</item>
     </string-array>
+    <string-array name="fbw_sheduletype">
+        <item>każdego dnia ten sam trening</item>
+        <item>każdego dnia inny trening</item>
+    </string-array>
     <string-array name="fintess_duration">
         <item>9 minut</item>
         <item>12 minut</item>
@@ -161,4 +165,5 @@ dodanie loga do przycisku fb i google oraz napis nad nimi \n
     <string name="change_pass_title">Zmień hasło</string>
     <string name="delete_acount_title">Usuń konto</string>
     <string name="set_time">Czas trwania treningu </string>
+    <string name="set_schedule">sposób generowania</string>
 </resources>

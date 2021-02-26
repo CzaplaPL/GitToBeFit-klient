@@ -97,7 +97,8 @@ public class DetailFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
+    binding.waySpinner.setVisibility(View.GONE);
+    binding.titleWay.setVisibility(View.GONE);
         //tworzenie 3 spinera
         ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
                 R.array.split_duration, R.layout.my_spinner);
@@ -134,98 +135,93 @@ public class DetailFragment extends Fragment {
         });
     binding.timeSpinner.setVisibility(View.GONE);
     binding.titleTime.setVisibility(View.GONE);
+        //tworzenie 5 spinera
+        ArrayAdapter adapter5 = ArrayAdapter.createFromResource(getContext(),
+                R.array.fbw_sheduletype, R.layout.my_spinner);
+        binding.scheduleTypeSpinner.setAdapter(adapter5);
+        binding.scheduleTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                model.setScheduleSpinnerChose(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+        binding.scheduleTypeSpinner.setVisibility(View.GONE);
+        binding.titleScheduleType.setVisibility(View.GONE);
+
+
     }
-
-
-
     private void changeTypeSpiner(Integer position)
     {
+        ArrayAdapter adapter;
         switch(position)
         {
             case 0:
+
+                binding.titleWay.setVisibility(View.GONE);
+                binding.waySpinner.setVisibility(View.GONE);
+                binding.titleFrequency.setVisibility(View.VISIBLE);
+                 adapter = ArrayAdapter.createFromResource(getContext(),
+                        R.array.split_duration, R.layout.my_spinner);
+                binding.frequencySpinner.setAdapter(adapter);
+                binding.frequencySpinner.setVisibility(View.VISIBLE);
+                binding.titleTime.setVisibility(View.GONE);
+                binding.timeSpinner.setVisibility(View.GONE);
+                binding.titleScheduleType.setVisibility(View.GONE);
+                binding.scheduleTypeSpinner.setVisibility(View.GONE);
+                binding.bodyPartsText.setVisibility(View.VISIBLE);
                 model.setBodyPartsSplit(getContext());
                 bodyPartsAdapter.notifyDataSetChanged();
+                binding.myRecycleView.setVisibility(View.VISIBLE);
                 break;
 
             case 1:
-              model.setBodyPartsFitnes(getContext());
-              bodyPartsAdapter.notifyDataSetChanged();
+
+             binding.titleWay.setVisibility(View.GONE);
+             binding.waySpinner.setVisibility(View.GONE);
+             binding.titleFrequency.setVisibility(View.VISIBLE);
+             adapter = ArrayAdapter.createFromResource(getContext(),
+                        R.array.fbw_duration, R.layout.my_spinner);
+             binding.frequencySpinner.setAdapter(adapter);
+             binding.frequencySpinner.setVisibility(View.VISIBLE);
+             binding.titleTime.setVisibility(View.GONE);
+             binding.timeSpinner.setVisibility(View.GONE);
+             binding.titleScheduleType.setVisibility(View.VISIBLE);
+             binding.scheduleTypeSpinner.setVisibility(View.VISIBLE);
+                binding.bodyPartsText.setVisibility(View.GONE);
+                binding.myRecycleView.setVisibility(View.GONE);
               break;
+            case 2:
+
+                binding.titleWay.setVisibility(View.VISIBLE);
+                binding.waySpinner.setVisibility(View.VISIBLE);
+                binding.titleFrequency.setVisibility(View.GONE);
+                binding.frequencySpinner.setVisibility(View.GONE);
+                binding.titleTime.setVisibility(View.VISIBLE);
+                binding.timeSpinner.setVisibility(View.VISIBLE);
+                binding.titleScheduleType.setVisibility(View.GONE);
+                binding.scheduleTypeSpinner.setVisibility(View.GONE);
+                binding.bodyPartsText.setVisibility(View.GONE);
+                binding.myRecycleView.setVisibility(View.GONE);
+                break;
+            case 3:
+
+                binding.titleWay.setVisibility(View.VISIBLE);
+                binding.waySpinner.setVisibility(View.VISIBLE);
+                binding.titleFrequency.setVisibility(View.GONE);
+                binding.frequencySpinner.setVisibility(View.GONE);
+                binding.titleTime.setVisibility(View.VISIBLE);
+                binding.timeSpinner.setVisibility(View.VISIBLE);
+                binding.titleScheduleType.setVisibility(View.GONE);
+                binding.scheduleTypeSpinner.setVisibility(View.GONE);
+                binding.bodyPartsText.setVisibility(View.VISIBLE);
+                model.setBodyPartsFitnes(getContext());
+                bodyPartsAdapter.notifyDataSetChanged();
+                binding.myRecycleView.setVisibility(View.VISIBLE);
+                break;
         }
-
-      /*  if (spinner1.getSelectedItem().equals("Trening split")) {
-
-            ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
-                    R.array.split_duration, R.layout.support_simple_spinner_dropdown_item);
-            spinner3.setAdapter(adapter3);
-
-            spinner2.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-
-            std.setVisibility(View.GONE);
-            wot.setVisibility(View.GONE);
-            bp.setVisibility(View.VISIBLE);
-
-            td.setText(split);
-
-            detailsViewModel.setPositionSpinner1(position);
-            spinner3.setSelection(0);
-            detailsViewModel.setTrainingDetails("Trening split",null,"3 dni");
-        }
-        else if (spinner1.getSelectedItem().equals("Trening fbw")){
-            ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
-                    R.array.fbw_duration, R.layout.support_simple_spinner_dropdown_item);
-            spinner3.setAdapter(adapter3);
-            model.setTypeDesciptionText("eeeeeeeeeeeeeeeeeeeeeeeee");
-            spinner2.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.GONE);
-
-            std.setVisibility(View.GONE);
-            wot.setVisibility(View.GONE);
-            bp.setVisibility(View.GONE);
-            Log.w("test",model.getTypeDesciptionText().toString());
-            td.setText(fbw);
-
-            detailsViewModel.setPositionSpinner1(position);
-            spinner3.setSelection(0);
-            detailsViewModel.setTrainingDetails("Trening fbw",null,"3 dni");
-        }
-        else if (spinner1.getSelectedItem().equals("Trening cardio")){
-            ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
-                    R.array.fintess_duration, R.layout.support_simple_spinner_dropdown_item);
-            spinner3.setAdapter(adapter3);
-
-            spinner2.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-
-            std.setVisibility(View.VISIBLE);
-            wot.setVisibility(View.VISIBLE);
-            bp.setVisibility(View.GONE);
-
-            td.setText(cardio);
-
-            detailsViewModel.setPositionSpinner1(position);
-            spinner3.setSelection(detailsViewModel.getPositionSpinner3());
-            detailsViewModel.setTrainingDetails("Trening cardio","Serie","9 minut");
-        }
-        else if (spinner1.getSelectedItem().equals("Trening fitness")){
-            ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
-                    R.array.fintess_duration, R.layout.support_simple_spinner_dropdown_item);
-            spinner3.setAdapter(adapter3);
-
-            spinner2.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-
-            std.setVisibility(View.VISIBLE);
-            wot.setVisibility(View.VISIBLE);
-            bp.setVisibility(View.GONE);
-
-            td.setText(fitness);
-
-            detailsViewModel.setPositionSpinner1(position);
-            spinner3.setSelection(detailsViewModel.getPositionSpinner3());
-            detailsViewModel.setTrainingDetails("Trening fitness","Serie","9 minut");
-        }*/
     }
 
 
