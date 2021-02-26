@@ -7,10 +7,10 @@
     android:layout_marginTop="20dp"
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/activity_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".MainActivity">
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".MainActivity">
 
         <ImageView
             android:id="@+id/loginLogo"
@@ -25,29 +25,29 @@
             app:srcCompat="@drawable/logo" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="-5dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="-5dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/loginLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/main_guideline_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/loginLogo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintGuide_percent="0.52" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/main_guideline_button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.52" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/main_guideline_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.48" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/main_guideline_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.48" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/main_guideline_left"
@@ -63,30 +63,30 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.95"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/loginMailKontener"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/e_mail"
-                app:boxStrokeColor="@drawable/kontener_background"
-                app:boxStrokeWidth="2dp"
-                app:errorEnabled="true"
-                app:hintEnabled="true"
-                app:layout_constraintEnd_toEndOf="@id/main_guideline_right"
-                app:layout_constraintStart_toStartOf="@id/main_guideline_left"
-                app:layout_constraintTop_toTopOf="parent"
-                app:startIconContentDescription="@string/e_mail"
-                app:startIconDrawable="@drawable/baseline_email_24"
-                android:layout_marginTop="20dp"
-                tools:ignore="NotSibling">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/loginMailKontener"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/e_mail"
+            app:boxStrokeColor="@drawable/kontener_background"
+            app:boxStrokeWidth="2dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true"
+            app:layout_constraintEnd_toEndOf="@id/main_guideline_right"
+            app:layout_constraintStart_toStartOf="@id/main_guideline_left"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconContentDescription="@string/e_mail"
+            app:startIconDrawable="@drawable/baseline_email_24"
+            android:layout_marginTop="20dp"
+            tools:ignore="NotSibling">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/loginMail"
-                    android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    android:autofillHints="emailAddress"
-                    android:inputType="textWebEmailAddress" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginMail"
+                android:layout_width="match_parent"
+                android:layout_height="53dp"
+                android:autofillHints="emailAddress"
+                android:inputType="textWebEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -110,10 +110,10 @@
                 app:startIconDrawable="@drawable/baseline_lock_open_24">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/loginPass"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="textWebPassword" />
+                android:id="@+id/loginPass"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textWebPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,7 +124,7 @@
                 android:contentDescription="@string/forgotPassword"
                 android:text="@string/forgotPassword"
                 android:textColor="@color/ourGreenDay"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="@id/main_guideline_right"
                 app:layout_constraintTop_toBottomOf="@+id/loginPassKontener" />
 
@@ -230,7 +230,7 @@
 
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
