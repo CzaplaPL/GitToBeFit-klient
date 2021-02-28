@@ -72,7 +72,7 @@
     </string-array>
     <string-array name="training_subtype">
         <item>Serie</item>
-        <item>Czas</item>
+        <item>Obwodowo</item>
     </string-array>
     <string-array name="split_duration">
         <item>3 dni</item>
@@ -185,4 +185,5 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="set_time">Czas trwania treningu </string>
     <string name="set_schedule">sposób generowania</string>
     <string name="noeqiupment">Ćwiczenia bez sprzętu</string>
+    <string name="registrationStart">Trwa rejestracja</string>
 </resources>

@@ -39,6 +39,7 @@ public class SummaryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
+        
 
     }
 }

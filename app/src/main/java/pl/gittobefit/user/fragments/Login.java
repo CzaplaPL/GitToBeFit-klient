@@ -24,6 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Collections;
@@ -56,6 +57,13 @@ public class Login extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+        TextInputLayout email= view.findViewById(R.id.loginMailKontener);
+        TextInputEditText email2= view.findViewById(R.id.loginMail);
+        email2.setOnFocusChangeListener((v, hasFocus) -> email.setErrorEnabled(false));
+
+        TextInputLayout password= view.findViewById(R.id.loginPassKontener);
+        TextInputEditText password2= view.findViewById(R.id.loginMail);
+        password2.setOnFocusChangeListener((v, hasFocus) -> password.setErrorEnabled(false));
         Button button =  view.findViewById(R.id.loginZaloguj);
         button.setOnClickListener(this);
         button =  view.findViewById(R.id.loginGoogle);
