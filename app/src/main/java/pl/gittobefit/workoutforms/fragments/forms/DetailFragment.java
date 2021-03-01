@@ -187,7 +187,7 @@ public class DetailFragment extends Fragment {
 
                     detailsViewModel.setPositionSpinner1(position);
                     spinner3.setSelection(detailsViewModel.getPositionSpinner3());
-                    detailsViewModel.setTrainingDetails("Trening fitness","Serie","9 minut");
+                    detailsViewModel.setTrainingDetails("Trening fitness","Seriowy","9 minut");
                 }
             }
 
@@ -201,15 +201,15 @@ public class DetailFragment extends Fragment {
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (spinner2.getSelectedItem().equals("Serie"))
+                if (spinner2.getSelectedItem().equals("Seriowy"))
                 {
                     detailsViewModel.setPositionSpinner2(position);
-                    detailsViewModel.setTrainingDetails("Serie");
+                    detailsViewModel.setTrainingDetails("Seriowy");
                 }
                 else
                 {
                     detailsViewModel.setPositionSpinner2(position);
-                    detailsViewModel.setTrainingDetails("Czas");
+                    detailsViewModel.setTrainingDetails("Obwodowy");
                 }
 
             }

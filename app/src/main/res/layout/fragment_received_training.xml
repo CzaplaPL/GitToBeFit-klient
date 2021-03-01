@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+    <TextView
+        android:id="@+id/yourTraining"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Twój trening "
+        android:textSize="20sp"
+        android:gravity="center"
+        />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_border"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/trainingType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rodzaj treningu:  " />
+
+        <TextView
+            android:id="@+id/trainingForm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forma treningu:  " />
+
+        <TextView
+            android:id="@+id/trainingDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Czas treningu:  " />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_border"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/exercise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ćwiczenia: " />
+
+    </LinearLayout>
+
+    </LinearLayout>

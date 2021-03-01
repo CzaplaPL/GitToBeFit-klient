@@ -151,6 +151,7 @@ public class DetailsViewModel extends ViewModel
         splitList.add(new BodyParts("Ramiona"));
         setSplitList(splitList);
 
+        setTrainingDetails("split", null, "3 dni");
 
     }
 

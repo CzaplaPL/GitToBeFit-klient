@@ -1,8 +1,11 @@
 package pl.gittobefit;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,7 +31,7 @@ import pl.gittobefit.user.dialog.DeleteAccountDialog;
 /***
  * author:Dominik
  */
-public class MainActivity extends AppCompatActivity implements ChangeMailDialog.ChangeMailDialogInterface, DeleteAccountDialog.DeleteAccountDialogInterface,IShowSnackbar
+public class MainActivity extends AppCompatActivity implements ChangeMailDialog.ChangeMailDialogInterface, DeleteAccountDialog.DeleteAccountDialogInterface,IShowSnackbar, HomeFragment.HideKeyboardInterface
 {
 
     private DrawerLayout drawerLayout;
@@ -133,5 +136,12 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
         }
         Snackbar.make(findViewById(R.id.nav_host_fragment), message, Snackbar.LENGTH_SHORT)
                 .show();
+    }
+
+    @Override
+    public void hideKey(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        view.clearFocus();
     }
 }

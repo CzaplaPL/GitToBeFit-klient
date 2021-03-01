@@ -29,7 +29,7 @@
     <string name="email">email</string>
     <string name="newEmail">nowy email</string>
     <string name="sendPassword">Hasło zostało wysłane</string>
-    <string name="sendPasswordError">nie ma takiego uzytkownika</string>
+    <string name="sendPasswordError">Nie ma takiego użytkownika</string>
     <string name="delete">Usuń</string>
     <string name="google_token">57028483820-2fdhd5l8e0vc3knl5o3urda3n2di4gu9.apps.googleusercontent.com</string>
     <string name="rE_mail">Adres e-mail</string>
@@ -39,14 +39,14 @@
     <string name="checkbox">CheckBox</string>
     <string name="statute">Akceptuję Regulamin</string>
     <string name="registr">Zarejestruj </string>
-    <string name="registrsucces">Rejestracja zakończona sukcesem </string>
-    <string name="registrsuccesinfo">Na podany email została wysłana wiadomość z linkiem aktywującym konto</string>
+    <string name="registrsucces">Rejestracja zakończona sukcesem.</string>
+    <string name="registrsuccesinfo">Na podany email została wysłana wiadomość z linkiem aktywującym konto.</string>
     <string name="ok">OK</string>
     <string name="example">przykładowy tekst</string>
     <string name="titleEquipment">Wybierz swój sprzęt do wykonania treningu:</string>
     <string name="next">Przejdź Dalej</string>
 
-    <string name="logout">wylogowywanie</string>
+    <string name="logout">Wyloguj</string>
 
     <string name="loading">trwa wczytywanie...</string>
     <string name="generateTrainingForm">Generate Training</string>
@@ -56,11 +56,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="todo">TODO</string>
-    <string name="notLogin">"Nie udało się zalogować "</string>
-    <string name="wrongEmail">Błędny Email</string>
-    <string name="wrongPassword">błędne Hasło. Hasło musi składać się z 8 znaków i zawierać Wielką litere,cyfre i znak specjalny  </string>
-    <string name="incoredPassword">Podano błędne Hasło.  </string>
-    <string name="wrongPassword2">Hasła różnią się</string>
+    <string name="notLogin">"Nie udało się zalogować"</string>
+    <string name="wrongEmail">Błędny email</string>
+    <string name="wrongPassword">Słabe hasło. Hasło musi składać się z 8 znaków oraz zawierać wielką litere, cyfrę i znak specjalny.</string>
+    <string name="incoredPassword">Podano błędne hasło.</string>
+    <string name="wrongPassword2">Hasła różnią się.</string>
 
 
     <string name="hello_world">Hello world!</string>
@@ -73,8 +73,8 @@
         <item>Trening fitness</item>
     </string-array>
     <string-array name="training_subtype">
-        <item>Serie</item>
-        <item>Czas</item>
+        <item>Seriowy</item>
+        <item>Obwodowy</item>
     </string-array>
     <string-array name="split_duration">
         <item>3 dni</item>
@@ -105,9 +105,9 @@
     <string name="circuit">Wykonywanie ćwiczenia przez określony czas.</string>
     <string name="days">Dostarczymy Ci plan treningowy na wybraną przez Ciebie ilość dni.</string>
     <string name="minutes">Dostarczymy Ci pojedyńczy trening w wybranych przez Ciebie ramach czaowych.</string>
-    <string name="change_email">zmieniono e-mail pomyślnie. Na podany mail został wysłany link aktywujący konto</string>
-    <string name="duplicatedEmail">Podany email jest już zajęty</string>
-    <string name="changingMail">Trwa zmiana emaila</string>
+    <string name="change_email">Zmieniono e-mail pomyślnie. Na podany mail został wysłany link aktywujący konto.</string>
+    <string name="duplicatedEmail">Podany email jest już zajęty.</string>
+    <string name="changingMail">Trwa zmiana emaila.</string>
     <string name="loginwith">Lub zaloguj się za pomocą</string>
     <string name="aboutUsInfo">Numer zespołu: 8\n
         Opiekun zespołu: Daniel Borucki\n
@@ -142,10 +142,10 @@ dodanie loga do przycisku fb i google oraz napis nad nimi \n
          0.1.2-hotfix-3\n
         usunięcie walidacji z logowania\n
     </string>
-    <string name="noNetwork">Brak internetu.Aplikacja działa w trybie offline</string>
-    <string name="change_pass">Hasło zostało zmienione</string>
+    <string name="noNetwork">Brak internetu.Aplikacja działa w trybie offline.</string>
+    <string name="change_pass">Hasło zostało zmienione!</string>
     <string name="wrong_old_pass">Niepoprawne stare hasło !</string>
-    <string name="delete_acount">Konto usnięte</string>
+    <string name="delete_acount">Konto usnięte!</string>
     <string name="change_email_title">Zmień email</string>
     <string name="change_pass_title">Zmień hasło</string>
     <string name="delete_acount_title">Usuń konto</string>

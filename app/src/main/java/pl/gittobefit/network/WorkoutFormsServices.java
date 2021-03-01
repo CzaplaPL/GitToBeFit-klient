@@ -2,16 +2,17 @@ package pl.gittobefit.network;
 
 import android.util.Log;
 
+import androidx.fragment.app.Fragment;
+
 import java.util.ArrayList;
 
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
-import pl.gittobefit.workoutforms.adapters.EquipmentList;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
+import pl.gittobefit.workoutforms.object.Training;
 import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
-import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -79,5 +80,34 @@ public class WorkoutFormsServices
 
 
         });
+    }
+
+    public void getTrainingPlan(Fragment fragment)
+    {
+        Call<Training> call = workout.getTrainingPlan();
+        call.enqueue(new Callback<Training>()
+        {
+            @Override
+            public void onResponse(Call<Training> call, Response<Training> response) {
+                if(response.isSuccessful())
+                {
+                  createTraining(response.body());
+                }
+                else
+                {
+                    Log.e("Network ", "WorkoutForms.getTrainingType error " + response.code());
+                    LogUtils.logCause(response.headers().get("Cause"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Training> call, Throwable t) {
+                Log.e("Network ", "WorkoutForms.getTrainingType error = " + t.toString());
+            }
+        });
+    }
+
+    private void createTraining(Training body) {
+        System.out.println(body.toString());
     }
 }

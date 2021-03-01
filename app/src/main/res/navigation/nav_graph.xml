@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_homeFragment_to_generateTraining"
             app:destination="@id/generateTrainingForm" />
+        <action
+            android:id="@+id/action_homeFragment_to_displayReceivedTraining"
+            app:destination="@id/displayReceivedTraining" />
     </fragment>
     <fragment
         android:id="@+id/setting"
@@ -109,6 +112,12 @@
         android:name="pl.gittobefit.workoutforms.fragments.GenerateTrainingForm"
         android:label="@string/generateTrainingForm"
         tools:layout="@layout/fragment_generate_training" />
+
+    <fragment
+        android:id="@+id/displayReceivedTraining"
+        android:name="pl.gittobefit.workoutforms.fragments.DisplayReceivedTraining"
+        android:label="Display received training"
+        tools:layout="@layout/fragment_received_training" />
     <action
         android:id="@+id/action_global_logout"
         app:destination="@id/logout"
