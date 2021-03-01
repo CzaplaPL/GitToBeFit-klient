@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginTop="20dp"
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/activity_main"
@@ -15,6 +14,7 @@
         <ImageView
             android:id="@+id/loginLogo"
             android:layout_width="190dp"
+            android:layout_marginTop="20dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/app_name"

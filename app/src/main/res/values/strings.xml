@@ -14,8 +14,8 @@
     <string name="resetPassword">Resetuj hasło</string>
     <string name="facebook">Facebook</string>
     <string name="noAccount">Nie masz konta?</string>
-    <string name="register">Załóż je</string>
-    <string name="skip">Pomiń</string>
+    <string name="register">Załóż Konto</string>
+    <string name="skip">Pomiń Logowanie</string>
     <string name="remindPassword">Przypomnij Hasło</string>
     <string name="remindPasswordText">Podaj email twojego konta. Zostanie na nie wysłane nowe hasło.</string>
     <string name="remindPasswordTitle">Przypomnij hasło </string>
@@ -34,7 +34,7 @@
     <string name="google_token">57028483820-2fdhd5l8e0vc3knl5o3urda3n2di4gu9.apps.googleusercontent.com</string>
     <string name="rE_mail">Adres e-mail</string>
     <string name="rPassword">Hasło</string>
-    <string name="rRewersePassword">powtórz hasło</string>
+    <string name="rRewersePassword">Powtórz Hasło</string>
     <string name="robot">Nie jestem robotem</string>
     <string name="checkbox">CheckBox</string>
     <string name="statute">Akceptuję Regulamin</string>
@@ -117,7 +117,11 @@
     <string name="change_email">zmieniono e-mail pomyślnie. Na podany mail został wysłany link aktywujący konto</string>
     <string name="duplicatedEmail">Podany email jest już zajęty</string>
     <string name="changingMail">Trwa zmiana emaila</string>
-    <string name="loginwith">Lub zaloguj się za pomocą</string>
+    <string name="loginwith">Alternatywne opcje logowania</string>
+    <string name="titleTypeTraining">Wybierz rodzaj treningu:</string>
+    <string name="titleWayTraining">Wybierz sposób odbywania treningu:</string>
+    <string name="titleFrequencyTraining">Podaj liczbę dni w tygodniu:</string>
+    <string name="titleBodyParts">Wybierz interesujące Cię partie ciała:</string>
     <string name="aboutUsInfo">Numer zespołu: 8\n
         Opiekun zespołu: Daniel Borucki\n
         Zespół:\n

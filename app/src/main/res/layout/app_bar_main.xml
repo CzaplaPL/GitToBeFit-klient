@@ -18,7 +18,7 @@
             android:background="?attr/colorOnBackground"
             app:menu="@menu/top_app_bar"
             app:navigationIcon="@drawable/ic_menu"
-            app:subtitleTextColor="@color/ourBlack"
+            app:navigationIconTint="?attr/colorPrimaryVariant"
             app:title="tmp"
             app:titleTextColor="?attr/colorPrimaryVariant" />
 
