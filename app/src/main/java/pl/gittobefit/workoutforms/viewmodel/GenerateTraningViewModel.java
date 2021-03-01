@@ -1,20 +1,14 @@
 package pl.gittobefit.workoutforms.viewmodel;
 
 import android.content.Context;
-import android.util.Log;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 
 import pl.gittobefit.R;
-import pl.gittobefit.workoutforms.adapters.BodyPartsAdapter;
 import pl.gittobefit.workoutforms.adapters.EquipmentAdapter;
 import pl.gittobefit.workoutforms.adapters.EquipmentList;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
@@ -28,23 +22,26 @@ public class GenerateTraningViewModel extends ViewModel
 {
     private WorkoutFormsRepository repository =new WorkoutFormsRepository(this) ;
     private EquipmentList equipmentList=new EquipmentList();
+    private int noEquipmentid = -1;
+    private boolean noEquipmentcheched = true;
     private ArrayList<EquipmentForm> listData = new ArrayList<>();
-    private MutableLiveData<String> typeDesciptionText =new  MutableLiveData<String>();
-    private MutableLiveData<String> detailDesciptionText =new  MutableLiveData<String>();
-    private MutableLiveData<String> timeDesciptionText =new  MutableLiveData<String>();
+    private MutableLiveData<String> typeDesciptionText =new  MutableLiveData<>();
+    private MutableLiveData<String> detailDesciptionText =new  MutableLiveData<>();
+    private MutableLiveData<String> timeDesciptionText =new  MutableLiveData<>();
     private  ArrayList<BodyParts> bodyPartsToChoose = new ArrayList<>();
-    private MutableLiveData<Integer> typeSpinnerChose =new  MutableLiveData<Integer>();
-    private MutableLiveData<Integer> waySpinnerChose =new  MutableLiveData<Integer>();
-    private MutableLiveData<Integer> frequencySpinnerChose =new  MutableLiveData<Integer>();
-    private MutableLiveData<Integer> timeSpinnerChose =new  MutableLiveData<Integer>();
-    private MutableLiveData<Integer> scheduleSpinnerChose =new  MutableLiveData<Integer>();
+    private  ArrayList<BodyParts> bodyPartsChecked = new ArrayList<>();
+    private MutableLiveData<Integer> typeSpinnerChose =new  MutableLiveData<>();
+    private MutableLiveData<Integer> waySpinnerChose =new  MutableLiveData<>();
+    private MutableLiveData<Integer> frequencySpinnerChose =new  MutableLiveData<>();
+    private MutableLiveData<Integer> timeSpinnerChose =new  MutableLiveData<>();
+    private MutableLiveData<Integer> scheduleSpinnerChose =new  MutableLiveData<>();
 
 
     public GenerateTraningViewModel()
     {
         setTypeSpinnerChose(0);
         setWaySpinnerChose(0);
-        setfrequencySpinnerChose(0);
+        setFrequencySpinnerChose(0);
         setTimeSpinnerChose(0);
     }
 
@@ -179,12 +176,12 @@ public class GenerateTraningViewModel extends ViewModel
         this.waySpinnerChose.setValue(position);
     }
 
-    public MutableLiveData<Integer> getfrequencySpinnerChose()
+    public MutableLiveData<Integer> getFrequencySpinnerChose()
     {
         return frequencySpinnerChose;
     }
 
-    public void setfrequencySpinnerChose(int position)
+    public void setFrequencySpinnerChose(int position)
     {
         frequencySpinnerChose.setValue(position);
     }
@@ -202,5 +199,41 @@ public class GenerateTraningViewModel extends ViewModel
     public void setScheduleSpinnerChose(int position)
     {
 scheduleSpinnerChose.setValue(position);
+    }
+
+    public void updateCheckedBodyParts()
+    {
+        bodyPartsChecked.clear();
+        for(int i=0; i< bodyPartsToChoose.size();++i)
+        {
+            if(bodyPartsToChoose.get(i).isSelected())
+            {
+                bodyPartsChecked.add(bodyPartsToChoose.get(i));
+            }
+        }
+    }
+    public ArrayList<BodyParts> getBodyPartsChecked()
+    {
+        return bodyPartsChecked;
+    }
+
+    public int getNoEquipmentid()
+    {
+        return noEquipmentid;
+    }
+
+    public void setNoEquipmentid(int noEquipmentid)
+    {
+        this.noEquipmentid = noEquipmentid;
+    }
+
+    public boolean isNoEquipmentcheched()
+    {
+        return noEquipmentcheched;
+    }
+
+    public void setNoEquipmentcheched(boolean noEquipmentcheched)
+    {
+        this.noEquipmentcheched = noEquipmentcheched;
     }
 }

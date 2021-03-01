@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,7 +58,7 @@ public class DetailFragment extends Fragment {
         binding.myRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getContext(),
-                R.array.array1, R.layout.my_spinner);
+                R.array.trening_type, R.layout.my_spinner);
         binding.typeSpinner.setAdapter(adapter1);
         model.getTypeSpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
         {
@@ -108,7 +107,7 @@ public class DetailFragment extends Fragment {
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                model.setfrequencySpinnerChose(position);
+                model.setFrequencySpinnerChose(position);
 
             }
 

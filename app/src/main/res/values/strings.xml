@@ -64,7 +64,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <string-array name="array1">
+    <string-array name="trening_type_name">
+        <item>Split</item>
+        <item>Full Body Workout</item>
+        <item>Cardio</item>
+        <item>Fitness</item>
+    </string-array>
+
+    <string-array name="trening_type">
         <item>Trening split</item>
         <item>Trening fbw</item>
         <item>Trening cardio</item>
@@ -186,4 +193,8 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="set_schedule">sposób generowania</string>
     <string name="noeqiupment">Ćwiczenia bez sprzętu</string>
     <string name="registrationStart">Trwa rejestracja</string>
+    <string name="chosen_type">"wybrany typ treningu : "</string>
+    <string name="chosen_frequency_prefix">"Wybrano "</string>
+    <string name="chosen_frequency_sufix">" w tygodniu"</string>
+    <string name="chosenBodyParts">Wybrane częci ciała</string>
 </resources>

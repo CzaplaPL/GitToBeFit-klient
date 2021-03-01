@@ -43,17 +43,41 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
     {
         model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
         model.loadEqiupmentTypes(this);
-
+        binding.bezSprzetu.setOnClickListener(v ->
+        {
+            if(binding.noEquipmentChecbox.isChecked())
+            {
+                binding.noEquipmentChecbox.setChecked(false);
+                model.setNoEquipmentcheched(false);
+            }else
+            {
+                binding.noEquipmentChecbox.setChecked(true);
+                model.setNoEquipmentcheched(true);
+            }
+        });
+        binding.noEquipmentChecbox.setOnClickListener(v ->
+        {
+            if(binding.noEquipmentChecbox.isChecked())
+            {
+                model.setNoEquipmentcheched(true);
+            }else
+            {
+                model.setNoEquipmentcheched(false);
+            }
+        });
     }
 
 
     /**
      * inicjalizacja listy kategori sprzętów
      * @param equipmentType ArrayList którą uzupełnić liste
+     * @param noEquipmentId
      */
-    public void createList(ArrayList<EquipmentType> equipmentType)
+    public void createList(ArrayList<EquipmentType> equipmentType, int noEquipmentId)
     {
         model.initList(equipmentType,this);
+        model.setNoEquipmentid(noEquipmentId);
+        model.setNoEquipmentcheched(true);
         binding.titleEquipment.setVisibility(View.VISIBLE);
         binding.bezSprzetu.setVisibility(View.VISIBLE);
         binding.rvContacts.setAdapter(model.getListAdapter());

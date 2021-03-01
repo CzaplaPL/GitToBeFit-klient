@@ -21,6 +21,7 @@ public class EquipmentType extends EquipmentForm
     }
     public void setEquipment(ArrayList<Equipment> equipment)
     {
+
         this.equipment = equipment;
     }
 }
