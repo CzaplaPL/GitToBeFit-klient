@@ -63,7 +63,7 @@
         <action
             android:id="@+id/action_registration_to_login2"
             app:destination="@id/login"
-            app:popUpTo="@+id/registration"
+            app:popUpTo="@+id/login"
             app:popUpToInclusive="true" />
     </fragment>
 

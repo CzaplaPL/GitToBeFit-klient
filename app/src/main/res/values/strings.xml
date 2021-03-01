@@ -53,8 +53,6 @@
     <string name="equipment">Equipment</string>
     <string name="tab2">Tab 2</string>
     <string name="tab3">Tab 3</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="todo">TODO</string>
     <string name="notLogin">"Nie udało się zalogować "</string>
     <string name="wrongEmail">Błędny Email</string>
@@ -66,7 +64,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <string-array name="array1">
+    <string-array name="trening_type_name">
+        <item>Split</item>
+        <item>Full Body Workout</item>
+        <item>Cardio</item>
+        <item>Fitness</item>
+    </string-array>
+
+    <string-array name="trening_type">
         <item>Trening split</item>
         <item>Trening fbw</item>
         <item>Trening cardio</item>
@@ -74,7 +79,7 @@
     </string-array>
     <string-array name="training_subtype">
         <item>Serie</item>
-        <item>Czas</item>
+        <item>Obwodowo</item>
     </string-array>
     <string-array name="split_duration">
         <item>3 dni</item>
@@ -84,6 +89,10 @@
     <string-array name="fbw_duration">
         <item>3 dni</item>
         <item>4 dni</item>
+    </string-array>
+    <string-array name="fbw_sheduletype">
+        <item>każdego dnia ten sam trening</item>
+        <item>każdego dnia inny trening</item>
     </string-array>
     <string-array name="fintess_duration">
         <item>9 minut</item>
@@ -97,7 +106,7 @@
     </string-array>
 
 
-    <string name="split">Split to inaczej trening dzielony. Polega na ćwiczeniu każdej partii mięśni .Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.</string>
+    <string name="split">Split to inaczej trening dzielony. Polega na ćwiczeniu konkretnej partii mięśni w danym dniu treningowym.Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.</string>
     <string name="fbw">Trening FBW to ćwiczenia całego ciała. W trakcie jego wykonywania angażujesz wiele partii mięśniowych. Głównym założeniem jest wywołanie jak największej odpowiedzi anabolicznej twojego ciała, poprzez pobudzanie go ćwiczeniami wielostawowymi.</string>
     <string name="cardio">Trening cardio to ćwiczenia wytrzymałościowe dotleniające organizm, poprawiające pracę układu krążenia oraz kondycję organizmu. Zwiększa ilość oddechów na minutę oraz przyspiesza tętno, co sprawia, że komórki i tkanki mięśniowe są lepiej dotlenione.</string>
     <string name="fitness">Trening prozdrowotny. Głównym założeniem treningu fitness jest jego pozasportowy, prozdrowotny charakter. Do zajęć fitness można więc zaliczyć wszelkie formy aktywności fizycznej, ale podejmowane świadomie i systematycznie w celu poprawy szeroko pojmowanego zdrowia.</string>
@@ -145,7 +154,38 @@ możliwość podglądu hasła w rejestracji \n
 dodanie loga do przycisku fb i google oraz napis nad nimi \n
          0.1.2-hotfix-3\n
         usunięcie walidacji z logowania\n
+        0.1.2-hotfix-4k\n
+        dodanie pytania o hasło podczas usuwania uzytkownika \n
+        0.1.2-hotfix-4k\n
+        dodanie pytania o hasło podczas usuwania uzytkownika \n
+        0.1.2-hotfix-4k\n
+        dodanie pytania o hasło podczas usuwania uzytkownika \n
+        0.1.2-hotfix-4k\n
+        dodanie pytania o hasło podczas usuwania uzytkownika \n
+        0.1.2-hotfix-5d\n
+        Poprawa błędów w nawigacji\n
+przerobienie toast na snackbary\n
+sprawdzanie czy użytkownik ma internet\n
+         0.1.2-hotfix-6k\n
+        poprawa komunikatów \n
+         0.1.2-hotfix-7d\n
+        poprawa nawigacji oraz logowania google \n
+          0.1.2-hotfix-8w\n
+        poprawa leyautow logowania i rejestracji \n
+
+
+
     </string>
+    <string name="chest">Klatka piersiowa</string>
+    <string name="sixpack">Brzuch</string>
+    <string name="back">Plecy</string>
+    <string name="thighs">Uda</string>
+    <string name="calfs">Łydki</string>
+    <string name="biceps">Biceps</string>
+    <string name="triceps">Triceps</string>
+    <string name="shoulders">barki</string>
+    <string name="legs">nogi</string>
+    <string name="arms">ręce</string>
     <string name="noNetwork">Brak internetu.Aplikacja działa w trybie offline</string>
     <string name="change_pass">Hasło zostało zmienione</string>
     <string name="wrong_old_pass">Niepoprawne stare hasło !</string>
@@ -153,4 +193,12 @@ dodanie loga do przycisku fb i google oraz napis nad nimi \n
     <string name="change_email_title">Zmień email</string>
     <string name="change_pass_title">Zmień hasło</string>
     <string name="delete_acount_title">Usuń konto</string>
+    <string name="set_time">Czas trwania treningu </string>
+    <string name="set_schedule">sposób generowania</string>
+    <string name="noeqiupment">Ćwiczenia bez sprzętu</string>
+    <string name="registrationStart">Trwa rejestracja</string>
+    <string name="chosen_type">"wybrany typ treningu : "</string>
+    <string name="chosen_frequency_prefix">"Wybrano "</string>
+    <string name="chosen_frequency_sufix">" w tygodniu"</string>
+    <string name="chosenBodyParts">Wybrane częci ciała</string>
 </resources>

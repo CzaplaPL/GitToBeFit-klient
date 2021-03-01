@@ -2,6 +2,7 @@ package pl.gittobefit.network;
 
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import pl.gittobefit.LogUtils;
@@ -36,7 +37,33 @@ public class WorkoutFormsServices
             {
                 if(response.isSuccessful())
                 {
-                   fragment.createList(response.body());
+                    Call<Void> call2 = workout.getNoEquipment();
+                    call2.enqueue(new Callback<Void>()
+                    {
+                        @Override
+                        public void onResponse(Call<Void> call2, Response<Void> response2)
+                        {
+
+
+                            if(response2.code()==200)
+                            {
+                                Log.w("ee",response2.headers().toString());
+                                fragment.createList(response.body(),Integer.parseInt("1"));
+                            }else
+                            {
+                                Log.e("Network","kod błędu getNoEquipment " + String.valueOf(response2.code()));
+                                LogUtils.logCause(response.headers().get("Cause"));
+                                fragment.createList(response.body(),Integer.parseInt("20"));
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call2, Throwable t)
+                        {
+                            Log.e("Network ", "WorkoutForms.getNoEquipment error = " + t.toString());
+                        }
+                    });
+
                 }else
                 {
                     Log.e("Network ", "WorkoutForms.getEquipmentType error " +String.valueOf(response.code()));
@@ -54,7 +81,7 @@ public class WorkoutFormsServices
     }
     public void getEquipment(int typeid, int position, WorkoutFormsRepository repository)
     {
-        Log.w("Network", "WorkoutForms.getEquipmentType");
+        Log.w("Network", "WorkoutForms.getEquipment");
         ArrayList<Equipment> data =new ArrayList<Equipment>();
         Call<ArrayList<Equipment>> call = workout.getEquipment(typeid);
         call.enqueue(new Callback<ArrayList<Equipment>>()
@@ -80,4 +107,6 @@ public class WorkoutFormsServices
 
         });
     }
+
+
 }
