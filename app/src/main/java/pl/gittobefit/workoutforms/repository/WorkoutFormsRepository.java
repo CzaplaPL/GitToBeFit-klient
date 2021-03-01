@@ -60,6 +60,17 @@ public class WorkoutFormsRepository
         {
             if(equipmentTypes.get(i).getId()==typeid)
             {
+                if(equipmentTypes.get(i).getName().equals("Kalistenika"))
+                {
+                    for(int j = 0; j < response.size(); j++)
+                    {
+                        if(response.get(j).getId()==observer.getNoEquipmentid())
+                        {
+                            response.remove(j);
+                            break;
+                        }
+                    }
+                }
                 equipmentTypes.get(i).setEquipment(response);
                 observer.loadEquipment(position, equipmentTypes.get(i).getEquipment());
                break;

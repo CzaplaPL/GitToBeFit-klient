@@ -7,7 +7,7 @@ public class BodyParts
 
     public BodyParts(String bodyPart) {
         this.bodyPart = bodyPart;
-        this.selected = false;
+        this.selected = true;
     }
 
     public String getBodyPart() {

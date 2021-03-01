@@ -4,11 +4,13 @@
     android:layout_height="match_parent"
     android:id="@+id/tessss"
     android:padding="16dp">
+
     <EditText
-        android:hint="nowy email"
         android:id="@+id/edit_new_email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:hint="nowy email"
+        android:inputType="textWebEmailAddress" />
 
     <EditText
         android:id="@+id/passwordToChangeEmail"
