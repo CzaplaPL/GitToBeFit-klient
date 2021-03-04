@@ -48,7 +48,7 @@ public class ChosenBodyPartsAdapter extends RecyclerView.Adapter<ChosenBodyParts
     @Override
     public void onBindViewHolder(@NonNull ChosenBodyPartsAdapter.ViewHolder holder, int position) {
         holder.checkBox.setVisibility(View.GONE);
-        holder.textView.setText(bodyPartsArrayList.get(position).getBodyPart());
+        holder.textView.setText(bodyPartsArrayList.get(position).getBodyName());
 
     }
 

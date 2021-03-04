@@ -82,19 +82,27 @@
         <item>Obwodowo</item>
     </string-array>
     <string-array name="split_duration">
-        <item>3 dni</item>
-        <item>4 dni</item>
-        <item>5 dni</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
     <string-array name="fbw_duration">
-        <item>3 dni</item>
-        <item>4 dni</item>
+        <item>3</item>
+        <item>4</item>
     </string-array>
     <string-array name="fbw_sheduletype">
         <item>każdego dnia ten sam trening</item>
         <item>każdego dnia inny trening</item>
     </string-array>
     <string-array name="fintess_duration">
+        <item>15 minut</item>
+        <item>18 minut</item>
+        <item>21 minut</item>
+        <item>24 minut</item>
+        <item>27 minut</item>
+        <item>30 minut</item>
+    </string-array>
+    <string-array name="cardio_duration">
         <item>9 minut</item>
         <item>12 minut</item>
         <item>15 minut</item>
@@ -104,7 +112,6 @@
         <item>27 minut</item>
         <item>30 minut</item>
     </string-array>
-
 
     <string name="split">Split to inaczej trening dzielony. Polega na ćwiczeniu konkretnej partii mięśni w danym dniu treningowym.Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.</string>
     <string name="fbw">Trening FBW to ćwiczenia całego ciała. W trakcie jego wykonywania angażujesz wiele partii mięśniowych. Głównym założeniem jest wywołanie jak największej odpowiedzi anabolicznej twojego ciała, poprzez pobudzanie go ćwiczeniami wielostawowymi.</string>
@@ -199,6 +206,7 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="registrationStart">Trwa rejestracja</string>
     <string name="chosen_type">"wybrany typ treningu : "</string>
     <string name="chosen_frequency_prefix">"Wybrano "</string>
-    <string name="chosen_frequency_sufix">" w tygodniu"</string>
+    <string name="chosen_frequency_sufix">"dni w tygodniu"</string>
     <string name="chosenBodyParts">Wybrane częci ciała</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
