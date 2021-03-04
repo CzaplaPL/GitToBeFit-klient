@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
+import pl.gittobefit.network.object.WorkoutFormSend;
 import pl.gittobefit.workoutforms.adapters.EquipmentList;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.Equipment;
@@ -109,4 +110,8 @@ public class WorkoutFormsServices
     }
 
 
+    public void sendForm(WorkoutFormSend form)
+    {
+    Log.w("form","equipmentIDs" + form.getEquipmentIDs().toString() + " trainingType "+ form.getTrainingType() + " bodyParts " + form.getBodyParts() + "daysCount" + String.valueOf(form.getDaysCount()) + "scheduleType" + form.getScheduleType() + "duration" + form.getDuration());
+    }
 }

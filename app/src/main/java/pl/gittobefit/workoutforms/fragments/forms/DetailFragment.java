@@ -121,18 +121,32 @@ public class DetailFragment extends Fragment {
 
         //tworzenie 4 spinera
         ArrayAdapter adapter4 = ArrayAdapter.createFromResource(getContext(),
-                R.array.fintess_duration, R.layout.my_spinner);
+                R.array.cardio_duration, R.layout.my_spinner);
         binding.timeSpinner.setAdapter(adapter4);
         binding.timeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                model.setTimeSpinnerChose(position);
+                model.setTimeCardioSpinnerChose(position);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }
         });
     binding.timeSpinner.setVisibility(View.GONE);
+
+        ArrayAdapter adapter4Fitnes = ArrayAdapter.createFromResource(getContext(),
+                R.array.fintess_duration, R.layout.my_spinner);
+        binding.timeSpinnerFitnnes.setAdapter(adapter4Fitnes);
+        binding.timeSpinnerFitnnes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                model.setTimeFitnesSpinnerChose(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+        binding.timeSpinnerFitnnes.setVisibility(View.GONE);
     binding.titleTime.setVisibility(View.GONE);
         //tworzenie 5 spinera
         ArrayAdapter adapter5 = ArrayAdapter.createFromResource(getContext(),
@@ -168,6 +182,7 @@ public class DetailFragment extends Fragment {
                 binding.frequencySpinner.setVisibility(View.VISIBLE);
                 binding.titleTime.setVisibility(View.GONE);
                 binding.timeSpinner.setVisibility(View.GONE);
+                binding.timeSpinnerFitnnes.setVisibility(View.GONE);
                 binding.titleScheduleType.setVisibility(View.GONE);
                 binding.scheduleTypeSpinner.setVisibility(View.GONE);
                 binding.bodyPartsText.setVisibility(View.VISIBLE);
@@ -187,6 +202,7 @@ public class DetailFragment extends Fragment {
              binding.frequencySpinner.setVisibility(View.VISIBLE);
              binding.titleTime.setVisibility(View.GONE);
              binding.timeSpinner.setVisibility(View.GONE);
+             binding.timeSpinnerFitnnes.setVisibility(View.GONE);
              binding.titleScheduleType.setVisibility(View.VISIBLE);
              binding.scheduleTypeSpinner.setVisibility(View.VISIBLE);
                 binding.bodyPartsText.setVisibility(View.GONE);
@@ -200,6 +216,7 @@ public class DetailFragment extends Fragment {
                 binding.frequencySpinner.setVisibility(View.GONE);
                 binding.titleTime.setVisibility(View.VISIBLE);
                 binding.timeSpinner.setVisibility(View.VISIBLE);
+                binding.timeSpinnerFitnnes.setVisibility(View.GONE);
                 binding.titleScheduleType.setVisibility(View.GONE);
                 binding.scheduleTypeSpinner.setVisibility(View.GONE);
                 binding.bodyPartsText.setVisibility(View.GONE);
@@ -212,7 +229,8 @@ public class DetailFragment extends Fragment {
                 binding.titleFrequency.setVisibility(View.GONE);
                 binding.frequencySpinner.setVisibility(View.GONE);
                 binding.titleTime.setVisibility(View.VISIBLE);
-                binding.timeSpinner.setVisibility(View.VISIBLE);
+                binding.timeSpinner.setVisibility(View.GONE);
+                binding.timeSpinnerFitnnes.setVisibility(View.VISIBLE);
                 binding.titleScheduleType.setVisibility(View.GONE);
                 binding.scheduleTypeSpinner.setVisibility(View.GONE);
                 binding.bodyPartsText.setVisibility(View.VISIBLE);

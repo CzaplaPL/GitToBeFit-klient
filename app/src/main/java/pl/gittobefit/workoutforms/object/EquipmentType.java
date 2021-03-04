@@ -9,6 +9,7 @@ public class EquipmentType extends EquipmentForm
     public EquipmentType(int id, String name, String url)
     {
         super(id, name, url);
+        equipment = new ArrayList<>();
     }
     public boolean isLoad()
     {

@@ -83,4 +83,21 @@ public class WorkoutFormsRepository
     {
         this.equipmentTypes= equipmentTypes;
     }
+
+    public ArrayList<Integer> getIdCheckEqiupment()
+    {
+        ArrayList<Integer> respond = new ArrayList<>();
+        for(int i = 0; i < equipmentTypes.size(); i++)
+        {
+            if(!equipmentTypes.get(i).isLoad())continue;
+            for(int j = 0; j < equipmentTypes.get(i).getEquipment().size(); j++)
+            {
+                if(equipmentTypes.get(i).getEquipment().get(j).isIschecked())
+                {
+                    respond.add(equipmentTypes.get(i).getEquipment().get(j).getId());
+                }
+            }
+        }
+        return respond;
+    }
 }

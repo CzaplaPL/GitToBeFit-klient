@@ -49,7 +49,7 @@ public class BodyPartsAdapter extends RecyclerView.Adapter<BodyPartsAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.checkBox.setChecked(bodyPartsArrayList.get(position).isSelected());
-        holder.textView.setText(bodyPartsArrayList.get(position).getBodyPart());
+        holder.textView.setText(bodyPartsArrayList.get(position).getBodyName());
         holder.checkBox.setTag(position);
 
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
