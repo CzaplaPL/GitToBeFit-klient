@@ -20,8 +20,10 @@ import com.google.android.gms.safetynet.SafetyNet;
 import com.google.android.gms.safetynet.SafetyNetApi;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.user.Validation;
@@ -48,6 +50,15 @@ public class Registration extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.fragment_registration, container, false);
         CheckBox checkBox =  view.findViewById(R.id.checkBox_robot);
         Button registr =  view.findViewById(R.id.buttonRegistr);
+        TextInputLayout email= view.findViewById(R.id.loginMailKontener);
+        TextInputEditText email2= view.findViewById(R.id.loginMail);
+        email2.setOnFocusChangeListener((v, hasFocus) -> email.setErrorEnabled(false));
+        TextInputLayout password= view.findViewById(R.id.loginPasswordKontener);
+        TextInputEditText passwordText= view.findViewById(R.id.loginPassword);
+        passwordText.setOnFocusChangeListener((v, hasFocus) -> password.setErrorEnabled(false));
+        TextInputLayout password2= view.findViewById(R.id.loginRewersePasswordKontener);
+        TextInputEditText passwordText2= view.findViewById(R.id.loginRewersePassword);
+        passwordText2.setOnFocusChangeListener((v, hasFocus) -> password2.setErrorEnabled(false));
         registr.setOnClickListener(this);
         checkBox.setOnClickListener(this);
         return view;
@@ -98,6 +109,8 @@ public class Registration extends Fragment implements View.OnClickListener
                 if(correct)
                 {
                     Log.w("rejestracja" ,"jest");
+                    IShowSnackbar activity = (IShowSnackbar) getActivity();
+                    activity.showSnackbar(getString(R.string.registrationStart));
                     ConnectionToServer.getInstance().userServices.singup(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this,getView());
                 }
                 break;
@@ -145,7 +158,7 @@ public class Registration extends Fragment implements View.OnClickListener
     }
     public void Success(View view)
     {
-        Navigation.findNavController(view).navigate(R.id.action_registration_to_login2);
+        Navigation.findNavController(view).navigate(RegistrationDirections.actionRegistrationToLogin2());
         Navigation.findNavController(view).navigate(R.id.action_login_to_registrationSuccesDialog);
     }
 }

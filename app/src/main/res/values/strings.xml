@@ -14,8 +14,8 @@
     <string name="resetPassword">Resetuj hasło</string>
     <string name="facebook">Facebook</string>
     <string name="noAccount">Nie masz konta?</string>
-    <string name="register">Załóż je</string>
-    <string name="skip">Pomiń</string>
+    <string name="register">Załóż Konto</string>
+    <string name="skip">Pomiń Logowanie</string>
     <string name="remindPassword">Przypomnij Hasło</string>
     <string name="remindPasswordText">Podaj email twojego konta. Zostanie na nie wysłane nowe hasło.</string>
     <string name="remindPasswordTitle">Przypomnij hasło </string>
@@ -34,7 +34,7 @@
     <string name="google_token">57028483820-2fdhd5l8e0vc3knl5o3urda3n2di4gu9.apps.googleusercontent.com</string>
     <string name="rE_mail">Adres e-mail</string>
     <string name="rPassword">Hasło</string>
-    <string name="rRewersePassword">powtórz hasło</string>
+    <string name="rRewersePassword">Powtórz Hasło</string>
     <string name="robot">Nie jestem robotem</string>
     <string name="checkbox">CheckBox</string>
     <string name="statute">Akceptuję Regulamin</string>
@@ -53,8 +53,6 @@
     <string name="equipment">Equipment</string>
     <string name="tab2">Tab 2</string>
     <string name="tab3">Tab 3</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="todo">TODO</string>
     <string name="notLogin">"Nie udało się zalogować"</string>
     <string name="wrongEmail">Błędny email</string>
@@ -66,7 +64,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <string-array name="array1">
+    <string-array name="trening_type_name">
+        <item>Split</item>
+        <item>Full Body Workout</item>
+        <item>Cardio</item>
+        <item>Fitness</item>
+    </string-array>
+
+    <string-array name="trening_type">
         <item>Trening split</item>
         <item>Trening fbw</item>
         <item>Trening cardio</item>
@@ -77,15 +82,27 @@
         <item>Obwodowy</item>
     </string-array>
     <string-array name="split_duration">
-        <item>3 dni</item>
-        <item>4 dni</item>
-        <item>5 dni</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
     <string-array name="fbw_duration">
-        <item>3 dni</item>
-        <item>4 dni</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="fbw_sheduletype">
+        <item>każdego dnia ten sam trening</item>
+        <item>każdego dnia inny trening</item>
     </string-array>
     <string-array name="fintess_duration">
+        <item>15 minut</item>
+        <item>18 minut</item>
+        <item>21 minut</item>
+        <item>24 minut</item>
+        <item>27 minut</item>
+        <item>30 minut</item>
+    </string-array>
+    <string-array name="cardio_duration">
         <item>9 minut</item>
         <item>12 minut</item>
         <item>15 minut</item>
@@ -96,8 +113,7 @@
         <item>30 minut</item>
     </string-array>
 
-
-    <string name="split">Split to inaczej trening dzielony. Polega na ćwiczeniu każdej partii mięśni .Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.</string>
+    <string name="split">Split to inaczej trening dzielony. Polega na ćwiczeniu konkretnej partii mięśni w danym dniu treningowym.Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.</string>
     <string name="fbw">Trening FBW to ćwiczenia całego ciała. W trakcie jego wykonywania angażujesz wiele partii mięśniowych. Głównym założeniem jest wywołanie jak największej odpowiedzi anabolicznej twojego ciała, poprzez pobudzanie go ćwiczeniami wielostawowymi.</string>
     <string name="cardio">Trening cardio to ćwiczenia wytrzymałościowe dotleniające organizm, poprawiające pracę układu krążenia oraz kondycję organizmu. Zwiększa ilość oddechów na minutę oraz przyspiesza tętno, co sprawia, że komórki i tkanki mięśniowe są lepiej dotlenione.</string>
     <string name="fitness">Trening prozdrowotny. Głównym założeniem treningu fitness jest jego pozasportowy, prozdrowotny charakter. Do zajęć fitness można więc zaliczyć wszelkie formy aktywności fizycznej, ale podejmowane świadomie i systematycznie w celu poprawy szeroko pojmowanego zdrowia.</string>
@@ -109,6 +125,14 @@
     <string name="duplicatedEmail">Podany email jest już zajęty.</string>
     <string name="changingMail">Trwa zmiana emaila.</string>
     <string name="loginwith">Lub zaloguj się za pomocą</string>
+    <string name="change_email">zmieniono e-mail pomyślnie. Na podany mail został wysłany link aktywujący konto</string>
+    <string name="duplicatedEmail">Podany email jest już zajęty</string>
+    <string name="changingMail">Trwa zmiana emaila</string>
+    <string name="loginwith">Alternatywne opcje logowania</string>
+    <string name="titleTypeTraining">Wybierz rodzaj treningu:</string>
+    <string name="titleWayTraining">Wybierz sposób odbywania treningu:</string>
+    <string name="titleFrequencyTraining">Podaj liczbę dni w tygodniu:</string>
+    <string name="titleBodyParts">Wybierz interesujące Cię partie ciała:</string>
     <string name="aboutUsInfo">Numer zespołu: 8\n
         Opiekun zespołu: Daniel Borucki\n
         Zespół:\n
@@ -141,12 +165,54 @@ możliwość podglądu hasła w rejestracji \n
 dodanie loga do przycisku fb i google oraz napis nad nimi \n
          0.1.2-hotfix-3\n
         usunięcie walidacji z logowania\n
+        0.1.2-hotfix-4k\n
+        dodanie pytania o hasło podczas usuwania uzytkownika \n
+        0.1.2-hotfix-4k\n
+        dodanie pytania o hasło podczas usuwania uzytkownika \n
+        0.1.2-hotfix-4k\n
+        dodanie pytania o hasło podczas usuwania uzytkownika \n
+        0.1.2-hotfix-4k\n
+        dodanie pytania o hasło podczas usuwania uzytkownika \n
+        0.1.2-hotfix-5d\n
+        Poprawa błędów w nawigacji\n
+przerobienie toast na snackbary\n
+sprawdzanie czy użytkownik ma internet\n
+         0.1.2-hotfix-6k\n
+        poprawa komunikatów \n
+         0.1.2-hotfix-7d\n
+        poprawa nawigacji oraz logowania google \n
+          0.1.2-hotfix-8w\n
+        poprawa leyautow logowania i rejestracji \n
+
+
+
     </string>
     <string name="noNetwork">Brak internetu.Aplikacja działa w trybie offline.</string>
     <string name="change_pass">Hasło zostało zmienione!</string>
+    <string name="chest">Klatka piersiowa</string>
+    <string name="sixpack">Brzuch</string>
+    <string name="back">Plecy</string>
+    <string name="thighs">Uda</string>
+    <string name="calfs">Łydki</string>
+    <string name="biceps">Biceps</string>
+    <string name="triceps">Triceps</string>
+    <string name="shoulders">barki</string>
+    <string name="legs">nogi</string>
+    <string name="arms">ręce</string>
+    <string name="noNetwork">Brak internetu.Aplikacja działa w trybie offline</string>
+    <string name="change_pass">Hasło zostało zmienione</string>
     <string name="wrong_old_pass">Niepoprawne stare hasło !</string>
     <string name="delete_acount">Konto usnięte!</string>
     <string name="change_email_title">Zmień email</string>
     <string name="change_pass_title">Zmień hasło</string>
     <string name="delete_acount_title">Usuń konto</string>
+    <string name="set_time">Czas trwania treningu </string>
+    <string name="set_schedule">sposób generowania</string>
+    <string name="noeqiupment">Ćwiczenia bez sprzętu</string>
+    <string name="registrationStart">Trwa rejestracja</string>
+    <string name="chosen_type">"wybrany typ treningu : "</string>
+    <string name="chosen_frequency_prefix">"Wybrano "</string>
+    <string name="chosen_frequency_sufix">"dni w tygodniu"</string>
+    <string name="chosenBodyParts">Wybrane częci ciała</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

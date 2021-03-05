@@ -14,8 +14,7 @@ public class DetailsViewModel extends ViewModel
     private int position1;
     private int position2;
     private int position3;
-    private ArrayList<BodyParts> splitList;
-    private ArrayList<BodyParts> fitnessList;
+    private ArrayList<BodyParts> list;
 
     private TrainingDetails trainingDetails;
 
@@ -81,49 +80,25 @@ public class DetailsViewModel extends ViewModel
     public void setTrainingDetails(int i)
     {
         i = i*3 + 9;
-        trainingDetails.setDuration(i + " minut");
+        trainingDetails.setDuration(String.valueOf(i) + " minut");
         select(trainingDetails);
     }
 
 
-    public ArrayList<BodyParts> getSplitList() {
-        if (splitList == null)
-        {
-            splitList = new ArrayList<>();
 
-            splitList.add(new BodyParts("Klatka piersiowa"));
-            splitList.add(new BodyParts("Brzuch"));
-            splitList.add(new BodyParts("Plecy"));
-            splitList.add(new BodyParts("Uda"));
-            splitList.add(new BodyParts("Łydki"));
-            splitList.add(new BodyParts("Biceps"));
-            splitList.add(new BodyParts("Triceps"));
-            splitList.add(new BodyParts("Ramiona"));
+    public ArrayList<BodyParts> getList() {
+        if (list == null)
+        {
+            list = new ArrayList<>();
+
+
         }
 
-        return splitList;
+        return list;
     }
 
-    public void setSplitList(ArrayList<BodyParts> splitList) {
-        this.splitList = splitList;
-    }
-
-    public ArrayList<BodyParts> getFitnessList() {
-        if (fitnessList == null)
-        {
-            fitnessList = new ArrayList<>();
-
-            fitnessList.add(new BodyParts("Klatka piersiowa"));
-            fitnessList.add(new BodyParts("Brzuch"));
-            fitnessList.add(new BodyParts("Plecy"));
-            fitnessList.add(new BodyParts("Nogi"));
-            fitnessList.add(new BodyParts("Ramiona"));
-        }
-        return fitnessList;
-    }
-
-    public void setFitnessList(ArrayList<BodyParts> fitnessList) {
-        this.fitnessList = fitnessList;
+    public void setList(ArrayList<BodyParts> list) {
+        this.list = list;
     }
 
     public void clear()

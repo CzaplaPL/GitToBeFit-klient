@@ -14,10 +14,16 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/typeTraning"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Wybrany tryb " />
+
+            <TextView
+                android:id="@+id/frequency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ilość dni w tygodniu" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -34,10 +40,11 @@
             <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="3dp"
                 android:background="?android:attr/listDivider" />
 
             <LinearLayout
+                android:id="@+id/body_parts"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -46,11 +53,12 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="wybrane częci ciała" />
+                    android:text="@string/chosenBodyParts" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/body_parts_list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent">
 
                 </androidx.recyclerview.widget.RecyclerView>
 

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
     <TextView
-        android:id="@+id/titleType"
+        android:id="@+id/no_equipment_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_toEndOf="@+id/itemPicture"
-        android:text="Wybierz rodzaj treningu:"
+        android:text="@string/titleTypeTraining"
         android:textColor="?attr/colorPrimaryVariant"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -23,11 +22,22 @@
         android:spinnerMode="dropdown"/>
 
     <TextView
+        android:id="@+id/typeDesciption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/textview_email_border"
+        android:padding="20sp"
+        android:textColor="?attr/colorPrimaryVariant"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+    <TextView
         android:id="@+id/titleWay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="Wybierz sposób odbywania treningu:"
+        android:text="@string/titleWayTraining"
         android:textColor="?attr/colorPrimaryVariant"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -40,13 +50,22 @@
         android:popupBackground="?attr/colorSurface"
         android:spinnerMode="dropdown"/>
 
+    <TextView
+        android:id="@+id/wayDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/textview_email_border"
+        android:padding="20sp"
+        android:textSize="16sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/titleFrequency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="Wybierz częstotliwość odbywania treningu:"
+        android:text="@string/titleFrequencyTraining"
         android:textColor="?attr/colorPrimaryVariant"
         android:textSize="15sp"
         android:textStyle="bold"/>
@@ -59,15 +78,70 @@
         android:popupBackground="?attr/colorSurface"
         android:spinnerMode="dropdown"/>
 
-
     <TextView
-        android:id="@+id/bodyPartsText"
-        android:text="Wybierz interesujące Cię partie ciała"
+        android:id="@+id/frequencyDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
+        android:background="@drawable/textview_email_border"
+        android:padding="20sp"
+        android:textSize="16sp"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/titleScheduleType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="@string/set_schedule"
         android:textColor="?attr/colorPrimaryVariant"
         android:textSize="15sp"
+        android:textStyle="bold"
+        tools:visibility="gone" />
+
+    <Spinner
+        android:id="@+id/scheduleTypeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:popupBackground="?attr/colorSurface"
+        android:spinnerMode="dropdown"
+        tools:visibility="gone" />
+    <TextView
+        android:id="@+id/titleTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:text="@string/set_time"
+        android:textColor="?attr/colorPrimaryVariant"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        tools:visibility="gone" />
+
+    <Spinner
+        android:id="@+id/timeSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:popupBackground="?attr/colorSurface"
+        android:spinnerMode="dropdown"
+        tools:visibility="gone" />
+    <Spinner
+        android:id="@+id/timeSpinnerFitnnes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:popupBackground="?attr/colorSurface"
+        android:spinnerMode="dropdown"
+        tools:visibility="gone" />
+
+    <TextView
+        android:id="@+id/bodyPartsText"
+        android:text="@string/titleBodyParts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:textSize="15sp"
+        android:textColor="?attr/colorPrimaryVariant"
         android:textStyle="bold"
         />
 

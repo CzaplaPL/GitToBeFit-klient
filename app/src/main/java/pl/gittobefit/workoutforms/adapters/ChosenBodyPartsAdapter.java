@@ -1,6 +1,5 @@
 package pl.gittobefit.workoutforms.adapters;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import pl.gittobefit.R;
 import pl.gittobefit.workoutforms.object.BodyParts;
 
-public class BodyPartsAdapter extends RecyclerView.Adapter<BodyPartsAdapter.ViewHolder>
+public class ChosenBodyPartsAdapter extends RecyclerView.Adapter<ChosenBodyPartsAdapter.ViewHolder>
 {
     private ArrayList<BodyParts> bodyPartsArrayList;
     public static class ViewHolder extends RecyclerView.ViewHolder
@@ -32,39 +31,25 @@ public class BodyPartsAdapter extends RecyclerView.Adapter<BodyPartsAdapter.View
         }
     }
 
-    public BodyPartsAdapter(ArrayList<BodyParts> dataSet)
+    public ChosenBodyPartsAdapter(ArrayList<BodyParts> dataSet)
     {
         bodyPartsArrayList = dataSet;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ChosenBodyPartsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.my_spinner2, parent, false);
 
-        return new ViewHolder(view);
+        return new ChosenBodyPartsAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.checkBox.setChecked(bodyPartsArrayList.get(position).isSelected());
+    public void onBindViewHolder(@NonNull ChosenBodyPartsAdapter.ViewHolder holder, int position) {
+        holder.checkBox.setVisibility(View.GONE);
         holder.textView.setText(bodyPartsArrayList.get(position).getBodyName());
-        holder.checkBox.setTag(position);
 
-        holder.checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Integer pos = (Integer) holder.checkBox.getTag();
-
-                if (bodyPartsArrayList.get(pos).isSelected()) {
-                    bodyPartsArrayList.get(pos).setSelected(false);
-                } else {
-                    bodyPartsArrayList.get(pos).setSelected(true);
-                }
-            }
-        });
     }
 
     @Override

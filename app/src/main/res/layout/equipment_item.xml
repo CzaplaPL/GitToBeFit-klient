@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item"
     android:layout_width="fill_parent"
@@ -17,15 +18,16 @@
         android:padding="3dp">
 
         <ImageView
-            android:id="@+id/equipment_item_image"
+            android:id="@+id/no_equipment_item_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_baseline_downloading_24"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/todo"
+            app:tint="?attr/colorPrimaryVariant" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/titleType"
+        android:id="@+id/no_equipment_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -49,7 +51,7 @@
 
 
     <CheckBox
-        android:id="@+id/equipment_checbox"
+        android:id="@+id/no_equipment_checbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

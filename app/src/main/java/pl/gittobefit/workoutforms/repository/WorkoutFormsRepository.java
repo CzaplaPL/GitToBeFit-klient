@@ -60,6 +60,17 @@ public class WorkoutFormsRepository
         {
             if(equipmentTypes.get(i).getId()==typeid)
             {
+                if(equipmentTypes.get(i).getName().equals("Kalistenika"))
+                {
+                    for(int j = 0; j < response.size(); j++)
+                    {
+                        if(response.get(j).getId()==observer.getNoEquipmentid())
+                        {
+                            response.remove(j);
+                            break;
+                        }
+                    }
+                }
                 equipmentTypes.get(i).setEquipment(response);
                 observer.loadEquipment(position, equipmentTypes.get(i).getEquipment());
                break;
@@ -71,5 +82,22 @@ public class WorkoutFormsRepository
     public void setEqiupmentTypes(ArrayList<EquipmentType> equipmentTypes)
     {
         this.equipmentTypes= equipmentTypes;
+    }
+
+    public ArrayList<Integer> getIdCheckEqiupment()
+    {
+        ArrayList<Integer> respond = new ArrayList<>();
+        for(int i = 0; i < equipmentTypes.size(); i++)
+        {
+            if(!equipmentTypes.get(i).isLoad())continue;
+            for(int j = 0; j < equipmentTypes.get(i).getEquipment().size(); j++)
+            {
+                if(equipmentTypes.get(i).getEquipment().get(j).isIschecked())
+                {
+                    respond.add(equipmentTypes.get(i).getEquipment().get(j).getId());
+                }
+            }
+        }
+        return respond;
     }
 }

@@ -29,7 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?attr/colorSurface">
         <Button
             android:id="@+id/next"
             style="style/Widget.MaterialComponents.Button"
