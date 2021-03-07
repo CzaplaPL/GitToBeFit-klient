@@ -112,18 +112,21 @@
         android:name="pl.gittobefit.workoutforms.fragments.GenerateTrainingForm"
         android:label="@string/generateTrainingForm"
         tools:layout="@layout/fragment_generate_training" >
+<!--        <action-->
+<!--            android:id="@+id/action_generateTrainingForm_to_waitForGenerateTrenigFragment"-->
+<!--            app:destination="@id/waitForGenerateTrenigFragment"-->
+<!--            app:popUpTo="@id/nav_graph"-->
+<!--            app:popUpToInclusive="true" />-->
         <action
-            android:id="@+id/action_generateTrainingForm_to_waitForGenerateTrenigFragment"
-            app:destination="@id/waitForGenerateTrenigFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_generateTrainingForm_to_displayReceivedTraining"
+            app:destination="@id/displayReceivedTraining" />
     </fragment>
         tools:layout="@layout/fragment_generate_training" />
 
     <fragment
         android:id="@+id/displayReceivedTraining"
         android:name="pl.gittobefit.workoutforms.fragments.DisplayReceivedTraining"
-        android:label="Display received training"
+        android:label="Twój trening"
         tools:layout="@layout/fragment_received_training" />
     <action
         android:id="@+id/action_global_logout"

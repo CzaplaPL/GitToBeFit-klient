@@ -101,33 +101,5 @@ public class DetailsViewModel extends ViewModel
         this.list = list;
     }
 
-    public void clear()
-    {
-        setPositionSpinner1(0);
-        setPositionSpinner2(0);
-        setPositionSpinner3(0);
-
-        fitnessList = new ArrayList<>();
-        fitnessList.add(new BodyParts("Klatka piersiowa"));
-        fitnessList.add(new BodyParts("Brzuch"));
-        fitnessList.add(new BodyParts("Plecy"));
-        fitnessList.add(new BodyParts("Nogi"));
-        fitnessList.add(new BodyParts("Ramiona"));
-        setFitnessList(fitnessList);
-
-        splitList = new ArrayList<>();
-        splitList.add(new BodyParts("Klatka piersiowa"));
-        splitList.add(new BodyParts("Brzuch"));
-        splitList.add(new BodyParts("Plecy"));
-        splitList.add(new BodyParts("Uda"));
-        splitList.add(new BodyParts("Łydki"));
-        splitList.add(new BodyParts("Biceps"));
-        splitList.add(new BodyParts("Triceps"));
-        splitList.add(new BodyParts("Ramiona"));
-        setSplitList(splitList);
-
-        setTrainingDetails("split", null, "3 dni");
-
-    }
 
 }

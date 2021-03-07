@@ -10,5 +10,31 @@ public class Exercise
     String videoUrl;
     String photoUrl;
 
+    public int getId() {
+        return id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDescriptionOfStartPosition() {
+        return descriptionOfStartPosition;
+    }
+
+    public String getDescriptionOfCorrectExecution() {
+        return descriptionOfCorrectExecution;
+    }
+
+    public String getHints() {
+        return hints;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
 }

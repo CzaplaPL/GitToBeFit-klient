@@ -55,7 +55,7 @@
     <string name="tab3">Tab 3</string>
     <string name="todo">TODO</string>
     <string name="notLogin">"Nie udało się zalogować"</string>
-    <string name="wrongEmail">Błędny email</string>
+    <string name="wrongEmail">Błędny email.</string>
     <string name="wrongPassword">Słabe hasło. Hasło musi składać się z 8 znaków oraz zawierać wielką litere, cyfrę i znak specjalny.</string>
     <string name="incoredPassword">Podano błędne hasło.</string>
     <string name="wrongPassword2">Hasła różnią się.</string>
@@ -125,10 +125,6 @@
     <string name="duplicatedEmail">Podany email jest już zajęty.</string>
     <string name="changingMail">Trwa zmiana emaila.</string>
     <string name="loginwith">Lub zaloguj się za pomocą</string>
-    <string name="change_email">zmieniono e-mail pomyślnie. Na podany mail został wysłany link aktywujący konto</string>
-    <string name="duplicatedEmail">Podany email jest już zajęty</string>
-    <string name="changingMail">Trwa zmiana emaila</string>
-    <string name="loginwith">Alternatywne opcje logowania</string>
     <string name="titleTypeTraining">Wybierz rodzaj treningu:</string>
     <string name="titleWayTraining">Wybierz sposób odbywania treningu:</string>
     <string name="titleFrequencyTraining">Podaj liczbę dni w tygodniu:</string>
@@ -199,8 +195,6 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="shoulders">barki</string>
     <string name="legs">nogi</string>
     <string name="arms">ręce</string>
-    <string name="noNetwork">Brak internetu.Aplikacja działa w trybie offline</string>
-    <string name="change_pass">Hasło zostało zmienione</string>
     <string name="wrong_old_pass">Niepoprawne stare hasło !</string>
     <string name="delete_acount">Konto usnięte!</string>
     <string name="change_email_title">Zmień email</string>

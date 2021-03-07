@@ -56,7 +56,7 @@ public class GenerateTrainingForm extends Fragment
                             tab.setText("Details");
                         }
                         else if(position == 2){
-                            tab.setText ("Tab3");
+                            tab.setText ("Summary");
                         }
                     }
                 }).attach();
@@ -80,7 +80,7 @@ public class GenerateTrainingForm extends Fragment
                         @Override
                         public void onClick(View v)
                         {
-                            ConnectionToServer.getInstance().WorkoutFormsServices.sendForm(model.getForm(getContext().getResources()));
+                            ConnectionToServer.getInstance().WorkoutFormsServices.getTrainingPlan(getParentFragment(), model.getForm(getContext().getResources()));
                         }
                     });
                     binding.next.setText("generuj");

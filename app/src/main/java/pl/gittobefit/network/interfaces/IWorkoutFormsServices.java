@@ -2,10 +2,13 @@ package pl.gittobefit.network.interfaces;
 
 import java.util.ArrayList;
 
+import pl.gittobefit.network.object.RespondUser;
+import pl.gittobefit.network.object.WorkoutFormSend;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
 import pl.gittobefit.workoutforms.object.Training;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -21,5 +24,5 @@ public interface IWorkoutFormsServices
     Call<Void> getNoEquipment();
 
     @POST("/training-plan/generate")
-    Call<Training> getTrainingPlan();
+    Call<Training> getTrainingPlan(@Body WorkoutFormSend formSend);
 }
