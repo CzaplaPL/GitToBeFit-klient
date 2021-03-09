@@ -44,12 +44,9 @@ public class WorkoutFormsServices
                         @Override
                         public void onResponse(Call<Void> call2, Response<Void> response2)
                         {
-
-
                             if(response2.code()==200)
                             {
-                                Log.w("ee",response2.headers().toString());
-                                fragment.createList(response.body(),Integer.parseInt("1"));
+                                fragment.createList(response.body(),Integer.parseInt(response2.headers().get("id")));
                             }else
                             {
                                 Log.e("Network","kod błędu getNoEquipment " + String.valueOf(response2.code()));

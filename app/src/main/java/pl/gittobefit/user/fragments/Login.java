@@ -29,6 +29,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Collections;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.network.ConnectionToServer;
@@ -128,6 +129,19 @@ public class Login extends Fragment implements View.OnClickListener
         email.setError(getResources().getString(R.string.notLogin));
         pass.setError(getResources().getString(R.string.notLogin));
     }
+    public void loginFail(boolean wrongPassword,String info)
+    {
+        TextInputLayout email = getView().findViewById(R.id.loginMailKontener);
+        TextInputLayout pass = getView().findViewById(R.id.loginPassKontener);
+        email.setErrorEnabled(true);
+        pass.setErrorEnabled(true);
+        if (wrongPassword)
+        {
+            pass.setError(getResources().getString(R.string.incorrectpassword));
+        }
+        email.setError(info);
+        pass.setError(info);
+    }
 
     /**
      * obsługa klikniecia
@@ -142,7 +156,8 @@ public class Login extends Fragment implements View.OnClickListener
             case R.id.loginZaloguj:
                 TextInputLayout email =(TextInputLayout)getView().findViewById(R.id.loginMailKontener);
                 TextInputLayout pass =(TextInputLayout)getView().findViewById(R.id.loginPassKontener);
-                ConnectionToServer.getInstance().userServices.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this);
+                IShowSnackbar activity = (IShowSnackbar) getActivity();
+                ConnectionToServer.getInstance().userServices.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this,activity);
                 break;
             case R.id.loginSkip:
              Navigation.findNavController(view).navigate(LoginDirections.actionLogin2ToHomeFragment());

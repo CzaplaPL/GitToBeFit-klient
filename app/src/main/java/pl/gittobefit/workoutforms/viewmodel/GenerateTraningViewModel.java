@@ -266,7 +266,8 @@ scheduleSpinnerChose.setValue(position);
     {
         String[] Type = resources.getStringArray(R.array.trening_type_name);
         String[] daysCount ;
-        String[] scheduleType= new String[] {"SERIES","CIRCUIT"};
+        String[] scheduleType= new String[] {"PER_DAY","REPETITIVE"};
+        String[] subtype= new String[] {"SERIES","CIRCUIT"};
         int[] duration;
         switch(getTypeSpinnerChose().getValue())
         {
@@ -280,10 +281,10 @@ scheduleSpinnerChose.setValue(position);
                 return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),Integer.parseInt(daysCount[getFrequencySpinnerChose().getValue()]),scheduleType[getScheduleSpinnerChose().getValue()],0);
             case 2:
                 duration = new int[] {9,12,15,18,21,24,27,30};
-                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),0,scheduleType[getScheduleSpinnerChose().getValue()],duration[getTimeCardioSpinnerChose().getValue()]);
+                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),0,subtype[getScheduleSpinnerChose().getValue()],duration[getTimeCardioSpinnerChose().getValue()]);
             case 3:
                 duration = new int[] {15,18,21,24,27,30};
-                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),0,scheduleType[getScheduleSpinnerChose().getValue()],duration[getTimeFitnesSpinnerChose().getValue()]);
+                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),0,subtype[getScheduleSpinnerChose().getValue()],duration[getTimeFitnesSpinnerChose().getValue()]);
         }
 
         return new WorkoutFormSend(getIdCheckedEqiupment(),"",getBodyPartsIdChecked(),0,"",0);

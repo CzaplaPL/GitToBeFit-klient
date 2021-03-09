@@ -209,4 +209,6 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="chosen_frequency_sufix">"dni w tygodniu"</string>
     <string name="chosenBodyParts">Wybrane częci ciała</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="noUser">Podany użytkownik nie istnieje</string>
+    <string name="noActivateAcount">"Konto nie jest aktywowane "</string>
 </resources>
