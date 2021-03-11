@@ -100,4 +100,21 @@ public class WorkoutFormsRepository
         }
         return respond;
     }
+
+    public ArrayList<Equipment> getCheckEqiupment()
+    {
+        ArrayList<Equipment> respond = new ArrayList<>();
+        for(int i = 0; i < equipmentTypes.size(); i++)
+        {
+            if(!equipmentTypes.get(i).isLoad())continue;
+            for(int j = 0; j < equipmentTypes.get(i).getEquipment().size(); j++)
+            {
+                if(equipmentTypes.get(i).getEquipment().get(j).isIschecked())
+                {
+                    respond.add(equipmentTypes.get(i).getEquipment().get(j));
+                }
+            }
+        }
+        return respond;
+    }
 }

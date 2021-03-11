@@ -64,12 +64,63 @@ public class SummaryFragment extends Fragment {
             @Override
             public void onChanged(Integer position)
             {
-                String[] frequency = getResources().getStringArray(R.array.split_duration);
+                String[] frequency;
+                if( model.getTypeSpinnerChose().getValue()==0)
+                {
+                    frequency = getResources().getStringArray(R.array.split_duration);
+                }else
+                {
+                    frequency = getResources().getStringArray(R.array.fbw_duration);
+                }
                 binding.frequency.setText(getString(R.string.chosen_frequency_prefix) + frequency[position] +  getString(R.string.chosen_frequency_sufix));
             }
         });
-
+        model.getWaySpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
+        {
+            @Override
+            public void onChanged(Integer position)
+            {
+                String[] way = getResources().getStringArray(R.array.training_subtype);
+                binding.way.setText(getString(R.string.chosenWay) + way[position] );
+            }
+        });
+        model.getTimeCardioSpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
+        {
+            @Override
+            public void onChanged(Integer position)
+            {
+                String[] time = getResources().getStringArray(R.array.cardio_duration);
+                binding.time.setText(getString(R.string.chosenTime) + time[position] );
+            }
+        });
+        model.getTimeFitnesSpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
+        {
+            @Override
+            public void onChanged(Integer position)
+            {
+                String[] time = getResources().getStringArray(R.array.fintess_duration);
+                binding.time.setText(getString(R.string.chosenTime) + time[position] );
+            }
+        });
+        model.getScheduleSpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
+        {
+            @Override
+            public void onChanged(Integer position)
+            {
+                String[] schedule = getResources().getStringArray(R.array.fbw_sheduletype);
+                binding.scheule.setText(getString(R.string.chosenSchedule) + schedule[position] );
+            }
+        });
     }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        model.updateCheckedBodyParts();
+        bodyPartsAdapter.notifyDataSetChanged();
+    }
+
 
     private void changeTypeTranig(Integer position)
     {
@@ -80,27 +131,32 @@ public class SummaryFragment extends Fragment {
             case 0:
                 binding.frequency.setVisibility(View.VISIBLE);
                 binding.bodyParts.setVisibility(View.VISIBLE);
+                binding.way.setVisibility(View.GONE);
+                binding.time.setVisibility(View.GONE);
+                binding.scheule.setVisibility(View.GONE);
                 break;
             case 1:
                 binding.frequency.setVisibility(View.VISIBLE);
                 binding.bodyParts.setVisibility(View.GONE);
+                binding.way.setVisibility(View.GONE);
+                binding.time.setVisibility(View.GONE);
+                binding.scheule.setVisibility(View.VISIBLE);
                 break;
             case 2:
                 binding.frequency.setVisibility(View.GONE);
                 binding.bodyParts.setVisibility(View.GONE);
+                binding.way.setVisibility(View.VISIBLE);
+                binding.time.setVisibility(View.VISIBLE);
+                binding.scheule.setVisibility(View.GONE);
                 break;
             case 3:
                 binding.frequency.setVisibility(View.GONE);
                 binding.bodyParts.setVisibility(View.VISIBLE);
+                binding.way.setVisibility(View.VISIBLE);
+                binding.time.setVisibility(View.VISIBLE);
+                binding.scheule.setVisibility(View.GONE);
                 break;
         }
     }
 
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        model.updateCheckedBodyParts();
-        bodyPartsAdapter.notifyDataSetChanged();
-    }
 }

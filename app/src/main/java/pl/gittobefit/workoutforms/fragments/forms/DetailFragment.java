@@ -45,14 +45,9 @@ public class DetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
-
-
-        model.setTypeDesciptionText(getString(R.string.split));
-        model.setDetailDesciptionText(getString(R.string.series));
-        model.setTimeDesciptionText(getString(R.string.days));
         model.setBodyPartsSplit(getContext());
 
-        //tworzenie 1 spinera
+        //tworzenie 1 spinera wyboru typu treningu
         bodyPartsAdapter = new BodyPartsAdapter(model.getBodyParts());
         binding.myRecycleView.setAdapter(bodyPartsAdapter);
         binding.myRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -81,7 +76,7 @@ public class DetailFragment extends Fragment {
 
             }
         });
-        //tworzenie 2 spinera
+        //tworzenie 2 spinera wyboru serie czy obwodowo
         ArrayAdapter adapter2 = ArrayAdapter.createFromResource(getContext(),
                 R.array.training_subtype, R.layout.my_spinner);
         binding.waySpinner.setAdapter(adapter2);
@@ -98,7 +93,7 @@ public class DetailFragment extends Fragment {
         });
     binding.waySpinner.setVisibility(View.GONE);
     binding.titleWay.setVisibility(View.GONE);
-        //tworzenie 3 spinera
+        //tworzenie 3 spinera na ilosc dni w splicie lub fbw
         ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
                 R.array.split_duration, R.layout.my_spinner);
         binding.frequencySpinner.setAdapter(adapter3);
@@ -108,7 +103,6 @@ public class DetailFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 model.setFrequencySpinnerChose(position);
-
             }
 
             @Override
@@ -119,7 +113,7 @@ public class DetailFragment extends Fragment {
 
 
 
-        //tworzenie 4 spinera
+        //tworzenie 4.1 spinera czasu dla cardio
         ArrayAdapter adapter4 = ArrayAdapter.createFromResource(getContext(),
                 R.array.cardio_duration, R.layout.my_spinner);
         binding.timeSpinner.setAdapter(adapter4);
@@ -134,6 +128,7 @@ public class DetailFragment extends Fragment {
         });
     binding.timeSpinner.setVisibility(View.GONE);
 
+        //tworzenie 4.2 spinera czasu dla cardio
         ArrayAdapter adapter4Fitnes = ArrayAdapter.createFromResource(getContext(),
                 R.array.fintess_duration, R.layout.my_spinner);
         binding.timeSpinnerFitnnes.setAdapter(adapter4Fitnes);

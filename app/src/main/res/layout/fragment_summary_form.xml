@@ -8,85 +8,244 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_main"
+        android:id="@+id/sumary_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".workoutforms.fragments.forms.SummaryFragment">
 
-        <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".MainActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/main_guideline_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/main_guideline_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="wybrane tryby"
+            app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
+            app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/typeTraning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Wybrany tryb "
+            app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <TextView
+            android:id="@+id/frequency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="ilość dni w tygodniu"
+            app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/typeTraning" />
+
+        <TextView
+            android:id="@+id/way"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Ćwiczenia wykonywane będą "
+            app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/frequency" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="wybrany czas "
+            app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+            android:layout_marginTop="5dp"
+
+            app:layout_constraintTop_toBottomOf="@+id/way"/>
+
+        <TextView
+            android:id="@+id/scheule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="sposób generowania "
+            app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/time" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="5dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/scheule" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/body_parts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider">
 
-            <TextView
-                android:id="@+id/typeTraning"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_guideline_left2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Wybrany tryb " />
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
 
-            <TextView
-                android:id="@+id/frequency"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ilość dni w tygodniu" />
-
-            <TextView
-                android:id="@+id/textView6"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_guideline_right2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ćwiczenia wykonywane będą " />
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
 
             <TextView
-                android:id="@+id/textView10"
-                android:layout_width="match_parent"
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="wybrany czas " />
+                android:layout_marginTop="5dp"
+                android:text="@string/chosenBodyParts"
+                app:layout_constraintEnd_toStartOf="@+id/main_guideline_right2"
+                app:layout_constraintStart_toStartOf="@+id/main_guideline_left2"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="?android:attr/listDivider" />
-
-            <LinearLayout
-                android:id="@+id/body_parts"
-                android:layout_width="match_parent"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/body_parts_list"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                app:layout_constraintEnd_toStartOf="@+id/main_guideline_right2"
+                app:layout_constraintStart_toStartOf="@+id/main_guideline_left2"
+                app:layout_constraintTop_toBottomOf="@+id/textView9">
 
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/chosenBodyParts" />
+            </androidx.recyclerview.widget.RecyclerView>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/body_parts_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="5dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/body_parts" />
 
-                </androidx.recyclerview.widget.RecyclerView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/equipment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider2">
 
-                <View
-                    android:id="@+id/divider2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider" />
-            </LinearLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_guideline_left3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_guideline_right3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
 
             <TextView
                 android:id="@+id/textView11"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="wybrany sprzet" />
+                android:layout_marginTop="5dp"
+
+                android:text="wybrany sprzet"
+                app:layout_constraintEnd_toStartOf="@+id/main_guideline_right3"
+                app:layout_constraintStart_toStartOf="@+id/main_guideline_left3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/no_equipment_item_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_baseline_clear_24"
+                app:layout_constraintStart_toStartOf="@+id/main_guideline_left3"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <TextView
+                android:id="@+id/no_equipment_title"
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:text="@string/noeqiupment"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/rvContacts"
+                app:layout_constraintStart_toEndOf="@+id/no_equipment_item_image"
+                app:layout_constraintTop_toBottomOf="@+id/textView11"
+                tools:ignore="RelativeOverlap" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvContacts"
-                android:layout_width="match_parent"
-                tools:listitem="@layout/equipment_item"
-                android:layout_height="match_parent" >
-            </androidx.recyclerview.widget.RecyclerView>
-        </LinearLayout>
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toStartOf="@+id/main_guideline_right3"
+                app:layout_constraintStart_toStartOf="@+id/main_guideline_left3"
+                app:layout_constraintTop_toBottomOf="@+id/no_equipment_item_image"
+                tools:listitem="@layout/equipment_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
     </ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
