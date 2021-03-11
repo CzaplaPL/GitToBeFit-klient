@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import pl.gittobefit.R;
 import pl.gittobefit.databinding.FragmentSummaryFormBinding;
 import pl.gittobefit.workoutforms.adapters.BodyPartsAdapter;
+import pl.gittobefit.workoutforms.adapters.CheckedEquipmentAdapter;
 import pl.gittobefit.workoutforms.adapters.ChosenBodyPartsAdapter;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
@@ -26,6 +27,7 @@ public class SummaryFragment extends Fragment {
     private FragmentSummaryFormBinding binding ;
     private GenerateTraningViewModel model;
     ChosenBodyPartsAdapter bodyPartsAdapter;
+    CheckedEquipmentAdapter equipmentAdapter;
     public SummaryFragment() { }
 
     @Override
@@ -47,7 +49,9 @@ public class SummaryFragment extends Fragment {
         binding.bodyPartsList.setAdapter(bodyPartsAdapter);
         binding.bodyPartsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-
+        equipmentAdapter = new CheckedEquipmentAdapter(model.getCheckedEqiupment());
+        binding.eqiupmentsList.setAdapter(equipmentAdapter);
+        binding.eqiupmentsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
 
         model.getTypeSpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
@@ -119,6 +123,17 @@ public class SummaryFragment extends Fragment {
         super.onResume();
         model.updateCheckedBodyParts();
         bodyPartsAdapter.notifyDataSetChanged();
+        if(model.isNoEquipmentcheched())
+        {
+            binding.noEquipmentItemImage.setVisibility(View.VISIBLE);
+            binding.noEquipmentTitle.setVisibility(View.VISIBLE);
+        }else
+        {
+            binding.noEquipmentItemImage.setVisibility(View.GONE);
+            binding.noEquipmentTitle.setVisibility(View.GONE);
+        }
+        model.updateCheckedEqiupment();
+        equipmentAdapter.notifyDataSetChanged();
     }
 
 
@@ -131,6 +146,7 @@ public class SummaryFragment extends Fragment {
             case 0:
                 binding.frequency.setVisibility(View.VISIBLE);
                 binding.bodyParts.setVisibility(View.VISIBLE);
+                binding.divider2.setVisibility(View.VISIBLE);
                 binding.way.setVisibility(View.GONE);
                 binding.time.setVisibility(View.GONE);
                 binding.scheule.setVisibility(View.GONE);
@@ -138,6 +154,7 @@ public class SummaryFragment extends Fragment {
             case 1:
                 binding.frequency.setVisibility(View.VISIBLE);
                 binding.bodyParts.setVisibility(View.GONE);
+                binding.divider2.setVisibility(View.GONE);
                 binding.way.setVisibility(View.GONE);
                 binding.time.setVisibility(View.GONE);
                 binding.scheule.setVisibility(View.VISIBLE);
@@ -145,6 +162,7 @@ public class SummaryFragment extends Fragment {
             case 2:
                 binding.frequency.setVisibility(View.GONE);
                 binding.bodyParts.setVisibility(View.GONE);
+                binding.divider2.setVisibility(View.GONE);
                 binding.way.setVisibility(View.VISIBLE);
                 binding.time.setVisibility(View.VISIBLE);
                 binding.scheule.setVisibility(View.GONE);
@@ -152,6 +170,7 @@ public class SummaryFragment extends Fragment {
             case 3:
                 binding.frequency.setVisibility(View.GONE);
                 binding.bodyParts.setVisibility(View.VISIBLE);
+                binding.divider2.setVisibility(View.VISIBLE);
                 binding.way.setVisibility(View.VISIBLE);
                 binding.time.setVisibility(View.VISIBLE);
                 binding.scheule.setVisibility(View.GONE);

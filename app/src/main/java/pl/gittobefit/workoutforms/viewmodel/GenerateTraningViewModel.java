@@ -28,6 +28,7 @@ public class GenerateTraningViewModel extends ViewModel
     private int noEquipmentid = -1;
     private boolean noEquipmentcheched = true;
     private ArrayList<EquipmentForm> listData = new ArrayList<>();
+    private ArrayList<Equipment> checkedEqiupment = new ArrayList<>();
     private  ArrayList<BodyParts> bodyPartsToChoose = new ArrayList<>();
     private  ArrayList<BodyParts> bodyPartsChecked = new ArrayList<>();
 
@@ -238,9 +239,15 @@ scheduleSpinnerChose.setValue(position);
     }
     public ArrayList<Equipment> getCheckedEqiupment()
     {
-        return repository.getCheckEqiupment();
+        return  checkedEqiupment;
     }
 
+    public void updateCheckedEqiupment()
+    {
+        ArrayList<Equipment> equipmentInRepo = repository.getCheckEqiupment();
+        checkedEqiupment.clear();
+        checkedEqiupment.addAll(equipmentInRepo);
+    }
     public WorkoutFormSend getForm(Resources resources)
     {
         String[] Type = resources.getStringArray(R.array.trening_type_name);
