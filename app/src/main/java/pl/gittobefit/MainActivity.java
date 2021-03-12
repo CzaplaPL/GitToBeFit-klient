@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
 
 
         AppBarConfiguration mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.setting, R.id.aboutUs, R.id.homeFragment, R.id.generateTrainingForm)
+                R.id.setting, R.id.aboutUs, R.id.homeFragment, R.id.displayReceivedTraining, R.id.generateTrainingForm)
                 .setOpenableLayout(drawerLayout)
                 .build();
 

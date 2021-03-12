@@ -50,6 +50,17 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.textView1.setText(exerciseArrayList.get(position).getExercise().getName());
+        String text = "";
+        if (exerciseArrayList.get(position).getTime() > 20)
+        {
+            text = exerciseArrayList.get(position).getSeries() + " serie, " + exerciseArrayList.get(position).getTime() + " sekund";
+        }
+        else
+        {
+            text = exerciseArrayList.get(position).getSeries() + " serie, " + exerciseArrayList.get(position).getCount() + " powtórzeń";
+        }
+
+        holder.textView2.setText(text);
     }
 
 

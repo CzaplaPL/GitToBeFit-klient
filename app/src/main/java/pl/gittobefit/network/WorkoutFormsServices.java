@@ -117,22 +117,7 @@ public class WorkoutFormsServices
     public void getTrainingPlan(Fragment fragment, WorkoutFormSend form)
     {
         Log.w("form","equipmentIDs" + form.getEquipmentIDs().toString() + " trainingType "+ form.getTrainingType() + " bodyParts " + form.getBodyParts() + " daysCount" + form.getDaysCount() + " scheduleType " + form.getScheduleType() + " duration " + form.getDuration());
-        if (form.getTrainingType().equals("Full Body Workout"))
-        {
-            form.setTrainingType("FBW");
-        }
-        else if(form.getTrainingType().equals("Split"))
-        {
-            form.setTrainingType("SPLIT");
-        }
-        else if(form.getTrainingType().equals("Cardio"))
-        {
-            form.setTrainingType("CARDIO");
-        }
-        else if(form.getTrainingType().equals("Fitness"))
-        {
-            form.setTrainingType("FITNESS");
-        }
+
         Call<Training> call = workout.getTrainingPlan(form);
         call.enqueue(new Callback<Training>()
         {
@@ -141,6 +126,7 @@ public class WorkoutFormsServices
                 if(response.isSuccessful())
                 {
                   createTraining(response.body());
+                    Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
                 }
                 else
                 {
