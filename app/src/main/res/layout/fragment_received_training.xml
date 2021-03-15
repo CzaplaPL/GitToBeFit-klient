@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/displayTrainingBackgroundColor"
+        android:orientation="vertical"
+        android:paddingTop="12dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/trainingType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/type_of_training"
+                android:textColor="@color/ourWhite"
+                android:textSize="20sp"
+                android:layout_marginHorizontal="15dp"/>
+
+            <TextView
+                android:id="@+id/trainingForm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/form_of_training"
+                android:textColor="@color/ourWhite"
+                android:textSize="18sp"
+                android:layout_marginHorizontal="15dp"/>
+
+            <TextView
+                android:id="@+id/trainingDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/duration_of_training"
+                android:textColor="@color/ourWhite"
+                android:textSize="18sp"
+                android:layout_marginHorizontal="15dp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/day1_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/day_1"
+            android:layout_marginHorizontal="15dp"/>
+
+        <LinearLayout
+            android:id="@+id/layout0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_border"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:layout_marginHorizontal="15dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/exercisesList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+      />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/day2_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/day_2"
+            android:layout_marginHorizontal="15dp"/>
+
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_border"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:layout_marginHorizontal="15dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/exercisesList2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/day3_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/day_3"
+            android:layout_marginHorizontal="15dp"/>
+
+        <LinearLayout
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_border"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:layout_marginHorizontal="15dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/exercisesList3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/day4_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/day_4"
+            android:layout_marginHorizontal="15dp"/>
+
+        <LinearLayout
+            android:id="@+id/layout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_border"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:layout_marginHorizontal="15dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/exercisesList4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/day5_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/day_5"
+            android:layout_marginHorizontal="15dp"/>
+
+        <LinearLayout
+            android:id="@+id/layout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/my_border"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:layout_marginHorizontal="15dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/exercisesList5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSurface"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+
+            <Button
+                android:id="@+id/next"
+                style="style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_training"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textSize="14sp"
+                app:shapeAppearanceOverlay="@style/roundedButton" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

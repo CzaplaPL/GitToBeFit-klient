@@ -58,7 +58,7 @@ public class GenerateTrainingForm extends Fragment
             {
                 if(tab.getPosition()==2)
                 {
-                    binding.next.setOnClickListener(v -> ConnectionToServer.getInstance().WorkoutFormsServices.sendForm(model.getForm(getContext().getResources())));
+                    binding.next.setOnClickListener(v -> ConnectionToServer.getInstance().WorkoutFormsServices.getTrainingPlan(getParentFragment(), model.getForm(getContext().getResources()));
                     binding.next.setText(getString(R.string.generate));
                 }else
                 {

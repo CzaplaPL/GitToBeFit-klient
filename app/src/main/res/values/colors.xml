@@ -15,4 +15,6 @@
     <color name="detailsList">#4D575E</color>
     <color name="appBarNight">#505A61</color>
     <color name="ourGolden">#C1CC16</color>
+    <color name="exerciseItem">#747576</color>
+    <color name="displayTrainingBackgroundColor">#3a3b3c</color>
 </resources>

@@ -46,6 +46,7 @@ public class DetailFragment extends Fragment {
         //tworzenie 1 spinera wyboru typu treningu
         bodyPartsAdapter = new BodyPartsAdapter(model.getBodyParts());
         binding.myRecycleView.setAdapter(bodyPartsAdapter);
+        //binding.myRecycleView.setNestedScrollingEnabled(false);
         binding.myRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getContext(),
                 R.array.trening_type, R.layout.my_spinner);
