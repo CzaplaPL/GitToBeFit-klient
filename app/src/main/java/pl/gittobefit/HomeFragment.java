@@ -46,6 +46,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         button.setOnClickListener(this);
         Button button2 = view.findViewById(R.id.button3);
         button2.setOnClickListener(this);
+        Button button3 = view.findViewById(R.id.button2);
+        button3.setOnClickListener(this);
         return view;
     }
 
@@ -80,6 +82,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                 Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_displayReceivedTraining);
                 break;
 
+            case R.id.button2:
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_trainingStart);
         }
     }
 }
