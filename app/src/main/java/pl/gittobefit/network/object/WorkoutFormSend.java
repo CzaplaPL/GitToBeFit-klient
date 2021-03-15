@@ -41,10 +41,6 @@ public class WorkoutFormSend
         return duration;
     }
 
-    public void setTrainingType(String trainingType) {
-        this.trainingType = trainingType;
-    }
-
     public WorkoutFormSend(ArrayList<Integer> equipmentIDs, String trainingType, ArrayList<String> bodyParts, int daysCount, String scheduleType, int duration)
     {
         this.equipmentIDs = equipmentIDs;

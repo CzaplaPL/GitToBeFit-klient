@@ -32,9 +32,4 @@ public class AboutUsFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_about_us, container, false);
         return view;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 }
