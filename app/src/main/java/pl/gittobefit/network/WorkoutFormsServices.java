@@ -3,17 +3,22 @@ package pl.gittobefit.network;
 import android.util.Log;
 
 import java.io.IOException;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import java.util.ArrayList;
 
 import pl.gittobefit.LogUtils;
+import pl.gittobefit.R;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
 import pl.gittobefit.network.object.WorkoutFormSend;
 import pl.gittobefit.workoutforms.adapters.EquipmentList;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
+import pl.gittobefit.workoutforms.object.Training;
+import pl.gittobefit.workoutforms.object.UserTrainings;
 import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
-import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -109,9 +114,36 @@ public class WorkoutFormsServices
         });
     }
 
-
-    public void sendForm(WorkoutFormSend form)
+    public void getTrainingPlan(Fragment fragment, WorkoutFormSend form)
     {
-    Log.w("form","equipmentIDs" + form.getEquipmentIDs().toString() + " trainingType "+ form.getTrainingType() + " bodyParts " + form.getBodyParts() + "daysCount" + String.valueOf(form.getDaysCount()) + "scheduleType" + form.getScheduleType() + "duration" + form.getDuration());
+        Log.w("form","equipmentIDs" + form.getEquipmentIDs().toString() + " trainingType "+ form.getTrainingType() + " bodyParts " + form.getBodyParts() + " daysCount" + form.getDaysCount() + " scheduleType " + form.getScheduleType() + " duration " + form.getDuration());
+
+        Call<Training> call = workout.getTrainingPlan(form);
+        call.enqueue(new Callback<Training>()
+        {
+            @Override
+            public void onResponse(Call<Training> call, Response<Training> response) {
+                if(response.isSuccessful())
+                {
+                  createTraining(response.body());
+                    Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+                }
+                else
+                {
+                    Log.e("Network ", "WorkoutForms.getTrainingType error " + response.code());
+                    LogUtils.logCause(response.headers().get("Cause"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Training> call, Throwable t) {
+                Log.e("Network ", "WorkoutForms.getTrainingType error = " + t.toString());
+            }
+        });
+    }
+
+    private void createTraining(Training body) {
+        UserTrainings.getInstance().add(body);
+        System.out.println(body.toString());
     }
 }

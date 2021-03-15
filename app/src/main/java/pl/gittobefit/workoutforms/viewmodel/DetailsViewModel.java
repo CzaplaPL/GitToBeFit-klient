@@ -100,4 +100,6 @@ public class DetailsViewModel extends ViewModel
     public void setList(ArrayList<BodyParts> list) {
         this.list = list;
     }
+
+
 }

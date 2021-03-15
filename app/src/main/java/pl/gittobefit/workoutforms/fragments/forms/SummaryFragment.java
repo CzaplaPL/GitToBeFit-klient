@@ -47,16 +47,12 @@ public class SummaryFragment extends Fragment {
         binding.bodyPartsList.setAdapter(bodyPartsAdapter);
         binding.bodyPartsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-
-
-
         model.getTypeSpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
         {
             @Override
             public void onChanged(Integer position)
             {
-
-              changeTypeTranig(position);
+                changeTypeTranig(position);
             }
         });
         model.getFrequencySpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
