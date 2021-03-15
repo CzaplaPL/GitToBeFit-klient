@@ -20,8 +20,8 @@ import pl.gittobefit.workoutforms.object.EquipmentForm;
 
 public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.ViewHolder> {
 
-private ArrayList<EquipmentForm> localDataSet;
-private EquipmentListener equipmentListener;
+private final ArrayList<EquipmentForm> localDataSet;
+private final EquipmentListener equipmentListener;
 
     public EquipmentAdapter(ArrayList<EquipmentForm> dataSet,EquipmentListener equipmentListener)
     {
@@ -77,9 +77,6 @@ private EquipmentListener equipmentListener;
         return localDataSet.size();
     }
 
-    /**
-     * View Holder
-     */
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         private final TextView nameView;
@@ -112,14 +109,13 @@ private EquipmentListener equipmentListener;
         public CheckBox getCheckBox(){ return checkBox; }
         public Context getContext() { return context; }
 
-
         @Override
         public void onClick(View v)
         {
             equipmentListener.onItemClick(getAdapterPosition());
         }
-
     }
+
     public interface EquipmentListener
     {
         void onItemClick(int position);

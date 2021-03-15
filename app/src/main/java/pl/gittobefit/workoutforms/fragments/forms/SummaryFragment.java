@@ -54,117 +54,68 @@ public class SummaryFragment extends Fragment {
         binding.eqiupmentsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
 
-        model.getTypeSpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
+        model.getTypeSpinnerChose().observe(getViewLifecycleOwner(), position -> changeTypeTranig(position));
+        model.getFrequencySpinnerChose().observe(getViewLifecycleOwner(), position ->
         {
-            @Override
-            public void onChanged(Integer position)
+            String[] frequency;
+            if( model.getTypeSpinnerChose().getValue()==0)
             {
-
-              changeTypeTranig(position);
+                frequency = getResources().getStringArray(R.array.split_duration);
+            }else
+            {
+                frequency = getResources().getStringArray(R.array.fbw_duration);
+            }
+            if(position==0)
+            binding.frequency.setText(getString(R.string.chosen_frequency_prefix) + frequency[position] +  getString(R.string.chosen_frequency_sufix_one));
+            else
+            binding.frequency.setText(getString(R.string.chosen_frequency_prefix) + frequency[position] +  getString(R.string.chosen_frequency_sufix));
+        });
+        model.getWaySpinnerChose().observe(getViewLifecycleOwner(), position ->
+        {
+            String[] way = getResources().getStringArray(R.array.training_subtype);
+            binding.way.setText(getString(R.string.chosenWay) + way[position] );
+        });
+        model.getTimeCardioSpinnerChose().observe(getViewLifecycleOwner(), position ->
+        {
+            String[] time = getResources().getStringArray(R.array.cardio_duration);
+            binding.time.setText(getString(R.string.chosenTime) + time[position] );
+        });
+        model.getTimeFitnesSpinnerChose().observe(getViewLifecycleOwner(), position ->
+        {
+            String[] time = getResources().getStringArray(R.array.fintess_duration);
+            binding.time.setText(getString(R.string.chosenTime) + time[position] );
+        });
+        model.getScheduleSpinnerChose().observe(getViewLifecycleOwner(), position ->
+        {
+            String[] schedule = getResources().getStringArray(R.array.fbw_sheduletype);
+            binding.scheule.setText(getString(R.string.chosenSchedule) + schedule[position] );
+        });
+        binding.bodyTitle.setOnClickListener(v ->
+        {
+            if(binding.bodyPartsList.getVisibility()!=View.GONE)
+            {
+                binding.bodyPartsList.setVisibility(View.GONE);
+            }else
+            {
+                binding.bodyPartsList.setVisibility(View.VISIBLE);
             }
         });
-        model.getFrequencySpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
+        binding.bodyButton.setOnClickListener(v ->
         {
-            @Override
-            public void onChanged(Integer position)
+            if(binding.bodyPartsList.getVisibility()!=View.GONE)
             {
-                String[] frequency;
-                if( model.getTypeSpinnerChose().getValue()==0)
-                {
-                    frequency = getResources().getStringArray(R.array.split_duration);
-                }else
-                {
-                    frequency = getResources().getStringArray(R.array.fbw_duration);
-                }
-                if(position==0)
-                binding.frequency.setText(getString(R.string.chosen_frequency_prefix) + frequency[position] +  getString(R.string.chosen_frequency_sufix_one));
-                else
-                binding.frequency.setText(getString(R.string.chosen_frequency_prefix) + frequency[position] +  getString(R.string.chosen_frequency_sufix));
-            }
-        });
-        model.getWaySpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
-        {
-            @Override
-            public void onChanged(Integer position)
+                binding.bodyPartsList.setVisibility(View.GONE);
+            }else
             {
-                String[] way = getResources().getStringArray(R.array.training_subtype);
-                binding.way.setText(getString(R.string.chosenWay) + way[position] );
-            }
-        });
-        model.getTimeCardioSpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
-        {
-            @Override
-            public void onChanged(Integer position)
-            {
-                String[] time = getResources().getStringArray(R.array.cardio_duration);
-                binding.time.setText(getString(R.string.chosenTime) + time[position] );
-            }
-        });
-        model.getTimeFitnesSpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
-        {
-            @Override
-            public void onChanged(Integer position)
-            {
-                String[] time = getResources().getStringArray(R.array.fintess_duration);
-                binding.time.setText(getString(R.string.chosenTime) + time[position] );
-            }
-        });
-        model.getScheduleSpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
-        {
-            @Override
-            public void onChanged(Integer position)
-            {
-                String[] schedule = getResources().getStringArray(R.array.fbw_sheduletype);
-                binding.scheule.setText(getString(R.string.chosenSchedule) + schedule[position] );
-            }
-        });
-        binding.bodyTitle.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(binding.bodyPartsList.getVisibility()!=View.GONE)
-                {
-                    binding.bodyPartsList.setVisibility(View.GONE);
-                }else
-                {
-                    binding.bodyPartsList.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-        binding.bodyButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(binding.bodyPartsList.getVisibility()!=View.GONE)
-                {
-                    binding.bodyPartsList.setVisibility(View.GONE);
-                }else
-                {
-                    binding.bodyPartsList.setVisibility(View.VISIBLE);
-                }
+                binding.bodyPartsList.setVisibility(View.VISIBLE);
             }
         });
 
-        binding.eqiupmentTitle.setOnClickListener(new View.OnClickListener()
+        binding.eqiupmentTitle.setOnClickListener(v ->
         {
-            @Override
-            public void onClick(View v)
-            {
 
-            }
         });
-        binding.eqiupmentButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-
-                    showEqiupment();
-
-            }
-        });
+        binding.eqiupmentButton.setOnClickListener(v -> showEqiupment());
     }
 
 

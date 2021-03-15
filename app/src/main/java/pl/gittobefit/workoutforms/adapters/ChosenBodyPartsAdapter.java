@@ -16,12 +16,11 @@ import pl.gittobefit.workoutforms.object.BodyParts;
 
 public class ChosenBodyPartsAdapter extends RecyclerView.Adapter<ChosenBodyPartsAdapter.ViewHolder>
 {
-    private ArrayList<BodyParts> bodyPartsArrayList;
+    private final ArrayList<BodyParts> bodyPartsArrayList;
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        private TextView textView;
-        private CheckBox checkBox;
-
+        private final TextView textView;
+        private final CheckBox checkBox;
         public ViewHolder (View view)
         {
             super(view);
@@ -41,7 +40,6 @@ public class ChosenBodyPartsAdapter extends RecyclerView.Adapter<ChosenBodyParts
     public ChosenBodyPartsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.my_spinner2, parent, false);
-
         return new ChosenBodyPartsAdapter.ViewHolder(view);
     }
 
@@ -49,7 +47,6 @@ public class ChosenBodyPartsAdapter extends RecyclerView.Adapter<ChosenBodyParts
     public void onBindViewHolder(@NonNull ChosenBodyPartsAdapter.ViewHolder holder, int position) {
         holder.checkBox.setVisibility(View.GONE);
         holder.textView.setText(bodyPartsArrayList.get(position).getBodyName());
-
     }
 
     @Override

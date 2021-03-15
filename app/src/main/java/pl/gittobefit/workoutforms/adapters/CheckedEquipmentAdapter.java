@@ -19,7 +19,7 @@ import pl.gittobefit.workoutforms.object.Equipment;
 
 public class CheckedEquipmentAdapter extends RecyclerView.Adapter<CheckedEquipmentAdapter.ViewHolder> {
 
-private ArrayList<Equipment> localDataSet;
+private final ArrayList<Equipment> localDataSet;
 
     public CheckedEquipmentAdapter(ArrayList<Equipment> dataSet)
     {
@@ -45,7 +45,6 @@ private ArrayList<Equipment> localDataSet;
                         .load("http://c4szkolenia.pl/"+localDataSet.get(position).getUrl())
                         .placeholder(R.drawable.ic_baseline_downloading_24)
                         .into(viewHolder.getImage());
-
     }
 
     @Override
@@ -53,9 +52,6 @@ private ArrayList<Equipment> localDataSet;
         return localDataSet.size();
     }
 
-    /**
-     * View Holder
-     */
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
         private final TextView nameView;
@@ -63,7 +59,6 @@ private ArrayList<Equipment> localDataSet;
         private final ImageView button;
         private final CheckBox checkBox;
         private final Context context;
-
         public ViewHolder(View view)
         {
             super(view);
@@ -73,7 +68,6 @@ private ArrayList<Equipment> localDataSet;
             checkBox = view.findViewById(R.id.no_equipment_checbox) ;
             context = view.getContext();
         }
-
         public TextView getNameView()
         {
             return nameView;
@@ -82,10 +76,6 @@ private ArrayList<Equipment> localDataSet;
         public ImageView getButton() {return button;}
         public CheckBox getCheckBox(){ return checkBox; }
         public Context getContext() { return context; }
-
-
-
-
     }
 }
 

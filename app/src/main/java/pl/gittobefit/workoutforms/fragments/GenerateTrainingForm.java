@@ -1,13 +1,10 @@
 package pl.gittobefit.workoutforms.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -39,28 +36,19 @@ public class GenerateTrainingForm extends Fragment
         WorkoutFormAdapter adapter = new WorkoutFormAdapter (this);
         binding.viewPagerId.setAdapter(adapter);
         model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
-        binding.next.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                binding.viewPagerId.setCurrentItem(1);
-            }
-        });
+        binding.next.setOnClickListener(v -> binding.viewPagerId.setCurrentItem(1));
         // Metoda ustawiania tekstu formularza
         new TabLayoutMediator (binding.tabLayoutId,  binding.viewPagerId,
-                new TabLayoutMediator.TabConfigurationStrategy() {
-                    @Override
-                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                        if(position == 0){
-                            tab.setText(getString(R.string.eqiupment));
-                        }
-                        else if(position == 1){
-                            tab.setText(getString(R.string.details));
-                        }
-                        else if(position == 2){
-                            tab.setText (getString(R.string.sumary));
-                        }
+                (tab, position) ->
+                {
+                    if(position == 0){
+                        tab.setText(getString(R.string.eqiupment));
+                    }
+                    else if(position == 1){
+                        tab.setText(getString(R.string.details));
+                    }
+                    else if(position == 2){
+                        tab.setText (getString(R.string.sumary));
                     }
                 }).attach();
         binding.tabLayoutId.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
@@ -70,25 +58,11 @@ public class GenerateTrainingForm extends Fragment
             {
                 if(tab.getPosition()==2)
                 {
-                    binding.next.setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View v)
-                        {
-                            ConnectionToServer.getInstance().WorkoutFormsServices.sendForm(model.getForm(getContext().getResources()));
-                        }
-                    });
+                    binding.next.setOnClickListener(v -> ConnectionToServer.getInstance().WorkoutFormsServices.sendForm(model.getForm(getContext().getResources())));
                     binding.next.setText(getString(R.string.generate));
                 }else
                 {
-                    binding.next.setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View v)
-                        {
-                            binding.viewPagerId.setCurrentItem(tab.getPosition()+1);
-                        }
-                    });
+                    binding.next.setOnClickListener(v -> binding.viewPagerId.setCurrentItem(tab.getPosition()+1));
                     binding.next.setText(getString(R.string.onlynext));
                 }
             }

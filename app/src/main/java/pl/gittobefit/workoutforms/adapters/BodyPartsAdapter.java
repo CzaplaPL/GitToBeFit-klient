@@ -17,11 +17,11 @@ import pl.gittobefit.workoutforms.object.BodyParts;
 
 public class BodyPartsAdapter extends RecyclerView.Adapter<BodyPartsAdapter.ViewHolder>
 {
-    private ArrayList<BodyParts> bodyPartsArrayList;
+    private final ArrayList<BodyParts> bodyPartsArrayList;
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        private TextView textView;
-        private CheckBox checkBox;
+        private final TextView textView;
+        private final CheckBox checkBox;
 
         public ViewHolder (View view)
         {
@@ -52,18 +52,10 @@ public class BodyPartsAdapter extends RecyclerView.Adapter<BodyPartsAdapter.View
         holder.textView.setText(bodyPartsArrayList.get(position).getBodyName());
         holder.checkBox.setTag(position);
 
-        holder.checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Integer pos = (Integer) holder.checkBox.getTag();
-
-                if (bodyPartsArrayList.get(pos).isSelected()) {
-                    bodyPartsArrayList.get(pos).setSelected(false);
-                } else {
-                    bodyPartsArrayList.get(pos).setSelected(true);
-                }
-            }
+        holder.checkBox.setOnClickListener(v ->
+        {
+            Integer pos = (Integer) holder.checkBox.getTag();
+            bodyPartsArrayList.get(pos).setSelected(!bodyPartsArrayList.get(pos).isSelected());
         });
     }
 
