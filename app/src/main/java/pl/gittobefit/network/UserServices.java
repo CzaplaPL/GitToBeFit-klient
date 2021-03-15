@@ -45,7 +45,7 @@ public class UserServices
      * logowanie kontem użytkownika
      * @author czapla
      */
-    public void login(String email, String password, Login fragment)
+    public void login(String email, String password, Login fragment , IShowSnackbar activity)
     {
 
         Log.w("Network", "      user.login");
@@ -80,7 +80,7 @@ public class UserServices
                                     Log.e("get_id  error : ", "   " + response2.code());
                                 }else
                                 {
-                                    Log.w("get_id error : ", "    404 zły użytkownik ");
+                                    Log.w("get_id error : ", "    404 ");
                                 }
                                 fragment.loginFail(true);
                             }
@@ -100,8 +100,23 @@ public class UserServices
                         fragment.loginFail(true);
                     }else
                     {
-                        Log.w("logowanie error : ", " 403 zły użytkownik ");
-                        fragment.loginFail(false);
+                        Log.w("logowanie error : ", " 403");
+                        LogUtils.logCause(response.headers().get("Cause"));
+                        if(response.headers().get("Cause").equals("user not exists"))
+                        {
+                            activity.showSnackbar(fragment.getString(R.string.noUser));
+                            fragment.loginFail(false,fragment.getString(R.string.noUser));
+                        }else if(response.headers().get("Cause").equals("bad password"))
+                        {
+                            activity.showSnackbar(fragment.getString(R.string.incoredPassword));
+                            fragment.loginFail(true,fragment.getString(R.string.incoredPassword));
+                        }else if(response.headers().get("Cause").equals("account is disabled"))
+                        {
+                            activity.showSnackbar(fragment.getString(R.string.noActivateAcount));
+                            fragment.loginFail(false,fragment.getString(R.string.noActivateAcount));
+                        }
+
+
                     }
                 }
             }

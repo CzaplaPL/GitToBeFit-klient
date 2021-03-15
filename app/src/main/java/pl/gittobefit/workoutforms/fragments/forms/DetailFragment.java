@@ -18,16 +18,13 @@ import pl.gittobefit.databinding.FragmentDetailFormBinding;
 import pl.gittobefit.workoutforms.adapters.BodyPartsAdapter;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
-/**
- fragment tab2
- */
+
 public class DetailFragment extends Fragment {
 
     private FragmentDetailFormBinding binding;
     private GenerateTraningViewModel model;
     BodyPartsAdapter bodyPartsAdapter ;
     public DetailFragment() { }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,30 +42,16 @@ public class DetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
-
-
-        model.setTypeDesciptionText(getString(R.string.split));
-        model.setDetailDesciptionText(getString(R.string.series));
-        model.setTimeDesciptionText(getString(R.string.days));
         model.setBodyPartsSplit(getContext());
-
-        //tworzenie 1 spinera
+        //tworzenie 1 spinera wyboru typu treningu
         bodyPartsAdapter = new BodyPartsAdapter(model.getBodyParts());
         binding.myRecycleView.setAdapter(bodyPartsAdapter);
         //binding.myRecycleView.setNestedScrollingEnabled(false);
         binding.myRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getContext(),
                 R.array.trening_type, R.layout.my_spinner);
         binding.typeSpinner.setAdapter(adapter1);
-        model.getTypeSpinnerChose().observe(getViewLifecycleOwner(), new Observer<Integer>()
-        {
-            @Override
-            public void onChanged(Integer position)
-            {
-                changeTypeSpiner(position);
-            }
-        });
+        model.getTypeSpinnerChose().observe(getViewLifecycleOwner(), this::changeTypeSpiner);
         binding.typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
@@ -76,13 +59,12 @@ public class DetailFragment extends Fragment {
             {
                model.setTypeSpinnerChose(position);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-        //tworzenie 2 spinera
+        //tworzenie 2 spinera wyboru serie czy obwodowo
         ArrayAdapter adapter2 = ArrayAdapter.createFromResource(getContext(),
                 R.array.training_subtype, R.layout.my_spinner);
         binding.waySpinner.setAdapter(adapter2);
@@ -99,7 +81,7 @@ public class DetailFragment extends Fragment {
         });
     binding.waySpinner.setVisibility(View.GONE);
     binding.titleWay.setVisibility(View.GONE);
-        //tworzenie 3 spinera
+        //tworzenie 3 spinera na ilosc dni w splicie lub fbw
         ArrayAdapter adapter3 = ArrayAdapter.createFromResource(getContext(),
                 R.array.split_duration, R.layout.my_spinner);
         binding.frequencySpinner.setAdapter(adapter3);
@@ -109,7 +91,6 @@ public class DetailFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 model.setFrequencySpinnerChose(position);
-
             }
 
             @Override
@@ -120,7 +101,7 @@ public class DetailFragment extends Fragment {
 
 
 
-        //tworzenie 4 spinera
+        //tworzenie 4.1 spinera czasu dla cardio
         ArrayAdapter adapter4 = ArrayAdapter.createFromResource(getContext(),
                 R.array.cardio_duration, R.layout.my_spinner);
         binding.timeSpinner.setAdapter(adapter4);
@@ -135,6 +116,7 @@ public class DetailFragment extends Fragment {
         });
     binding.timeSpinner.setVisibility(View.GONE);
 
+        //tworzenie 4.2 spinera czasu dla cardio
         ArrayAdapter adapter4Fitnes = ArrayAdapter.createFromResource(getContext(),
                 R.array.fintess_duration, R.layout.my_spinner);
         binding.timeSpinnerFitnnes.setAdapter(adapter4Fitnes);
@@ -156,7 +138,8 @@ public class DetailFragment extends Fragment {
         binding.scheduleTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
                 model.setScheduleSpinnerChose(position);
             }
             @Override
@@ -164,8 +147,6 @@ public class DetailFragment extends Fragment {
         });
         binding.scheduleTypeSpinner.setVisibility(View.GONE);
         binding.titleScheduleType.setVisibility(View.GONE);
-
-
     }
     private void changeTypeSpiner(Integer position)
     {
@@ -173,7 +154,6 @@ public class DetailFragment extends Fragment {
         switch(position)
         {
             case 0:
-
                 binding.titleWay.setVisibility(View.GONE);
                 binding.waySpinner.setVisibility(View.GONE);
                 binding.titleFrequency.setVisibility(View.VISIBLE);
@@ -191,9 +171,7 @@ public class DetailFragment extends Fragment {
                 bodyPartsAdapter.notifyDataSetChanged();
                 binding.myRecycleView.setVisibility(View.VISIBLE);
                 break;
-
             case 1:
-
              binding.titleWay.setVisibility(View.GONE);
              binding.waySpinner.setVisibility(View.GONE);
              binding.titleFrequency.setVisibility(View.VISIBLE);
@@ -210,7 +188,6 @@ public class DetailFragment extends Fragment {
                 binding.myRecycleView.setVisibility(View.GONE);
               break;
             case 2:
-
                 binding.titleWay.setVisibility(View.VISIBLE);
                 binding.waySpinner.setVisibility(View.VISIBLE);
                 binding.titleFrequency.setVisibility(View.GONE);
@@ -224,7 +201,6 @@ public class DetailFragment extends Fragment {
                 binding.myRecycleView.setVisibility(View.GONE);
                 break;
             case 3:
-
                 binding.titleWay.setVisibility(View.VISIBLE);
                 binding.waySpinner.setVisibility(View.VISIBLE);
                 binding.titleFrequency.setVisibility(View.GONE);
@@ -241,6 +217,4 @@ public class DetailFragment extends Fragment {
                 break;
         }
     }
-
-
 }

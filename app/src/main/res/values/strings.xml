@@ -97,8 +97,10 @@
         <item>5</item>
     </string-array>
     <string-array name="fbw_duration">
+        <item>1</item>
+        <item>2</item>
         <item>3</item>
-        <item>4</item>
+
     </string-array>
     <string-array name="fbw_sheduletype">
         <item>każdego dnia ten sam trening</item>
@@ -139,6 +141,44 @@
     <string name="titleWayTraining">Wybierz sposób odbywania treningu:</string>
     <string name="titleFrequencyTraining">Podaj liczbę dni w tygodniu:</string>
     <string name="titleBodyParts">Wybierz interesujące Cię partie ciała:</string>
+
+    <string name="chest">Klatka piersiowa</string>
+    <string name="sixpack">Brzuch</string>
+    <string name="back">Plecy</string>
+    <string name="thighs">Uda</string>
+    <string name="calfs">Łydki</string>
+    <string name="biceps">Biceps</string>
+    <string name="triceps">Triceps</string>
+    <string name="shoulders">barki</string>
+    <string name="legs">nogi</string>
+    <string name="arms">ręce</string>
+    <string name="noNetwork">Brak internetu.Aplikacja działa w trybie offline</string>
+    <string name="change_pass">Hasło zostało zmienione</string>
+    <string name="wrong_old_pass">Niepoprawne stare hasło !</string>
+    <string name="delete_acount">Konto usnięte</string>
+    <string name="change_email_title">Zmień email</string>
+    <string name="change_pass_title">Zmień hasło</string>
+    <string name="delete_acount_title">Usuń konto</string>
+    <string name="set_time">Czas trwania treningu </string>
+    <string name="set_schedule">Sposób generowania</string>
+    <string name="noeqiupment">Ćwiczenia bez sprzętu</string>
+    <string name="registrationStart">Trwa rejestracja</string>
+    <string name="chosen_type">"Wybrany typ treningu : "</string>
+    <string name="chosen_frequency_prefix">"Wybrano "</string>
+    <string name="chosen_frequency_sufix">" dni w tygodniu"</string>
+    <string name="chosen_frequency_sufix_one">" dzień w tygodniu"</string>
+    <string name="chosenBodyParts">Wybrane częci ciała</string>
+    <string name="noUser">Podany użytkownik nie istnieje</string>
+    <string name="noActivateAcount">"Konto nie jest aktywowane "</string>
+    <string name="chosenWay">"Wybrany sposób prowadzenia treningu "</string>
+    <string name="chosenTime">"Czas trwania Treningu : "</string>
+    <string name="chosenSchedule">"Wybrany sposób generowania : "</string>
+    <string name="eqiupment">Sprzęt</string>
+    <string name="details">Szczególy</string>
+    <string name="sumary">Podsumowanie</string>
+    <string name="generate">Generuj</string>
+    <string name="onlynext">Dalej</string>
+
     <string name="aboutUsInfo">Numer zespołu: 8\n
         Opiekun zespołu: Daniel Borucki\n
         Zespół:\n
@@ -189,34 +229,9 @@ sprawdzanie czy użytkownik ma internet\n
         poprawa nawigacji oraz logowania google \n
           0.1.2-hotfix-8w\n
         poprawa leyautow logowania i rejestracji \n
-
-
-
+        0.1.3\n
+        poprwaki przy użytkowniku\n
+        dodanie bez sprzetun
+        formularz detail uzupelniał viewmodel\n
     </string>
-    <string name="noNetwork">Brak internetu.Aplikacja działa w trybie offline.</string>
-    <string name="change_pass">Hasło zostało zmienione!</string>
-    <string name="chest">Klatka piersiowa</string>
-    <string name="sixpack">Brzuch</string>
-    <string name="back">Plecy</string>
-    <string name="thighs">Uda</string>
-    <string name="calfs">Łydki</string>
-    <string name="biceps">Biceps</string>
-    <string name="triceps">Triceps</string>
-    <string name="shoulders">barki</string>
-    <string name="legs">nogi</string>
-    <string name="arms">ręce</string>
-    <string name="wrong_old_pass">Niepoprawne stare hasło !</string>
-    <string name="delete_acount">Konto usnięte!</string>
-    <string name="change_email_title">Zmień email</string>
-    <string name="change_pass_title">Zmień hasło</string>
-    <string name="delete_acount_title">Usuń konto</string>
-    <string name="set_time">Czas trwania treningu </string>
-    <string name="set_schedule">sposób generowania</string>
-    <string name="noeqiupment">Ćwiczenia bez sprzętu</string>
-    <string name="registrationStart">Trwa rejestracja</string>
-    <string name="chosen_type">"wybrany typ treningu : "</string>
-    <string name="chosen_frequency_prefix">"Wybrano "</string>
-    <string name="chosen_frequency_sufix">"dni w tygodniu"</string>
-    <string name="chosenBodyParts">Wybrane częci ciała</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -55,24 +55,9 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
                 model.setNoEquipmentcheched(true);
             }
         });
-        binding.noEquipmentChecbox.setOnClickListener(v ->
-        {
-            if(binding.noEquipmentChecbox.isChecked())
-            {
-                model.setNoEquipmentcheched(true);
-            }else
-            {
-                model.setNoEquipmentcheched(false);
-            }
-        });
+        binding.noEquipmentChecbox.setOnClickListener(v -> model.setNoEquipmentcheched(binding.noEquipmentChecbox.isChecked()));
     }
 
-
-    /**
-     * inicjalizacja listy kategori sprzętów
-     * @param equipmentType ArrayList którą uzupełnić liste
-     * @param noEquipmentId
-     */
     public void createList(ArrayList<EquipmentType> equipmentType, int noEquipmentId)
     {
         model.initList(equipmentType,this);

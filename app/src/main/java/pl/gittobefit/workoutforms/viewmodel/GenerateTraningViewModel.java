@@ -28,19 +28,18 @@ public class GenerateTraningViewModel extends ViewModel
     private int noEquipmentid = -1;
     private boolean noEquipmentcheched = true;
     private ArrayList<EquipmentForm> listData = new ArrayList<>();
-    private ArrayList<Integer> checkedEqiupment = new ArrayList<>();
-    private MutableLiveData<String> typeDesciptionText =new  MutableLiveData<>();
-    private MutableLiveData<String> detailDesciptionText =new  MutableLiveData<>();
-    private MutableLiveData<String> timeDesciptionText =new  MutableLiveData<>();
+    private ArrayList<Equipment> checkedEqiupment = new ArrayList<>();
     private  ArrayList<BodyParts> bodyPartsToChoose = new ArrayList<>();
     private  ArrayList<BodyParts> bodyPartsChecked = new ArrayList<>();
+
+
     private MutableLiveData<Integer> typeSpinnerChose =new  MutableLiveData<>();
     private MutableLiveData<Integer> waySpinnerChose =new  MutableLiveData<>();
     private MutableLiveData<Integer> frequencySpinnerChose =new  MutableLiveData<>();
+
     private MutableLiveData<Integer> timeCardioSpinnerChose =new  MutableLiveData<>();
     private MutableLiveData<Integer> timeFitnesSpinnerChose =new  MutableLiveData<>();
     private MutableLiveData<Integer> scheduleSpinnerChose =new  MutableLiveData<>();
-
    public MutableLiveData<Integer> getScheduleSpinnerChose()
     {
         return scheduleSpinnerChose;
@@ -110,35 +109,7 @@ public class GenerateTraningViewModel extends ViewModel
     }
 
 
-    public MutableLiveData<String> getTypeDesciptionText()
-    {
-        return typeDesciptionText;
-    }
 
-    public void setTypeDesciptionText(String typeDesciptionText)
-    {
-        this.typeDesciptionText.setValue(typeDesciptionText);
-    }
-
-    public MutableLiveData<String> getDetailDesciptionText()
-    {
-        return detailDesciptionText;
-    }
-
-    public void setDetailDesciptionText(String detailDesciptionText)
-    {
-        this.detailDesciptionText.setValue(detailDesciptionText);
-    }
-
-    public MutableLiveData<String> getTimeDesciptionText()
-    {
-        return timeDesciptionText;
-    }
-
-    public void setTimeDesciptionText(String timeDesciptionText)
-    {
-        this.timeDesciptionText.setValue(timeDesciptionText);
-    }
 
     public void setBodyPartsSplit(Context context)
     {
@@ -259,14 +230,30 @@ scheduleSpinnerChose.setValue(position);
     }
     public ArrayList<Integer> getIdCheckedEqiupment()
     {
-        return  repository.getIdCheckEqiupment();
+        ArrayList<Integer> checked = repository.getIdCheckEqiupment();
+        if(isNoEquipmentcheched())
+        {
+            checked.add(getNoEquipmentid());
+        }
+        return  checked;
+    }
+    public ArrayList<Equipment> getCheckedEqiupment()
+    {
+        return  checkedEqiupment;
     }
 
+    public void updateCheckedEqiupment()
+    {
+        ArrayList<Equipment> equipmentInRepo = repository.getCheckEqiupment();
+        checkedEqiupment.clear();
+        checkedEqiupment.addAll(equipmentInRepo);
+    }
     public WorkoutFormSend getForm(Resources resources)
     {
         String[] Type = resources.getStringArray(R.array.trening_type_name);
         String[] daysCount ;
-        String[] scheduleType= new String[] {"SERIES","CIRCUIT"};
+        String[] scheduleType= new String[] {"PER_DAY","REPETITIVE"};
+        String[] subtype= new String[] {"SERIES","CIRCUIT"};
         int[] duration;
         switch(getTypeSpinnerChose().getValue())
         {
@@ -276,14 +263,13 @@ scheduleSpinnerChose.setValue(position);
 
                 case 1:
                 daysCount = resources.getStringArray(R.array.fbw_duration);
-                scheduleType = new String[] {"PER_DAY","REPETITIVE"};
                 return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),Integer.parseInt(daysCount[getFrequencySpinnerChose().getValue()]),scheduleType[getScheduleSpinnerChose().getValue()],0);
             case 2:
                 duration = new int[] {9,12,15,18,21,24,27,30};
-                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),0,scheduleType[getScheduleSpinnerChose().getValue()],duration[getTimeCardioSpinnerChose().getValue()]);
+                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),0,subtype[getWaySpinnerChose().getValue()],duration[getTimeCardioSpinnerChose().getValue()]);
             case 3:
                 duration = new int[] {15,18,21,24,27,30};
-                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),0,scheduleType[getScheduleSpinnerChose().getValue()],duration[getTimeFitnesSpinnerChose().getValue()]);
+                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),0,subtype[getWaySpinnerChose().getValue()],duration[getTimeFitnesSpinnerChose().getValue()]);
         }
 
         return new WorkoutFormSend(getIdCheckedEqiupment(),"",getBodyPartsIdChecked(),0,"",0);
