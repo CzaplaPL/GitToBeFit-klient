@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_homeFragment_to_displayReceivedTraining"
             app:destination="@id/displayReceivedTraining" />
+        <action
+            android:id="@+id/action_homeFragment_to_trainingStart"
+            app:destination="@id/trainingStart" />
     </fragment>
     <fragment
         android:id="@+id/setting"
@@ -128,5 +131,10 @@
         app:destination="@id/logout"
         app:popUpTo="@id/login"
         app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/trainingStart"
+        android:name="pl.gittobefit.TrainingStart"
+        android:label="fragment_training_start"
+        tools:layout="@layout/fragment_training_start" />
 
 </navigation>
