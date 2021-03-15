@@ -36,8 +36,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-       Button button =  view.findViewById(R.id.generate);
+        Button button =  view.findViewById(R.id.generate);
+        Button button2 =  view.findViewById(R.id.chooseTraining);
         button.setOnClickListener(this);
+        button2.setOnClickListener(this);
         return view;
     }
 
@@ -60,6 +62,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         {
             case R.id.generate:
                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_generateTraining);
+                break;
+            case R.id.chooseTraining:
+                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_trainingStart);
                 break;
         }
     }
