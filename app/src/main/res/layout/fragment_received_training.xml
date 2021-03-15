@@ -161,37 +161,6 @@
         </LinearLayout>
 
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/layout5"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="#687798"-->
-<!--            android:orientation="vertical"-->
-<!--            android:padding="8dp">-->
-
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/exercisesList6"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content" />-->
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/layout6"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="#687798"-->
-<!--            android:orientation="vertical"-->
-<!--            android:padding="8dp">-->
-
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/exercisesList7"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:layout_marginBottom="5dp" />-->
-
-<!--        </LinearLayout>-->
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"

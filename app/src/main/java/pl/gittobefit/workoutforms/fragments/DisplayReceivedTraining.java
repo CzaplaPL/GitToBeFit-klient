@@ -55,8 +55,7 @@ public class DisplayReceivedTraining extends Fragment
         LinearLayout linearLayout2 = getView().findViewById(R.id.layout2);
         LinearLayout linearLayout3 = getView().findViewById(R.id.layout3);
         LinearLayout linearLayout4 = getView().findViewById(R.id.layout4);
-//        LinearLayout linearLayout5 = getView().findViewById(R.id.layout5);
-//        LinearLayout linearLayout6 = getView().findViewById(R.id.layout6);
+
 
         ArrayList<LinearLayout> linearLayoutArrayList = new ArrayList<>();
         linearLayoutArrayList.add(linearLayout0);
@@ -64,16 +63,14 @@ public class DisplayReceivedTraining extends Fragment
         linearLayoutArrayList.add(linearLayout2);
         linearLayoutArrayList.add(linearLayout3);
         linearLayoutArrayList.add(linearLayout4);
-//        linearLayoutArrayList.add(linearLayout5);
-//        linearLayoutArrayList.add(linearLayout6);
+
 
         RecyclerView exercisesList = getView().findViewById(R.id.exercisesList);
         RecyclerView exercisesList2 = getView().findViewById(R.id.exercisesList2);
         RecyclerView exercisesList3 = getView().findViewById(R.id.exercisesList3);
         RecyclerView exercisesList4 = getView().findViewById(R.id.exercisesList4);
         RecyclerView exercisesList5 = getView().findViewById(R.id.exercisesList5);
-//        RecyclerView exercisesList6 = getView().findViewById(R.id.exercisesList6);
-//        RecyclerView exercisesList7 = getView().findViewById(R.id.exercisesList7);
+
 
         ArrayList<RecyclerView> recyclerViewArrayList = new ArrayList<>();
         recyclerViewArrayList.add(exercisesList);
@@ -81,8 +78,7 @@ public class DisplayReceivedTraining extends Fragment
         recyclerViewArrayList.add(exercisesList3);
         recyclerViewArrayList.add(exercisesList4);
         recyclerViewArrayList.add(exercisesList5);
-//        recyclerViewArrayList.add(exercisesList6);
-//        recyclerViewArrayList.add(exercisesList7);
+
         ArrayList<ExerciseListAdapter> exerciseListAdapters = new ArrayList<>();
 
 
@@ -249,24 +245,7 @@ public class DisplayReceivedTraining extends Fragment
             trainingType.setText(trainingTypeDisplay);
             trainingForm.setText(scheduleTypeDisplay);
             trainingDuration.setText(durationDisplay);
-
-//            if (UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getTrainingType().equals("FITNESS") ||
-//                    UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getTrainingType().equals("CARDIO"))
-//            {
-//                for (int i = 0; i < linearLayoutArrayList.size(); i++)
-//                {
-//                    linearLayoutArrayList.get(i).setVisibility(View.GONE);
-//                }
-//            }
-//            else if (UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getTrainingType().equals("FBW"))
-//            {
-//                int x = UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getDaysCount();
-//
-//                for (int i = x-1; i < linearLayoutArrayList.size(); i++)
-//                {
-//                    linearLayoutArrayList.get(i).setVisibility(View.GONE);
-//                }
-//            }
+            
 
             for (int i = 0; i < UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getPlanList().size(); i++)
             {
