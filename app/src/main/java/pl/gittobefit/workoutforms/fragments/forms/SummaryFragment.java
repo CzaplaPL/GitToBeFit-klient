@@ -180,6 +180,16 @@ public class SummaryFragment extends Fragment {
             binding.noEquipmentItemImage.setVisibility(View.VISIBLE);
             binding.noEquipmentTitle.setVisibility(View.VISIBLE);
         }
+        if(model.isNoEquipmentcheched())
+        {
+
+            binding.noEquipmentItemImage.setVisibility(View.VISIBLE);
+            binding.noEquipmentTitle.setVisibility(View.VISIBLE);
+        }else
+        {
+            binding.noEquipmentItemImage.setVisibility(View.GONE);
+            binding.noEquipmentTitle.setVisibility(View.GONE);
+        }
     }
 
 }

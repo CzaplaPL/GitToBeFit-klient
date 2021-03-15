@@ -234,30 +234,4 @@ sprawdzanie czy użytkownik ma internet\n
         dodanie bez sprzetun
         formularz detail uzupelniał viewmodel\n
     </string>
-    <string name="noNetwork">Brak internetu.Aplikacja działa w trybie offline.</string>
-    <string name="change_pass">Hasło zostało zmienione!</string>
-    <string name="chest">Klatka piersiowa</string>
-    <string name="sixpack">Brzuch</string>
-    <string name="back">Plecy</string>
-    <string name="thighs">Uda</string>
-    <string name="calfs">Łydki</string>
-    <string name="biceps">Biceps</string>
-    <string name="triceps">Triceps</string>
-    <string name="shoulders">barki</string>
-    <string name="legs">nogi</string>
-    <string name="arms">ręce</string>
-    <string name="wrong_old_pass">Niepoprawne stare hasło !</string>
-    <string name="delete_acount">Konto usnięte!</string>
-    <string name="change_email_title">Zmień email</string>
-    <string name="change_pass_title">Zmień hasło</string>
-    <string name="delete_acount_title">Usuń konto</string>
-    <string name="set_time">Czas trwania treningu </string>
-    <string name="set_schedule">sposób generowania</string>
-    <string name="noeqiupment">Ćwiczenia bez sprzętu</string>
-    <string name="registrationStart">Trwa rejestracja</string>
-    <string name="chosen_type">"wybrany typ treningu : "</string>
-    <string name="chosen_frequency_prefix">"Wybrano "</string>
-    <string name="chosen_frequency_sufix">"dni w tygodniu"</string>
-    <string name="chosenBodyParts">Wybrane częci ciała</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
