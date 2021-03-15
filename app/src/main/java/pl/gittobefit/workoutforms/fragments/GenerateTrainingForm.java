@@ -10,17 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import pl.gittobefit.R;
-import pl.gittobefit.databinding.FragmentDetailFormBinding;
 import pl.gittobefit.databinding.FragmentGenerateTrainingBinding;
 import pl.gittobefit.network.ConnectionToServer;
-import pl.gittobefit.user.fragments.LoginDirections;
 import pl.gittobefit.workoutforms.adapters.WorkoutFormAdapter;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
@@ -43,31 +39,30 @@ public class GenerateTrainingForm extends Fragment
         WorkoutFormAdapter adapter = new WorkoutFormAdapter (this);
         binding.viewPagerId.setAdapter(adapter);
         model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
-
+        binding.next.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                binding.viewPagerId.setCurrentItem(1);
+            }
+        });
         // Metoda ustawiania tekstu formularza
         new TabLayoutMediator (binding.tabLayoutId,  binding.viewPagerId,
                 new TabLayoutMediator.TabConfigurationStrategy() {
                     @Override
                     public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                         if(position == 0){
-                            tab.setText("Equipment");
+                            tab.setText(getString(R.string.eqiupment));
                         }
                         else if(position == 1){
-                            tab.setText("Details");
+                            tab.setText(getString(R.string.details));
                         }
                         else if(position == 2){
-                            tab.setText ("Tab3");
+                            tab.setText (getString(R.string.sumary));
                         }
                     }
                 }).attach();
-        return binding.getRoot();
-
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
-    {
-        super.onViewCreated(view, savedInstanceState);
         binding.tabLayoutId.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
         {
             @Override
@@ -83,7 +78,7 @@ public class GenerateTrainingForm extends Fragment
                             ConnectionToServer.getInstance().WorkoutFormsServices.sendForm(model.getForm(getContext().getResources()));
                         }
                     });
-                    binding.next.setText("generuj");
+                    binding.next.setText(getString(R.string.generate));
                 }else
                 {
                     binding.next.setOnClickListener(new View.OnClickListener()
@@ -91,10 +86,10 @@ public class GenerateTrainingForm extends Fragment
                         @Override
                         public void onClick(View v)
                         {
-
+                            binding.viewPagerId.setCurrentItem(tab.getPosition()+1);
                         }
                     });
-                    binding.next.setText("next");
+                    binding.next.setText(getString(R.string.onlynext));
                 }
             }
 
@@ -110,5 +105,9 @@ public class GenerateTrainingForm extends Fragment
 
             }
         });
+        return binding.getRoot();
+
     }
+
+
 }

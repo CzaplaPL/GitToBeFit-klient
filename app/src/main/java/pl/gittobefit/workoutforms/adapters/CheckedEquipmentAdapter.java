@@ -1,7 +1,6 @@
 package pl.gittobefit.workoutforms.adapters;
 
 import android.content.Context;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 
 import pl.gittobefit.R;
 import pl.gittobefit.workoutforms.object.Equipment;
-import pl.gittobefit.workoutforms.object.EquipmentForm;
 
 public class CheckedEquipmentAdapter extends RecyclerView.Adapter<CheckedEquipmentAdapter.ViewHolder> {
 
@@ -71,7 +69,7 @@ private ArrayList<Equipment> localDataSet;
             super(view);
             nameView = view.findViewById(R.id.no_equipment_title);
             image = view.findViewById(R.id.no_equipment_item_image) ;
-            button = view.findViewById(R.id.equipment_drop_button) ;
+            button = view.findViewById(R.id.bodyButton) ;
             checkBox = view.findViewById(R.id.no_equipment_checbox) ;
             context = view.getContext();
         }

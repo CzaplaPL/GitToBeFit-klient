@@ -95,7 +95,7 @@ private EquipmentListener equipmentListener;
             this.equipmentListener=equipmentListener;
             nameView = view.findViewById(R.id.no_equipment_title);
             image = view.findViewById(R.id.no_equipment_item_image) ;
-            button = view.findViewById(R.id.equipment_drop_button) ;
+            button = view.findViewById(R.id.bodyButton) ;
             checkBox = view.findViewById(R.id.no_equipment_checbox) ;
             button.setOnClickListener(this);
             checkBox.setOnClickListener(this);

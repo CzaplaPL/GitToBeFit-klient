@@ -35,75 +35,73 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:background="@color/ourGreen"
+            android:padding="3dp"
             android:text="wybrane tryby"
+            android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
-            app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/typeTraning"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Wybrany tryb "
             android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <TextView
             android:id="@+id/frequency"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="ilość dni w tygodniu"
             android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/typeTraning" />
 
         <TextView
             android:id="@+id/way"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="Ćwiczenia wykonywane będą "
             android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/frequency" />
 
         <TextView
             android:id="@+id/time"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="wybrany czas "
             android:textSize="16sp"
 
+            app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/way" />
 
         <TextView
             android:id="@+id/scheule"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="sposób generowania "
             android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/time" />
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_marginTop="5dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
-            app:layout_constraintTop_toBottomOf="@+id/scheule" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/body_parts"
@@ -111,7 +109,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider">
+            app:layout_constraintTop_toBottomOf="@+id/scheule">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/main_guideline_left2"
@@ -128,43 +126,57 @@
                 app:layout_constraintGuide_percent="0.95" />
 
             <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/bodyTitle"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="5dp"
+                android:background="@color/ourGreen"
+                android:padding="3dp"
                 android:text="@string/chosenBodyParts"
+                android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/main_guideline_right2"
-                app:layout_constraintStart_toStartOf="@+id/main_guideline_left2"
+                app:layout_constraintEnd_toStartOf="@+id/bodyButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/bodyButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/ourGreen"
+                android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/body_parts_list"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/main_guideline_right2"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left2"
-                app:layout_constraintTop_toBottomOf="@+id/textView9">
+                app:layout_constraintTop_toBottomOf="@+id/bodyTitle">
 
             </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
-            android:id="@+id/divider2"
+            android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="3dp"
-            android:layout_marginTop="5dp"
             android:background="?android:attr/listDivider"
-            app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
-            app:layout_constraintTop_toBottomOf="@+id/body_parts" />
+            app:layout_constraintBottom_toBottomOf="@+id/body_parts"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/equipment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider2">
+            app:layout_constraintTop_toBottomOf="@+id/body_parts">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/main_guideline_left3"
@@ -181,16 +193,27 @@
                 app:layout_constraintGuide_percent="0.95" />
 
             <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:id="@+id/eqiupmentTitle"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
 
+                android:background="@color/ourGreen"
+                android:padding="3dp"
                 android:text="wybrany sprzet"
+                android:textAlignment="center"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/main_guideline_right3"
-                app:layout_constraintStart_toStartOf="@+id/main_guideline_left3"
+                app:layout_constraintEnd_toStartOf="@+id/eqiupmentButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/eqiupmentButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@color/ourGreen"
+                android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -199,8 +222,9 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/ic_baseline_clear_24"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left3"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                app:layout_constraintTop_toBottomOf="@+id/eqiupmentTitle" />
 
             <TextView
                 android:id="@+id/no_equipment_title"
@@ -212,16 +236,19 @@
                 android:textColor="?attr/colorPrimaryVariant"
                 android:textSize="15sp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/eqiupmentsList"
                 app:layout_constraintStart_toEndOf="@+id/no_equipment_item_image"
-                app:layout_constraintTop_toBottomOf="@+id/textView11"
+                app:layout_constraintTop_toBottomOf="@+id/eqiupmentTitle"
                 tools:ignore="RelativeOverlap" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/eqiupmentsList"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/main_guideline_right3"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left3"
                 app:layout_constraintTop_toBottomOf="@+id/no_equipment_item_image"
                 tools:listitem="@layout/equipment_item" />

@@ -215,6 +215,7 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="chosen_type">"wybrany typ treningu : "</string>
     <string name="chosen_frequency_prefix">"Wybrano "</string>
     <string name="chosen_frequency_sufix">" dni w tygodniu"</string>
+    <string name="chosen_frequency_sufix_one">" dzień w tygodniu"</string>
     <string name="chosenBodyParts">Wybrane częci ciała</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="noUser">Podany użytkownik nie istnieje</string>
@@ -222,4 +223,9 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="chosenWay">"Wybrany sposób prowadzenia treningu "</string>
     <string name="chosenTime">"Czas trwania Treningu : "</string>
     <string name="chosenSchedule">"Wybrany sposób generowania : "</string>
+    <string name="eqiupment">Sprzęt</string>
+    <string name="details">Szczególy</string>
+    <string name="sumary">Podsumowanie</string>
+    <string name="generate">Generuj</string>
+    <string name="onlynext">Dalej</string>
 </resources>

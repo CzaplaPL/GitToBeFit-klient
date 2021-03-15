@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,57 +7,52 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="15dp"
-    android:orientation="horizontal"
+    android:orientation="horizontal">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:padding="5dp">
 
-    <LinearLayout
-        android:id="@+id/itemPicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginEnd="5dp"
-        android:padding="3dp">
-
-        <ImageView
-            android:id="@+id/no_equipment_item_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_baseline_downloading_24"
-            android:contentDescription="@string/todo"
-            app:tint="?attr/colorPrimaryVariant" />
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/no_equipment_item_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_baseline_downloading_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/no_equipment_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="15dp"
-        android:layout_toEndOf="@+id/itemPicture"
+        android:layout_marginStart="10dp"
         android:text="@string/example"
+        android:textAlignment="viewStart"
         android:textColor="?attr/colorPrimaryVariant"
         android:textSize="15sp"
         android:textStyle="bold"
-        tools:ignore="RelativeOverlap" />
+        app:layout_constraintBottom_toBottomOf="@+id/no_equipment_item_image"
+        app:layout_constraintEnd_toStartOf="@+id/no_equipment_checbox"
+        app:layout_constraintStart_toEndOf="@+id/no_equipment_item_image"
+        app:layout_constraintTop_toTopOf="@+id/no_equipment_item_image" />
 
     <ImageView
-        android:id="@+id/equipment_drop_button"
+        android:id="@+id/bodyButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="5dp"
         android:src="@drawable/ic_baseline_arrow_drop_down_24"
-        tools:ignore="RelativeOverlap" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/no_equipment_checbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
         android:textColorLink="#FFFFFF"
-        tools:ignore="RelativeOverlap" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+</androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

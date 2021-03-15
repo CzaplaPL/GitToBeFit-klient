@@ -76,6 +76,9 @@ public class SummaryFragment extends Fragment {
                 {
                     frequency = getResources().getStringArray(R.array.fbw_duration);
                 }
+                if(position==0)
+                binding.frequency.setText(getString(R.string.chosen_frequency_prefix) + frequency[position] +  getString(R.string.chosen_frequency_sufix_one));
+                else
                 binding.frequency.setText(getString(R.string.chosen_frequency_prefix) + frequency[position] +  getString(R.string.chosen_frequency_sufix));
             }
         });
@@ -115,7 +118,55 @@ public class SummaryFragment extends Fragment {
                 binding.scheule.setText(getString(R.string.chosenSchedule) + schedule[position] );
             }
         });
+        binding.bodyTitle.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(binding.bodyPartsList.getVisibility()!=View.GONE)
+                {
+                    binding.bodyPartsList.setVisibility(View.GONE);
+                }else
+                {
+                    binding.bodyPartsList.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        binding.bodyButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(binding.bodyPartsList.getVisibility()!=View.GONE)
+                {
+                    binding.bodyPartsList.setVisibility(View.GONE);
+                }else
+                {
+                    binding.bodyPartsList.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        binding.eqiupmentTitle.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+        });
+        binding.eqiupmentButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                    showEqiupment();
+
+            }
+        });
     }
+
 
     @Override
     public void onResume()
@@ -123,15 +174,6 @@ public class SummaryFragment extends Fragment {
         super.onResume();
         model.updateCheckedBodyParts();
         bodyPartsAdapter.notifyDataSetChanged();
-        if(model.isNoEquipmentcheched())
-        {
-            binding.noEquipmentItemImage.setVisibility(View.VISIBLE);
-            binding.noEquipmentTitle.setVisibility(View.VISIBLE);
-        }else
-        {
-            binding.noEquipmentItemImage.setVisibility(View.GONE);
-            binding.noEquipmentTitle.setVisibility(View.GONE);
-        }
         model.updateCheckedEqiupment();
         equipmentAdapter.notifyDataSetChanged();
     }
@@ -146,7 +188,6 @@ public class SummaryFragment extends Fragment {
             case 0:
                 binding.frequency.setVisibility(View.VISIBLE);
                 binding.bodyParts.setVisibility(View.VISIBLE);
-                binding.divider2.setVisibility(View.VISIBLE);
                 binding.way.setVisibility(View.GONE);
                 binding.time.setVisibility(View.GONE);
                 binding.scheule.setVisibility(View.GONE);
@@ -154,7 +195,6 @@ public class SummaryFragment extends Fragment {
             case 1:
                 binding.frequency.setVisibility(View.VISIBLE);
                 binding.bodyParts.setVisibility(View.GONE);
-                binding.divider2.setVisibility(View.GONE);
                 binding.way.setVisibility(View.GONE);
                 binding.time.setVisibility(View.GONE);
                 binding.scheule.setVisibility(View.VISIBLE);
@@ -162,7 +202,6 @@ public class SummaryFragment extends Fragment {
             case 2:
                 binding.frequency.setVisibility(View.GONE);
                 binding.bodyParts.setVisibility(View.GONE);
-                binding.divider2.setVisibility(View.GONE);
                 binding.way.setVisibility(View.VISIBLE);
                 binding.time.setVisibility(View.VISIBLE);
                 binding.scheule.setVisibility(View.GONE);
@@ -170,11 +209,25 @@ public class SummaryFragment extends Fragment {
             case 3:
                 binding.frequency.setVisibility(View.GONE);
                 binding.bodyParts.setVisibility(View.VISIBLE);
-                binding.divider2.setVisibility(View.VISIBLE);
                 binding.way.setVisibility(View.VISIBLE);
                 binding.time.setVisibility(View.VISIBLE);
                 binding.scheule.setVisibility(View.GONE);
                 break;
+        }
+    }
+
+    private void showEqiupment()
+    {
+        if(binding.eqiupmentsList.getVisibility()!=View.GONE)
+        {
+            binding.eqiupmentsList.setVisibility(View.GONE);
+            binding.noEquipmentItemImage.setVisibility(View.GONE);
+            binding.noEquipmentTitle.setVisibility(View.GONE);
+        }else
+        {
+            binding.eqiupmentsList.setVisibility(View.VISIBLE);
+            binding.noEquipmentItemImage.setVisibility(View.VISIBLE);
+            binding.noEquipmentTitle.setVisibility(View.VISIBLE);
         }
     }
 
