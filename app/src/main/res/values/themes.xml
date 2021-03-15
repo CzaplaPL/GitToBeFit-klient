@@ -12,7 +12,7 @@
     </style>
     <style name="Theme.GitToBeFit.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/ourWhite</item>
-        <item name="colorPrimary">@color/ourGreenDay</item>
+        <item name="colorPrimary">@color/ourGreen</item>
         <item name="colorOnSurface">@color/ourBlack</item>
         <item name="colorPrimaryVariant">@color/ourBlack</item>
         <item name="colorOnPrimary">@color/ourGray</item>

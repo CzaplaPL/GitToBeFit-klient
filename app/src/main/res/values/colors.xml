@@ -3,9 +3,9 @@
     <color name="ourWhite">#F4F4F6</color>
     <color name="ourDarkBackground">#2E2E61</color>
     <color name="ourGray">#E0E0E0</color>
-    <color name="ourGreen">#138E2C</color>
+    <color name="ourGreenDay">#3FBA57</color>
     <color name="ourBlackBar">#3E4237</color>
-    <color name="ourGreenDay">#1BB83B</color>
+    <color name="ourGreen">#41CC5D</color>
     <color name="ourBlack">#191919</color>
     <color name="ourBlackAppBar">#3D6767</color>
     <color name="ourRed">#FF0000</color>
@@ -15,4 +15,6 @@
     <color name="detailsList">#4D575E</color>
     <color name="appBarNight">#505A61</color>
     <color name="ourGolden">#C1CC16</color>
+    <color name="exerciseItem">#747576</color>
+    <color name="displayTrainingBackgroundColor">#3a3b3c</color>
 </resources>

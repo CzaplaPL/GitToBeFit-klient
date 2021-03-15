@@ -13,10 +13,9 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="20dp"
         android:text="@string/example"
-        android:textColor="#040404"
-        android:textSize="15sp"
-        tools:ignore="RelativeOverlap"
-        />
+        android:textColor="?attr/colorPrimaryVariant"
+        android:textSize="16sp"
+        tools:ignore="RelativeOverlap" />
     <CheckBox
         android:id="@+id/bodyPartsCheckBox"
         android:layout_width="wrap_content"
