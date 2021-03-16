@@ -9,50 +9,51 @@
     android:layout_marginTop="15dp"
     android:orientation="horizontal">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="5dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
 
-    <ImageView
-        android:id="@+id/no_equipment_item_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/ic_baseline_downloading_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/no_equipment_item_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_baseline_downloading_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/no_equipment_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:text="@string/example"
-        android:textAlignment="viewStart"
-        android:textColor="?attr/colorPrimaryVariant"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/no_equipment_item_image"
-        app:layout_constraintEnd_toStartOf="@+id/no_equipment_checbox"
-        app:layout_constraintStart_toEndOf="@+id/no_equipment_item_image"
-        app:layout_constraintTop_toTopOf="@+id/no_equipment_item_image" />
+        <TextView
+            android:id="@+id/no_equipment_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:text="@string/example"
+            android:textAlignment="viewStart"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/no_equipment_item_image"
+            app:layout_constraintEnd_toStartOf="@+id/no_equipment_checbox"
+            app:layout_constraintStart_toEndOf="@+id/no_equipment_item_image"
+            app:layout_constraintTop_toTopOf="@+id/no_equipment_item_image" />
 
-    <ImageView
-        android:id="@+id/bodyButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_baseline_arrow_drop_down_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/bodyButton"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_baseline_arrow_drop_down_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/no_equipment_checbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColorLink="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <CheckBox
+            android:id="@+id/no_equipment_checbox"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:textColorLink="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
