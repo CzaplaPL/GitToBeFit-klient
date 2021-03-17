@@ -4,7 +4,10 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
+import androidx.fragment.app.Fragment;
+
 import com.facebook.AccessToken;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +18,7 @@ import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.UserEntity;
 import pl.gittobefit.network.interfaces.IUserServices;
+import pl.gittobefit.network.object.EmailUser;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
 import pl.gittobefit.network.object.UserChangeEmail;
@@ -94,13 +98,13 @@ public class UserServices
                     });
                 }else
                 {
-                    if(response.code() != 403)
+                    if(response.code() != 400)
                     {
                         Log.e("logowanie error : ", String.valueOf(response.code()));
                         fragment.loginFail(true);
                     }else
                     {
-                        Log.w("logowanie error : ", " 403");
+                        Log.w("logowanie error : ", " 400");
                         LogUtils.logCause(response.headers().get("Cause"));
                         if(response.headers().get("Cause").equals("user not exists"))
                         {
@@ -112,7 +116,20 @@ public class UserServices
                             fragment.loginFail(true,fragment.getString(R.string.incoredPassword));
                         }else if(response.headers().get("Cause").equals("account is disabled"))
                         {
-                            activity.showSnackbar(fragment.getString(R.string.noActivateAcount));
+                            Snackbar snackbar = Snackbar
+                                    .make(fragment.getView(), fragment.getString(R.string.noActivateAcount) + " Wysłać ponownie link do aktywacji konta?", Snackbar.LENGTH_LONG)
+                                    .setAction("TAK", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            ConnectionToServer.getInstance().userServices.sendActivationLink(fragment, email);
+//                                            Snackbar mSnackbar = Snackbar.make(fragment.getView(), "Link został wysłany.", Snackbar.LENGTH_SHORT);
+//                                            mSnackbar.show();
+                                        }
+                                    });
+
+                            snackbar.show();
+
+                            //activity.showSnackbar(fragment.getString(R.string.noActivateAcount));
                             fragment.loginFail(false,fragment.getString(R.string.noActivateAcount));
                         }
 
@@ -496,4 +513,29 @@ public class UserServices
             }
         });
     }
+
+    public void sendActivationLink(Fragment fragment, String email)
+    {
+        Call<Void> call = user.sendActivationLink(new EmailUser(email));
+        call.enqueue(new Callback<Void>()
+        {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Snackbar mSnackbar = Snackbar.make(fragment.getView(), "Link został wysłany.", Snackbar.LENGTH_SHORT);
+                    mSnackbar.show();
+                }
+                else
+                {
+                    Log.e("Wysłanie linka : ", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

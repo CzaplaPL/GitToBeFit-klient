@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -50,14 +51,14 @@ public class DisplayReceivedTraining extends Fragment
         TextView trainingDuration = getView().findViewById(R.id.trainingDuration);
 
 
-        LinearLayout linearLayout0 = getView().findViewById(R.id.layout0);
-        LinearLayout linearLayout1 = getView().findViewById(R.id.layout1);
-        LinearLayout linearLayout2 = getView().findViewById(R.id.layout2);
-        LinearLayout linearLayout3 = getView().findViewById(R.id.layout3);
-        LinearLayout linearLayout4 = getView().findViewById(R.id.layout4);
+        RelativeLayout linearLayout0 = getView().findViewById(R.id.layout0);
+        RelativeLayout linearLayout1 = getView().findViewById(R.id.layout1);
+        RelativeLayout linearLayout2 = getView().findViewById(R.id.layout2);
+        RelativeLayout linearLayout3 = getView().findViewById(R.id.layout3);
+        RelativeLayout linearLayout4 = getView().findViewById(R.id.layout4);
 
 
-        ArrayList<LinearLayout> linearLayoutArrayList = new ArrayList<>();
+        ArrayList<RelativeLayout> linearLayoutArrayList = new ArrayList<>();
         linearLayoutArrayList.add(linearLayout0);
         linearLayoutArrayList.add(linearLayout1);
         linearLayoutArrayList.add(linearLayout2);
