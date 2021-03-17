@@ -8,6 +8,7 @@ public class Training
 {
     TrainingForm trainingForm;
     ArrayList<TrainingPlan> planList = new ArrayList<>();
+    private String generationDate;
 
     @NonNull
     @Override
@@ -28,4 +29,11 @@ public class Training
         return planList.get(i);
     }
 
+    public String getGenerationDate() {
+        return generationDate;
+    }
+
+    public void setGenerationDate(String generationDate) {
+        this.generationDate = generationDate;
+    }
 }

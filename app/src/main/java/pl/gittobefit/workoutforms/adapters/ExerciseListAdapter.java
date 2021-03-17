@@ -3,8 +3,7 @@ package pl.gittobefit.workoutforms.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.CheckBox;
+
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import pl.gittobefit.R;
-import pl.gittobefit.workoutforms.object.Exercise;
 import pl.gittobefit.workoutforms.object.ExerciseExecution;
 
 public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ViewHolder>

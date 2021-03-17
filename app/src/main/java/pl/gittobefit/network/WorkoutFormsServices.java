@@ -4,9 +4,12 @@ import android.util.Log;
 
 import java.io.IOException;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
@@ -19,6 +22,7 @@ import pl.gittobefit.workoutforms.object.EquipmentType;
 import pl.gittobefit.workoutforms.object.Training;
 import pl.gittobefit.workoutforms.object.UserTrainings;
 import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
+import pl.gittobefit.workoutforms.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -123,6 +127,8 @@ public class WorkoutFormsServices
                 if(response.isSuccessful())
                 {
                   createTraining(response.body());
+                    InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
+                    model.setNumberOfClickedTraining(-999);
                     Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
                 }
                 else
@@ -140,6 +146,10 @@ public class WorkoutFormsServices
     }
 
     private void createTraining(Training body) {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String text = formatter.format(date);
+        body.setGenerationDate(text);
         UserTrainings.getInstance().add(body);
         System.out.println(body.toString());
     }
