@@ -15,7 +15,7 @@
         android:textSize="20sp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:fontFamily="sans-serif-light"/>
+        android:fontFamily="sans-serif"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,6 +31,7 @@
             android:textSize="16sp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:fontFamily="sans-serif-light"/>
+            android:fontFamily="sans-serif"
+            android:padding="2dp"/>
     </LinearLayout>
 </LinearLayout>
