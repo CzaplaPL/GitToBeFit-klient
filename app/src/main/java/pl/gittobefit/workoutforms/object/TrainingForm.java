@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class TrainingForm
 {
-    ArrayList<Integer> equipmentIDs;
-    String trainingType;
-    ArrayList<String> bodyParts;
-    int daysCount;
-    String scheduleType;
-    int duration;
+    private ArrayList<Integer> equipmentIDs;
+    private String trainingType;
+    private ArrayList<String> bodyParts;
+    private int daysCount;
+    private String scheduleType;
+    private int duration;
 
     public ArrayList<Integer> getEquipmentIDs()
     {

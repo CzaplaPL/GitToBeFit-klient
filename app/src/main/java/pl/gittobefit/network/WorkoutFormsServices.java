@@ -151,6 +151,5 @@ public class WorkoutFormsServices
         String text = formatter.format(date);
         body.setGenerationDate(text);
         UserTrainings.getInstance().add(body);
-        System.out.println(body.toString());
     }
 }

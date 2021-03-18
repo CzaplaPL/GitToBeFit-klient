@@ -6,15 +6,10 @@ import java.util.ArrayList;
 
 public class Training
 {
-    TrainingForm trainingForm;
-    ArrayList<TrainingPlan> planList = new ArrayList<>();
+    private TrainingForm trainingForm;
+    private ArrayList<TrainingPlan> planList = new ArrayList<>();
     private String generationDate;
 
-    @NonNull
-    @Override
-    public String toString() {
-        return planList.get(0).exercisesExecutions.get(0).exercise.name;
-    }
 
     public TrainingForm getTrainingForm() {
         return trainingForm;

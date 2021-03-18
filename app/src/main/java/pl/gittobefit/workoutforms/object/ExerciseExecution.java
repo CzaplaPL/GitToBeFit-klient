@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class ExerciseExecution
 {
-    int id;
-    int time;
-    int series;
-    int count;
-    Exercise exercise = new Exercise();
+    private int id;
+    private int time;
+    private int series;
+    private int count;
+    private Exercise exercise = new Exercise();
 
     public int getId() {
         return id;

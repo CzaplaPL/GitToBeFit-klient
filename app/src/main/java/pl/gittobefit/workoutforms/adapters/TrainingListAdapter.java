@@ -65,7 +65,6 @@ public class TrainingListAdapter extends RecyclerView.Adapter<TrainingListAdapte
         {
             @Override
             public void onClick(View v) {
-                System.out.println(position);
                 InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
                 model.setNumberOfClickedTraining(position);
                 Navigation.findNavController(fragment.getView()).navigate(R.id.list_of_trainings_to_displayReceivedTraining);

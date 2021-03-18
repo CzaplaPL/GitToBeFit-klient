@@ -6,15 +6,10 @@ import java.util.ArrayList;
 
 public class TrainingPlan
 {
-    int id;
-    int trainingId;
-    ArrayList<ExerciseExecution> exercisesExecutions = new ArrayList<>();
+   private int id;
+   private int trainingId;
+   private ArrayList<ExerciseExecution> exercisesExecutions = new ArrayList<>();
 
-    @NonNull
-    @Override
-    public String toString() {
-        return id +  " "  + trainingId + " " + exercisesExecutions.get(0).exercise.name;
-    }
 
     public int getId() {
         return id;

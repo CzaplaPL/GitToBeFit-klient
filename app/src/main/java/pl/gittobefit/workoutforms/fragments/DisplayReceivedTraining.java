@@ -60,8 +60,6 @@ public class DisplayReceivedTraining extends Fragment
 
         super.onResume();
 
-
-        System.out.println("Indeks:" + index);
         TextView trainingType = getView().findViewById(R.id.trainingType);
         TextView trainingForm = getView().findViewById(R.id.trainingForm);
         TextView trainingDuration = getView().findViewById(R.id.trainingDuration);

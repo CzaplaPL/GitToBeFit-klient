@@ -2,13 +2,13 @@ package pl.gittobefit.workoutforms.object;
 
 public class Exercise
 {
-    int id;
-    String name;
-    String descriptionOfStartPosition;
-    String descriptionOfCorrectExecution;
-    String hints;
-    String videoUrl;
-    String photoUrl;
+    private int id;
+    private String name;
+    private String descriptionOfStartPosition;
+    private String descriptionOfCorrectExecution;
+    private String hints;
+    private String videoUrl;
+    private String photoUrl;
 
     public int getId() {
         return id;
