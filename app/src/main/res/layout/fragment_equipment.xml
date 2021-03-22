@@ -125,6 +125,7 @@
                     android:layout_width="36dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:checked="true"
                     android:textColorLink="#FFFFFF"
                     tools:ignore="RelativeOverlap" />
             </LinearLayout>

@@ -20,18 +20,27 @@ public class SaveTraining
 
     public SaveTraining(Long idForm, ArrayList<TrainingPlan> planList)
     {
-        this.idUser = User.getInstance().getIdSerwer();
+        this.planList=new ArrayList<>();
+        if(User.getInstance().getLoggedBy()!= User.WayOfLogin.NO_LOGIN)
+        {
+            this.idUser = "";
+        }else
+        {
+            this.idUser = User.getInstance().getIdSerwer();
+        }
+
         this.idForm = idForm;
         for (int i = 0; i < planList.size() ; i++)
         {
-            TrainingPlan readPlan = planList.get(i);
+             TrainingPlan readPlan = planList.get(i);
             ArrayList<ExerciseExecutionPOJODB> savePlan= new ArrayList<>();
-            for (int j = 0; j < readPlan.getExercisesExecutions().size(); j++)
+           for (int j = 0; j < readPlan.getExercisesExecutions().size(); j++)
             {
                savePlan.add(new ExerciseExecutionPOJODB(readPlan.getExerciseExecution(j)));
             }
             this.planList.add(savePlan);
         }
+
     }
 
     public SaveTraining()

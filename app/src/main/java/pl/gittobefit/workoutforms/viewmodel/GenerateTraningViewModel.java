@@ -233,6 +233,7 @@ scheduleSpinnerChose.setValue(position);
         {
             checked.add(getNoEquipmentid());
         }
+        if(checked.size()<1)checked.add(getNoEquipmentid());
         return  checked;
     }
     public ArrayList<Equipment> getCheckedEqiupment()
@@ -264,10 +265,10 @@ scheduleSpinnerChose.setValue(position);
                 return new WorkoutForm(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],new ArrayList<String>(),Integer.parseInt(daysCount[getFrequencySpinnerChose().getValue()]),scheduleType[getScheduleSpinnerChose().getValue()],0);
             case 2:
                 duration = new int[] {9,12,15,18,21,24,27,30};
-                return new WorkoutForm(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),0,subtype[getWaySpinnerChose().getValue()],duration[getTimeCardioSpinnerChose().getValue()]);
+                return new WorkoutForm(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],new ArrayList<String>(),0,subtype[getWaySpinnerChose().getValue()],duration[getTimeCardioSpinnerChose().getValue()]);
             case 3:
                 duration = new int[] {15,18,21,24,27,30};
-                return new WorkoutForm(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],new ArrayList<String>(),0,subtype[getWaySpinnerChose().getValue()],duration[getTimeFitnesSpinnerChose().getValue()]);
+                return new WorkoutForm(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),0,subtype[getWaySpinnerChose().getValue()],duration[getTimeFitnesSpinnerChose().getValue()]);
         }
 
         return new WorkoutForm(getIdCheckedEqiupment(),"",getBodyPartsIdChecked(),0,"",0);

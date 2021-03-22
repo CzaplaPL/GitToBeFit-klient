@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
+import pl.gittobefit.database.repository.TrainingRepository;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
 import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
@@ -133,14 +134,17 @@ public class WorkoutFormsServices
             }
 
             @Override
-            public void onFailure(Call<Training> call, Throwable t) {
+            public void onFailure(Call<Training> call, Throwable t)
+            {
                 Log.e("Network ", "WorkoutForms.getTrainingType error = " + t.toString());
             }
         });
     }
 
-    private void createTraining(Training body, Context context) {
-        AppDataBase.getInstance(context).training.add(body);
+    private void createTraining(Training body, Context context)
+    {
+        TrainingRepository repo = new TrainingRepository();
+        repo.add(body,AppDataBase.getInstance(context));
         UserTrainings.getInstance().add(body);
     }
 }
