@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
+import pl.gittobefit.database.entity.training.WorkoutForm;
+
 public class Training
 {
-    TrainingForm trainingForm;
+    WorkoutForm trainingForm;
     ArrayList<TrainingPlan> planList = new ArrayList<>();
 
     @NonNull
@@ -15,7 +17,7 @@ public class Training
         return planList.get(0).exercisesExecutions.get(0).exercise.name;
     }
 
-    public TrainingForm getTrainingForm() {
+    public WorkoutForm getTrainingForm() {
         return trainingForm;
     }
 

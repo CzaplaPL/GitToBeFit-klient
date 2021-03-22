@@ -1,15 +1,20 @@
-package pl.gittobefit.network.object;
+package pl.gittobefit.database.entity.training;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
-
-public class WorkoutFormSend
+@Entity
+public class WorkoutForm
 {
-    ArrayList<Integer> equipmentIDs;
-    String trainingType;
-    ArrayList<String> bodyParts;
-    int daysCount;
-    String scheduleType;
-    int duration;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    private ArrayList<Integer> equipmentIDs;
+    private String trainingType;
+    private ArrayList<String> bodyParts;
+    private int daysCount;
+    private String scheduleType;
+    private int duration;
 
     public ArrayList<Integer> getEquipmentIDs()
     {
@@ -41,7 +46,7 @@ public class WorkoutFormSend
         return duration;
     }
 
-    public WorkoutFormSend(ArrayList<Integer> equipmentIDs, String trainingType, ArrayList<String> bodyParts, int daysCount, String scheduleType, int duration)
+    public WorkoutForm(ArrayList<Integer> equipmentIDs, String trainingType, ArrayList<String> bodyParts, int daysCount, String scheduleType, int duration)
     {
         this.equipmentIDs = equipmentIDs;
         this.trainingType = trainingType;
@@ -49,5 +54,13 @@ public class WorkoutFormSend
         this.daysCount = daysCount;
         this.scheduleType = scheduleType;
         this.duration = duration;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

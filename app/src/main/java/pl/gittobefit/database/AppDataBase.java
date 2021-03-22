@@ -5,14 +5,19 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
+import pl.gittobefit.database.conventer.TrainingConverter;
 import pl.gittobefit.database.dao.IUserDao;
 import pl.gittobefit.database.entity.UserEntity;
+import pl.gittobefit.database.entity.training.WorkoutForm;
+import pl.gittobefit.database.training.trainingRepository;
 
 /**
  * klasa bazy danych
  */
-@Database(entities = {UserEntity.class}, version = 3, exportSchema = false)
+@Database(entities = {UserEntity.class, WorkoutForm.class}, version = 4, exportSchema = false)
+@TypeConverters({TrainingConverter.class})
 public abstract class AppDataBase extends RoomDatabase
 {
     private static volatile AppDataBase INSTANCE;
@@ -22,6 +27,7 @@ public abstract class AppDataBase extends RoomDatabase
      * @return funkcje dao encji user
      */
     public abstract IUserDao user();
+    public  trainingRepository training;
 
     /**
      * zwraca instancje bazy danych

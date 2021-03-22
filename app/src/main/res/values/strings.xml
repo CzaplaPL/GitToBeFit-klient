@@ -164,6 +164,7 @@
     <string name="noeqiupment">Ćwiczenia bez sprzętu</string>
     <string name="registrationStart">Trwa rejestracja</string>
     <string name="chosen_type">"Wybrany typ treningu : "</string>
+    <string name="chosen_type_form">"Wybrany typ treningu "</string>
     <string name="chosen_frequency_prefix">"Wybrano "</string>
     <string name="chosen_frequency_sufix">" dni w tygodniu"</string>
     <string name="chosen_frequency_sufix_one">" dzień w tygodniu"</string>
@@ -234,4 +235,5 @@ sprawdzanie czy użytkownik ma internet\n
         dodanie bez sprzetun
         formularz detail uzupelniał viewmodel\n
     </string>
+    <string name="chosen_eqiupment">Wybrany sprzęt</string>
 </resources>

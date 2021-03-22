@@ -1,8 +1,8 @@
 package pl.gittobefit.network;
 
+import android.content.Context;
 import android.util.Log;
 
-import java.io.IOException;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
+import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
-import pl.gittobefit.network.object.WorkoutFormSend;
-import pl.gittobefit.workoutforms.adapters.EquipmentList;
+import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
@@ -111,7 +111,7 @@ public class WorkoutFormsServices
         });
     }
 
-    public void getTrainingPlan(Fragment fragment, WorkoutFormSend form)
+    public void getTrainingPlan(Fragment fragment, WorkoutForm form)
     {
         Log.w("form","equipmentIDs" + form.getEquipmentIDs().toString() + " trainingType "+ form.getTrainingType() + " bodyParts " + form.getBodyParts() + " daysCount" + form.getDaysCount() + " scheduleType " + form.getScheduleType() + " duration " + form.getDuration());
 
@@ -122,7 +122,7 @@ public class WorkoutFormsServices
             public void onResponse(Call<Training> call, Response<Training> response) {
                 if(response.isSuccessful())
                 {
-                  createTraining(response.body());
+                    createTraining(response.body(),fragment.getContext());
                     Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
                 }
                 else
@@ -139,8 +139,8 @@ public class WorkoutFormsServices
         });
     }
 
-    private void createTraining(Training body) {
+    private void createTraining(Training body, Context context) {
+        AppDataBase.getInstance(context).training.add(body);
         UserTrainings.getInstance().add(body);
-        System.out.println(body.toString());
     }
 }
