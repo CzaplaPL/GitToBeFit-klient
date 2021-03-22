@@ -184,7 +184,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
                 app:layout_constraintTop_toBottomOf="@+id/checkBox_statute"
-                app:shapeAppearanceOverlay="@style/roundedButton" />
+                app:shapeAppearanceOverlay="@style/roundedButton"
+                app:strokeColor="?attr/colorPrimary"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
