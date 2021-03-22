@@ -11,22 +11,24 @@ public class ExerciseExecutionPOJODB
 
     public ExerciseExecutionPOJODB(ExerciseExecution exerciseExecution)
     {
-        this.time =exerciseExecution.getTime();
-        this.series =exerciseExecution.getSeries();
-        this.count =exerciseExecution.getCount();
-        this.exerciseId =exerciseExecution.getExercise().getId();
+        this.time = exerciseExecution.getTime();
+        this.series = exerciseExecution.getSeries();
+        this.count = exerciseExecution.getCount();
+        this.exerciseId = exerciseExecution.getExercise().getId();
     }
 
-
-    public int getTime() {
+    public int getTime()
+    {
         return time;
     }
 
-    public int getSeries() {
+    public int getSeries()
+    {
         return series;
     }
 
-    public int getCount() {
+    public int getCount()
+    {
         return count;
     }
 

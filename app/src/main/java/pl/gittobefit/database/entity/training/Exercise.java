@@ -12,65 +12,80 @@ public class Exercise
     private String descriptionOfStartPosition;
     private String descriptionOfCorrectExecution;
     private String hints;
-    private  String videoUrl;
-    private  String photoUrl;
+    private String videoUrl;
+    private String photoUrl;
 
-    public Exercise() {
+    public Exercise()
+    {
     }
 
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public String getDescriptionOfStartPosition() {
+    public String getDescriptionOfStartPosition()
+    {
         return descriptionOfStartPosition;
     }
 
-    public String getDescriptionOfCorrectExecution() {
+    public String getDescriptionOfCorrectExecution()
+    {
         return descriptionOfCorrectExecution;
     }
 
-    public String getHints() {
+    public String getHints()
+    {
         return hints;
     }
 
-    public String getVideoUrl() {
+    public String getVideoUrl()
+    {
         return videoUrl;
     }
 
-    public String getPhotoUrl() {
+    public String getPhotoUrl()
+    {
         return photoUrl;
     }
 
-    public void setId(int id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public void setDescriptionOfStartPosition(String descriptionOfStartPosition) {
+    public void setDescriptionOfStartPosition(String descriptionOfStartPosition)
+    {
         this.descriptionOfStartPosition = descriptionOfStartPosition;
     }
 
-    public void setDescriptionOfCorrectExecution(String descriptionOfCorrectExecution) {
+    public void setDescriptionOfCorrectExecution(String descriptionOfCorrectExecution)
+    {
         this.descriptionOfCorrectExecution = descriptionOfCorrectExecution;
     }
 
-    public void setHints(String hints) {
+    public void setHints(String hints)
+    {
         this.hints = hints;
     }
 
-    public void setVideoUrl(String videoUrl) {
+    public void setVideoUrl(String videoUrl)
+    {
         this.videoUrl = videoUrl;
     }
 
-    public void setPhotoUrl(String photoUrl) {
+    public void setPhotoUrl(String photoUrl)
+    {
         this.photoUrl = photoUrl;
     }
 }

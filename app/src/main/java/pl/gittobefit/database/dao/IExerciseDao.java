@@ -10,10 +10,6 @@ import pl.gittobefit.database.entity.training.Exercise;
 @Dao
 public interface IExerciseDao
 {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addExercise(Exercise exercise );
-
-
-
+    void addExercise(Exercise exercise);
 }

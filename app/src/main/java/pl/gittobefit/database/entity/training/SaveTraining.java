@@ -20,8 +20,8 @@ public class SaveTraining
 
     public SaveTraining(Long idForm, ArrayList<TrainingPlan> planList)
     {
-        this.planList=new ArrayList<>();
-        if(User.getInstance().getLoggedBy()!= User.WayOfLogin.NO_LOGIN)
+        this.planList = new ArrayList<>();
+        if(User.getInstance().getLoggedBy() != User.WayOfLogin.NO_LOGIN)
         {
             this.idUser = "";
         }else
@@ -30,13 +30,13 @@ public class SaveTraining
         }
 
         this.idForm = idForm;
-        for (int i = 0; i < planList.size() ; i++)
+        for(int i = 0; i < planList.size(); i++)
         {
-             TrainingPlan readPlan = planList.get(i);
-            ArrayList<ExerciseExecutionPOJODB> savePlan= new ArrayList<>();
-           for (int j = 0; j < readPlan.getExercisesExecutions().size(); j++)
+            TrainingPlan readPlan = planList.get(i);
+            ArrayList<ExerciseExecutionPOJODB> savePlan = new ArrayList<>();
+            for(int j = 0; j < readPlan.getExercisesExecutions().size(); j++)
             {
-               savePlan.add(new ExerciseExecutionPOJODB(readPlan.getExerciseExecution(j)));
+                savePlan.add(new ExerciseExecutionPOJODB(readPlan.getExerciseExecution(j)));
             }
             this.planList.add(savePlan);
         }
@@ -48,35 +48,43 @@ public class SaveTraining
     }
 
 
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
-    public ArrayList<ArrayList<ExerciseExecutionPOJODB>> getPlanList() {
+    public ArrayList<ArrayList<ExerciseExecutionPOJODB>> getPlanList()
+    {
         return this.planList;
     }
-    
-    public void setPlanList(ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList) {
+
+    public void setPlanList(ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList)
+    {
         this.planList = planList;
     }
 
-    public Long getIdForm() {
+    public Long getIdForm()
+    {
         return idForm;
     }
 
-    public void setIdForm(Long idForm) {
+    public void setIdForm(Long idForm)
+    {
         this.idForm = idForm;
     }
 
-    public String getIdUser() {
+    public String getIdUser()
+    {
         return idUser;
     }
 
-    public void setIdUser(String idUser) {
+    public void setIdUser(String idUser)
+    {
         this.idUser = idUser;
     }
 }

@@ -11,11 +11,9 @@ import pl.gittobefit.database.entity.training.WorkoutForm;
 @Dao
 public interface ITrainingDao
 {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long addForm(WorkoutForm form);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long  addForm(WorkoutForm form );
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void  addTraining(SaveTraining training );
-
+    void addTraining(SaveTraining training);
 }
