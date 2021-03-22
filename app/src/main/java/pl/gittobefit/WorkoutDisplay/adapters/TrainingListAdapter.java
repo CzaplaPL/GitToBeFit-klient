@@ -1,4 +1,4 @@
-package pl.gittobefit.workoutforms.adapters;
+package pl.gittobefit.WorkoutDisplay.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,15 +11,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import pl.gittobefit.R;
-import pl.gittobefit.databinding.FragmentGenerateTrainingBinding;
-import pl.gittobefit.workoutforms.object.Training;
-import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
-import pl.gittobefit.workoutforms.viewmodel.InitiationTrainingDisplayLayoutViewModel;
+import pl.gittobefit.WorkoutDisplay.objects.Training;
+import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 
 public class TrainingListAdapter extends RecyclerView.Adapter<TrainingListAdapter.ViewHolder>
 {

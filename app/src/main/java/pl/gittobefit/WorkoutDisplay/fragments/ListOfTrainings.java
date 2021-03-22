@@ -1,4 +1,4 @@
-package pl.gittobefit.workoutforms.fragments;
+package pl.gittobefit.WorkoutDisplay.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import pl.gittobefit.R;
-import pl.gittobefit.workoutforms.adapters.TrainingListAdapter;
-import pl.gittobefit.workoutforms.object.UserTrainings;
+import pl.gittobefit.WorkoutDisplay.adapters.TrainingListAdapter;
+import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
 
 public class ListOfTrainings extends Fragment
 {

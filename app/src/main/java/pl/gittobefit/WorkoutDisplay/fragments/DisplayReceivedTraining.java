@@ -1,4 +1,4 @@
-package pl.gittobefit.workoutforms.fragments;
+package pl.gittobefit.WorkoutDisplay.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,10 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import pl.gittobefit.R;
-import pl.gittobefit.workoutforms.adapters.ExerciseListAdapter;
-import pl.gittobefit.workoutforms.object.ExerciseExecution;
-import pl.gittobefit.workoutforms.object.UserTrainings;
-import pl.gittobefit.workoutforms.viewmodel.InitiationTrainingDisplayLayoutViewModel;
+import pl.gittobefit.WorkoutDisplay.adapters.ExerciseListAdapter;
+import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
+import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 
 public class DisplayReceivedTraining extends Fragment
 {

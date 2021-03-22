@@ -118,7 +118,7 @@ public class GenerateTraningViewModel extends ViewModel
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.sixpack),"SIXPACK"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.back),"BACK"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.thighs),"THIGHS"));
-        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.calfs),"CALFS"));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.calfs),"CALVES"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.biceps),"BICEPS"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.triceps),"TRICEPS"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.shoulders ),"SHOULDERS"));
@@ -129,8 +129,8 @@ public class GenerateTraningViewModel extends ViewModel
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.chest),"CHEST"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.sixpack),"SIXPACK"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.back),"BACK"));
-        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.legs),"LEGS"));
-        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.arms),"ARMS"));
+//        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.legs),"LEGS"));
+//        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.arms),"ARMS"));
 
     }
     public ArrayList<BodyParts> getBodyParts()

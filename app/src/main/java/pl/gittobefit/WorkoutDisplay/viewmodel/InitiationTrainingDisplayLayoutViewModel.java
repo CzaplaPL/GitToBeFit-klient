@@ -1,4 +1,4 @@
-package pl.gittobefit.workoutforms.viewmodel;
+package pl.gittobefit.WorkoutDisplay.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

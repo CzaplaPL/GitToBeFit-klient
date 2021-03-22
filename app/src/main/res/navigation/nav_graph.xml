@@ -123,7 +123,7 @@
 
     <fragment
         android:id="@+id/listOfTrainings"
-        android:name="pl.gittobefit.workoutforms.fragments.ListOfTrainings"
+        android:name="pl.gittobefit.WorkoutDisplay.fragments.ListOfTrainings"
         android:label="Twoje treningi"
         tools:layout="@layout/fragment_list_of_trainings" >
     <action
@@ -133,7 +133,7 @@
 
     <fragment
         android:id="@+id/displayReceivedTraining"
-        android:name="pl.gittobefit.workoutforms.fragments.DisplayReceivedTraining"
+        android:name="pl.gittobefit.WorkoutDisplay.fragments.DisplayReceivedTraining"
         android:label="Twój trening"
         tools:layout="@layout/fragment_received_training" />
     <action

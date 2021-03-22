@@ -1,6 +1,4 @@
-package pl.gittobefit.workoutforms.object;
-
-import java.util.ArrayList;
+package pl.gittobefit.WorkoutDisplay.objects;
 
 public class ExerciseExecution
 {

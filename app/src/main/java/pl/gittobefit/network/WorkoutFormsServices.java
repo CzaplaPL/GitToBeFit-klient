@@ -2,7 +2,6 @@ package pl.gittobefit.network;
 
 import android.util.Log;
 
-import java.io.IOException;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -15,14 +14,13 @@ import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
 import pl.gittobefit.network.object.WorkoutFormSend;
-import pl.gittobefit.workoutforms.adapters.EquipmentList;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
-import pl.gittobefit.workoutforms.object.Training;
-import pl.gittobefit.workoutforms.object.UserTrainings;
+import pl.gittobefit.WorkoutDisplay.objects.Training;
+import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
 import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
-import pl.gittobefit.workoutforms.viewmodel.InitiationTrainingDisplayLayoutViewModel;
+import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

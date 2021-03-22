@@ -1,4 +1,4 @@
-package pl.gittobefit.workoutforms.adapters;
+package pl.gittobefit.WorkoutDisplay.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import pl.gittobefit.R;
-import pl.gittobefit.workoutforms.object.ExerciseExecution;
+import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 
 public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ViewHolder>
 {
