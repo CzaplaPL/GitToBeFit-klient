@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
-import pl.gittobefit.workoutforms.object.Training;
+import pl.gittobefit.network.object.Training;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

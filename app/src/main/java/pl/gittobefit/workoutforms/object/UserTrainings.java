@@ -3,6 +3,8 @@ package pl.gittobefit.workoutforms.object;
 
 import java.util.ArrayList;
 
+import pl.gittobefit.network.object.Training;
+
 public class UserTrainings
 {
     private static volatile UserTrainings INSTANCE;

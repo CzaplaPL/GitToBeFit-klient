@@ -1,21 +1,17 @@
-package pl.gittobefit.workoutforms.object;
+package pl.gittobefit.network.object;
 
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
 import pl.gittobefit.database.entity.training.WorkoutForm;
+import pl.gittobefit.workoutforms.object.TrainingPlan;
 
 public class Training
 {
-    WorkoutForm trainingForm;
-    ArrayList<TrainingPlan> planList = new ArrayList<>();
+    private WorkoutForm trainingForm;
+    private ArrayList<TrainingPlan> planList = new ArrayList<>();
 
-    @NonNull
-    @Override
-    public String toString() {
-        return planList.get(0).exercisesExecutions.get(0).exercise.name;
-    }
 
     public WorkoutForm getTrainingForm() {
         return trainingForm;

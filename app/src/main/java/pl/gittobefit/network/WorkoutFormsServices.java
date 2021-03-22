@@ -16,7 +16,7 @@ import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
-import pl.gittobefit.workoutforms.object.Training;
+import pl.gittobefit.network.object.Training;
 import pl.gittobefit.workoutforms.object.UserTrainings;
 import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
 import retrofit2.Call;

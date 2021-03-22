@@ -8,6 +8,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
+import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
+
 public class TrainingConverter
 {
     @TypeConverter
@@ -33,4 +35,18 @@ public class TrainingConverter
     {
         return new Gson().toJson(value);
     }
+
+    @TypeConverter
+    public ArrayList<ArrayList<ExerciseExecutionPOJODB>> fromStringToArraySaveExerciseExecution(String value)
+    {
+        return new Gson().fromJson(value,new TypeToken<ArrayList<ArrayList<ExerciseExecutionPOJODB>>>(){}.getType());
+    }
+
+    @TypeConverter
+    public String fromArrayArraySaveExerciseExecution(ArrayList<ArrayList<ExerciseExecutionPOJODB>> value)
+    {
+        return new Gson().toJson(value);
+    }
+
+
 }
