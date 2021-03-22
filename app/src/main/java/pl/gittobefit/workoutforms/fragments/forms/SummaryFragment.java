@@ -111,10 +111,7 @@ public class SummaryFragment extends Fragment {
             }
         });
 
-        binding.eqiupmentTitle.setOnClickListener(v ->
-        {
-
-        });
+        binding.eqiupmentTitle.setOnClickListener(v -> showEqiupment());
         binding.eqiupmentButton.setOnClickListener(v -> showEqiupment());
     }
 
@@ -176,20 +173,19 @@ public class SummaryFragment extends Fragment {
             binding.noEquipmentTitle.setVisibility(View.GONE);
         }else
         {
-            binding.eqiupmentsList.setVisibility(View.VISIBLE);
-            binding.noEquipmentItemImage.setVisibility(View.VISIBLE);
-            binding.noEquipmentTitle.setVisibility(View.VISIBLE);
-        }
-        if(model.isNoEquipmentcheched())
-        {
+            if(model.isNoEquipmentcheched())
+            {
 
-            binding.noEquipmentItemImage.setVisibility(View.VISIBLE);
-            binding.noEquipmentTitle.setVisibility(View.VISIBLE);
-        }else
-        {
-            binding.noEquipmentItemImage.setVisibility(View.GONE);
-            binding.noEquipmentTitle.setVisibility(View.GONE);
+                binding.noEquipmentItemImage.setVisibility(View.VISIBLE);
+                binding.noEquipmentTitle.setVisibility(View.VISIBLE);
+            }else
+            {
+                binding.noEquipmentItemImage.setVisibility(View.GONE);
+                binding.noEquipmentTitle.setVisibility(View.GONE);
+            }
+            binding.eqiupmentsList.setVisibility(View.VISIBLE);
         }
+
     }
 
 }
