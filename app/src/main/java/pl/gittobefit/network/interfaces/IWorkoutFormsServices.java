@@ -2,7 +2,7 @@ package pl.gittobefit.network.interfaces;
 
 import java.util.ArrayList;
 
-import pl.gittobefit.network.object.WorkoutFormSend;
+import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
 import pl.gittobefit.WorkoutDisplay.objects.Training;

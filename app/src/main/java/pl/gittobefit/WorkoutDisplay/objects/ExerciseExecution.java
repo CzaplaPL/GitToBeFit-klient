@@ -1,5 +1,7 @@
 package pl.gittobefit.WorkoutDisplay.objects;
 
+import pl.gittobefit.database.entity.training.Exercise;
+
 public class ExerciseExecution
 {
     private int id;

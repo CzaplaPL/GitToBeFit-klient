@@ -2,14 +2,16 @@ package pl.gittobefit.WorkoutDisplay.objects;
 
 import java.util.ArrayList;
 
+import pl.gittobefit.database.entity.training.WorkoutForm;
+
 public class Training
 {
-    private TrainingForm trainingForm;
+    private WorkoutForm trainingForm;
     private ArrayList<TrainingPlan> planList = new ArrayList<>();
     private String generationDate;
 
 
-    public TrainingForm getTrainingForm() {
+    public WorkoutForm getTrainingForm() {
         return trainingForm;
     }
 

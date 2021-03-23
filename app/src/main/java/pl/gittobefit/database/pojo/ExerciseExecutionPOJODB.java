@@ -1,6 +1,7 @@
 package pl.gittobefit.database.pojo;
 
-import pl.gittobefit.workoutforms.object.ExerciseExecution;
+import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
+
 
 public class ExerciseExecutionPOJODB
 {

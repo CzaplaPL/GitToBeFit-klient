@@ -5,9 +5,10 @@ import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 
+import pl.gittobefit.WorkoutDisplay.objects.TrainingPlan;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 import pl.gittobefit.user.User;
-import pl.gittobefit.workoutforms.object.TrainingPlan;
+
 
 @Entity
 public class SavedTraining

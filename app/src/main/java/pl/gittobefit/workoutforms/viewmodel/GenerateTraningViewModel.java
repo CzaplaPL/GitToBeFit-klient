@@ -258,7 +258,13 @@ scheduleSpinnerChose.setValue(position);
         {
             case 0:
                  daysCount = resources.getStringArray(R.array.split_duration);
-                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),Integer.parseInt(daysCount[getFrequencySpinnerChose().getValue()]),scheduleType[getScheduleSpinnerChose().getValue()],0);
+                return new WorkoutForm(
+                        getIdCheckedEqiupment(),
+                        Type[getTypeSpinnerChose().getValue()],
+                        getBodyPartsIdChecked(),
+                        Integer.parseInt(daysCount[getFrequencySpinnerChose().getValue()]),
+                        scheduleType[getScheduleSpinnerChose().getValue()],
+                        0);
 
                 case 1:
                 daysCount = resources.getStringArray(R.array.fbw_duration);

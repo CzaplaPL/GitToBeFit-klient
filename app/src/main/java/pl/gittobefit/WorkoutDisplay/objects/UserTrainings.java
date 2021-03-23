@@ -3,7 +3,7 @@ package pl.gittobefit.WorkoutDisplay.objects;
 
 import java.util.ArrayList;
 
-import pl.gittobefit.network.object.Training;
+
 
 public class UserTrainings
 {
