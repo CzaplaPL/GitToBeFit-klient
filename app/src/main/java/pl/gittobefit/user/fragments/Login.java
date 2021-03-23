@@ -1,5 +1,6 @@
 package pl.gittobefit.user.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Collections;
 
+import pl.gittobefit.HomeFragment;
 import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
@@ -44,6 +46,7 @@ public class Login extends Fragment implements View.OnClickListener
     // logowania przez fb
     CallbackManager callbackManager = CallbackManager.Factory.create();
     Button facebookButton;
+
 
     public Login() { }
 
@@ -158,6 +161,8 @@ public class Login extends Fragment implements View.OnClickListener
                 TextInputLayout pass =(TextInputLayout)getView().findViewById(R.id.loginPassKontener);
                 IShowSnackbar activity = (IShowSnackbar) getActivity();
                 ConnectionToServer.getInstance().userServices.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this,activity);
+                HomeFragment.HideKeyboardInterface hideKeyboard = (HomeFragment.HideKeyboardInterface) getActivity();
+                hideKeyboard.hideKey(getContext(),getView());
                 break;
             case R.id.loginSkip:
              Navigation.findNavController(view).navigate(LoginDirections.actionLogin2ToHomeFragment());

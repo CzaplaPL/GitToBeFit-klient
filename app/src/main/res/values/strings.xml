@@ -155,7 +155,7 @@
     <string name="noNetwork">Brak internetu.Aplikacja działa w trybie offline</string>
     <string name="change_pass">Hasło zostało zmienione</string>
     <string name="wrong_old_pass">Niepoprawne stare hasło !</string>
-    <string name="delete_acount">Konto usnięte</string>
+    <string name="delete_acount">Konto usnięte.</string>
     <string name="change_email_title">Zmień email</string>
     <string name="change_pass_title">Zmień hasło</string>
     <string name="delete_acount_title">Usuń konto</string>

@@ -118,7 +118,7 @@ public class GenerateTraningViewModel extends ViewModel
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.sixpack),"SIXPACK"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.back),"BACK"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.thighs),"THIGHS"));
-        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.calfs),"CALFS"));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.calfs),"CALVES"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.biceps),"BICEPS"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.triceps),"TRICEPS"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.shoulders ),"SHOULDERS"));
@@ -129,8 +129,6 @@ public class GenerateTraningViewModel extends ViewModel
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.chest),"CHEST"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.sixpack),"SIXPACK"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.back),"BACK"));
-        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.legs),"LEGS"));
-        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.arms),"ARMS"));
 
     }
     public ArrayList<BodyParts> getBodyParts()
@@ -259,7 +257,7 @@ scheduleSpinnerChose.setValue(position);
         {
             case 0:
                  daysCount = resources.getStringArray(R.array.split_duration);
-                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),Integer.parseInt(daysCount[getFrequencySpinnerChose().getValue()]),"",0);
+                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),Integer.parseInt(daysCount[getFrequencySpinnerChose().getValue()]),scheduleType[getScheduleSpinnerChose().getValue()],0);
 
                 case 1:
                 daysCount = resources.getStringArray(R.array.fbw_duration);

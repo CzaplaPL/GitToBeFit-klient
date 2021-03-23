@@ -2,11 +2,10 @@ package pl.gittobefit.network.interfaces;
 
 import java.util.ArrayList;
 
-import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.WorkoutFormSend;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
-import pl.gittobefit.workoutforms.object.Training;
+import pl.gittobefit.WorkoutDisplay.objects.Training;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
