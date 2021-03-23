@@ -5,19 +5,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import pl.gittobefit.R;
+import pl.gittobefit.databinding.FragmentGenerateTrainingBinding;
+import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.workoutforms.adapters.WorkoutFormAdapter;
+import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
-public class GenerateTrainingForm extends Fragment {
-    public GenerateTrainingForm() {
-    }
+public class GenerateTrainingForm extends Fragment
+{
+    private GenerateTraningViewModel model;
+    private FragmentGenerateTrainingBinding binding;
+    public GenerateTrainingForm() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,27 +32,56 @@ public class GenerateTrainingForm extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inicjalizacja zmiennych
-        View view = inflater.inflate ( R.layout.fragment_generate_training, container, false );;
-        TabLayout tabLayout = view.findViewById (R.id.tabLayoutId);;
-        ViewPager2 viewPager2 = view.findViewById ( R.id.viewPagerId);;
+        binding = FragmentGenerateTrainingBinding.inflate(inflater, container, false);
         WorkoutFormAdapter adapter = new WorkoutFormAdapter (this);
-        viewPager2.setAdapter(adapter);
+        binding.viewPagerId.setAdapter(adapter);
+        model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
+        binding.next.setOnClickListener(v -> binding.viewPagerId.setCurrentItem(1));
         // Metoda ustawiania tekstu formularza
-        new TabLayoutMediator (tabLayout, viewPager2,
-                new TabLayoutMediator.TabConfigurationStrategy() {
-                    @Override
-                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                        if(position == 0){
-                            tab.setText("Equipment");
-                        }
-                        else if(position == 1){
-                            tab.setText("Details");
-                        }
-                        else if(position == 2){
-                            tab.setText ("Tab3");
-                        }
+        new TabLayoutMediator (binding.tabLayoutId,  binding.viewPagerId,
+                (tab, position) ->
+                {
+                    if(position == 0){
+                        tab.setText(getString(R.string.eqiupment));
+                    }
+                    else if(position == 1){
+                        tab.setText(getString(R.string.details));
+                    }
+                    else if(position == 2){
+                        tab.setText (getString(R.string.sumary));
                     }
                 }).attach();
-        return view;
+        binding.tabLayoutId.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener()
+        {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab)
+            {
+                if(tab.getPosition()==2)
+                {
+                    binding.next.setOnClickListener(v -> ConnectionToServer.getInstance().WorkoutFormsServices.getTrainingPlan(getParentFragment(), model.getForm(getContext().getResources())));
+                    binding.next.setText(getString(R.string.generate));
+                }else
+                {
+                    binding.next.setOnClickListener(v -> binding.viewPagerId.setCurrentItem(tab.getPosition()+1));
+                    binding.next.setText(getString(R.string.onlynext));
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab)
+            {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab)
+            {
+
+            }
+        });
+        return binding.getRoot();
+
     }
+
+
 }

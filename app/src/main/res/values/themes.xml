@@ -12,10 +12,11 @@
     </style>
     <style name="Theme.GitToBeFit.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/ourWhite</item>
-        <item name="colorPrimary">@color/ourGreenDay</item>
+        <item name="colorPrimary">@color/ourGreen</item>
         <item name="colorOnSurface">@color/ourBlack</item>
         <item name="colorPrimaryVariant">@color/ourBlack</item>
         <item name="colorOnPrimary">@color/ourGray</item>
+        <item name="colorPrimarySurface">@color/ourGreen</item>
         <item name="colorOnBackground">@color/ourGreenDay</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="windowActionBar">false</item>
@@ -27,7 +28,16 @@
     </style>
 
     <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/ourGreenDay</item>
+        <item name="color">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <style name="Theme.Transparent" parent="android:Theme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
     </style>
 
 <!--style przycisków -->

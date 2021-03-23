@@ -57,21 +57,24 @@ public class Logout extends Fragment
         switch (User.getInstance().getLoggedBy()) {
             case GOOGLE:
                 mGoogleApiClient.signOut();
-                User.getInstance().setLoggedBy(User.WayOfLogin.DEFAULT);
+                User.getInstance().setToken("");
+                User.getInstance().setLoggedBy(User.WayOfLogin.NO_LOGIN);
+                AppDataBase.getInstance(getContext()).user().deleteByUserId(Integer.parseInt(User.getInstance().getIdSerwer()));
                 break;
             case OUR_SERVER:
-                User.getInstance().setToken(null);
-                User.getInstance().setLoggedBy(User.WayOfLogin.DEFAULT);
+                User.getInstance().setToken("");
+                User.getInstance().setLoggedBy(User.WayOfLogin.NO_LOGIN);
                 AppDataBase.getInstance(getContext()).user().deleteByUserId(Integer.parseInt(User.getInstance().getIdSerwer()));
                 break;
             case FACEBOOK:
+                User.getInstance().setToken("");
                 AccessToken.setCurrentAccessToken(null);
                 if (LoginManager.getInstance() != null) {
                     LoginManager.getInstance().logOut();
                 }
-                User.getInstance().setLoggedBy(User.WayOfLogin.DEFAULT);
+                User.getInstance().setLoggedBy(User.WayOfLogin.NO_LOGIN);
                 break;
         }
-        Navigation.findNavController(getView()).navigate(R.id.action_logout_to_login);
+        Navigation.findNavController(getView()).navigate(LogoutDirections.actionLogoutToLogin());
     }
 }

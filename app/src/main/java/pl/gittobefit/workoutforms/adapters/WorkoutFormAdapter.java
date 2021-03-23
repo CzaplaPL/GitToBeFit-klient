@@ -13,17 +13,19 @@ import pl.gittobefit.workoutforms.fragments.forms.SummaryFragment;
 /**
  klasa generujacą formularze treningu
  */
-public class WorkoutFormAdapter extends FragmentStateAdapter {
-
-    public WorkoutFormAdapter(GenerateTrainingForm generateTrainingForm) {
+public class WorkoutFormAdapter extends FragmentStateAdapter
+{
+    public WorkoutFormAdapter(GenerateTrainingForm generateTrainingForm)
+    {
         super ( generateTrainingForm );
     }
-
     // metoda ustawienia naszych fragmentow za pomoca naszego adaptera
     @NonNull
     @Override
-    public Fragment createFragment(int position) {
-        switch (position) {
+    public Fragment createFragment(int position)
+    {
+        switch (position)
+        {
             case 0:
                 return  new EquipmentFragment ();
             case 1:
@@ -32,6 +34,7 @@ public class WorkoutFormAdapter extends FragmentStateAdapter {
                 return  new SummaryFragment();
         }
     }
+
     @Override
     public int getItemCount() {return 3;}
 }

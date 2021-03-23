@@ -9,6 +9,7 @@ public class EquipmentType extends EquipmentForm
     public EquipmentType(int id, String name, String url)
     {
         super(id, name, url);
+        equipment = new ArrayList<>();
     }
     public boolean isLoad()
     {
@@ -21,6 +22,7 @@ public class EquipmentType extends EquipmentForm
     }
     public void setEquipment(ArrayList<Equipment> equipment)
     {
+
         this.equipment = equipment;
     }
 }

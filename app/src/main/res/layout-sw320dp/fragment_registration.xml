@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".MainActivity">
+
+        <ImageView
+            android:id="@+id/loginLogo"
+            android:layout_marginTop="20dp"
+            android:layout_width="190dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="-5dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/loginLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_guideline_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.10"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_guideline_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.90"/>
+
+            <TextView
+                android:id="@+id/text_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/rE_mail"
+                app:layout_constraintEnd_toEndOf="@id/main_guideline_right"
+                app:layout_constraintStart_toStartOf="@id/main_guideline_left"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="NotSibling"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/loginMailKontener"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@drawable/kontener_background"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:hintEnabled="true"
+                app:layout_constraintEnd_toEndOf="@id/main_guideline_right"
+                app:layout_constraintStart_toStartOf="@id/main_guideline_left"
+                app:layout_constraintTop_toBottomOf="@id/text_email"
+                app:startIconContentDescription="@string/e_mail"
+                app:startIconDrawable="@drawable/baseline_email_24"
+                tools:ignore="NotSibling">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/loginMail"
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:autofillHints="emailAddress"
+                    android:inputType="textWebEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/text_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rPassword"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/loginMailKontener" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/loginPasswordKontener"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:visibility="visible"
+                app:boxStrokeColor="@drawable/kontener_background"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:hintEnabled="true"
+                app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
+                app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/text_password"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTintMode="multiply"
+                app:startIconContentDescription="@string/password"
+                app:startIconDrawable="@drawable/baseline_lock_open_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/loginPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textWebPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/text_rewerse_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rRewersePassword"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/loginPasswordKontener" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/loginRewersePasswordKontener"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:boxStrokeColor="@drawable/kontener_background"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:hintEnabled="true"
+                app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
+                app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/text_rewerse_password"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTintMode="multiply"
+                app:startIconContentDescription="@string/password"
+                app:startIconDrawable="@drawable/baseline_lock_open_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/loginRewersePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textWebPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <CheckBox
+                android:id="@+id/checkBox_robot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/robot"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/loginRewersePasswordKontener" />
+
+            <CheckBox
+                android:id="@+id/checkBox_statute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/statute"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/checkBox_robot" />
+
+            <Button
+                android:id="@+id/buttonRegistr"
+                style="style/Widget.MaterialComponents.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/registr"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
+                app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/checkBox_statute"
+                app:shapeAppearanceOverlay="@style/roundedButton"
+                app:strokeColor="?attr/colorPrimary"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

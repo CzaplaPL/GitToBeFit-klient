@@ -20,8 +20,8 @@ import pl.gittobefit.workoutforms.object.EquipmentForm;
 
 public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.ViewHolder> {
 
-private ArrayList<EquipmentForm> localDataSet;
-private EquipmentListener equipmentListener;
+private final ArrayList<EquipmentForm> localDataSet;
+private final EquipmentListener equipmentListener;
 
     public EquipmentAdapter(ArrayList<EquipmentForm> dataSet,EquipmentListener equipmentListener)
     {
@@ -77,9 +77,6 @@ private EquipmentListener equipmentListener;
         return localDataSet.size();
     }
 
-    /**
-     * View Holder
-     */
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         private final TextView nameView;
@@ -93,10 +90,10 @@ private EquipmentListener equipmentListener;
         {
             super(view);
             this.equipmentListener=equipmentListener;
-            nameView = view.findViewById(R.id.titleType);
-            image = view.findViewById(R.id.equipment_item_image) ;
-            button = view.findViewById(R.id.equipment_drop_button) ;
-            checkBox = view.findViewById(R.id.equipment_checbox) ;
+            nameView = view.findViewById(R.id.no_equipment_title);
+            image = view.findViewById(R.id.no_equipment_item_image) ;
+            button = view.findViewById(R.id.bodyButton) ;
+            checkBox = view.findViewById(R.id.no_equipment_checbox) ;
             button.setOnClickListener(this);
             checkBox.setOnClickListener(this);
             context = view.getContext();
@@ -112,14 +109,13 @@ private EquipmentListener equipmentListener;
         public CheckBox getCheckBox(){ return checkBox; }
         public Context getContext() { return context; }
 
-
         @Override
         public void onClick(View v)
         {
             equipmentListener.onItemClick(getAdapterPosition());
         }
-
     }
+
     public interface EquipmentListener
     {
         void onItemClick(int position);

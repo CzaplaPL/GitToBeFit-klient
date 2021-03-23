@@ -1,0 +1,87 @@
+{
+  "project_info": {
+    "project_number": "167652090961",
+    "project_id": "gittobefit-1609088754888",
+    "storage_bucket": "gittobefit-1609088754888.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167652090961:android:4ebdd8242f8f3fb6f54470",
+        "android_client_info": {
+          "package_name": "pl.gittobefit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "167652090961-3ivotnr3i5kabqbp618j01mhlkhulfho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.gittobefit",
+            "certificate_hash": "201f7fd4fcf73201d935efb50515fb589c7dde6e"
+          }
+        },
+        {
+          "client_id": "167652090961-6ctpo2e4u0q334v5rh3utsadjohqblt6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.gittobefit",
+            "certificate_hash": "e4afbb6bee8549c30d51055705aaf40395cdd78f"
+          }
+        },
+        {
+          "client_id": "167652090961-78kasgsop4cbjpifuvqq9nv07k8c0dqr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.gittobefit",
+            "certificate_hash": "23aade9dda3e1f985a813b234d3cb0971c1c4cc7"
+          }
+        },
+        {
+          "client_id": "167652090961-7cqbqv23r3g8nfcqv2anehhkotkrd9mu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.gittobefit",
+            "certificate_hash": "7d9407c859bccb2b0b37102b8c719cac93687a2a"
+          }
+        },
+        {
+          "client_id": "167652090961-ci356ig2j133kre2d06dlfahdq3qs10k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.gittobefit",
+            "certificate_hash": "c13474a739bc4534c75ce03a22385b5f2b2b7c5f"
+          }
+        },
+        {
+          "client_id": "167652090961-pggqn7s4ehq9qut27258s0opim0i1k6h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.gittobefit",
+            "certificate_hash": "75f9c241207fd8c14e27aa83330773bf60e3d194"
+          }
+        },
+        {
+          "client_id": "167652090961-5dkah0ddinbeh8clnq81ieg3h2onkvjp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9wHrFcsZLyi2kxBSetV6CB6sQjckwRpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "167652090961-5dkah0ddinbeh8clnq81ieg3h2onkvjp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

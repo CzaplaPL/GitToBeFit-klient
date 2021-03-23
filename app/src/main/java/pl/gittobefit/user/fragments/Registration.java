@@ -20,8 +20,10 @@ import com.google.android.gms.safetynet.SafetyNet;
 import com.google.android.gms.safetynet.SafetyNetApi;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.user.Validation;
@@ -48,6 +50,15 @@ public class Registration extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.fragment_registration, container, false);
         CheckBox checkBox =  view.findViewById(R.id.checkBox_robot);
         Button registr =  view.findViewById(R.id.buttonRegistr);
+        TextInputLayout email= view.findViewById(R.id.loginMailKontener);
+        TextInputEditText email2= view.findViewById(R.id.loginMail);
+        email2.setOnFocusChangeListener((v, hasFocus) -> email.setErrorEnabled(false));
+        TextInputLayout password= view.findViewById(R.id.loginPasswordKontener);
+        TextInputEditText passwordText= view.findViewById(R.id.loginPassword);
+        passwordText.setOnFocusChangeListener((v, hasFocus) -> password.setErrorEnabled(false));
+        TextInputLayout password2= view.findViewById(R.id.loginRewersePasswordKontener);
+        TextInputEditText passwordText2= view.findViewById(R.id.loginRewersePassword);
+        passwordText2.setOnFocusChangeListener((v, hasFocus) -> password2.setErrorEnabled(false));
         registr.setOnClickListener(this);
         checkBox.setOnClickListener(this);
         return view;
@@ -81,8 +92,8 @@ public class Registration extends Fragment implements View.OnClickListener
                     correct =false;
                 }else if(!pass.getEditText().getText().toString().equals(pass2.getEditText().getText().toString()))
                 {
-                    pass.setError(getResources().getString(R.string.wrongPasswoed2));
-                    pass2.setError(getResources().getString(R.string.wrongPasswoed2));
+                    pass.setError(getResources().getString(R.string.wrongPassword2));
+                    pass2.setError(getResources().getString(R.string.wrongPassword2));
                     correct =false;
                 }else pass2.setErrorEnabled(false);
                 if(!robot.isChecked())
@@ -98,40 +109,36 @@ public class Registration extends Fragment implements View.OnClickListener
                 if(correct)
                 {
                     Log.w("rejestracja" ,"jest");
+                    IShowSnackbar activity = (IShowSnackbar) getActivity();
+                    activity.showSnackbar(getString(R.string.registrationStart));
                     ConnectionToServer.getInstance().userServices.singup(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this,getView());
                 }
                 break;
-
                 case R.id.checkBox_robot:
                 CheckBox checkBox =  view.findViewById(R.id.checkBox_robot);
+                checkBox.setChecked(false);
                 SafetyNet.getClient(getActivity()).verifyWithRecaptcha("6LdH0ScaAAAAAOAnxd_zMOzmbco0_VRrazkQvdUQ")
-                        .addOnSuccessListener(new OnSuccessListener<SafetyNetApi.RecaptchaTokenResponse>() {
-                            @Override
-                            public void onSuccess(SafetyNetApi.RecaptchaTokenResponse recaptchaTokenResponse)
+                        .addOnSuccessListener(recaptchaTokenResponse ->
+                        {
+                            String userResponseToken = recaptchaTokenResponse.getTokenResult();
+                            if (!userResponseToken.isEmpty())
                             {
-                                String userResponseToken = recaptchaTokenResponse.getTokenResult();
-                                if (!userResponseToken.isEmpty())
-                                {
-                                    checkBox.setChecked(true);
-                                }
+                                checkBox.setChecked(true);
                             }
                         })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e)
+                        .addOnFailureListener(e ->
+                        {
+                            checkBox.setChecked(false);
+                            checkBox.setBackgroundColor(Color.RED);
+                            if (e instanceof ApiException)
                             {
-                                checkBox.setChecked(false);
-                                checkBox.setBackgroundColor(Color.RED);
-                                if (e instanceof ApiException)
-                                {
-                                    ApiException apiException = (ApiException) e;
-                                    int statusCode = apiException.getStatusCode();
-                                    Log.e("Recaptcha", "Error: " + CommonStatusCodes
-                                            .getStatusCodeString(statusCode));
-                                } else
-                                {
-                                    Log.e("Recaptcha", "Error: " + e.getMessage());
-                                }
+                                ApiException apiException = (ApiException) e;
+                                int statusCode = apiException.getStatusCode();
+                                Log.e("Recaptcha", "Error: " + CommonStatusCodes
+                                        .getStatusCodeString(statusCode));
+                            } else
+                            {
+                                Log.e("Recaptcha", "Error: " + e.getMessage());
                             }
                         });
                 break;
@@ -143,7 +150,7 @@ public class Registration extends Fragment implements View.OnClickListener
         TextInputLayout email =(TextInputLayout)getView().findViewById(R.id.loginMailKontener);
         if(duplicate)
         {
-            email.setError(getResources().getString(R.string.duplicateEmail));
+            email.setError(getResources().getString(R.string.duplicatedEmail));
         }else
         {
             email.setError(getResources().getString(R.string.serwerError));
@@ -151,7 +158,7 @@ public class Registration extends Fragment implements View.OnClickListener
     }
     public void Success(View view)
     {
-        Navigation.findNavController(view).navigate(R.id.action_registration_to_login2);
+        Navigation.findNavController(view).navigate(RegistrationDirections.actionRegistrationToLogin2());
         Navigation.findNavController(view).navigate(R.id.action_login_to_registrationSuccesDialog);
     }
 }

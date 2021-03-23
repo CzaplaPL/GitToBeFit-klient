@@ -1,245 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/main_guideline_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.15" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/main_guideline_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85" />
-
-    <ImageView
-        android:id="@+id/loginLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="30dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/app_name"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/upper"
-        app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/upper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.28" />
-
+    android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="-5dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/down"
-        app:layout_constraintEnd_toEndOf="@+id/main_guideline_right"
-        app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
-        app:layout_constraintTop_toBottomOf="@id/upper">
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".MainActivity">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/loginMailKontener"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/e_mail"
-            app:boxStrokeWidth="2dp"
-            app:errorEnabled="true"
-            app:boxStrokeColor="@drawable/kontener_background"
-            app:hintEnabled="true"
-            app:layout_constraintBottom_toTopOf="@+id/loginPassKontener"
+        <ImageView
+            android:id="@+id/loginLogo"
+            android:layout_width="190dp"
+            android:layout_marginTop="20dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconContentDescription="@string/e_mail"
-            app:startIconDrawable="@drawable/baseline_email_24">
+            app:srcCompat="@drawable/logo" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/loginMail"
-                android:layout_width="match_parent"
-                android:layout_height="53dp"
-                android:autofillHints="emailAddress"
-                android:inputType="textWebEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/loginPassKontener"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/password"
-            app:boxStrokeWidth="2dp"
-            app:errorEnabled="true"
-            app:hintEnabled="true"
-            app:boxStrokeColor="@drawable/kontener_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginMailKontener"
-            app:passwordToggleEnabled="true"
-            app:passwordToggleTintMode="multiply"
-            android:nextFocusForward="@+id/loginZaloguj"
-            app:startIconContentDescription="@string/password"
-            app:startIconDrawable="@drawable/baseline_lock_open_24">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/loginPass"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textWebPassword"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/loginForgotPass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:contentDescription="@string/forgotPassword"
-            android:text="@string/forgotPassword"
-            android:textColor="@color/ourGreen"
-            android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginPassKontener" />
-
-        <Button
-            android:id="@+id/loginSkip"
-            style="style/Widget.MaterialComponents.Button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/skip"
-            android:textColor="?attr/colorPrimaryVariant"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/main_guideline_button"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginForgotPass"
-            app:shapeAppearanceOverlay="@style/roundedButton" />
-
-        <Button
-            android:id="@+id/loginZaloguj"
-            style="style/Widget.MaterialComponents.Button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/login"
-            android:textColor="?attr/colorPrimaryVariant"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/main_guideline_button2"
-            app:layout_constraintTop_toBottomOf="@+id/loginForgotPass"
-            app:shapeAppearanceOverlay="@style/roundedButton" />
-
-        <TextView
-            android:id="@+id/loginNoAccount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="@string/noAccount"
-            android:textAlignment="center"
-            android:textColor="@color/ourGreen"
-            app:layout_constraintEnd_toStartOf="@+id/main_guideline_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginSkip" />
-
-        <Button
-            android:id="@+id/loginRegister"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/register"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/main_guideline_button2"
-            app:layout_constraintTop_toBottomOf="@+id/loginZaloguj"
-            app:shapeAppearanceOverlay="@style/roundButton"
-            android:textColor="?attr/colorPrimaryVariant"
-            app:strokeColor="@color/ourGreen" />
-
-
-        <Button
-            android:id="@+id/loginGoogle"
-            style="style/Widget.MaterialComponents.Button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/google"
-            android:textColor="@color/ourWhite"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:backgroundTint="@color/google"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/main_guideline_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginRegister"
-            app:shapeAppearanceOverlay="@style/roundedButton" />
-
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/loginFacebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/loginButtonFacebook"
-            app:layout_constraintEnd_toStartOf="@+id/loginButtonFacebook" />
-
-        <Button
-            android:id="@+id/loginButtonFacebook"
-            style="style/Widget.MaterialComponents.Button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="sans-serif-black"
-            android:text="@string/facebook"
-            android:textColor="@color/ourWhite"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:backgroundTint="@color/facebook"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/main_guideline_button2"
-            app:layout_constraintTop_toBottomOf="@+id/loginRegister"
-            app:shapeAppearanceOverlay="@style/roundedButton" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/main_guideline_button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="-5dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.52" />
+            app:layout_constraintTop_toBottomOf="@id/loginLogo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/main_guideline_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.48" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_guideline_button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.52" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_guideline_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.48" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_guideline_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/main_guideline_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/loginMailKontener"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/e_mail"
+                app:boxStrokeColor="@drawable/kontener_background"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:hintEnabled="true"
+                app:layout_constraintEnd_toEndOf="@id/main_guideline_right"
+                app:layout_constraintStart_toStartOf="@id/main_guideline_left"
+                app:layout_constraintTop_toTopOf="parent"
+                app:startIconContentDescription="@string/e_mail"
+                app:startIconDrawable="@drawable/baseline_email_24"
+                android:layout_marginTop="20dp"
+                tools:ignore="NotSibling">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/loginMail"
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:autofillHints="emailAddress"
+                    android:inputType="textWebEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/loginPassKontener"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/password"
+                android:nextFocusForward="@+id/loginZaloguj"
+                app:boxStrokeColor="@drawable/kontener_background"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:hintEnabled="true"
+                app:layout_constraintEnd_toEndOf="@id/main_guideline_right"
+                app:layout_constraintStart_toStartOf="@id/main_guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/loginMailKontener"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTintMode="multiply"
+                app:startIconContentDescription="@string/password"
+                app:startIconDrawable="@drawable/baseline_lock_open_24">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/loginPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textWebPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/loginForgotPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/forgotPassword"
+                android:text="@string/forgotPassword"
+                android:textColor="@color/ourGreenDay"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/main_guideline_right"
+                app:layout_constraintTop_toBottomOf="@+id/loginPassKontener" />
+
+            <Button
+                android:id="@+id/loginRegister"
+                style="style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/register"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/main_guideline_button"
+                app:layout_constraintStart_toStartOf="@id/main_guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/loginForgotPass"
+                app:shapeAppearanceOverlay="@style/roundButton"
+                app:strokeColor="@color/ourGreen" />
+
+            <Button
+                android:id="@+id/loginZaloguj"
+                style="style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/login"
+                android:textSize="12sp"
+                android:textColor="?attr/colorPrimaryVariant"
+                app:layout_constraintStart_toStartOf="@id/main_guideline_button2"
+                app:layout_constraintEnd_toEndOf="@id/main_guideline_right"
+                app:layout_constraintTop_toBottomOf="@+id/loginForgotPass"
+                app:shapeAppearanceOverlay="@style/roundedButton" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/loginwith"
+                android:textColor="@color/ourGreenDay"
+                android:layout_marginTop="30dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginRegister" />
+            <Button
+                android:id="@+id/loginGoogle"
+                style="style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_google"
+                android:fontFamily="sans-serif-black"
+                android:layout_marginTop="20dp"
+                android:text="@string/google"
+                android:textColor="@color/ourWhite"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/google"
+                app:layout_constraintEnd_toStartOf="@+id/main_guideline_button"
+                app:layout_constraintStart_toStartOf="@id/main_guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                app:shapeAppearanceOverlay="@style/roundedButton" />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/loginFacebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/loginButtonFacebook"
+                app:layout_constraintEnd_toStartOf="@+id/loginButtonFacebook" />
+
+            <Button
+                android:id="@+id/loginButtonFacebook"
+                style="style/Widget.MaterialComponents.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/ic_facebook_3"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/facebook"
+                android:textColor="@color/ourWhite"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/facebook"
+                app:layout_constraintEnd_toEndOf="@id/main_guideline_right"
+                app:layout_constraintStart_toStartOf="@+id/main_guideline_button2"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                app:shapeAppearanceOverlay="@style/roundedButton" />
+
+            <Button
+                android:id="@+id/loginSkip"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/skip"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:layout_marginTop="30dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/main_guideline_right"
+                app:layout_constraintStart_toStartOf="@id/main_guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/loginGoogle"
+                app:shapeAppearanceOverlay="@style/roundedButton"
+                app:strokeColor="@color/ourGreenDay" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/down"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+

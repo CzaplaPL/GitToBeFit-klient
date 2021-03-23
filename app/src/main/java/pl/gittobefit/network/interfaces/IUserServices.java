@@ -1,5 +1,6 @@
 package pl.gittobefit.network.interfaces;
 
+import pl.gittobefit.network.object.EmailUser;
 import pl.gittobefit.network.object.UserChangeEmail;
 import pl.gittobefit.network.object.UserChangePass;
 import pl.gittobefit.network.object.RespondUser;
@@ -59,7 +60,7 @@ public interface IUserServices
      * @author Kuba
      */
     @DELETE("/user/{user_id}")
-    Call<Void> deleteAccount(@Path("user_id") String id, @Header("Authorization") String authHeader);
+    Call<Void> deleteAccount(@Path("user_id") String id, @Header("Authorization") String authHeader, @Header("password") String userPassword);
 
     /**
      * zmiana maila
@@ -88,4 +89,12 @@ public interface IUserServices
      */
     @POST("/user/token-verification")
     Call<Void> verify(@Header("token") String token);
+
+    /***
+     * @author Kuba
+     * @return void
+     */
+
+    @POST("/user/activation/renew")
+    Call<Void> sendActivationLink(@Body EmailUser emailUser);
 }

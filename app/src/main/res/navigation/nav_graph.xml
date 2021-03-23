@@ -32,6 +32,12 @@
         <action
             android:id="@+id/action_homeFragment_to_generateTraining"
             app:destination="@id/generateTrainingForm" />
+        <action
+            android:id="@+id/action_homeFragment_to_displayReceivedTraining"
+            app:destination="@id/listOfTrainings" />
+        <action
+            android:id="@+id/action_homeFragment_to_trainingStart"
+            app:destination="@id/trainingStart" />
     </fragment>
     <fragment
         android:id="@+id/setting"
@@ -47,6 +53,9 @@
         <action
             android:id="@+id/action_setting_to_login"
             app:destination="@id/login" />
+        <action
+            android:id="@+id/action_setting_to_delete_account"
+            app:destination="@id/deleteAccountDialog" />
     </fragment>
     <fragment
         android:id="@+id/aboutUs"
@@ -60,7 +69,8 @@
         <action
             android:id="@+id/action_registration_to_login2"
             app:destination="@id/login"
-/>
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -96,11 +106,46 @@
         android:id="@+id/changePasswordDialog"
         android:name="pl.gittobefit.user.dialog.ChangePasswordDialog"
         android:label="ChangePasswordDialog" />
+    <dialog
+        android:id="@+id/deleteAccountDialog"
+        android:name="pl.gittobefit.user.dialog.DeleteAccountDialog"
+        android:label="DeleteAccountDialog" />
     <fragment
         android:id="@+id/generateTrainingForm"
         android:name="pl.gittobefit.workoutforms.fragments.GenerateTrainingForm"
         android:label="@string/generateTrainingForm"
-        tools:layout="@layout/fragment_generate_training" />
+        tools:layout="@layout/fragment_generate_training" >
 
+        <action
+            android:id="@+id/action_generateTrainingForm_to_displayReceivedTraining"
+            app:destination="@id/displayReceivedTraining" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/listOfTrainings"
+        android:name="pl.gittobefit.WorkoutDisplay.fragments.ListOfTrainings"
+        android:label="Twoje treningi"
+        tools:layout="@layout/fragment_list_of_trainings" >
+    <action
+        android:id="@+id/list_of_trainings_to_displayReceivedTraining"
+        app:destination="@id/displayReceivedTraining" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/displayReceivedTraining"
+        android:name="pl.gittobefit.WorkoutDisplay.fragments.DisplayReceivedTraining"
+        android:label="Twój trening"
+        tools:layout="@layout/fragment_received_training" />
+    <action
+        android:id="@+id/action_global_logout"
+        app:destination="@id/logout"
+        app:popUpTo="@id/login"
+        app:popUpToInclusive="true" />
+
+    <fragment
+        android:id="@+id/trainingStart"
+        android:name="pl.gittobefit.TrainingStart"
+        android:label="fragment_training_start"
+        tools:layout="@layout/fragment_training_start" />
 
 </navigation>
