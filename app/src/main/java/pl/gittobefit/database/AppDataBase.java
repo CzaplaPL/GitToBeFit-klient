@@ -9,17 +9,18 @@ import androidx.room.TypeConverters;
 
 import pl.gittobefit.database.conventer.TrainingConverter;
 import pl.gittobefit.database.dao.IExerciseDao;
+import pl.gittobefit.database.dao.IFormDao;
 import pl.gittobefit.database.dao.ITrainingDao;
 import pl.gittobefit.database.dao.IUserDao;
 import pl.gittobefit.database.entity.UserEntity;
 import pl.gittobefit.database.entity.training.Exercise;
-import pl.gittobefit.database.entity.training.SaveTraining;
+import pl.gittobefit.database.entity.training.SavedTraining;
 import pl.gittobefit.database.entity.training.WorkoutForm;
 
 /**
  * klasa bazy danych
  */
-@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SaveTraining.class}, version = 4, exportSchema = false)
+@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SavedTraining.class}, version = 5, exportSchema = false)
 @TypeConverters({TrainingConverter.class})
 public abstract class AppDataBase extends RoomDatabase
 {
@@ -27,10 +28,8 @@ public abstract class AppDataBase extends RoomDatabase
     public abstract UserDao user();
     public abstract ITrainingDao training();
     public abstract IExerciseDao exercise();
-    /**
-     * zwraca instancje bazy danych
-     * @return instancja bazy danych
-     */
+    public abstract IFormDao workoutForm();
+
     public static AppDataBase getInstance(final Context context) {
         if (INSTANCE == null) {
             synchronized (AppDataBase.class) {

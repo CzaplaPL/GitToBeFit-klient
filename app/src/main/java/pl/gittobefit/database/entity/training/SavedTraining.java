@@ -10,21 +10,21 @@ import pl.gittobefit.user.User;
 import pl.gittobefit.workoutforms.object.TrainingPlan;
 
 @Entity
-public class SaveTraining
+public class SavedTraining
 {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String idUser;
-    private Long idForm;
+    private long idForm;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList;
 
-    public SaveTraining(Long idForm, ArrayList<TrainingPlan> planList)
+    public SavedTraining(long idForm, ArrayList<TrainingPlan> planList)
     {
         this.planList = new ArrayList<>();
         if(User.getInstance().getLoggedBy() != User.WayOfLogin.NO_LOGIN)
         {
             this.idUser = "";
-        }else
+        } else
         {
             this.idUser = User.getInstance().getIdSerwer();
         }
@@ -43,7 +43,7 @@ public class SaveTraining
 
     }
 
-    public SaveTraining()
+    public SavedTraining()
     {
     }
 
@@ -68,12 +68,12 @@ public class SaveTraining
         this.planList = planList;
     }
 
-    public Long getIdForm()
+    public long getIdForm()
     {
         return idForm;
     }
 
-    public void setIdForm(Long idForm)
+    public void setIdForm(long idForm)
     {
         this.idForm = idForm;
     }

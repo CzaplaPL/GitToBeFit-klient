@@ -175,7 +175,6 @@ public class SummaryFragment extends Fragment {
         {
             if(model.isNoEquipmentcheched())
             {
-
                 binding.noEquipmentItemImage.setVisibility(View.VISIBLE);
                 binding.noEquipmentTitle.setVisibility(View.VISIBLE);
             }else

@@ -12,7 +12,6 @@ public class Training
     private WorkoutForm trainingForm;
     private ArrayList<TrainingPlan> planList = new ArrayList<>();
 
-
     public WorkoutForm getTrainingForm() {
         return trainingForm;
     }
@@ -25,5 +24,4 @@ public class Training
     {
         return planList.get(i);
     }
-
 }

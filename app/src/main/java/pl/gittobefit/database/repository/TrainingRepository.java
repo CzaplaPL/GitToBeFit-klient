@@ -3,7 +3,7 @@ package pl.gittobefit.database.repository;
 import java.util.ArrayList;
 
 import pl.gittobefit.database.AppDataBase;
-import pl.gittobefit.database.entity.training.SaveTraining;
+import pl.gittobefit.database.entity.training.SavedTraining;
 import pl.gittobefit.network.object.Training;
 import pl.gittobefit.workoutforms.object.TrainingPlan;
 
@@ -12,9 +12,9 @@ public class TrainingRepository
 {
     public void add(Training training, AppDataBase base)
     {
-        Long idForm = base.training().addForm(training.getTrainingForm());
+        Long idForm = base.workoutForm().addForm(training.getTrainingForm());
         saveExercise(training.getPlanList(), base);
-        base.training().addTraining(new SaveTraining(idForm, training.getPlanList()));
+        base.training().addTraining(new SavedTraining(idForm, training.getPlanList()));
     }
 
     public void saveExercise(ArrayList<TrainingPlan> planList, AppDataBase base)

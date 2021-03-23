@@ -9,13 +9,14 @@ import java.util.ArrayList;
 public class WorkoutForm
 {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int FormId;
     private ArrayList<Integer> equipmentIDs;
     private String trainingType;
     private ArrayList<String> bodyParts;
     private int daysCount;
     private String scheduleType;
     private int duration;
+    public int userOwnerId;
 
     public ArrayList<Integer> getEquipmentIDs()
     {
@@ -57,13 +58,13 @@ public class WorkoutForm
         this.duration = duration;
     }
 
-    public int getId()
+    public int getFormId()
     {
-        return id;
+        return FormId;
     }
 
-    public void setId(int id)
+    public void setFormId(int formId)
     {
-        this.id = id;
+        FormId = formId;
     }
 }

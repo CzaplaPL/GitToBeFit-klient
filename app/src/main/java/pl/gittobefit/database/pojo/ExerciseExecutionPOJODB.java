@@ -31,6 +31,4 @@ public class ExerciseExecutionPOJODB
     {
         return count;
     }
-
-
 }
