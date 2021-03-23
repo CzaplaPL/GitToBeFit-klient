@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import pl.gittobefit.user.User;
 import pl.gittobefit.user.dialog.ChangeMailDialog;
@@ -34,6 +37,7 @@ import pl.gittobefit.user.dialog.DeleteAccountDialog;
 public class MainActivity extends AppCompatActivity implements ChangeMailDialog.ChangeMailDialogInterface, DeleteAccountDialog.DeleteAccountDialogInterface,IShowSnackbar, HomeFragment.HideKeyboardInterface
 {
 
+    private FirebaseAnalytics mFirebaseAnalytics;
     private DrawerLayout drawerLayout;
     NavigationView navigationView;
     //////
@@ -45,22 +49,13 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
         drawerLayout = findViewById(R.id.drawer_layout);
         Toolbar myToolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(myToolbar);
-
         myToolbar.setNavigationOnClickListener(v -> openDrawer(drawerLayout));
-
-
         AppBarConfiguration mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.setting, R.id.aboutUs, R.id.homeFragment, R.id.displayReceivedTraining, R.id.generateTrainingForm)
                 .setOpenableLayout(drawerLayout)
                 .build();
 
-
-
-        ////////////////
-
-
         navigationView = findViewById(R.id.nav_view);
-
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
        NavigationUI.setupWithNavController(navigationView, navController);
