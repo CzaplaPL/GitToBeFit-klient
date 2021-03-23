@@ -30,12 +30,12 @@ public class TrainingStart extends Fragment  {
     private CountDownTimer timerAdapter;
     private TextView timerText;
     private View view;
-    private ImageView buttonPlay,buttonPause;
-    private LinearLayout exerciseStart,exerciseBackground;
+    private ImageView buttonPlay, buttonPause;
+    private LinearLayout exerciseStart, exerciseBackground;
     private RelativeLayout buttonLayout;
-    private Animation started,exit,downtoup,bright;
-    private Button miss,start,nextExercise;
-    private VideoView videoViewTraining,videoViewStartTraining;
+    private Animation started, exit, downtoup, bright;
+    private Button miss, start, nextExercise;
+    private VideoView videoViewTraining, videoViewStartTraining;
 
     public TrainingStart() {
     }
@@ -115,7 +115,7 @@ public class TrainingStart extends Fragment  {
     }
 
     private void startTimer() {
-        timerAdapter = new CountDownTimer(timeLeftInMillis,1000) {
+        timerAdapter = new CountDownTimer(timeLeftInMillis, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timeLeftInMillis = millisUntilFinished;
