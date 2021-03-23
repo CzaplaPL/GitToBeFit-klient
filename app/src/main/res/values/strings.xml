@@ -232,8 +232,16 @@ sprawdzanie czy użytkownik ma internet\n
         poprawa leyautow logowania i rejestracji \n
         0.1.3\n
         poprwaki przy użytkowniku\n
-        dodanie bez sprzetun
+        dodanie bez sprzetu\n
         formularz detail uzupelniał viewmodel\n
+         0.1.4\n
+       ukonczenie fragentu podsumowania \n
+        ukonczenie fragmentu wyswietlania wygenerowania treningu\n
+          0.1.5\n
+       dodanie fragentu  wyswietlania zapisywanych treningów\n
+      dodanie fragentu prowadzenia trningów\n
+        dodanie fragentu prowadzenia trningów\n
+        utworzenie encji w bazie danych do zapisywania treningu \n
     </string>
     <string name="chosen_eqiupment">Wybrany sprzęt</string>
 </resources>
