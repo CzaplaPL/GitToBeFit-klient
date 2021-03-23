@@ -24,19 +24,19 @@ public class TrainingListAdapter extends RecyclerView.Adapter<TrainingListAdapte
     private Fragment fragment;
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        private TextView textView1;
-        private TextView textView2;
+        private TextView TrainingTypeTextView;
+        private TextView GenerationTrainingDateTextView;
 
         public ViewHolder (View view)
         {
             super(view);
 
-            textView1 = (TextView) view.findViewById(R.id.list_of_trainings_training_type);
-            textView2 = (TextView) view.findViewById(R.id.training_additional_info);
+            TrainingTypeTextView = (TextView) view.findViewById(R.id.list_of_trainings_training_type);
+            GenerationTrainingDateTextView = (TextView) view.findViewById(R.id.training_additional_info);
         }
     }
 
-    public TrainingListAdapter(ArrayList<Training> trainingArrayList,Fragment fragment) {
+    public TrainingListAdapter(ArrayList<Training> trainingArrayList, Fragment fragment) {
         this.trainingArrayList = trainingArrayList;
         this.fragment = fragment;
     }
@@ -53,9 +53,9 @@ public class TrainingListAdapter extends RecyclerView.Adapter<TrainingListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView1.setText(trainingArrayList.get(position).getTrainingForm().getTrainingType());
+        holder.TrainingTypeTextView.setText(trainingArrayList.get(position).getTrainingForm().getTrainingType());
 
-        holder.textView2.setText(trainingArrayList.get(position).getGenerationDate());
+        holder.GenerationTrainingDateTextView.setText(trainingArrayList.get(position).getGenerationDate());
 
         holder.itemView.setOnClickListener(new View.OnClickListener()
         {

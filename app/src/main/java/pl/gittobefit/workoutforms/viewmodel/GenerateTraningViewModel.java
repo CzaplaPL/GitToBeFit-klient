@@ -129,8 +129,6 @@ public class GenerateTraningViewModel extends ViewModel
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.chest),"CHEST"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.sixpack),"SIXPACK"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.back),"BACK"));
-//        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.legs),"LEGS"));
-//        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.arms),"ARMS"));
 
     }
     public ArrayList<BodyParts> getBodyParts()

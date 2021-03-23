@@ -61,19 +61,19 @@ public class DisplayReceivedTraining extends Fragment
         TextView trainingDuration = getView().findViewById(R.id.trainingDuration);
 
 
-        RelativeLayout linearLayout0 = getView().findViewById(R.id.layout0);
-        RelativeLayout linearLayout1 = getView().findViewById(R.id.layout1);
-        RelativeLayout linearLayout2 = getView().findViewById(R.id.layout2);
-        RelativeLayout linearLayout3 = getView().findViewById(R.id.layout3);
-        RelativeLayout linearLayout4 = getView().findViewById(R.id.layout4);
+        RelativeLayout relativeLayout1 = getView().findViewById(R.id.layout0);
+        RelativeLayout relativeLayout2 = getView().findViewById(R.id.layout1);
+        RelativeLayout relativeLayout3 = getView().findViewById(R.id.layout2);
+        RelativeLayout relativeLayout4 = getView().findViewById(R.id.layout3);
+        RelativeLayout relativeLayout5 = getView().findViewById(R.id.layout4);
 
 
         ArrayList<RelativeLayout> linearLayoutArrayList = new ArrayList<>();
-        linearLayoutArrayList.add(linearLayout0);
-        linearLayoutArrayList.add(linearLayout1);
-        linearLayoutArrayList.add(linearLayout2);
-        linearLayoutArrayList.add(linearLayout3);
-        linearLayoutArrayList.add(linearLayout4);
+        linearLayoutArrayList.add(relativeLayout1);
+        linearLayoutArrayList.add(relativeLayout2);
+        linearLayoutArrayList.add(relativeLayout3);
+        linearLayoutArrayList.add(relativeLayout4);
+        linearLayoutArrayList.add(relativeLayout5);
 
 
         RecyclerView exercisesList = getView().findViewById(R.id.exercisesList);
@@ -121,12 +121,12 @@ public class DisplayReceivedTraining extends Fragment
             public void onClick(View v) {
                 if (exercisesList.getVisibility() == View.VISIBLE)
                 {
-                    linearLayout0.setVisibility(View.GONE);
+                    relativeLayout1.setVisibility(View.GONE);
                     exercisesList.setVisibility(View.GONE);
                 }
                 else
                 {
-                    linearLayout0.setVisibility(View.VISIBLE);
+                    relativeLayout1.setVisibility(View.VISIBLE);
                     exercisesList.setVisibility(View.VISIBLE);
                 }
 
@@ -139,12 +139,12 @@ public class DisplayReceivedTraining extends Fragment
             public void onClick(View v) {
                 if (exercisesList2.getVisibility() == View.VISIBLE)
                 {
-                    linearLayout1.setVisibility(View.GONE);
+                    relativeLayout2.setVisibility(View.GONE);
                     exercisesList2.setVisibility(View.GONE);
                 }
                 else
                 {
-                    linearLayout1.setVisibility(View.VISIBLE);
+                    relativeLayout2.setVisibility(View.VISIBLE);
                     exercisesList2.setVisibility(View.VISIBLE);
                 }
 
@@ -157,12 +157,12 @@ public class DisplayReceivedTraining extends Fragment
             public void onClick(View v) {
                 if (exercisesList3.getVisibility() == View.VISIBLE)
                 {
-                    linearLayout2.setVisibility(View.GONE);
+                    relativeLayout3.setVisibility(View.GONE);
                     exercisesList3.setVisibility(View.GONE);
                 }
                 else
                 {
-                    linearLayout2.setVisibility(View.VISIBLE);
+                    relativeLayout3.setVisibility(View.VISIBLE);
                     exercisesList3.setVisibility(View.VISIBLE);
                 }
 
@@ -175,12 +175,12 @@ public class DisplayReceivedTraining extends Fragment
             public void onClick(View v) {
                 if (exercisesList4.getVisibility() == View.VISIBLE)
                 {
-                    linearLayout3.setVisibility(View.GONE);
+                    relativeLayout4.setVisibility(View.GONE);
                     exercisesList4.setVisibility(View.GONE);
                 }
                 else
                 {
-                    linearLayout3.setVisibility(View.VISIBLE);
+                    relativeLayout4.setVisibility(View.VISIBLE);
                     exercisesList4.setVisibility(View.VISIBLE);
                 }
 
@@ -193,12 +193,12 @@ public class DisplayReceivedTraining extends Fragment
             public void onClick(View v) {
                 if (exercisesList5.getVisibility() == View.VISIBLE)
                 {
-                    linearLayout4.setVisibility(View.GONE);
+                    relativeLayout5.setVisibility(View.GONE);
                     exercisesList5.setVisibility(View.GONE);
                 }
                 else
                 {
-                    linearLayout4.setVisibility(View.VISIBLE);
+                    relativeLayout5.setVisibility(View.VISIBLE);
                     exercisesList5.setVisibility(View.VISIBLE);
                 }
 

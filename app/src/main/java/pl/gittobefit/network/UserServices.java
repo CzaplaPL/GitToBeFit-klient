@@ -122,14 +122,11 @@ public class UserServices
                                         @Override
                                         public void onClick(View view) {
                                             ConnectionToServer.getInstance().userServices.sendActivationLink(fragment, email);
-//                                            Snackbar mSnackbar = Snackbar.make(fragment.getView(), "Link został wysłany.", Snackbar.LENGTH_SHORT);
-//                                            mSnackbar.show();
                                         }
                                     });
 
                             snackbar.show();
 
-                            //activity.showSnackbar(fragment.getString(R.string.noActivateAcount));
                             fragment.loginFail(false,fragment.getString(R.string.noActivateAcount));
                         }
 
