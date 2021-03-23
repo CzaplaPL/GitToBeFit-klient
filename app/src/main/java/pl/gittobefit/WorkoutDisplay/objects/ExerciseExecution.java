@@ -1,6 +1,4 @@
-package pl.gittobefit.workoutforms.object;
-
-import pl.gittobefit.database.entity.training.Exercise;
+package pl.gittobefit.WorkoutDisplay.objects;
 
 public class ExerciseExecution
 {

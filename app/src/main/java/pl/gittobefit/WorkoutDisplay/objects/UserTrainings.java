@@ -1,4 +1,4 @@
-package pl.gittobefit.workoutforms.object;
+package pl.gittobefit.WorkoutDisplay.objects;
 
 
 import java.util.ArrayList;

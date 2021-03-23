@@ -1,14 +1,12 @@
-package pl.gittobefit.workoutforms.object;
-
-import androidx.annotation.NonNull;
+package pl.gittobefit.WorkoutDisplay.objects;
 
 import java.util.ArrayList;
 
 public class TrainingPlan
 {
-    int id;
-    int trainingId;
-    private ArrayList<ExerciseExecution> exercisesExecutions = new ArrayList<>();
+   private int id;
+   private int trainingId;
+   private ArrayList<ExerciseExecution> exercisesExecutions = new ArrayList<>();
 
 
 

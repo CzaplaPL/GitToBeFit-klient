@@ -54,8 +54,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        HideKeyboardInterface hideKeyboard = (HomeFragment.HideKeyboardInterface) getActivity();
-        hideKeyboard.hideKey(getContext(),getView());
     }
 
     @Override
