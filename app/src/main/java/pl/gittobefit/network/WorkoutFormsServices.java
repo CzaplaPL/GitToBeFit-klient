@@ -1,5 +1,6 @@
 package pl.gittobefit.network;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.fragment.app.Fragment;
@@ -12,8 +13,10 @@ import java.util.Date;
 
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
+import pl.gittobefit.database.AppDataBase;
+import pl.gittobefit.database.repository.TrainingRepository;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
-import pl.gittobefit.network.object.WorkoutFormSend;
+import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
@@ -113,7 +116,7 @@ public class WorkoutFormsServices
         });
     }
 
-    public void getTrainingPlan(Fragment fragment, WorkoutFormSend form)
+    public void getTrainingPlan(Fragment fragment, WorkoutForm form)
     {
         Log.w("form","equipmentIDs" + form.getEquipmentIDs().toString() + " trainingType "+ form.getTrainingType() + " bodyParts " + form.getBodyParts() + " daysCount" + form.getDaysCount() + " scheduleType " + form.getScheduleType() + " duration " + form.getDuration());
 
@@ -137,7 +140,8 @@ public class WorkoutFormsServices
             }
 
             @Override
-            public void onFailure(Call<Training> call, Throwable t) {
+            public void onFailure(Call<Training> call, Throwable t)
+            {
                 Log.e("Network ", "WorkoutForms.getTrainingType error = " + t.toString());
             }
         });

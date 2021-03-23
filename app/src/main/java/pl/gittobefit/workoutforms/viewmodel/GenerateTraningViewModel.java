@@ -2,7 +2,6 @@ package pl.gittobefit.workoutforms.viewmodel;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import pl.gittobefit.R;
-import pl.gittobefit.network.object.WorkoutFormSend;
+import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.workoutforms.adapters.EquipmentAdapter;
 import pl.gittobefit.workoutforms.adapters.EquipmentList;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
@@ -233,6 +232,8 @@ scheduleSpinnerChose.setValue(position);
         {
             checked.add(getNoEquipmentid());
         }
+        if(checked.size()<1)
+            checked.add(getNoEquipmentid());
         return  checked;
     }
     public ArrayList<Equipment> getCheckedEqiupment()
@@ -246,7 +247,7 @@ scheduleSpinnerChose.setValue(position);
         checkedEqiupment.clear();
         checkedEqiupment.addAll(equipmentInRepo);
     }
-    public WorkoutFormSend getForm(Resources resources)
+    public WorkoutForm getForm(Resources resources)
     {
         String[] Type = resources.getStringArray(R.array.trening_type_name);
         String[] daysCount ;
@@ -257,20 +258,50 @@ scheduleSpinnerChose.setValue(position);
         {
             case 0:
                  daysCount = resources.getStringArray(R.array.split_duration);
-                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),Integer.parseInt(daysCount[getFrequencySpinnerChose().getValue()]),scheduleType[getScheduleSpinnerChose().getValue()],0);
+                return new WorkoutForm(
+                        getIdCheckedEqiupment(),
+                        Type[getTypeSpinnerChose().getValue()],
+                        getBodyPartsIdChecked(),
+                        Integer.parseInt(daysCount[getFrequencySpinnerChose().getValue()]),
+                        scheduleType[getScheduleSpinnerChose().getValue()],
+                        0);
 
                 case 1:
                 daysCount = resources.getStringArray(R.array.fbw_duration);
-                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),Integer.parseInt(daysCount[getFrequencySpinnerChose().getValue()]),scheduleType[getScheduleSpinnerChose().getValue()],0);
+                return new WorkoutForm(
+                        getIdCheckedEqiupment(),
+                        Type[getTypeSpinnerChose().getValue()],
+                        new ArrayList<String>(),
+                        Integer.parseInt(daysCount[getFrequencySpinnerChose().getValue()]),
+                        scheduleType[getScheduleSpinnerChose().getValue()],
+                        0);
             case 2:
                 duration = new int[] {9,12,15,18,21,24,27,30};
-                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),0,subtype[getWaySpinnerChose().getValue()],duration[getTimeCardioSpinnerChose().getValue()]);
+                return new WorkoutForm(
+                        getIdCheckedEqiupment(),
+                        Type[getTypeSpinnerChose().getValue()],
+                        new ArrayList<String>(),
+                        0,
+                        subtype[getWaySpinnerChose().getValue()],
+                        duration[getTimeCardioSpinnerChose().getValue()]);
             case 3:
                 duration = new int[] {15,18,21,24,27,30};
-                return new WorkoutFormSend(getIdCheckedEqiupment(),Type[getTypeSpinnerChose().getValue()],getBodyPartsIdChecked(),0,subtype[getWaySpinnerChose().getValue()],duration[getTimeFitnesSpinnerChose().getValue()]);
+                return new WorkoutForm(
+                        getIdCheckedEqiupment(),
+                        Type[getTypeSpinnerChose().getValue()],
+                        getBodyPartsIdChecked(),
+                        0,
+                        subtype[getWaySpinnerChose().getValue()],
+                        duration[getTimeFitnesSpinnerChose().getValue()]);
         }
 
-        return new WorkoutFormSend(getIdCheckedEqiupment(),"",getBodyPartsIdChecked(),0,"",0);
+        return new WorkoutForm(
+                getIdCheckedEqiupment(),
+                "",
+                getBodyPartsIdChecked(),
+                0,
+                "",
+                0);
     }
 
     private ArrayList<String> getBodyPartsIdChecked()

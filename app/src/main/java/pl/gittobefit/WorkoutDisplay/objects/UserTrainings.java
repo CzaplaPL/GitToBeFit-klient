@@ -3,6 +3,8 @@ package pl.gittobefit.WorkoutDisplay.objects;
 
 import java.util.ArrayList;
 
+
+
 public class UserTrainings
 {
     private static volatile UserTrainings INSTANCE;

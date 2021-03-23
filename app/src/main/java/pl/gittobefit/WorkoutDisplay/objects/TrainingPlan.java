@@ -9,6 +9,7 @@ public class TrainingPlan
    private ArrayList<ExerciseExecution> exercisesExecutions = new ArrayList<>();
 
 
+
     public int getId() {
         return id;
     }
