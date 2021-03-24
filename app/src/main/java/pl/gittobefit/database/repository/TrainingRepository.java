@@ -12,7 +12,7 @@ import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 public class TrainingRepository
 {
     private AppDataBase base;
-    TrainingRepository( AppDataBase base)
+    public TrainingRepository(AppDataBase base)
     {
         this.base = base;
     }

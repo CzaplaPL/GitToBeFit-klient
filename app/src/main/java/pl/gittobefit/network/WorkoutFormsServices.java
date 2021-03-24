@@ -130,6 +130,8 @@ public class WorkoutFormsServices
                   createTraining(response.body());
                     InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
                     model.setNumberOfClickedTraining(-999);
+                    TrainingRepository trainingRepository = new TrainingRepository(AppDataBase.getInstance(fragment.getContext()));
+                    trainingRepository.add(response.body());
                     Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
                 }
                 else
