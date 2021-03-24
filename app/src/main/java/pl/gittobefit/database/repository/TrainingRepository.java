@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.WorkoutDisplay.objects.TrainingPlan;
 import pl.gittobefit.database.AppDataBase;
+import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.entity.training.SavedTraining;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
+import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 
 
 public class TrainingRepository
@@ -33,6 +35,16 @@ public class TrainingRepository
     {
         return new ArrayList<>(base.training().getAllTraining());
     }
+
+    private ArrayList<Exercise> getExerciseForPlanList(ArrayList<ExerciseExecutionPOJODB> planList)
+    {
+        ArrayList<Exercise> toReturn =new ArrayList<>();
+        for(ExerciseExecutionPOJODB plan: planList )
+        {
+            toReturn.add(base.exercise().getExercise(plan.getExerciseId()));
+        }
+        return toReturn;
+    }
     private void saveExercise(ArrayList<TrainingPlan> planList)
     {
         for(int i = 0; i < planList.size(); i++)
@@ -44,4 +56,5 @@ public class TrainingRepository
             }
         }
     }
+
 }
