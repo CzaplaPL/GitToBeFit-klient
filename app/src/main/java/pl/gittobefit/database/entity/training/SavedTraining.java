@@ -88,4 +88,5 @@ public class SavedTraining
     {
         this.idUser = idUser;
     }
+
 }

@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import pl.gittobefit.database.entity.training.SavedTraining;
@@ -16,9 +17,17 @@ import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 public interface ITrainingDao
 {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addTraining(SavedTraining training);
+    long addTraining(SavedTraining training);
 
    @Transaction
-   @Query("SELECT * FROM WorkoutForm")
-   public List<TrainingWithForm> getTraining();
+   @Query("SELECT * FROM SavedTraining")
+   public List<TrainingWithForm> getAllTrainingWhitForm();
+
+    @Transaction
+    @Query("SELECT * FROM SavedTraining WHERE id = :id")
+    public TrainingWithForm getTraining(long id);
+
+    @Transaction
+    @Query("SELECT * FROM SavedTraining ")
+    public List<SavedTraining> getAllTraining();
 }

@@ -6,19 +6,34 @@ import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.WorkoutDisplay.objects.TrainingPlan;
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.training.SavedTraining;
-
+import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 
 
 public class TrainingRepository
 {
-    public void add(Training training, AppDataBase base)
+    private AppDataBase base;
+    TrainingRepository( AppDataBase base)
+    {
+        this.base = base;
+    }
+    public TrainingWithForm add(Training training)
     {
         long idForm = base.workoutForm().addForm(training.getTrainingForm());
-        saveExercise(training.getPlanList(), base);
-        base.training().addTraining(new SavedTraining(idForm, training.getPlanList()));
+        saveExercise(training.getPlanList());
+        long idTraining =base.training().addTraining(new SavedTraining(idForm, training.getPlanList()));
+        return base.training().getTraining(idTraining);
     }
 
-    public void saveExercise(ArrayList<TrainingPlan> planList, AppDataBase base)
+    public TrainingWithForm getTraining(long id)
+    {
+        return base.training().getTraining(id);
+    }
+
+    public ArrayList<SavedTraining> getAllTraining()
+    {
+        return new ArrayList<>(base.training().getAllTraining());
+    }
+    private void saveExercise(ArrayList<TrainingPlan> planList)
     {
         for(int i = 0; i < planList.size(); i++)
         {
