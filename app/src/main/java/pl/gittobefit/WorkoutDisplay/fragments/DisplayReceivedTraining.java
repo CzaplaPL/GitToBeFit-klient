@@ -1,6 +1,7 @@
 package pl.gittobefit.WorkoutDisplay.fragments;
 
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -60,8 +62,8 @@ public class DisplayReceivedTraining extends Fragment
         super.onViewCreated(view, savedInstanceState);
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
         model.getPosition().observe(getViewLifecycleOwner(), integer -> index = integer);
-
     }
+
 
     @Override
     public void onResume() {
@@ -86,7 +88,6 @@ public class DisplayReceivedTraining extends Fragment
                     ExerciseExecution exerciseExecution = new ExerciseExecution();
                     exercise = new Exercise();
                     exercise.setName(AppDataBase.getInstance(getContext()).exercise().getExerciseList(savedTraining.getPlanList().get(k).get(j).getExerciseId()).getName());
-                    System.out.println(AppDataBase.getInstance(getContext()).exercise().getExerciseList(savedTraining.getPlanList().get(k).get(j).getExerciseId()).getName());
                     exerciseExecution.setExercise(exercise);
                     exerciseExecution.setCount(savedTraining.getPlanList().get(k).get(j).getCount());
                     exerciseExecution.setSeries(savedTraining.getPlanList().get(k).get(j).getSeries());
@@ -99,6 +100,7 @@ public class DisplayReceivedTraining extends Fragment
                 trainingPlanArrayList.add(trainingPlan);
                 training.setPlanList(trainingPlanArrayList);
                 UserTrainings.getInstance().getTraining(index).setPlanList(trainingPlanArrayList);
+
             }
         }
 
@@ -162,14 +164,24 @@ public class DisplayReceivedTraining extends Fragment
             buttonArrayList.get(i).setVisibility(View.GONE);
         }
 
-         Button editTrainingNameButton = getView().findViewById(R.id.editTrainingNameButton);
-        editTrainingNameButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(getView()).navigate(R.id. training_to_edit_name_action);
-                System.out.println("Elo");
-            }
+        Button editTrainingNameButton = getView().findViewById(R.id.editTrainingNameButton);
+        editTrainingNameButton.setOnClickListener(v -> {
+            //Navigation.findNavController(getView()).navigate(R.id. training_to_edit_name_action);
+            Bundle args = new Bundle();
+            args.putInt("sc1", index);
+
+
+            EditTrainingNameDialog dialog = new EditTrainingNameDialog(getView());
+            dialog.setArguments(args);
+            dialog.show(getFragmentManager(),"dialog");
+
+
+
+        });
+
+        Button deleteTrainingButton = getView().findViewById(R.id.deleteTraining);
+        deleteTrainingButton.setOnClickListener(v -> {
+            Navigation.findNavController(getView()).navigate(R.id. reload);
         });
 
 

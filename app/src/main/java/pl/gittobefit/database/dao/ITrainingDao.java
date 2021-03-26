@@ -37,4 +37,7 @@ public interface ITrainingDao
 
     @Query("SELECT * FROM SavedTraining WHERE id = :id")
     public SavedTraining getOneTraining(long id);
+
+    @Query("UPDATE SavedTraining SET trainingName = :newName WHERE id = :id")
+    public void updateTrainingNameInDataBase(String newName ,long id);
 }

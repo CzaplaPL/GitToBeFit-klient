@@ -138,7 +138,7 @@
         android:label="EditTrainingName" >
         <action
             android:id="@+id/action_editTrainingNameDialog_to_displayTrainingFragment"
-            app:destination="@id/displayReceivedTraining" />
+            app:destination="@id/listOfTrainings" />
     </dialog>
 
     <fragment
@@ -149,6 +149,9 @@
         <action
             android:id="@+id/training_to_edit_name_action"
             app:destination="@id/editTrainingNameDialog" />
+        <action
+            android:id="@+id/reload"
+            app:destination="@id/displayReceivedTraining" />
     </fragment>
     <action
         android:id="@+id/action_global_logout"
