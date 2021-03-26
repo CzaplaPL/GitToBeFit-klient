@@ -151,7 +151,9 @@
             app:destination="@id/editTrainingNameDialog" />
         <action
             android:id="@+id/reload"
-            app:destination="@id/displayReceivedTraining" />
+            app:destination="@id/displayReceivedTraining"
+            app:popUpTo="@+id/displayReceivedTraining"
+            app:popUpToInclusive="true"/>
     </fragment>
     <action
         android:id="@+id/action_global_logout"
