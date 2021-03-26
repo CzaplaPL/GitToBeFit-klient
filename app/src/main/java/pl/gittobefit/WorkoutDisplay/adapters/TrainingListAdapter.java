@@ -26,6 +26,7 @@ public class TrainingListAdapter extends RecyclerView.Adapter<TrainingListAdapte
     {
         private TextView TrainingTypeTextView;
         private TextView GenerationTrainingDateTextView;
+        private TextView TrainingName;
 
         public ViewHolder (View view)
         {
@@ -33,6 +34,7 @@ public class TrainingListAdapter extends RecyclerView.Adapter<TrainingListAdapte
 
             TrainingTypeTextView = (TextView) view.findViewById(R.id.list_of_trainings_training_type);
             GenerationTrainingDateTextView = (TextView) view.findViewById(R.id.training_additional_info);
+            TrainingName = (TextView) view.findViewById(R.id.training_name);
         }
     }
 
@@ -56,6 +58,8 @@ public class TrainingListAdapter extends RecyclerView.Adapter<TrainingListAdapte
         holder.TrainingTypeTextView.setText(trainingArrayList.get(position).getTrainingForm().getTrainingType());
 
         holder.GenerationTrainingDateTextView.setText(trainingArrayList.get(position).getGenerationDate());
+
+        holder.TrainingName.setText(trainingArrayList.get(position).getTrainingName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener()
         {

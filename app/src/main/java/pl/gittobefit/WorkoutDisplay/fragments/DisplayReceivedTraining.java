@@ -14,16 +14,27 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.adapters.ExerciseListAdapter;
+import pl.gittobefit.WorkoutDisplay.dialog.EditTrainingNameDialog;
+import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
+import pl.gittobefit.WorkoutDisplay.objects.Training;
+import pl.gittobefit.WorkoutDisplay.objects.TrainingPlan;
 import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
+import pl.gittobefit.database.AppDataBase;
+import pl.gittobefit.database.entity.training.Exercise;
+import pl.gittobefit.database.entity.training.SavedTraining;
+import pl.gittobefit.database.entity.training.WorkoutForm;
+import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 
 public class DisplayReceivedTraining extends Fragment
 {
@@ -49,6 +60,7 @@ public class DisplayReceivedTraining extends Fragment
         super.onViewCreated(view, savedInstanceState);
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
         model.getPosition().observe(getViewLifecycleOwner(), integer -> index = integer);
+
     }
 
     @Override
@@ -56,9 +68,46 @@ public class DisplayReceivedTraining extends Fragment
 
         super.onResume();
 
+
+        if (UserTrainings.getInstance().getTraining(index).getPlanList().size() == 0)
+        {
+            SavedTraining savedTraining = AppDataBase.getInstance(getContext()).training().getOneTraining(index+1);
+            TrainingPlan trainingPlan;
+            Training training = new Training();
+            Exercise exercise;
+            ArrayList<ExerciseExecution> exerciseExecutionArrayList;
+            ArrayList<TrainingPlan> trainingPlanArrayList;
+            trainingPlanArrayList = new ArrayList<>();
+            for (int k = 0; k < savedTraining.getPlanList().size(); k++)
+            {
+                exerciseExecutionArrayList = new ArrayList<>();
+                for (int j = 0; j < savedTraining.getPlanList().get(k).size(); j++)
+                {
+                    ExerciseExecution exerciseExecution = new ExerciseExecution();
+                    exercise = new Exercise();
+                    exercise.setName(AppDataBase.getInstance(getContext()).exercise().getExerciseList(savedTraining.getPlanList().get(k).get(j).getExerciseId()).getName());
+                    System.out.println(AppDataBase.getInstance(getContext()).exercise().getExerciseList(savedTraining.getPlanList().get(k).get(j).getExerciseId()).getName());
+                    exerciseExecution.setExercise(exercise);
+                    exerciseExecution.setCount(savedTraining.getPlanList().get(k).get(j).getCount());
+                    exerciseExecution.setSeries(savedTraining.getPlanList().get(k).get(j).getSeries());
+                    exerciseExecution.setTime(savedTraining.getPlanList().get(k).get(j).getTime());
+                    exerciseExecutionArrayList.add(exerciseExecution);
+                }
+                trainingPlan = new TrainingPlan();
+                trainingPlan.setExercisesExecutions(exerciseExecutionArrayList);
+
+                trainingPlanArrayList.add(trainingPlan);
+                training.setPlanList(trainingPlanArrayList);
+                UserTrainings.getInstance().getTraining(index).setPlanList(trainingPlanArrayList);
+            }
+        }
+
+
+
         TextView trainingType = getView().findViewById(R.id.trainingType);
         TextView trainingForm = getView().findViewById(R.id.trainingForm);
         TextView trainingDuration = getView().findViewById(R.id.trainingDuration);
+        TextView trainingName = getView().findViewById(R.id.trainingName);
 
 
         RelativeLayout relativeLayout1 = getView().findViewById(R.id.layout0);
@@ -112,6 +161,16 @@ public class DisplayReceivedTraining extends Fragment
             buttonArrayList.get(i).setCompoundDrawablesWithIntrinsicBounds(null, null, rightDrawable, null);
             buttonArrayList.get(i).setVisibility(View.GONE);
         }
+
+         Button editTrainingNameButton = getView().findViewById(R.id.editTrainingNameButton);
+        editTrainingNameButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getView()).navigate(R.id. training_to_edit_name_action);
+                System.out.println("Elo");
+            }
+        });
 
 
 
@@ -219,6 +278,7 @@ public class DisplayReceivedTraining extends Fragment
             if(index ==  -999)
             {
                 String trainingTypeDisplay = "Rodzaj treningu: " + UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getTrainingType().toLowerCase();
+                String nameOfTraining = "Nazwa treningu: " + UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingName();
                 String durationDisplay = "";
                 String scheduleTypeDisplay = "";
                 switch (UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getTrainingType()) {
@@ -254,6 +314,7 @@ public class DisplayReceivedTraining extends Fragment
                         break;
                 }
 
+                trainingName.setText(nameOfTraining);
                 trainingType.setText(trainingTypeDisplay);
                 trainingForm.setText(scheduleTypeDisplay);
                 trainingDuration.setText(durationDisplay);
@@ -275,6 +336,7 @@ public class DisplayReceivedTraining extends Fragment
             else
             {
                 String trainingTypeDisplay = "Rodzaj treningu: " + UserTrainings.getInstance().getTraining(index).getTrainingForm().getTrainingType().toLowerCase();
+                String nameOfTraining = "Nazwa treningu: " + UserTrainings.getInstance().getTraining(index).getTrainingName();
                 String durationDisplay = "";
                 String scheduleTypeDisplay = "";
                 switch (UserTrainings.getInstance().getTraining(index).getTrainingForm().getTrainingType()) {
@@ -309,7 +371,7 @@ public class DisplayReceivedTraining extends Fragment
                         day1Button.setVisibility(View.VISIBLE);
                         break;
                 }
-
+                trainingName.setText(nameOfTraining);
                 trainingType.setText(trainingTypeDisplay);
                 trainingForm.setText(scheduleTypeDisplay);
                 trainingDuration.setText(durationDisplay);
@@ -328,10 +390,6 @@ public class DisplayReceivedTraining extends Fragment
                     recyclerViewArrayList.get(i).setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
                 }
             }
-
-
-
-
         }
     }
 }

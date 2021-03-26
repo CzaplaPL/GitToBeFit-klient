@@ -29,4 +29,24 @@ public class ExerciseExecution
     public Exercise getExercise() {
         return exercise;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    public void setSeries(int series) {
+        this.series = series;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
+    }
 }

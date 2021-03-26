@@ -20,7 +20,7 @@ public class TrainingRepository
     {
         long idForm = base.workoutForm().addForm(training.getTrainingForm());
         saveExercise(training.getPlanList());
-        long idTraining =base.training().addTraining(new SavedTraining(idForm, training.getPlanList()));
+        long idTraining = base.training().addTraining(new SavedTraining(idForm, training.getPlanList()));
         return base.training().getTraining(idTraining);
     }
 

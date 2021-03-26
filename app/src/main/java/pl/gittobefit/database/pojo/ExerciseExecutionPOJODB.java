@@ -32,4 +32,8 @@ public class ExerciseExecutionPOJODB
     {
         return count;
     }
+
+    public int getExerciseId() {
+        return exerciseId;
+    }
 }

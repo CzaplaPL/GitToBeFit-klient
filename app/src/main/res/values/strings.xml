@@ -52,11 +52,13 @@
     <string name="type_of_training">Rodzaj treningu:</string>
     <string name="form_of_training">Forma treningu:</string>
     <string name="duration_of_training">Czas treningu:</string>
+    <string name="name_of_training">Nazwa treningu:</string>
     <string name="day_1">Dzień 1</string>
     <string name="day_2">Dzień 2</string>
     <string name="day_3">Dzień 3</string>
     <string name="day_4">Dzień 4</string>
     <string name="day_5">Dzień 5</string>
+    <string name="edit_training_name">Edytuj nazwę treningu.</string>
 
     <string name="loading">trwa wczytywanie...</string>
     <string name="generateTrainingForm">Generate Training</string>
