@@ -16,10 +16,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import java.util.List;
+
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.AppDataBase;
+import pl.gittobefit.database.entity.training.SavedTraining;
 
 public class EditTrainingNameDialog extends AppCompatDialogFragment
 {
@@ -53,8 +56,10 @@ public class EditTrainingNameDialog extends AppCompatDialogFragment
                         sc1 = UserTrainings.getInstance().getTrainingArrayList().size()-1;
                     }
 
+                    List<SavedTraining> result2 = AppDataBase.getInstance(getContext()).training().getInfoForTrainingList();
+
                     UserTrainings.getInstance().getTraining(sc1).setTrainingName(newTrainingName);
-                    AppDataBase.getInstance(getContext()).training().updateTrainingNameInDataBase(newTrainingName,sc1+1);
+                    AppDataBase.getInstance(getContext()).training().updateTrainingNameInDataBase(newTrainingName,result2.get(sc1).getId());
                     Navigation.findNavController(myView).navigate(R.id. reload);
 
                 });
