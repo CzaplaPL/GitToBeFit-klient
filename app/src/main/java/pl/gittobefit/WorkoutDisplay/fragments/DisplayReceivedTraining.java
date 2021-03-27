@@ -73,7 +73,8 @@ public class DisplayReceivedTraining extends Fragment
 
         if (index != -999 && UserTrainings.getInstance().getTraining(index).getPlanList().size() == 0)
         {
-            SavedTraining savedTraining = AppDataBase.getInstance(getContext()).training().getOneTraining(index + 1);
+            List<SavedTraining> result2 = AppDataBase.getInstance(getContext()).training().getInfoForTrainingList();
+            SavedTraining savedTraining = AppDataBase.getInstance(getContext()).training().getOneTraining(result2.get(index).getId());
             TrainingPlan trainingPlan;
             Training training = new Training();
             Exercise exercise;
