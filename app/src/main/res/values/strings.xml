@@ -59,6 +59,7 @@
     <string name="day_4">Dzień 4</string>
     <string name="day_5">Dzień 5</string>
     <string name="edit_training_name">Edytuj nazwę treningu.</string>
+    <string name="delete_training">Czy na pewno chcesz usunąć ten trening?</string>
 
     <string name="loading">trwa wczytywanie...</string>
     <string name="generateTrainingForm">Generate Training</string>

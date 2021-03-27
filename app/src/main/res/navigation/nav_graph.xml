@@ -141,6 +141,15 @@
             app:destination="@id/listOfTrainings" />
     </dialog>
 
+    <dialog
+        android:id="@+id/deleteTrainingDialog"
+        android:name="pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog"
+        android:label="DeleteTrainingName" >
+        <action
+            android:id="@+id/action_editTrainingNameDialog_to_displayTrainingFragment"
+            app:destination="@id/listOfTrainings" />
+    </dialog>
+
     <fragment
         android:id="@+id/displayReceivedTraining"
         android:name="pl.gittobefit.WorkoutDisplay.fragments.DisplayReceivedTraining"
@@ -149,6 +158,11 @@
         <action
             android:id="@+id/training_to_edit_name_action"
             app:destination="@id/editTrainingNameDialog" />
+        <action
+            android:id="@+id/training_to_delete_action"
+            app:destination="@id/listOfTrainings"
+            app:popUpTo="@+id/list_of_trainings"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/reload"
             app:destination="@id/displayReceivedTraining"

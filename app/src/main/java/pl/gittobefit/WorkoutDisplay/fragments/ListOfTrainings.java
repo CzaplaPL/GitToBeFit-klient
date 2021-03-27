@@ -48,23 +48,26 @@ public class ListOfTrainings extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         if (UserTrainings.getInstance().getTrainingArrayList().size() == 0)
         {
             List<WorkoutForm> result = AppDataBase.getInstance(getContext()).workoutForm().getTrainingsFrom();
             List<SavedTraining> result2 = AppDataBase.getInstance(getContext()).training().getInfoForTrainingList();
+            if (result2.size() != 0)
+            {
+                Training training;
 
+                for (int i = 0; i < result.size(); i++) {
+                    training = new Training();
+                    training.setTrainingForm(new WorkoutForm(null, result.get(i).getTrainingType(), null, result.get(i).getDaysCount(), result.get(i).getScheduleType(), result.get(i).getDuration()));
+                    training.setTrainingName(result2.get(i).getTrainingName());
+                    training.setGenerationDate(result2.get(i).getGenerationDate());
+                    training.setId(result2.get(i).getId());
 
-            Training training;
-
-            for (int i = 0; i < result.size(); i++) {
-                training = new Training();
-                training.setTrainingForm(new WorkoutForm(null, result.get(i).getTrainingType(), null, result.get(i).getDaysCount(), result.get(i).getScheduleType(), result.get(i).getDuration()));
-                training.setTrainingName(result2.get(i).getTrainingName());
-                training.setGenerationDate(result2.get(i).getGenerationDate());
-                training.setId(result2.get(i).getId());
-
-                UserTrainings.getInstance().add(training);
+                    UserTrainings.getInstance().add(training);
+                }
             }
+
         }
 
         RecyclerView recyclerView = getView().findViewById(R.id.list_of_trainings);

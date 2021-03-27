@@ -19,4 +19,7 @@ public interface IFormDao
 
     @Query("SELECT * FROM WorkoutForm")
     List<WorkoutForm> getTrainingsFrom();
+
+    @Query("DELETE FROM WorkoutForm  WHERE FormId = :id")
+    public void deleteFormInDataBase(long id);
 }

@@ -26,6 +26,7 @@ import java.util.List;
 
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.adapters.ExerciseListAdapter;
+import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.EditTrainingNameDialog;
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
@@ -70,10 +71,9 @@ public class DisplayReceivedTraining extends Fragment
 
         super.onResume();
 
-
-        if (UserTrainings.getInstance().getTraining(index).getPlanList().size() == 0)
+        if (index != -999 && UserTrainings.getInstance().getTraining(index).getPlanList().size() == 0)
         {
-            SavedTraining savedTraining = AppDataBase.getInstance(getContext()).training().getOneTraining(index+1);
+            SavedTraining savedTraining = AppDataBase.getInstance(getContext()).training().getOneTraining(index + 1);
             TrainingPlan trainingPlan;
             Training training = new Training();
             Exercise exercise;
@@ -166,22 +166,22 @@ public class DisplayReceivedTraining extends Fragment
 
         Button editTrainingNameButton = getView().findViewById(R.id.editTrainingNameButton);
         editTrainingNameButton.setOnClickListener(v -> {
-            //Navigation.findNavController(getView()).navigate(R.id. training_to_edit_name_action);
             Bundle args = new Bundle();
             args.putInt("sc1", index);
 
-
-            EditTrainingNameDialog dialog = new EditTrainingNameDialog(getView());
-            dialog.setArguments(args);
-            dialog.show(getFragmentManager(),"dialog");
-
-
-
+            EditTrainingNameDialog editTrainingNameDialog = new EditTrainingNameDialog(getView());
+            editTrainingNameDialog.setArguments(args);
+            editTrainingNameDialog.show(getFragmentManager(),"dialog");
         });
 
         Button deleteTrainingButton = getView().findViewById(R.id.deleteTraining);
         deleteTrainingButton.setOnClickListener(v -> {
-            Navigation.findNavController(getView()).navigate(R.id. reload);
+            Bundle args = new Bundle();
+            args.putInt("sc1", index);
+
+            DeleteTrainingDialog deleteTrainingDialog = new DeleteTrainingDialog(getView());
+            deleteTrainingDialog.setArguments(args);
+            deleteTrainingDialog.show(getFragmentManager(),"dialog");
         });
 
 
