@@ -7,6 +7,16 @@ import android.content.Context;
  */
 public class User
 {
+    public SynchroniseTraining getSynchroniseTraining()
+    {
+        return synchroniseTraining;
+    }
+
+    public void setSynchroniseTraining(SynchroniseTraining synchroniseTraining)
+    {
+        this.synchroniseTraining = synchroniseTraining;
+    }
+
     public enum WayOfLogin
     {
         NO_LOGIN,
@@ -15,11 +25,19 @@ public class User
         FACEBOOK
     }
 
+    public enum SynchroniseTraining
+    {
+        No_Synchronise,
+        Start_Synchronise,
+        Synchronise_Success,
+        Synchronise_error
+    }
+
     private String email ="" ;
     private String auth ="";
     private String idSerwer = "";
     private WayOfLogin loggedBy = WayOfLogin.NO_LOGIN;
-
+    private SynchroniseTraining synchroniseTraining = SynchroniseTraining.No_Synchronise;
     private static volatile User INSTANCE;
 
     /**
@@ -43,35 +61,19 @@ public class User
     }
 
     /**
-     * funkcja dodaje użytkownika
-     * @param email email
-     * @param password hasło
-     * @param auth auth naszego serwera
-     * @param id idserwera
-     * @param context context
-     * @author czapla
-     */
-    public void add(String email, String password, String auth, String id, WayOfLogin loggedBy, Context context)
-    {
-        this.email=email;
-        this.idSerwer =id;
-        this.auth=auth;
-        this.loggedBy = loggedBy;
-    }
-    /**
      * funkcja dodaje uzytkownika z pustym hasłem
      * @param email email
      * @param auth auth naszego serwera
      * @param id idserwera
-     * @param context context
      * @author czapla
      */
-    public void add(String email, String auth, String id, WayOfLogin loggedBy, Context context)
+    public void add(String email, String auth, String id, WayOfLogin loggedBy)
     {
         this.email=email;
         this.idSerwer =id;
         this.auth=auth;
         this.loggedBy = loggedBy;
+        this.synchroniseTraining = SynchroniseTraining.No_Synchronise;
     }
 
     public String getIdSerwer()

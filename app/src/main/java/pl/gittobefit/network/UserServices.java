@@ -74,7 +74,7 @@ public class UserServices
                         {
                             if(response2.isSuccessful())
                             {
-                                User.getInstance().add(email, password, response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.OUR_SERVER, fragment.getContext());
+                                User.getInstance().add(email,  response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.OUR_SERVER);
                                 AppDataBase.getInstance(fragment.getContext()).user().addUser(new UserEntity(Integer.parseInt(Objects.requireNonNull(response2.headers().get("idUser"))),email, response.headers().get("Authorization")));
                                 fragment.loginSuccess();
                             }else
@@ -167,7 +167,7 @@ public class UserServices
                         {
                             if(response2.isSuccessful())
                             {
-                                User.getInstance().add(email, response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.GOOGLE, fragment.getContext());
+                                User.getInstance().add(email, response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.GOOGLE);
                                 AppDataBase.getInstance(fragment.getContext()).user().addUser(new UserEntity(Integer.parseInt(response2.headers().get("idUser")),email, response.headers().get("Authorization")));
                                 fragment.loginSuccess();
                             }else
@@ -233,7 +233,7 @@ public class UserServices
                 if(response.isSuccessful())
                 {
                     Log.d("logowanie fb ", "zalogowano");
-                    User.getInstance().add(response.headers().get("email"), response.headers().get("Authorization"), response.headers().get("idUser"), User.WayOfLogin.FACEBOOK, fragment.getContext());
+                    User.getInstance().add(response.headers().get("email"), response.headers().get("Authorization"), response.headers().get("idUser"), User.WayOfLogin.FACEBOOK);
                     fragment.loginSuccess();
                 }else
                 {
@@ -495,7 +495,7 @@ public class UserServices
                     Log.w("Autologwanie  ", "  sukces");
                     System.out.println("Kod zwracany przez autoLog: " + response.code());
                     AppDataBase.getInstance(fragment.getContext()).user().setToken(response.headers().get("Authorization"),userEntity.getId());
-                    User.getInstance().add(userEntity.getEmail(), response.headers().get("Authorization"), String.valueOf(userEntity.getId()), User.WayOfLogin.OUR_SERVER, fragment.getContext());
+                    User.getInstance().add(userEntity.getEmail(), response.headers().get("Authorization"), String.valueOf(userEntity.getId()), User.WayOfLogin.OUR_SERVER);
                     fragment.loginSuccess();
                 }
                 else

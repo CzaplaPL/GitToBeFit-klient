@@ -10,6 +10,14 @@ public class Training
     private ArrayList<TrainingPlan> planList = new ArrayList<>();
     private String generationDate;
 
+    public Training(){}
+
+    public Training(WorkoutForm form, ArrayList<TrainingPlan> trainingPlansServer)
+    {
+        this.trainingForm = form;
+        planList=trainingPlansServer;
+    }
+
 
     public WorkoutForm getTrainingForm() {
         return trainingForm;

@@ -37,7 +37,7 @@ public class SavedTraining
             ArrayList<ExerciseExecutionPOJODB> savePlan = new ArrayList<>();
             for(int j = 0; j < readPlan.getExercisesExecutions().size(); j++)
             {
-                savePlan.add(new ExerciseExecutionPOJODB(readPlan.getExerciseExecution(j)));
+                savePlan.add(new ExerciseExecutionPOJODB(readPlan.getExerciseExecution(j),readPlan.getId(),readPlan.getTrainingId()));
             }
             this.planList.add(savePlan);
         }

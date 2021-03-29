@@ -8,6 +8,14 @@ public class TrainingPlan
    private int trainingId;
    private ArrayList<ExerciseExecution> exercisesExecutions = new ArrayList<>();
 
+    public TrainingPlan() {}
+
+    public TrainingPlan(ArrayList<ExerciseExecution> exerciseExecutions, int idPlanList, int idTraining)
+    {
+        this.exercisesExecutions =exerciseExecutions;
+        this.id=idPlanList;
+        this.trainingId=idTraining;
+    }
 
 
     public int getId() {
