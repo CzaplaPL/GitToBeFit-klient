@@ -12,6 +12,7 @@
     <style name="Theme.GitToBeFit.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/background_activity</item>
         <item name="colorPrimary">@color/ourGreen</item>
+        <item name="background">@drawable/background_activity</item>
         <item name="colorPrimaryVariant">@color/ourWhite</item>
         <item name="colorOnSurface">@color/ourWhite</item>
         <item name="colorOnPrimary">@color/ourGray</item>
