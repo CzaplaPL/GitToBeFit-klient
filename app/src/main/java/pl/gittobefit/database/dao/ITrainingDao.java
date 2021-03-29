@@ -16,6 +16,7 @@ import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 @Dao
 public interface ITrainingDao
 {
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long addTraining(SavedTraining training);
 
@@ -37,5 +38,5 @@ public interface ITrainingDao
 
     @Transaction
     @Query("UPDATE SavedTraining SET idUser = :id WHERE idUser=\"\" ")
-    List<TrainingWithForm> addUserForTrainings(String id);
+    void addUserForTrainings(String id);
 }

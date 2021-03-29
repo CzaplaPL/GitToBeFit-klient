@@ -127,7 +127,7 @@ public class WorkoutFormsServices
             public void onResponse(Call<Training> call, Response<Training> response) {
                 if(response.isSuccessful())
                 {
-                  createTraining(response.body());
+                    createTraining(response.body());
                     InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
                     model.setNumberOfClickedTraining(-999);
                     Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);

@@ -42,45 +42,34 @@ public class TrainingServices
         training = adapter.create(ITrainingServices.class);
     }
 
-    public void sendTrainings(ArrayList<Training> trainings)
-    {
-        Log.w("Network", "Trainings.sendTrainings");
-        Call<Void> call = training.sendTraining(User.getInstance().getToken(),User.getInstance().getIdSerwer(),trainings);
-        call.enqueue(new Callback<Void>()
-        {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response)
-            {
-                if(!response.isSuccessful())
-                {
-                    Log.e("Network ", "Trainings.sendTrainings error " +String.valueOf(response.code()));
-                    LogUtils.logCause(response.headers().get("Cause"));
-                }
-            }
-            @Override
-            public void onFailure(Call<Void> call, Throwable t)
-            {
-                Log.e("Network ", "Trainings.sendTrainings error = " + t.toString());
-            }
-        });
-    }
+
 
     public void synchronisedTraining(Context context) throws Exception
     {
         Log.w("Network", "Trainings.synchronisedTraining");
         TrainingRepository repository=new TrainingRepository(AppDataBase.getInstance(context));
-        ArrayList<Training> tmp = repository.getTrainingsToSend();
-        Call<Void> sendCall = training.sendTraining(User.getInstance().getToken(),User.getInstance().getIdSerwer(),tmp);
+        Call<ArrayList<Training>> getCall = training.getTrainings(User.getInstance().getToken(),User.getInstance().getIdSerwer());
+        Response<ArrayList<Training>> getResponse = getCall.execute();
+        if(!getResponse.isSuccessful())
+        {
+            Log.e("Network","Trainings.SendTraining " + String.valueOf(getResponse.code()));;
+            LogUtils.logCause(getResponse.headers().get("Cause"));
+            throw new Exception("get Training not work");
+        }
+        for(Training training: getResponse.body())
+        {
+            repository.add(training);
+        }
+        Call<Void> sendCall = training.sendTrainings(User.getInstance().getToken(),User.getInstance().getIdSerwer(),repository.getTrainingsToSend());
         Response<Void>  sendResponse = sendCall.execute();
         if(!sendResponse.isSuccessful())
         {
-            Log.e("Network","Trainings.SendTraining " + String.valueOf(sendResponse.code()));
+            Log.e("Network","Trainings.SendTraining " + String.valueOf(sendResponse.code()));;
             LogUtils.logCause(sendResponse.headers().get("Cause"));
             throw new Exception("Send Training not work");
         }
         repository.synchroniseUser();
-
-
-
+        Log.w("Network", "Trainings.synchronisedTraining sukces");
+        User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.Synchronise_Success);
     }
 }
