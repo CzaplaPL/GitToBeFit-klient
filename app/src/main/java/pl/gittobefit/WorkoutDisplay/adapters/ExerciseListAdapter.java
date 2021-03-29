@@ -20,15 +20,15 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     private ArrayList<ExerciseExecution> exerciseArrayList;
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        private TextView textView1;
-        private TextView textView2;
+        private TextView exerciseName;
+        private TextView exerciseInfo;
 
         public ViewHolder (View view)
         {
             super(view);
 
-            textView1 = (TextView) view.findViewById(R.id.exercise_name);
-            textView2 = (TextView) view.findViewById(R.id.exercise_additional_info);
+            exerciseName = (TextView) view.findViewById(R.id.exercise_name);
+            exerciseInfo = (TextView) view.findViewById(R.id.exercise_additional_info);
         }
     }
 
@@ -47,7 +47,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView1.setText(exerciseArrayList.get(position).getExercise().getName());
+        holder.exerciseName.setText(exerciseArrayList.get(position).getExercise().getName());
         String text = "";
         if (exerciseArrayList.get(position).getTime() > 20)
         {
@@ -58,7 +58,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
             text = exerciseArrayList.get(position).getSeries() + " serie, " + exerciseArrayList.get(position).getCount() + " powtórzeń";
         }
 
-        holder.textView2.setText(text);
+        holder.exerciseInfo.setText(text);
     }
 
 
