@@ -21,7 +21,7 @@ public interface ITrainingDao
 
    @Transaction
    @Query("SELECT * FROM SavedTraining")
-   public List<TrainingWithForm> getAllTrainingWhitForm();
+   public List<TrainingWithForm> getAllTrainingWitForm();
 
     @Transaction
     @Query("SELECT * FROM SavedTraining WHERE id = :id")
@@ -29,9 +29,13 @@ public interface ITrainingDao
 
     @Transaction
     @Query("SELECT * FROM SavedTraining ")
-    public List<SavedTraining> getAllTraining();
+    public List<SavedTraining> getAllTrainings();
 
     @Transaction
     @Query("SELECT * FROM SavedTraining  WHERE idUser=:id ")
     List<TrainingWithForm> getAllTrainingForUser(String id);
+
+    @Transaction
+    @Query("UPDATE SavedTraining SET idUser = :id WHERE idUser=\"\" ")
+    List<TrainingWithForm> addUserForTrainings(String id);
 }

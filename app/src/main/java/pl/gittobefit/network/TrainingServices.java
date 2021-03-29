@@ -78,6 +78,8 @@ public class TrainingServices
             LogUtils.logCause(sendResponse.headers().get("Cause"));
             throw new Exception("Send Training not work");
         }
+        repository.synchroniseUser();
+
 
 
     }

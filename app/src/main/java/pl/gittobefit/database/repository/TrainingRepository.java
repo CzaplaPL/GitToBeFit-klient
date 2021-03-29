@@ -24,7 +24,7 @@ public class TrainingRepository
     {
         long idForm = base.workoutForm().addForm(training.getTrainingForm());
         saveExercise(training.getPlanList());
-        long idTraining =base.training().addTraining(new SavedTraining(idForm, training.getPlanList()));
+        long idTraining = base.training().addTraining(new SavedTraining(idForm, training.getPlanList()));
         return base.training().getTraining(idTraining);
     }
 
@@ -35,33 +35,12 @@ public class TrainingRepository
 
     public ArrayList<SavedTraining> getAllTraining()
     {
-        return new ArrayList<>(base.training().getAllTraining());
+        return new ArrayList<>(base.training().getAllTrainings());
     }
 
     public ArrayList<TrainingWithForm> getAllTrainingForUser(String id)
     {
         return new ArrayList<>(base.training().getAllTrainingForUser(id));
-    }
-
-    private ArrayList<Exercise> getExerciseForPlanList(ArrayList<ExerciseExecutionPOJODB> planList)
-    {
-        ArrayList<Exercise> toReturn =new ArrayList<>();
-        for(ExerciseExecutionPOJODB plan: planList )
-        {
-            toReturn.add(base.exercise().getExercise(plan.getExerciseId()));
-        }
-        return toReturn;
-    }
-    private void saveExercise(ArrayList<TrainingPlan> planList)
-    {
-        for(int i = 0; i < planList.size(); i++)
-        {
-            TrainingPlan plan = planList.get(i);
-            for(int j = 0; j < plan.getExercisesExecutions().size(); j++)
-            {
-                base.exercise().addExercise(plan.getExerciseExecution(j).getExercise());
-            }
-        }
     }
 
     public ArrayList<Training> getTrainingsToSend()
@@ -120,5 +99,32 @@ public class TrainingRepository
             trainingsToSend.add(new Training(trainingDB.form,trainingPlansServer));
         }
         return trainingsToSend;
+    }
+
+    public void synchroniseUser()
+    {
+        base.training().addUserForTrainings(User.getInstance().getIdSerwer());
+    }
+
+    private ArrayList<Exercise> getExerciseForPlanList(ArrayList<ExerciseExecutionPOJODB> planList)
+    {
+        ArrayList<Exercise> toReturn =new ArrayList<>();
+        for(ExerciseExecutionPOJODB plan: planList )
+        {
+            toReturn.add(base.exercise().getExercise(plan.getExerciseId()));
+        }
+        return toReturn;
+    }
+
+    private void saveExercise(ArrayList<TrainingPlan> planList)
+    {
+        for(int i = 0; i < planList.size(); i++)
+        {
+            TrainingPlan plan = planList.get(i);
+            for(int j = 0; j < plan.getExercisesExecutions().size(); j++)
+            {
+                base.exercise().addExercise(plan.getExerciseExecution(j).getExercise());
+            }
+        }
     }
 }
