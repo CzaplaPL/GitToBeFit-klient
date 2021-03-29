@@ -161,8 +161,8 @@
         <action
             android:id="@+id/training_to_delete_action"
             app:destination="@id/listOfTrainings"
-            app:popUpTo="@+id/list_of_trainings"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@+id/homeFragment"
+           />
         <action
             android:id="@+id/reload"
             app:destination="@id/displayReceivedTraining"
