@@ -1,6 +1,11 @@
 package pl.gittobefit.database.repository;
 
+import android.content.Context;
+
+import androidx.room.Room;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
@@ -16,10 +21,28 @@ import pl.gittobefit.user.User;
 public class TrainingRepository
 {
     private final AppDataBase base;
+    private Map<Long, TrainingWithForm> loadedTrainingWithForm;
+    private Map<Integer, Exercise> loadExercise;
+    private static volatile TrainingRepository INSTANCE;
 
-    public TrainingRepository(AppDataBase base)
+    private TrainingRepository(Context context)
     {
-        this.base = base;
+        this.base = AppDataBase.getInstance(context);
+    }
+
+    public static TrainingRepository getInstance(final Context context)
+    {
+        if(INSTANCE == null)
+        {
+            synchronized(TrainingRepository.class)
+            {
+                if(INSTANCE == null)
+                {
+                    INSTANCE = new TrainingRepository(context);
+                }
+            }
+        }
+        return INSTANCE;
     }
 
     public TrainingWithForm add(Training training)
@@ -27,22 +50,28 @@ public class TrainingRepository
         long idForm = base.workoutFormDao().addForm(training.getTrainingForm());
         saveExercise(training.getPlanList());
         long idTraining = base.trainingDao().addTraining(new SavedTraining(idForm, training.getPlanList()));
-        return base.trainingDao().getTraining(idTraining);
+        TrainingWithForm savedTraining = base.trainingDao().getTraining(idTraining);
+        loadedTrainingWithForm.put((long) savedTraining.training.getId(), savedTraining);
+        return savedTraining;
     }
 
     public TrainingWithForm getTraining(long id)
     {
-        return base.trainingDao().getTraining(id);
-    }
-
-    public ArrayList<SavedTraining> getAllTrainings()
-    {
-        return new ArrayList<>(base.trainingDao().getAllTrainings());
+        if(loadedTrainingWithForm.get(id) == null)
+        {
+            loadedTrainingWithForm.put(id, base.trainingDao().getTraining(id));
+        }
+        return loadedTrainingWithForm.get(id);
     }
 
     public ArrayList<TrainingWithForm> getAllTrainingsForUser(String id)
     {
-        return new ArrayList<>(base.trainingDao().getAllTrainingForUser(id));
+        ArrayList<TrainingWithForm> loadTraining = new ArrayList<>(base.trainingDao().getAllTrainingForUser(id));
+        for(TrainingWithForm training : loadTraining)
+        {
+            loadedTrainingWithForm.put((long) training.training.getId(), training);
+        }
+        return loadTraining;
     }
 
     public ArrayList<Training> getTrainingsToSend()
@@ -110,12 +139,16 @@ public class TrainingRepository
         base.trainingDao().addUserForTrainings(User.getInstance().getIdSerwer());
     }
 
-    private ArrayList<Exercise> getExerciseForPlanList(ArrayList<ExerciseExecutionPOJODB> planList)
+    public ArrayList<Exercise> getExerciseForPlanList(ArrayList<ExerciseExecutionPOJODB> planList)
     {
         ArrayList<Exercise> toReturn = new ArrayList<>();
         for(ExerciseExecutionPOJODB plan : planList)
         {
-            toReturn.add(base.exerciseDao().getExercise(plan.getExerciseId()));
+            if(loadExercise.get(plan.getExerciseId()) == null)
+            {
+                loadExercise.put(plan.getExerciseId(), base.exerciseDao().getExercise(plan.getExerciseId()));
+            }
+            toReturn.add(loadExercise.get(plan.getExerciseId()));
         }
         return toReturn;
     }
