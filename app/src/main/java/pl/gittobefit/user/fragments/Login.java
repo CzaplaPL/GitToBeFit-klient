@@ -1,8 +1,6 @@
 package pl.gittobefit.user.fragments;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Network;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +27,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.io.IOException;
 import java.util.Collections;
 
 import pl.gittobefit.HomeFragment;
@@ -93,7 +90,7 @@ public class Login extends Fragment implements View.OnClickListener
         GoogleLogin();
 
         //automatyczne logowanie nasz server
-        if(!AppDataBase.getInstance(getContext()).user().getUser().isEmpty())
+        if(!AppDataBase.getInstance(getContext()).userDao().getUser().isEmpty())
         {
             ConnectionToServer.getInstance().userServices.verify(this);
         }
@@ -125,7 +122,7 @@ public class Login extends Fragment implements View.OnClickListener
                     ConnectionToServer.getInstance().trainingServices.synchronisedTraining(getContext());
                 }catch(Exception e)
                 {
-                    User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.Synchronise_error);
+                    User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.Synchronize_error);
                     Log.e("Network", "Trainings.synchronisedTraining error "+ e.toString());
                 }
             }

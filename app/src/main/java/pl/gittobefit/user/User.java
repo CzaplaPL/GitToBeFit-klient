@@ -29,12 +29,12 @@ public class User
     {
         No_Synchronise,
         Start_Synchronise,
-        Synchronise_Success,
-        Synchronise_error
+        Synchronize_Success,
+        Synchronize_error
     }
 
-    private String email ="" ;
-    private String auth ="";
+    private String email = "";
+    private String auth = "";
     private String idSerwer = "";
     private WayOfLogin loggedBy = WayOfLogin.NO_LOGIN;
     private SynchroniseTraining synchroniseTraining = SynchroniseTraining.No_Synchronise;
@@ -42,16 +42,17 @@ public class User
 
     /**
      * pobieranie instancji usera
+     *
      * @return instancje usera
      * @author czapla
      */
     static public User getInstance()
     {
-        if (INSTANCE == null)
+        if(INSTANCE == null)
         {
-            synchronized (User.class)
+            synchronized(User.class)
             {
-                if (INSTANCE == null)
+                if(INSTANCE == null)
                 {
                     INSTANCE = new User();
                 }
@@ -62,16 +63,17 @@ public class User
 
     /**
      * funkcja dodaje uzytkownika z pustym hasłem
+     *
      * @param email email
-     * @param auth auth naszego serwera
-     * @param id idserwera
+     * @param auth  auth naszego serwera
+     * @param id    idserwera
      * @author czapla
      */
     public void add(String email, String auth, String id, WayOfLogin loggedBy)
     {
-        this.email=email;
-        this.idSerwer =id;
-        this.auth=auth;
+        this.email = email;
+        this.idSerwer = id;
+        this.auth = auth;
         this.loggedBy = loggedBy;
         this.synchroniseTraining = SynchroniseTraining.No_Synchronise;
     }
@@ -80,34 +82,45 @@ public class User
     {
         return idSerwer;
     }
+
     public void setIdSerwer(String idSerwer)
     {
         this.idSerwer = idSerwer;
     }
+
     //getter do emaila - Kuba
     public String getEmail()
     {
         return this.email;
     }
+
     //getter do Tokena(zeminna Auth) - Kuba
     public String getToken()
     {
         return this.auth;
     }
+
     //setter do tokena - Kuba
-    public void setToken(String auth) {
+    public void setToken(String auth)
+    {
         this.auth = auth;
     }
+
     //getter do sposobu zalogowania - Kuba
-    public WayOfLogin getLoggedBy() {
+    public WayOfLogin getLoggedBy()
+    {
         return loggedBy;
     }
+
     //setter do sposobu zalogowania - Kuba
-    public void setLoggedBy(WayOfLogin loggedBy) {
+    public void setLoggedBy(WayOfLogin loggedBy)
+    {
         this.loggedBy = loggedBy;
     }
+
     //setter email - Kuba
-    public void setEmail(String email) {
+    public void setEmail(String email)
+    {
         this.email = email;
     }
 

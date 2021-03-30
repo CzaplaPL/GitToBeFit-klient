@@ -13,30 +13,35 @@ public class ExerciseExecution
 
     public ExerciseExecution(ExerciseExecutionPOJODB exerciseExecution, Exercise exercise)
     {
-        this.id=exerciseExecution.getIdServer();
-        this.time=exerciseExecution.getTime();
+        this.id = exerciseExecution.getIdServer();
+        this.time = exerciseExecution.getTime();
         this.series = exerciseExecution.getSeries();
         this.count = exerciseExecution.getCount();
-        this.exercise= exercise;
+        this.exercise = exercise;
     }
 
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public int getTime() {
+    public int getTime()
+    {
         return time;
     }
 
-    public int getSeries() {
+    public int getSeries()
+    {
         return series;
     }
 
-    public int getCount() {
+    public int getCount()
+    {
         return count;
     }
 
-    public Exercise getExercise() {
+    public Exercise getExercise()
+    {
         return exercise;
     }
 }

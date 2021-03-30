@@ -75,7 +75,11 @@ public class UserServices
                             if(response2.isSuccessful())
                             {
                                 User.getInstance().add(email,  response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.OUR_SERVER);
-                                AppDataBase.getInstance(fragment.getContext()).user().addUser(new UserEntity(Integer.parseInt(Objects.requireNonNull(response2.headers().get("idUser"))),email, response.headers().get("Authorization")));
+                                AppDataBase.getInstance(fragment.getContext()).userDao().addUser(
+                                        new UserEntity(
+                                                Integer.parseInt(Objects.requireNonNull(response2.headers().get("idUser"))),
+                                                email,
+                                                response.headers().get("Authorization")));
                                 fragment.loginSuccess();
                             }else
                             {
@@ -167,8 +171,12 @@ public class UserServices
                         {
                             if(response2.isSuccessful())
                             {
-                                User.getInstance().add(email, response.headers().get("Authorization"), response2.headers().get("idUser"), User.WayOfLogin.GOOGLE);
-                                AppDataBase.getInstance(fragment.getContext()).user().addUser(new UserEntity(Integer.parseInt(response2.headers().get("idUser")),email, response.headers().get("Authorization")));
+                                User.getInstance().add(
+                                        email,
+                                        response.headers().get("Authorization"),
+                                        response2.headers().get("idUser"),
+                                        User.WayOfLogin.GOOGLE);
+                                AppDataBase.getInstance(fragment.getContext()).userDao().addUser(new UserEntity(Integer.parseInt(response2.headers().get("idUser")),email, response.headers().get("Authorization")));
                                 fragment.loginSuccess();
                             }else
                             {
@@ -483,7 +491,7 @@ public class UserServices
      */
     public void verify(Login fragment)
     {
-        List<UserEntity> result = AppDataBase.getInstance(fragment.getContext()).user().getUser();
+        List<UserEntity> result = AppDataBase.getInstance(fragment.getContext()).userDao().getUser();
         UserEntity userEntity = result.get(0);
         Call<Void> call = user.verify(userEntity.getToken());
         call.enqueue(new Callback<Void>()
@@ -494,7 +502,7 @@ public class UserServices
                 {
                     Log.w("Autologwanie  ", "  sukces");
                     System.out.println("Kod zwracany przez autoLog: " + response.code());
-                    AppDataBase.getInstance(fragment.getContext()).user().setToken(response.headers().get("Authorization"),userEntity.getId());
+                    AppDataBase.getInstance(fragment.getContext()).userDao().setToken(response.headers().get("Authorization"),userEntity.getId());
                     User.getInstance().add(userEntity.getEmail(), response.headers().get("Authorization"), String.valueOf(userEntity.getId()), User.WayOfLogin.OUR_SERVER);
                     fragment.loginSuccess();
                 }

@@ -16,7 +16,7 @@ public class ConnectionToServer
 {
     public final UserServices userServices;
     public final WorkoutFormsServices WorkoutFormsServices;
-    public final TrainingServices trainingServices ;
+    public final TrainingServices trainingServices;
     private static volatile ConnectionToServer INSTANCE;
 
     static public ConnectionToServer getInstance()
