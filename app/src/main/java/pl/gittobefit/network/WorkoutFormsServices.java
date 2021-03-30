@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -128,6 +130,11 @@ public class WorkoutFormsServices
             public void onResponse(Call<Training> call, Response<Training> response) {
                 if(response.isSuccessful())
                 {
+                    FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(fragment.getContext());
+                    Bundle params = new Bundle();
+                    params.putString(FirebaseAnalytics.Param.ITEM_ID, response.body().getTrainingForm().toString());
+                    params.putString(FirebaseAnalytics.Param.ITEM_NAME, response.body().getPlanList().toString());
+                    mFirebaseAnalytics.logEvent("share_image", params);
                     createTraining(response.body());
                     InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
                     model.setNumberOfClickedTraining(-999);
@@ -150,6 +157,8 @@ public class WorkoutFormsServices
 
     private void createTraining(Training body)
     {
+
+
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String text = formatter.format(date);

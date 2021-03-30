@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.room.Room;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
@@ -27,6 +28,8 @@ public class TrainingRepository
 
     private TrainingRepository(Context context)
     {
+        loadedTrainingWithForm = new HashMap<Long, TrainingWithForm>();
+        loadExercise = new HashMap<Integer, Exercise>();
         this.base = AppDataBase.getInstance(context);
     }
 
