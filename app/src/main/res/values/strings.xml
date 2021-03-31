@@ -245,4 +245,5 @@ sprawdzanie czy użytkownik ma internet\n
     </string>
     <string name="chosen_eqiupment">Wybrany sprzęt</string>
     <string name="prowadzenie_treningu" />
+    <string name="exercise">"Ćwiczenie "</string>
 </resources>

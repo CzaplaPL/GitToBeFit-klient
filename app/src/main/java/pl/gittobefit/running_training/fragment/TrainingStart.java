@@ -1,8 +1,10 @@
 package pl.gittobefit.running_training.fragment;
 
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import java.util.Locale;
 
 import pl.gittobefit.R;
 import pl.gittobefit.databinding.FragmentTrainingStartBinding;
+import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.running_training.viewmodel.TrainingViewModel;
 
 public class TrainingStart extends Fragment  {
@@ -60,6 +63,7 @@ public class TrainingStart extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_training_start, container, false);
+
         binding = FragmentTrainingStartBinding.inflate(inflater, container, false);
         model =  new ViewModelProvider(this).get(TrainingViewModel.class);
         model.init(TrainingStartArgs.fromBundle(getArguments()).getDisplayToTraining(),getContext());
@@ -86,8 +90,6 @@ public class TrainingStart extends Fragment  {
         downtoup = AnimationUtils.loadAnimation(getActivity(),R.anim.downtoup);
         exit = AnimationUtils.loadAnimation(getActivity(),R.anim.exit);
 
-        getVideo(videoViewTraining);
-
         start.setOnClickListener(v -> {
             videoViewTraining.setVisibility(View.INVISIBLE);
             miss.setEnabled(false);
@@ -96,7 +98,6 @@ public class TrainingStart extends Fragment  {
             exerciseStart.setVisibility(View.VISIBLE);
             exerciseBackground.startAnimation(bright);
             exerciseStart.startAnimation(started);
-            getVideo(videoViewStartTraining);
             buttonLayout.startAnimation(downtoup);
             timerText.startAnimation(downtoup);
             startTimer();
@@ -117,16 +118,60 @@ public class TrainingStart extends Fragment  {
         return binding.getRoot();
     }
 
-    private void generateView()
-    {
-        binding.titleExercise.setText("ćwiczenie " + String.valueOf(model.getIndexExercise() + 1) + " - " + model.getExercise().getName());
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            activity.getSupportActionBar().show();
+        }
     }
 
-    private void getVideo(VideoView v) {
-        Uri uri = Uri.parse("https://static.fabrykasily.pl/atlas/video-unoszenie-bioder-w-gore-z-palcami-uniesionymi.mp4");
-        v.setVideoURI(uri);
-        v.start();
-        v.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
+    private void generateView()
+    {
+        binding.titleExercise.setText(getString(R.string.exercise) + String.valueOf(model.getIndexExercise() + 1) + " - " + model.getExercise().getName());
+        binding.descriptionOfStartText.setText(model.getExercise().getDescriptionOfStartPosition());
+        binding.descriptionOfMoveText.setText(model.getExercise().getDescriptionOfCorrectExecution());
+
+        if(model.getTrainingWithForm().form.getScheduleType().equals("CIRCUIT")){
+            setupForCircuit();
+            }
+            else{
+                setupForSeries();
+            }
+        getVideo();
+    }
+
+    private void setupForCircuit() {
+        binding.series.setVisibility(View.GONE);
+        binding.countOfSeries.setVisibility(View.GONE);
+        binding.repeats.setVisibility(View.VISIBLE);
+        binding.countOfRepeats.setText(String.valueOf(model.getExerciseExecution().getCount()));
+    }
+
+    private void setupForSeries(){
+        binding.series.setVisibility(View.VISIBLE);
+        binding.countOfSeries.setText(String.valueOf(model.getNumberOfSeries()) + " / " + String.valueOf(model.getExerciseExecution().getSeries()));
+        binding.repeats.setVisibility(View.VISIBLE);
+        binding.countOfRepeats.setText(String.valueOf(model.getExerciseExecution().getCount()));
+    }
+
+    private void getVideo() {
+        Uri uri = Uri.parse(ConnectionToServer.getInstance().PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
+        Log.d("tak", uri.toString());
+        binding.videoViewTraining.setVideoURI(uri);
+
+        binding.videoViewTraining.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
+        binding.videoViewTraining.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp)
+            {
+                binding.videoViewTraining.start();
+                binding.loaderVideo.setVisibility(View.GONE);
+                binding.videoViewTraining.setAlpha(1);
+                mp.setLooping(true);
+            }
+        });
     }
 
 
@@ -154,7 +199,6 @@ public class TrainingStart extends Fragment  {
                 ViewCompat.animate(exerciseBackground).setStartDelay(1000).alpha(0).start();
                 ViewCompat.animate(exerciseStart).setStartDelay(1000).alpha(0).start();
                 videoViewTraining.setVisibility(View.VISIBLE);
-                getVideo(videoViewTraining);
             }
         }.start();
         timerRunning = true;
