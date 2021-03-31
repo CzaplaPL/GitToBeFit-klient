@@ -29,9 +29,9 @@ public class SavedTraining
         if(User.getInstance().getLoggedBy() != User.WayOfLogin.NO_LOGIN)
         {
             this.idUser = "";
-        } else
+        }else
         {
-            this.idUser = User.getInstance().getIdSerwer();
+            this.idUser = User.getInstance().getIdServer();
         }
 
         Date date = new Date();
@@ -46,7 +46,7 @@ public class SavedTraining
             ArrayList<ExerciseExecutionPOJODB> savePlan = new ArrayList<>();
             for(int j = 0; j < readPlan.getExercisesExecutions().size(); j++)
             {
-                savePlan.add(new ExerciseExecutionPOJODB(readPlan.getExerciseExecution(j),readPlan.getId(),readPlan.getTrainingId()));
+                savePlan.add(new ExerciseExecutionPOJODB(readPlan.getExerciseExecution(j), readPlan.getId(), readPlan.getTrainingId()));
             }
             this.planList.add(savePlan);
         }

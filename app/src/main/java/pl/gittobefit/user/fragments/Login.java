@@ -48,7 +48,9 @@ public class Login extends Fragment implements View.OnClickListener
     Button facebookButton;
 
 
-    public Login() { }
+    public Login()
+    {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -61,30 +63,30 @@ public class Login extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        TextInputLayout email= view.findViewById(R.id.loginMailKontener);
-        TextInputEditText email2= view.findViewById(R.id.loginMail);
+        TextInputLayout email = view.findViewById(R.id.loginMailKontener);
+        TextInputEditText email2 = view.findViewById(R.id.loginMail);
         email2.setOnFocusChangeListener((v, hasFocus) -> email.setErrorEnabled(false));
 
-        TextInputLayout password= view.findViewById(R.id.loginPassKontener);
-        TextInputEditText password2= view.findViewById(R.id.loginMail);
+        TextInputLayout password = view.findViewById(R.id.loginPassKontener);
+        TextInputEditText password2 = view.findViewById(R.id.loginMail);
         password2.setOnFocusChangeListener((v, hasFocus) -> password.setErrorEnabled(false));
-        Button button =  view.findViewById(R.id.loginZaloguj);
+        Button button = view.findViewById(R.id.loginZaloguj);
         button.setOnClickListener(this);
-        button =  view.findViewById(R.id.loginGoogle);
+        button = view.findViewById(R.id.loginGoogle);
         button.setOnClickListener(this);
-        button =  view.findViewById(R.id.loginRegister);
+        button = view.findViewById(R.id.loginRegister);
         button.setOnClickListener(this);
-        button =  view.findViewById(R.id.loginSkip);
+        button = view.findViewById(R.id.loginSkip);
         button.setOnClickListener(this);
-        TextView textview =view.findViewById(R.id.loginForgotPass);
+        TextView textview = view.findViewById(R.id.loginForgotPass);
         textview.setOnClickListener(this);
         //Logowanie facebook
         FacebookeLogin(view);
         //autologowanie facebook
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        if( accessToken != null && !accessToken.isExpired())
+        if(accessToken != null && !accessToken.isExpired())
         {
-            ConnectionToServer.getInstance().userServices.loginFacebook(accessToken,this);
+            ConnectionToServer.getInstance().userServices.loginFacebook(accessToken, this);
         }
         //Logowanie google
         GoogleLogin();
@@ -107,6 +109,7 @@ public class Login extends Fragment implements View.OnClickListener
             Navigation.findNavController(getView()).navigate(LoginDirections.actionLogin2ToHomeFragment());
         }
     }
+
     /***
      * funkcja zmieniajaca fragment po udanym logowaniu
      */
@@ -116,21 +119,23 @@ public class Login extends Fragment implements View.OnClickListener
         {
             public void run()
             {
-               try
+                try
                 {
                     User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.Start_Synchronise);
                     ConnectionToServer.getInstance().trainingServices.synchronisedTraining(getContext());
                 }catch(Exception e)
                 {
-                    User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.Synchronize_error);
-                    Log.e("Network", "Trainings.synchronisedTraining error "+ e.toString());
+                    User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.Synchronise_error);
+                    Log.e("Network", "Trainings.synchronisedTraining error " + e.toString());
                 }
             }
         }).start();
         Navigation.findNavController(getView()).navigate(LoginDirections.actionLogin2ToHomeFragment());
     }
+
     /**
      * wyswietla komunikat o nieudamym logowaniu
+     *
      * @param error informuje czy błąd spowodowany jest błędem
      */
     public void loginFail(boolean error)
@@ -139,7 +144,7 @@ public class Login extends Fragment implements View.OnClickListener
         TextInputLayout pass = getView().findViewById(R.id.loginPassKontener);
         email.setErrorEnabled(true);
         pass.setErrorEnabled(true);
-        if (error)
+        if(error)
         {
             email.setError(getResources().getString(R.string.serwerError));
             pass.setError(getResources().getString(R.string.serwerError));
@@ -147,13 +152,14 @@ public class Login extends Fragment implements View.OnClickListener
         email.setError(getResources().getString(R.string.notLogin));
         pass.setError(getResources().getString(R.string.notLogin));
     }
-    public void loginFail(boolean wrongPassword,String info)
+
+    public void loginFail(boolean wrongPassword, String info)
     {
         TextInputLayout email = getView().findViewById(R.id.loginMailKontener);
         TextInputLayout pass = getView().findViewById(R.id.loginPassKontener);
         email.setErrorEnabled(true);
         pass.setErrorEnabled(true);
-        if (wrongPassword)
+        if(wrongPassword)
         {
             pass.setError(getResources().getString(R.string.incorrectpassword));
         }
@@ -163,24 +169,25 @@ public class Login extends Fragment implements View.OnClickListener
 
     /**
      * obsługa klikniecia
+     *
      * @param view element klikniety
      */
     @Override
     public void onClick(View view)
     {
 
-        switch (view.getId())
+        switch(view.getId())
         {
             case R.id.loginZaloguj:
-                TextInputLayout email =(TextInputLayout)getView().findViewById(R.id.loginMailKontener);
-                TextInputLayout pass =(TextInputLayout)getView().findViewById(R.id.loginPassKontener);
+                TextInputLayout email = (TextInputLayout) getView().findViewById(R.id.loginMailKontener);
+                TextInputLayout pass = (TextInputLayout) getView().findViewById(R.id.loginPassKontener);
                 IShowSnackbar activity = (IShowSnackbar) getActivity();
-                ConnectionToServer.getInstance().userServices.login(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this,activity);
+                ConnectionToServer.getInstance().userServices.login(email.getEditText().getText().toString(), pass.getEditText().getText().toString(), this, activity);
                 HomeFragment.HideKeyboardInterface hideKeyboard = (HomeFragment.HideKeyboardInterface) getActivity();
-                hideKeyboard.hideKey(getContext(),getView());
+                hideKeyboard.hideKey(getContext(), getView());
                 break;
             case R.id.loginSkip:
-             Navigation.findNavController(view).navigate(LoginDirections.actionLogin2ToHomeFragment());
+                Navigation.findNavController(view).navigate(LoginDirections.actionLogin2ToHomeFragment());
                 break;
             case R.id.loginGoogle:
                 Log.w("logowanie google = ", "         uruchamianie ");
@@ -197,10 +204,12 @@ public class Login extends Fragment implements View.OnClickListener
         }
     }
 
-    /** logowanie facebook*/
+    /**
+     * logowanie facebook
+     */
     public void loginFacebook(AccessToken token)
     {
-        ConnectionToServer.getInstance().userServices.loginFacebook(token,this);
+        ConnectionToServer.getInstance().userServices.loginFacebook(token, this);
     }
 
     private void FacebookeLogin(View view)
@@ -215,24 +224,29 @@ public class Login extends Fragment implements View.OnClickListener
             @Override
             public void onSuccess(LoginResult loginResult)
             {
-                Log.i("login facebook =" , "sukces " );
+                Log.i("login facebook =", "sukces ");
                 loginFacebook(loginResult.getAccessToken());
             }
+
             @Override
             public void onCancel()
             {
-                Log.w("login facebook Main = " , "   cancel " );
+                Log.w("login facebook Main = ", "   cancel ");
             }
+
             @Override
             public void onError(FacebookException exception)
             {
-                Log.w("login facebook Main  =" , "  błąd " );
-                Log.w("login facebook Main  =" , "       " +exception.toString() );
+                Log.w("login facebook Main  =", "  błąd ");
+                Log.w("login facebook Main  =", "       " + exception.toString());
             }
         });
 
     }
-    /** logowanie google*/
+
+    /**
+     * logowanie google
+     */
     private void GoogleLogin()
     {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -249,8 +263,9 @@ public class Login extends Fragment implements View.OnClickListener
         {
             Log.w("logowanie google = ", "     ok");
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            ConnectionToServer.getInstance().userServices.loginGoogle(account.getEmail(),account.getIdToken(),this);
-        } catch (ApiException e) {
+            ConnectionToServer.getInstance().userServices.loginGoogle(account.getEmail(), account.getIdToken(), this);
+        }catch(ApiException e)
+        {
             Log.w("logowanie google", "signInResult:failed code=" + e.getStatusCode());
         }
     }
@@ -258,15 +273,15 @@ public class Login extends Fragment implements View.OnClickListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        Log.w("odpowiedz "," jest");
+        Log.w("odpowiedz ", " jest");
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1)
+        if(requestCode == 1)
         {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }else
         {
-           callbackManager.onActivityResult(requestCode, resultCode, data);
+            callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 

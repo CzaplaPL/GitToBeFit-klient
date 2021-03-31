@@ -15,9 +15,8 @@ public class Training
     public Training(WorkoutForm form, ArrayList<TrainingPlan> trainingPlansServer)
     {
         this.trainingForm = form;
-        planList = trainingPlansServer;
+        this.planList = trainingPlansServer;
     }
-
 
     public WorkoutForm getTrainingForm()
     {

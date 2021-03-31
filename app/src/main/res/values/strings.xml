@@ -242,6 +242,8 @@ sprawdzanie czy użytkownik ma internet\n
       dodanie fragentu prowadzenia trningów\n
         dodanie fragentu prowadzenia trningów\n
         utworzenie encji w bazie danych do zapisywania treningu \n
+          0.1.6\n
+       synchronizacja zapisywania treningow z serwerem \n
     </string>
     <string name="chosen_eqiupment">Wybrany sprzęt</string>
 </resources>

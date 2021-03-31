@@ -2,8 +2,6 @@ package pl.gittobefit.database.repository;
 
 import android.content.Context;
 
-import androidx.room.Room;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,14 +20,12 @@ import pl.gittobefit.user.User;
 public class TrainingRepository
 {
     private final AppDataBase base;
-    private Map<Long, TrainingWithForm> loadedTrainingWithForm;
-    private Map<Integer, Exercise> loadExercise;
+    private Map<Long, TrainingWithForm> loadedTrainingWithForm = new HashMap<Long, TrainingWithForm>();;
+    private Map<Integer, Exercise> loadedExercises = new HashMap<Integer, Exercise>();;
     private static volatile TrainingRepository INSTANCE;
 
     private TrainingRepository(Context context)
     {
-        loadedTrainingWithForm = new HashMap<Long, TrainingWithForm>();
-        loadExercise = new HashMap<Integer, Exercise>();
         this.base = AppDataBase.getInstance(context);
     }
 
@@ -80,7 +76,7 @@ public class TrainingRepository
     public ArrayList<Training> getTrainingsToSend()
     {
         ArrayList<Training> trainingsToSend = new ArrayList<>();
-        ArrayList<TrainingWithForm> trainingsDB = getAllTrainingsForUser(User.getInstance().getIdSerwer());
+        ArrayList<TrainingWithForm> trainingsDB = getAllTrainingsForUser(User.getInstance().getIdServer());
         for(TrainingWithForm trainingDB : trainingsDB)
         {
             ArrayList<ArrayList<ExerciseExecutionPOJODB>> planListDB = trainingDB.training.getPlanList();
@@ -139,7 +135,7 @@ public class TrainingRepository
 
     public void synchroniseUser()
     {
-        base.trainingDao().addUserForTrainings(User.getInstance().getIdSerwer());
+        base.trainingDao().addUserForTrainings(User.getInstance().getIdServer());
     }
 
     public ArrayList<Exercise> getExerciseForPlanList(ArrayList<ExerciseExecutionPOJODB> planList)
@@ -147,11 +143,11 @@ public class TrainingRepository
         ArrayList<Exercise> toReturn = new ArrayList<>();
         for(ExerciseExecutionPOJODB plan : planList)
         {
-            if(loadExercise.get(plan.getExerciseId()) == null)
+            if(loadedExercises.get(plan.getExerciseId()) == null)
             {
-                loadExercise.put(plan.getExerciseId(), base.exerciseDao().getExercise(plan.getExerciseId()));
+                loadedExercises.put(plan.getExerciseId(), base.exerciseDao().getExercise(plan.getExerciseId()));
             }
-            toReturn.add(loadExercise.get(plan.getExerciseId()));
+            toReturn.add(loadedExercises.get(plan.getExerciseId()));
         }
         return toReturn;
     }
