@@ -10,6 +10,7 @@
         <item name="android:navigationBarColor">@color/ourBlackBar</item>
     </style>
     <style name="Theme.GitToBeFit.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="background">@drawable/background_activity</item>
         <item name="android:windowBackground">@drawable/background_activity</item> // kolor tła aplikacji
         <item name="colorPrimary">@color/ourGreen</item> // kolor buttona, kolor bara
         <item name="colorPrimaryVariant">@color/ourWhite</item>

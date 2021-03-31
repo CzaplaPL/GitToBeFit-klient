@@ -1,11 +1,14 @@
 package pl.gittobefit.network;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -127,7 +130,7 @@ public class WorkoutFormsServices
             public void onResponse(Call<Training> call, Response<Training> response) {
                 if(response.isSuccessful())
                 {
-                  createTraining(response.body());
+                    createTraining(response.body());
                     InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
                     model.setNumberOfClickedTraining(-999);
                     Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
@@ -147,7 +150,8 @@ public class WorkoutFormsServices
         });
     }
 
-    private void createTraining(Training body) {
+    private void createTraining(Training body)
+    {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String text = formatter.format(date);

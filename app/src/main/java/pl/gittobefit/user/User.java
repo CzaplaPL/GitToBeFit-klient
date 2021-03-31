@@ -1,12 +1,20 @@
 package pl.gittobefit.user;
 
-import android.content.Context;
-
 /**
  * klasa przechowująca informacje o użytkowniku
  */
 public class User
 {
+    public SynchroniseTraining getSynchroniseTraining()
+    {
+        return synchroniseTraining;
+    }
+
+    public void setSynchroniseTraining(SynchroniseTraining synchroniseTraining)
+    {
+        this.synchroniseTraining = synchroniseTraining;
+    }
+
     public enum WayOfLogin
     {
         NO_LOGIN,
@@ -15,25 +23,34 @@ public class User
         FACEBOOK
     }
 
-    private String email ="" ;
-    private String auth ="";
-    private String idSerwer = "";
-    private WayOfLogin loggedBy = WayOfLogin.NO_LOGIN;
+    public enum SynchroniseTraining
+    {
+        No_Synchronise,
+        Start_Synchronise,
+        Synchronise_Success,
+        Synchronise_error
+    }
 
+    private String email = "";
+    private String auth = "";
+    private String idServer = "";
+    private WayOfLogin loggedBy = WayOfLogin.NO_LOGIN;
+    private SynchroniseTraining synchroniseTraining = SynchroniseTraining.No_Synchronise;
     private static volatile User INSTANCE;
 
     /**
      * pobieranie instancji usera
+     *
      * @return instancje usera
      * @author czapla
      */
     static public User getInstance()
     {
-        if (INSTANCE == null)
+        if(INSTANCE == null)
         {
-            synchronized (User.class)
+            synchronized(User.class)
             {
-                if (INSTANCE == null)
+                if(INSTANCE == null)
                 {
                     INSTANCE = new User();
                 }
@@ -43,69 +60,65 @@ public class User
     }
 
     /**
-     * funkcja dodaje użytkownika
-     * @param email email
-     * @param password hasło
-     * @param auth auth naszego serwera
-     * @param id idserwera
-     * @param context context
-     * @author czapla
-     */
-    public void add(String email, String password, String auth, String id, WayOfLogin loggedBy, Context context)
-    {
-        this.email=email;
-        this.idSerwer =id;
-        this.auth=auth;
-        this.loggedBy = loggedBy;
-    }
-    /**
      * funkcja dodaje uzytkownika z pustym hasłem
+     *
      * @param email email
-     * @param auth auth naszego serwera
-     * @param id idserwera
-     * @param context context
+     * @param auth  auth naszego serwera
+     * @param id    idserwera
      * @author czapla
      */
-    public void add(String email, String auth, String id, WayOfLogin loggedBy, Context context)
+    public void add(String email, String auth, String id, WayOfLogin loggedBy)
     {
-        this.email=email;
-        this.idSerwer =id;
-        this.auth=auth;
+        this.email = email;
+        this.idServer = id;
+        this.auth = auth;
         this.loggedBy = loggedBy;
+        this.synchroniseTraining = SynchroniseTraining.No_Synchronise;
     }
 
-    public String getIdSerwer()
+    public String getIdServer()
     {
-        return idSerwer;
+        return idServer;
     }
-    public void setIdSerwer(String idSerwer)
+
+    public void setIdServer(String idServer)
     {
-        this.idSerwer = idSerwer;
+        this.idServer = idServer;
     }
+
     //getter do emaila - Kuba
     public String getEmail()
     {
         return this.email;
     }
+
     //getter do Tokena(zeminna Auth) - Kuba
     public String getToken()
     {
         return this.auth;
     }
+
     //setter do tokena - Kuba
-    public void setToken(String auth) {
+    public void setToken(String auth)
+    {
         this.auth = auth;
     }
+
     //getter do sposobu zalogowania - Kuba
-    public WayOfLogin getLoggedBy() {
+    public WayOfLogin getLoggedBy()
+    {
         return loggedBy;
     }
+
     //setter do sposobu zalogowania - Kuba
-    public void setLoggedBy(WayOfLogin loggedBy) {
+    public void setLoggedBy(WayOfLogin loggedBy)
+    {
         this.loggedBy = loggedBy;
     }
+
     //setter email - Kuba
-    public void setEmail(String email) {
+    public void setEmail(String email)
+    {
         this.email = email;
     }
 

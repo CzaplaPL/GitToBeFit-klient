@@ -9,10 +9,11 @@ import pl.gittobefit.database.entity.training.WorkoutForm;
 public class TrainingWithForm
 {
     @Embedded
-    public WorkoutForm form;
-    @Relation(
-            parentColumn = "FormId",
-            entityColumn = "idForm"
-    )
     public SavedTraining training;
+    @Relation(
+            parentColumn = "idForm",
+            entityColumn = "FormId"
+    )
+    public WorkoutForm form;
+
 }

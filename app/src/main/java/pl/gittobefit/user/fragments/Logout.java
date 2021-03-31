@@ -59,12 +59,12 @@ public class Logout extends Fragment
                 mGoogleApiClient.signOut();
                 User.getInstance().setToken("");
                 User.getInstance().setLoggedBy(User.WayOfLogin.NO_LOGIN);
-                AppDataBase.getInstance(getContext()).user().deleteByUserId(Integer.parseInt(User.getInstance().getIdSerwer()));
+                AppDataBase.getInstance(getContext()).userDao().deleteByUserId(Integer.parseInt(User.getInstance().getIdServer()));
                 break;
             case OUR_SERVER:
                 User.getInstance().setToken("");
                 User.getInstance().setLoggedBy(User.WayOfLogin.NO_LOGIN);
-                AppDataBase.getInstance(getContext()).user().deleteByUserId(Integer.parseInt(User.getInstance().getIdSerwer()));
+                AppDataBase.getInstance(getContext()).userDao().deleteByUserId(Integer.parseInt(User.getInstance().getIdServer()));
                 break;
             case FACEBOOK:
                 User.getInstance().setToken("");
