@@ -22,6 +22,7 @@ public class SavedTraining
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList;
     private String generationDate;
     private String trainingName;
+    private int trainingdays;
 
     public SavedTraining(long idForm, ArrayList<TrainingPlan> planList)
     {
@@ -51,10 +52,13 @@ public class SavedTraining
             this.planList.add(savePlan);
         }
 
+        this.trainingdays = 0;
+
     }
 
     public SavedTraining()
     {
+        this.trainingdays = 0;
     }
 
 
@@ -116,5 +120,13 @@ public class SavedTraining
     public void setTrainingName(String trainingName)
     {
         this.trainingName = trainingName;
+    }
+
+    public int getTrainingdays() {
+        return trainingdays;
+    }
+
+    public void setTrainingdays(int trainingdays) {
+        this.trainingdays = trainingdays;
     }
 }

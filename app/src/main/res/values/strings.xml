@@ -244,4 +244,5 @@ sprawdzanie czy użytkownik ma internet\n
         utworzenie encji w bazie danych do zapisywania treningu \n
     </string>
     <string name="chosen_eqiupment">Wybrany sprzęt</string>
+    <string name="prowadzenie_treningu" />
 </resources>

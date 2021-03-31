@@ -26,8 +26,9 @@ public class UserTrainings
         return INSTANCE;
     }
 
-    public void add(Training training)
+    public void add(Training training, int id)
     {
+        training.setId(id);
         trainingArrayList.add(training);
     }
 

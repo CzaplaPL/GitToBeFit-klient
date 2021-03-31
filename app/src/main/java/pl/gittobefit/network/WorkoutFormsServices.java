@@ -1,7 +1,5 @@
 package pl.gittobefit.network;
 
-import android.content.Context;
-import android.os.Bundle;
 import android.util.Log;
 
 import androidx.fragment.app.Fragment;
@@ -14,17 +12,17 @@ import java.util.Date;
 
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
-import pl.gittobefit.database.AppDataBase;
+import pl.gittobefit.WorkoutDisplay.objects.Training;
+import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
+import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
+import pl.gittobefit.database.entity.training.WorkoutForm;
+import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.repository.TrainingRepository;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
-import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
-import pl.gittobefit.WorkoutDisplay.objects.Training;
-import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
 import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
-import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -128,7 +126,8 @@ public class WorkoutFormsServices
             public void onResponse(Call<Training> call, Response<Training> response) {
                 if(response.isSuccessful())
                 {
-                    createTraining(response.body());
+                    TrainingWithForm tmp = TrainingRepository.getInstance(fragment.getContext()).add(response.body());
+                    createTraining(response.body(), tmp.training.getId());
                     InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
                     model.setNumberOfClickedTraining(-999);
                     Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
@@ -148,12 +147,13 @@ public class WorkoutFormsServices
         });
     }
 
-    private void createTraining(Training body)
+    private void createTraining(Training body, int id)
     {
+
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String text = formatter.format(date);
         body.setGenerationDate(text);
-        UserTrainings.getInstance().add(body);
+        UserTrainings.getInstance().add(body,id);
     }
 }

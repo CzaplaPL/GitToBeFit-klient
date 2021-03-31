@@ -1,4 +1,4 @@
-package pl.gittobefit;
+package pl.gittobefit.running_training.fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,10 +15,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.Locale;
+
+import pl.gittobefit.R;
+import pl.gittobefit.databinding.FragmentTrainingStartBinding;
+import pl.gittobefit.running_training.viewmodel.TrainingViewModel;
 
 public class TrainingStart extends Fragment  {
 
@@ -35,17 +41,29 @@ public class TrainingStart extends Fragment  {
     private Button miss, start, nextExercise;
     private VideoView videoViewTraining, videoViewStartTraining;
 
+
+    private TrainingViewModel model;
+    private FragmentTrainingStartBinding binding;
+
     public TrainingStart() {
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            activity.getSupportActionBar().hide();
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_training_start, container, false);
+        binding = FragmentTrainingStartBinding.inflate(inflater, container, false);
+        model =  new ViewModelProvider(this).get(TrainingViewModel.class);
+        model.init(TrainingStartArgs.fromBundle(getArguments()).getDisplayToTraining(),getContext());
+        generateView();
 
         exerciseStart = view.findViewById(R.id.exercise_start);
         exerciseBackground = view.findViewById(R.id.exercise_background);
@@ -96,7 +114,12 @@ public class TrainingStart extends Fragment  {
             buttonPlay.setVisibility(View.GONE);
         });
 
-        return view;
+        return binding.getRoot();
+    }
+
+    private void generateView()
+    {
+        binding.titleExercise.setText("ćwiczenie " + String.valueOf(model.getIndexExercise() + 1) + " - " + model.getExercise().getName());
     }
 
     private void getVideo(VideoView v) {

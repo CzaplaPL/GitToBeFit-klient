@@ -2,8 +2,6 @@ package pl.gittobefit.database.repository;
 
 import android.content.Context;
 
-import androidx.room.Room;
-
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -51,17 +49,17 @@ public class TrainingRepository
         saveExercise(training.getPlanList());
         long idTraining = base.trainingDao().addTraining(new SavedTraining(idForm, training.getPlanList()));
         TrainingWithForm savedTraining = base.trainingDao().getTraining(idTraining);
-        loadedTrainingWithForm.put((long) savedTraining.training.getId(), savedTraining);
+ //       loadedTrainingWithForm.put((long) savedTraining.training.getId(), savedTraining);
         return savedTraining;
     }
 
     public TrainingWithForm getTraining(long id)
     {
-        if(loadedTrainingWithForm.get(id) == null)
+        /*if(loadedTrainingWithForm.get(id) == null)
         {
-            loadedTrainingWithForm.put(id, base.trainingDao().getTraining(id));
-        }
-        return loadedTrainingWithForm.get(id);
+            loadedTrainingWithForm.put(id, );
+        }*/
+        return base.trainingDao().getTraining(id);
     }
 
     public ArrayList<TrainingWithForm> getAllTrainingsForUser(String id)
@@ -144,11 +142,11 @@ public class TrainingRepository
         ArrayList<Exercise> toReturn = new ArrayList<>();
         for(ExerciseExecutionPOJODB plan : planList)
         {
-            if(loadExercise.get(plan.getExerciseId()) == null)
+           /* if(loadExercise.get(plan.getExerciseId()) == null)
             {
-                loadExercise.put(plan.getExerciseId(), base.exerciseDao().getExercise(plan.getExerciseId()));
-            }
-            toReturn.add(loadExercise.get(plan.getExerciseId()));
+                loadExercise.put(plan.getExerciseId(),));
+            }*/
+            toReturn.add( base.exerciseDao().getExercise(plan.getExerciseId()));
         }
         return toReturn;
     }

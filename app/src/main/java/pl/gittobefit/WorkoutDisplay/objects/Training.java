@@ -9,7 +9,7 @@ public class Training
     private WorkoutForm trainingForm;
     private ArrayList<TrainingPlan> planList = new ArrayList<>();
     private String generationDate;
-
+    private int id;
     public Training() { }
 
     public Training(WorkoutForm form, ArrayList<TrainingPlan> trainingPlansServer)
@@ -42,5 +42,13 @@ public class Training
     public void setGenerationDate(String generationDate)
     {
         this.generationDate = generationDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

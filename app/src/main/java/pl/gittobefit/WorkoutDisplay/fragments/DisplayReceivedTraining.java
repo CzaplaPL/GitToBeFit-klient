@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -98,6 +99,7 @@ public class DisplayReceivedTraining extends Fragment
         Button day3Button = getView().findViewById(R.id.day3_button);
         Button day4Button = getView().findViewById(R.id.day4_button);
         Button day5Button = getView().findViewById(R.id.day5_button);
+        Button next = getView().findViewById(R.id.next);
 
         ArrayList<Button> buttonArrayList = new ArrayList<>();
         buttonArrayList.add(day1Button);
@@ -204,6 +206,7 @@ public class DisplayReceivedTraining extends Fragment
 
             }
         });
+
 
         for (int i = 0; i < linearLayoutArrayList.size(); i++)
         {
@@ -329,6 +332,16 @@ public class DisplayReceivedTraining extends Fragment
                 }
             }
 
+            next.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    DisplayReceivedTrainingDirections.ToTrainingAction action=
+                            DisplayReceivedTrainingDirections.toTrainingAction();
+                    action.setDisplayToTraining(UserTrainings.getInstance().getTraining(index).getId());
+                    Navigation.findNavController(getView()).navigate(action);
+                }
+            });
 
 
 

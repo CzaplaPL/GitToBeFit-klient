@@ -5,7 +5,7 @@
     android:id="@+id/training_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TrainingStart">
+    tools:context=".running_training.fragment.TrainingStart">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ConstraintLayout2"
