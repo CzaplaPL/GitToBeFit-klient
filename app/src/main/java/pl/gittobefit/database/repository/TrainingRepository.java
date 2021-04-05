@@ -76,7 +76,7 @@ public class TrainingRepository
     public ArrayList<Training> getTrainingsToSend()
     {
         ArrayList<Training> trainingsToSend = new ArrayList<>();
-        ArrayList<TrainingWithForm> trainingsDB = getAllTrainingsForUser(User.getInstance().getIdSerwer());
+        ArrayList<TrainingWithForm> trainingsDB = getAllTrainingsForUser(User.getInstance().getIdServer());
         for(TrainingWithForm trainingDB : trainingsDB)
         {
             ArrayList<ArrayList<ExerciseExecutionPOJODB>> planListDB = trainingDB.training.getPlanList();
@@ -135,7 +135,7 @@ public class TrainingRepository
 
     public void synchroniseUser()
     {
-        base.trainingDao().addUserForTrainings(User.getInstance().getIdSerwer());
+        base.trainingDao().addUserForTrainings(User.getInstance().getIdServer());
     }
 
     public ArrayList<Exercise> getExerciseForPlanList(ArrayList<ExerciseExecutionPOJODB> planList)
