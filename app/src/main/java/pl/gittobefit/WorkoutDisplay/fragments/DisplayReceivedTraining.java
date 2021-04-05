@@ -41,7 +41,9 @@ import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 
 public class DisplayReceivedTraining extends Fragment
 {
-    public DisplayReceivedTraining() {}
+    public DisplayReceivedTraining() {
+    }
+
     private int index;
 
     @Override
@@ -70,10 +72,9 @@ public class DisplayReceivedTraining extends Fragment
     public void onResume() {
 
         super.onResume();
+        List<SavedTraining> result2 = AppDataBase.getInstance(getContext()).training().getInfoForTrainingList();
 
-        if (index != -999 && UserTrainings.getInstance().getTraining(index).getPlanList().size() == 0)
-        {
-            List<SavedTraining> result2 = AppDataBase.getInstance(getContext()).training().getInfoForTrainingList();
+        if (index != UserTrainings.getInstance().getTrainingArrayList().size() && UserTrainings.getInstance().getTraining(index).getPlanList().size() == 0) {
             SavedTraining savedTraining = AppDataBase.getInstance(getContext()).training().getOneTraining(result2.get(index).getId());
             TrainingPlan trainingPlan;
             Training training = new Training();
@@ -81,11 +82,9 @@ public class DisplayReceivedTraining extends Fragment
             ArrayList<ExerciseExecution> exerciseExecutionArrayList;
             ArrayList<TrainingPlan> trainingPlanArrayList;
             trainingPlanArrayList = new ArrayList<>();
-            for (int k = 0; k < savedTraining.getPlanList().size(); k++)
-            {
+            for (int k = 0; k < savedTraining.getPlanList().size(); k++) {
                 exerciseExecutionArrayList = new ArrayList<>();
-                for (int j = 0; j < savedTraining.getPlanList().get(k).size(); j++)
-                {
+                for (int j = 0; j < savedTraining.getPlanList().get(k).size(); j++) {
                     ExerciseExecution exerciseExecution = new ExerciseExecution();
                     exercise = new Exercise();
                     exercise.setName(AppDataBase.getInstance(getContext()).exercise().getExerciseList(savedTraining.getPlanList().get(k).get(j).getExerciseId()).getName());
@@ -101,10 +100,8 @@ public class DisplayReceivedTraining extends Fragment
                 trainingPlanArrayList.add(trainingPlan);
                 training.setPlanList(trainingPlanArrayList);
                 UserTrainings.getInstance().getTraining(index).setPlanList(trainingPlanArrayList);
-
             }
         }
-
 
 
         TextView trainingType = getView().findViewById(R.id.trainingType);
@@ -159,8 +156,7 @@ public class DisplayReceivedTraining extends Fragment
         buttonArrayList.add(day5Button);
 
         Drawable rightDrawable = AppCompatResources.getDrawable(getContext(), R.drawable.ic_add);
-        for (int i = 0; i < buttonArrayList.size(); i++)
-        {
+        for (int i = 0; i < buttonArrayList.size(); i++) {
             buttonArrayList.get(i).setCompoundDrawablesWithIntrinsicBounds(null, null, rightDrawable, null);
             buttonArrayList.get(i).setVisibility(View.GONE);
         }
@@ -168,36 +164,32 @@ public class DisplayReceivedTraining extends Fragment
         Button editTrainingNameButton = getView().findViewById(R.id.editTrainingNameButton);
         editTrainingNameButton.setOnClickListener(v -> {
             Bundle args = new Bundle();
-            args.putInt("sc1", index);
+            args.putString("trainingID", String.format("%d/%d", index, result2.get(index).getId()));
 
             EditTrainingNameDialog editTrainingNameDialog = new EditTrainingNameDialog(getView());
             editTrainingNameDialog.setArguments(args);
-            editTrainingNameDialog.show(getFragmentManager(),"dialog");
+            editTrainingNameDialog.show(getFragmentManager(), "dialog");
         });
 
         Button deleteTrainingButton = getView().findViewById(R.id.deleteTraining);
         deleteTrainingButton.setOnClickListener(v -> {
             Bundle args = new Bundle();
-            args.putInt("sc1", index);
+            args.putString("trainingID", String.format("%d/%d", index, result2.get(index).getId()));
 
             DeleteTrainingDialog deleteTrainingDialog = new DeleteTrainingDialog(getView());
             deleteTrainingDialog.setArguments(args);
-            deleteTrainingDialog.show(getFragmentManager(),"dialog");
+            deleteTrainingDialog.show(getFragmentManager(), "dialog");
         });
-
 
 
         day1Button.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
-                if (exercisesList.getVisibility() == View.VISIBLE)
-                {
+                if (exercisesList.getVisibility() == View.VISIBLE) {
                     relativeLayout1.setVisibility(View.GONE);
                     exercisesList.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     relativeLayout1.setVisibility(View.VISIBLE);
                     exercisesList.setVisibility(View.VISIBLE);
                 }
@@ -209,13 +201,10 @@ public class DisplayReceivedTraining extends Fragment
         {
             @Override
             public void onClick(View v) {
-                if (exercisesList2.getVisibility() == View.VISIBLE)
-                {
+                if (exercisesList2.getVisibility() == View.VISIBLE) {
                     relativeLayout2.setVisibility(View.GONE);
                     exercisesList2.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     relativeLayout2.setVisibility(View.VISIBLE);
                     exercisesList2.setVisibility(View.VISIBLE);
                 }
@@ -227,13 +216,10 @@ public class DisplayReceivedTraining extends Fragment
         {
             @Override
             public void onClick(View v) {
-                if (exercisesList3.getVisibility() == View.VISIBLE)
-                {
+                if (exercisesList3.getVisibility() == View.VISIBLE) {
                     relativeLayout3.setVisibility(View.GONE);
                     exercisesList3.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     relativeLayout3.setVisibility(View.VISIBLE);
                     exercisesList3.setVisibility(View.VISIBLE);
                 }
@@ -245,13 +231,10 @@ public class DisplayReceivedTraining extends Fragment
         {
             @Override
             public void onClick(View v) {
-                if (exercisesList4.getVisibility() == View.VISIBLE)
-                {
+                if (exercisesList4.getVisibility() == View.VISIBLE) {
                     relativeLayout4.setVisibility(View.GONE);
                     exercisesList4.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     relativeLayout4.setVisibility(View.VISIBLE);
                     exercisesList4.setVisibility(View.VISIBLE);
                 }
@@ -263,13 +246,10 @@ public class DisplayReceivedTraining extends Fragment
         {
             @Override
             public void onClick(View v) {
-                if (exercisesList5.getVisibility() == View.VISIBLE)
-                {
+                if (exercisesList5.getVisibility() == View.VISIBLE) {
                     relativeLayout5.setVisibility(View.GONE);
                     exercisesList5.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     relativeLayout5.setVisibility(View.VISIBLE);
                     exercisesList5.setVisibility(View.VISIBLE);
                 }
@@ -286,123 +266,54 @@ public class DisplayReceivedTraining extends Fragment
             recyclerViewArrayList.get(i).setVisibility(View.GONE);
         }
 
-        if (UserTrainings.getInstance().getTrainingArrayList().size() != 0 )
+        if (UserTrainings.getInstance().getTrainingArrayList().size() != 0)
         {
-            if(index ==  -999)
-            {
-                String trainingTypeDisplay = "Rodzaj treningu: " + UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getTrainingType().toLowerCase();
-                String nameOfTraining = "Nazwa treningu: " + UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingName();
-                String durationDisplay = "";
-                String scheduleTypeDisplay = "";
-                switch (UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getTrainingType()) {
-                    case "SPLIT":
-                    case "FBW":
-                        durationDisplay = "Czas treningu: " + UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getDaysCount() + " dni";
-                        if( UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getScheduleType().equals("PER_DAY"))
-                        {
-                            scheduleTypeDisplay = "Forma treningu: na dzień";
-                        }
-                        else
-                        {
-                            scheduleTypeDisplay = "Forma treningu: powtarzalny";
-                        }
-                        for (int i = 0; i < UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getDaysCount(); i++)
-                        {
-                            buttonArrayList.get(i).setVisibility(View.VISIBLE);
-                        }
-
-                        break;
-                    case "CARDIO":
-                    case "FITNESS":
-                        durationDisplay = "Czas treningu: " + UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getDuration() + " minut";
-                        if( UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getScheduleType().equals("SERIES"))
-                        {
-                            scheduleTypeDisplay = "Forma treningu: seriowy";
-                        }
-                        else
-                        {
-                            scheduleTypeDisplay = "Forma treningu: obwodowy";
-                        }
-                        day1Button.setVisibility(View.VISIBLE);
-                        break;
-                }
-
-                trainingName.setText(nameOfTraining);
-                trainingType.setText(trainingTypeDisplay);
-                trainingForm.setText(scheduleTypeDisplay);
-                trainingDuration.setText(durationDisplay);
-
-                for (int i = 0; i < UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getPlanList().size(); i++)
-                {
-                    exerciseListAdapters.add(new ExerciseListAdapter(UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingPlan(i).getExercisesExecutions()));
-                    recyclerViewArrayList.get(i).addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-                    recyclerViewArrayList.get(i).setAdapter(exerciseListAdapters.get(i));
-                    if (UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getTrainingType().equals("FBW") ||
-                            UserTrainings.getInstance().getTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1).getTrainingForm().getTrainingType().equals("SPLIT"))
-                    {
-                        recyclerViewArrayList.get(i).setNestedScrollingEnabled(false);
+            String trainingTypeDisplay = "Rodzaj treningu: " + UserTrainings.getInstance().getTraining(index).getTrainingForm().getTrainingType().toLowerCase();
+            String nameOfTraining = "Nazwa treningu: " + UserTrainings.getInstance().getTraining(index).getTrainingName();
+            String durationDisplay = "";
+            String scheduleTypeDisplay = "";
+            switch (UserTrainings.getInstance().getTraining(index).getTrainingForm().getTrainingType()) {
+                case "SPLIT":
+                case "FBW":
+                    durationDisplay = "Czas treningu: " + UserTrainings.getInstance().getTraining(index).getTrainingForm().getDaysCount() + " dni";
+                    if (UserTrainings.getInstance().getTraining(index).getTrainingForm().getScheduleType().equals("PER_DAY")) {
+                        scheduleTypeDisplay = "Forma treningu: na dzień";
+                    } else {
+                        scheduleTypeDisplay = "Forma treningu: powtarzalny";
+                    }
+                    for (int i = 0; i < UserTrainings.getInstance().getTraining(index).getTrainingForm().getDaysCount(); i++) {
+                        buttonArrayList.get(i).setVisibility(View.VISIBLE);
                     }
 
-                    recyclerViewArrayList.get(i).setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-                }
-            }
-            else
-            {
-                String trainingTypeDisplay = "Rodzaj treningu: " + UserTrainings.getInstance().getTraining(index).getTrainingForm().getTrainingType().toLowerCase();
-                String nameOfTraining = "Nazwa treningu: " + UserTrainings.getInstance().getTraining(index).getTrainingName();
-                String durationDisplay = "";
-                String scheduleTypeDisplay = "";
-                switch (UserTrainings.getInstance().getTraining(index).getTrainingForm().getTrainingType()) {
-                    case "SPLIT":
-                    case "FBW":
-                        durationDisplay = "Czas treningu: " + UserTrainings.getInstance().getTraining(index).getTrainingForm().getDaysCount() + " dni";
-                        if( UserTrainings.getInstance().getTraining(index).getTrainingForm().getScheduleType().equals("PER_DAY"))
-                        {
-                            scheduleTypeDisplay = "Forma treningu: na dzień";
-                        }
-                        else
-                        {
-                            scheduleTypeDisplay = "Forma treningu: powtarzalny";
-                        }
-                        for (int i = 0; i < UserTrainings.getInstance().getTraining(index).getTrainingForm().getDaysCount(); i++)
-                        {
-                            buttonArrayList.get(i).setVisibility(View.VISIBLE);
-                        }
-
-                        break;
-                    case "CARDIO":
-                    case "FITNESS":
-                        durationDisplay = "Czas treningu: " + UserTrainings.getInstance().getTraining(index).getTrainingForm().getDuration() + " minut";
-                        if( UserTrainings.getInstance().getTraining(index).getTrainingForm().getScheduleType().equals("SERIES"))
-                        {
-                            scheduleTypeDisplay = "Forma treningu: seriowy";
-                        }
-                        else
-                        {
-                            scheduleTypeDisplay = "Forma treningu: obwodowy";
-                        }
-                        day1Button.setVisibility(View.VISIBLE);
-                        break;
-                }
-                trainingName.setText(nameOfTraining);
-                trainingType.setText(trainingTypeDisplay);
-                trainingForm.setText(scheduleTypeDisplay);
-                trainingDuration.setText(durationDisplay);
-
-                for (int i = 0; i < UserTrainings.getInstance().getTraining(index).getPlanList().size(); i++)
-                {
-                    exerciseListAdapters.add(new ExerciseListAdapter(UserTrainings.getInstance().getTraining(index).getTrainingPlan(i).getExercisesExecutions()));
-                    recyclerViewArrayList.get(i).addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-                    recyclerViewArrayList.get(i).setAdapter(exerciseListAdapters.get(i));
-                    if (UserTrainings.getInstance().getTraining(index).getTrainingForm().getTrainingType().equals("FBW") ||
-                            UserTrainings.getInstance().getTraining(index).getTrainingForm().getTrainingType().equals("SPLIT"))
-                    {
-                        recyclerViewArrayList.get(i).setNestedScrollingEnabled(false);
+                    break;
+                case "CARDIO":
+                case "FITNESS":
+                    durationDisplay = "Czas treningu: " + UserTrainings.getInstance().getTraining(index).getTrainingForm().getDuration() + " minut";
+                    if (UserTrainings.getInstance().getTraining(index).getTrainingForm().getScheduleType().equals("SERIES")) {
+                        scheduleTypeDisplay = "Forma treningu: seriowy";
+                    } else {
+                        scheduleTypeDisplay = "Forma treningu: obwodowy";
                     }
-
-                    recyclerViewArrayList.get(i).setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-                }
+                    day1Button.setVisibility(View.VISIBLE);
+                    break;
             }
+            trainingName.setText(nameOfTraining);
+            trainingType.setText(trainingTypeDisplay);
+            trainingForm.setText(scheduleTypeDisplay);
+            trainingDuration.setText(durationDisplay);
+
+            for (int i = 0; i < UserTrainings.getInstance().getTraining(index).getPlanList().size(); i++)
+            {
+                exerciseListAdapters.add(new ExerciseListAdapter(UserTrainings.getInstance().getTraining(index).getTrainingPlan(i).getExercisesExecutions()));
+                recyclerViewArrayList.get(i).addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+                recyclerViewArrayList.get(i).setAdapter(exerciseListAdapters.get(i));
+                if (UserTrainings.getInstance().getTraining(index).getTrainingForm().getTrainingType().equals("FBW") || UserTrainings.getInstance().getTraining(index).getTrainingForm().getTrainingType().equals("SPLIT")) {
+                    recyclerViewArrayList.get(i).setNestedScrollingEnabled(false);
+                }
+
+                recyclerViewArrayList.get(i).setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+            }
+
         }
     }
 }

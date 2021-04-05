@@ -49,17 +49,11 @@ public class EditTrainingNameDialog extends AppCompatDialogFragment
                 {
                     String newTrainingName = newName.getText().toString();
                     Bundle args = getArguments();
-                    int sc1 = args.getInt("sc1");
+                    String trainingID = args.getString("trainingID");
+                    String[] tokens = trainingID.split("/");
 
-                    if (sc1 == -999)
-                    {
-                        sc1 = UserTrainings.getInstance().getTrainingArrayList().size()-1;
-                    }
-
-                    List<SavedTraining> result2 = AppDataBase.getInstance(getContext()).training().getInfoForTrainingList();
-
-                    UserTrainings.getInstance().getTraining(sc1).setTrainingName(newTrainingName);
-                    AppDataBase.getInstance(getContext()).training().updateTrainingNameInDataBase(newTrainingName,result2.get(sc1).getId());
+                    UserTrainings.getInstance().getTraining(Integer.parseInt(tokens[0])).setTrainingName(newTrainingName);
+                    AppDataBase.getInstance(getContext()).training().updateTrainingNameInDataBase(newTrainingName, Integer.parseInt(tokens[1]));
                     Navigation.findNavController(myView).navigate(R.id. reload);
 
                 });

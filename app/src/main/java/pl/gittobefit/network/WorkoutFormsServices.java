@@ -127,11 +127,8 @@ public class WorkoutFormsServices
             public void onResponse(Call<Training> call, Response<Training> response) {
                 if(response.isSuccessful())
                 {
-                  createTraining(response.body(), fragment.getContext());
-                    InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
-                    model.setNumberOfClickedTraining(-999);
-
-                    Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+                  createTraining(response.body(), fragment);
+                  Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
                 }
                 else
                 {
@@ -148,14 +145,17 @@ public class WorkoutFormsServices
         });
     }
 
-    private void createTraining(Training body, Context context) {
+    private void createTraining(Training body, Fragment fragment) {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String text = formatter.format(date);
         body.setGenerationDate(text);
         body.setTrainingName("Default training name");
         UserTrainings.getInstance().add(body);
-        TrainingRepository trainingRepository = new TrainingRepository(AppDataBase.getInstance(context));
+        TrainingRepository trainingRepository = new TrainingRepository(AppDataBase.getInstance(fragment.getContext()));
         trainingRepository.add(body);
+
+        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
+        model.setNumberOfClickedTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1);
     }
 }

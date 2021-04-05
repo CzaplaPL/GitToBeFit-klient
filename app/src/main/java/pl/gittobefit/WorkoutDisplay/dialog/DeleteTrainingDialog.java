@@ -43,18 +43,13 @@ public class DeleteTrainingDialog extends AppCompatDialogFragment
                 .setPositiveButton(getString(R.string.delete), (dialog, which) ->
                 {
                     Bundle args = getArguments();
-                    int sc1 = args.getInt("sc1");
-                    if (sc1 == -999)
-                    {
-                        sc1 = UserTrainings.getInstance().getTrainingArrayList().size()-1;
-                    }
+                    String trainingID = args.getString("trainingID");
+                    String[] tokens = trainingID.split("/");
 
-                    UserTrainings.getInstance().getTrainingArrayList().remove(sc1);
+                    UserTrainings.getInstance().getTrainingArrayList().remove(Integer.parseInt(tokens[0]));
 
-                    List<SavedTraining> result2 = AppDataBase.getInstance(getContext()).training().getInfoForTrainingList();
-
-                    AppDataBase.getInstance(getContext()).training().deleteTrainingInDataBase(result2.get(sc1).getId());
-                    AppDataBase.getInstance(getContext()).workoutForm().deleteFormInDataBase(result2.get(sc1).getId());
+                    AppDataBase.getInstance(getContext()).training().deleteTrainingInDataBase(Integer.parseInt(tokens[1]));
+                    AppDataBase.getInstance(getContext()).workoutForm().deleteFormInDataBase(Integer.parseInt(tokens[1]));
                     Navigation.findNavController(myView).navigate(R.id. training_to_delete_action);
                 });
         return builder.create();
