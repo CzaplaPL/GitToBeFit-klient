@@ -3,6 +3,7 @@ package pl.gittobefit.database.repository;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
@@ -19,8 +20,8 @@ import pl.gittobefit.user.User;
 public class TrainingRepository
 {
     private final AppDataBase base;
-    private Map<Long, TrainingWithForm> loadedTrainingWithForm;
-    private Map<Integer, Exercise> loadExercise;
+    private Map<Long, TrainingWithForm> loadedTrainingWithForm = new HashMap<Long, TrainingWithForm>();;
+    private Map<Integer, Exercise> loadedExercises = new HashMap<Integer, Exercise>();;
     private static volatile TrainingRepository INSTANCE;
 
     private TrainingRepository(Context context)
@@ -49,17 +50,17 @@ public class TrainingRepository
         saveExercise(training.getPlanList());
         long idTraining = base.trainingDao().addTraining(new SavedTraining(idForm, training.getPlanList()));
         TrainingWithForm savedTraining = base.trainingDao().getTraining(idTraining);
- //       loadedTrainingWithForm.put((long) savedTraining.training.getId(), savedTraining);
+        loadedTrainingWithForm.put((long) savedTraining.training.getId(), savedTraining);
         return savedTraining;
     }
 
     public TrainingWithForm getTraining(long id)
     {
-        /*if(loadedTrainingWithForm.get(id) == null)
+        if(loadedTrainingWithForm.get(id) == null)
         {
-            loadedTrainingWithForm.put(id, );
-        }*/
-        return base.trainingDao().getTraining(id);
+            loadedTrainingWithForm.put(id, base.trainingDao().getTraining(id));
+        }
+        return loadedTrainingWithForm.get(id);
     }
 
     public ArrayList<TrainingWithForm> getAllTrainingsForUser(String id)
@@ -142,11 +143,11 @@ public class TrainingRepository
         ArrayList<Exercise> toReturn = new ArrayList<>();
         for(ExerciseExecutionPOJODB plan : planList)
         {
-           /* if(loadExercise.get(plan.getExerciseId()) == null)
+            if(loadedExercises.get(plan.getExerciseId()) == null)
             {
-                loadExercise.put(plan.getExerciseId(),));
-            }*/
-            toReturn.add( base.exerciseDao().getExercise(plan.getExerciseId()));
+                loadedExercises.put(plan.getExerciseId(), base.exerciseDao().getExercise(plan.getExerciseId()));
+            }
+            toReturn.add(loadedExercises.get(plan.getExerciseId()));
         }
         return toReturn;
     }

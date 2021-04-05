@@ -36,8 +36,6 @@ import pl.gittobefit.user.dialog.DeleteAccountDialog;
  */
 public class MainActivity extends AppCompatActivity implements ChangeMailDialog.ChangeMailDialogInterface, DeleteAccountDialog.DeleteAccountDialogInterface,IShowSnackbar, HomeFragment.HideKeyboardInterface
 {
-
-    private FirebaseAnalytics mFirebaseAnalytics;
     private DrawerLayout drawerLayout;
     NavigationView navigationView;
     //////

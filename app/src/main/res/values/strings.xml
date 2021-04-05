@@ -59,7 +59,7 @@
     <string name="day_5">Dzień 5</string>
 
     <string name="loading">trwa wczytywanie...</string>
-    <string name="generateTrainingForm">Generate Training</string>
+    <string name="generateTrainingForm">Generowanie treningu</string>
     <string name="equipment">Equipment</string>
     <string name="tab2">Tab 2</string>
     <string name="tab3">Tab 3</string>
@@ -242,6 +242,8 @@ sprawdzanie czy użytkownik ma internet\n
       dodanie fragentu prowadzenia trningów\n
         dodanie fragentu prowadzenia trningów\n
         utworzenie encji w bazie danych do zapisywania treningu \n
+          0.1.6\n
+       synchronizacja zapisywania treningow z serwerem \n
     </string>
     <string name="chosen_eqiupment">Wybrany sprzęt</string>
     <string name="prowadzenie_treningu" />

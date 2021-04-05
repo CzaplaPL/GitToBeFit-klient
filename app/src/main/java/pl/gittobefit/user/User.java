@@ -1,7 +1,5 @@
 package pl.gittobefit.user;
 
-import android.content.Context;
-
 /**
  * klasa przechowująca informacje o użytkowniku
  */
@@ -29,13 +27,13 @@ public class User
     {
         No_Synchronise,
         Start_Synchronise,
-        Synchronize_Success,
-        Synchronize_error
+        Synchronise_Success,
+        Synchronise_error
     }
 
     private String email = "";
     private String auth = "";
-    private String idSerwer = "";
+    private String idServer = "";
     private WayOfLogin loggedBy = WayOfLogin.NO_LOGIN;
     private SynchroniseTraining synchroniseTraining = SynchroniseTraining.No_Synchronise;
     private static volatile User INSTANCE;
@@ -72,20 +70,20 @@ public class User
     public void add(String email, String auth, String id, WayOfLogin loggedBy)
     {
         this.email = email;
-        this.idSerwer = id;
+        this.idServer = id;
         this.auth = auth;
         this.loggedBy = loggedBy;
         this.synchroniseTraining = SynchroniseTraining.No_Synchronise;
     }
 
-    public String getIdSerwer()
+    public String getIdServer()
     {
-        return idSerwer;
+        return idServer;
     }
 
-    public void setIdSerwer(String idSerwer)
+    public void setIdServer(String idServer)
     {
-        this.idSerwer = idSerwer;
+        this.idServer = idServer;
     }
 
     //getter do emaila - Kuba
