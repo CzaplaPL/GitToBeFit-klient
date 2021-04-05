@@ -142,6 +142,11 @@
     </dialog>
 
     <dialog
+        android:id="@+id/editExerciseDialog"
+        android:name="pl.gittobefit.WorkoutDisplay.dialog.EditExerciseDialog"
+        android:label="EditExerciseDialog" />
+
+    <dialog
         android:id="@+id/deleteTrainingDialog"
         android:name="pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog"
         android:label="DeleteTrainingName" >

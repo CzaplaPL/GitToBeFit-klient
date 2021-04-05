@@ -4,20 +4,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import pl.gittobefit.R;
+import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
+import pl.gittobefit.WorkoutDisplay.dialog.EditExerciseDialog;
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 
 public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ViewHolder>
 {
 
     private ArrayList<ExerciseExecution> exerciseArrayList;
+    private Fragment fragment;
+
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
         private TextView exerciseName;
@@ -32,8 +38,9 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         }
     }
 
-    public ExerciseListAdapter(ArrayList<ExerciseExecution> exerciseArrayList) {
+    public ExerciseListAdapter(ArrayList<ExerciseExecution> exerciseArrayList, Fragment fragment) {
         this.exerciseArrayList = exerciseArrayList;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -59,6 +66,16 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         }
 
         holder.exerciseInfo.setText(text);
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                EditExerciseDialog editExerciseDialog = new EditExerciseDialog(fragment.getView());
+                editExerciseDialog.show(fragment.getFragmentManager(), "dialog");
+            }
+        });
     }
 
 
