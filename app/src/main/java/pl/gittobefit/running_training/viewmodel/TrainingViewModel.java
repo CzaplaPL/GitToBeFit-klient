@@ -80,4 +80,15 @@ public class TrainingViewModel extends ViewModel {
     public void setPlanList(ArrayList<ExerciseExecutionPOJODB> planList) {
         this.planList = planList;
     }
+
+    public boolean nextExercise() {
+        if(indexExercise < listExercises.size()-1){
+            indexExercise++;
+            numberOfSeries = 1;
+        }
+        else{
+            return false;
+        }
+        return true;
+    }
 }

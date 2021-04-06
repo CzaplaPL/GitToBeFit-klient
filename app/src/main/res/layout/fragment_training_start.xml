@@ -49,7 +49,7 @@
             <VideoView
                 android:id="@+id/videoViewStartTraining"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="212dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:visibility="visible" />
@@ -150,12 +150,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
         </LinearLayout>
 
         <VideoView
@@ -195,7 +189,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/titleCountOfSeries"
+                        android:id="@+id/scheduleTypeTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"

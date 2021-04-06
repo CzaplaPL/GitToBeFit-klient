@@ -248,4 +248,9 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="chosen_eqiupment">Wybrany sprzęt</string>
     <string name="prowadzenie_treningu" />
     <string name="exercise">"Ćwiczenie "</string>
+    <string name="scheduleTypeCircuit">Numer Obwodu:</string>
+    <string name="scheduleTypeSeries">Numer Serii:</string>
+    <string name="timeTitle">Czas Wykonywania Ćwiczenia:</string>
+    <string name="seriesTitle">Ilość Serii:</string>
+    <string name="repeatsTitle">Ilość Powtórzeń:</string>
 </resources>
