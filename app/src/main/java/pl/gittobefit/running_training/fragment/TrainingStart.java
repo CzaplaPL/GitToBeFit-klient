@@ -30,7 +30,7 @@ import pl.gittobefit.running_training.viewmodel.TrainingViewModel;
 
 public class TrainingStart extends Fragment  {
 
-    private static final long START_TIME_IN_MILLIS = 13000;
+    private static final long START_TIME_IN_MILLIS = 6000;
     private boolean timerRunning;
     private long timeLeftInMillis = START_TIME_IN_MILLIS;
     private CountDownTimer timerAdapter;
@@ -115,14 +115,14 @@ public class TrainingStart extends Fragment  {
                 binding.exerciseStart.startAnimation(started);
                 binding.buttonLayout.startAnimation(downtoup);
                 getSmallVideo();
-                binding.textTime.startAnimation(downtoup);
-                startTimer();
+                binding.timerWaitForStart.startAnimation(downtoup);
+                startCircleTimer();
             }
         });
 
         /**/
 
-        buttonPause.setOnClickListener(v -> {
+        /*buttonPause.setOnClickListener(v -> {
             pauseTimer();
             buttonPause.setVisibility(View.GONE);
             buttonPlay.setVisibility(View.VISIBLE);
@@ -132,7 +132,7 @@ public class TrainingStart extends Fragment  {
             startTimer();
             buttonPause.setVisibility(View.VISIBLE);
             buttonPlay.setVisibility(View.GONE);
-        });
+        });*/
 
         return binding.getRoot();
     }
@@ -231,12 +231,12 @@ public class TrainingStart extends Fragment  {
                 timerRunning = false;
                 binding.miss.setVisibility(View.GONE);
                 binding.start.setVisibility(View.GONE);
-                binding.nextExercise.setVisibility(View.VISIBLE);
                 binding.exerciseBackground.startAnimation(exit);
                 binding.exerciseStart.startAnimation(exit);
                 ViewCompat.animate(binding.exerciseBackground).setStartDelay(1000).alpha(0).start();
                 ViewCompat.animate(binding.exerciseStart).setStartDelay(1000).alpha(0).start();
                 binding.videoViewTraining.setVisibility(View.VISIBLE);
+                binding.nextExercise.setVisibility(View.VISIBLE);
             }
         }.start();
         timerRunning = true;
@@ -247,5 +247,27 @@ public class TrainingStart extends Fragment  {
         int seconds = (int) (timeLeftInMillis / 1000) % 60;
         String timeFormatted = String.format(Locale.getDefault(),"%02d:%02d",minutes,seconds);
         binding.textTime.setText(timeFormatted);
+    }
+
+    private void startCircleTimer() {
+        new CountDownTimer(9000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                int seconds = (int) (millisUntilFinished / 1000);
+                String timeFormatted = String.valueOf(seconds);
+                binding.circleTimerText.setText(timeFormatted);
+            }
+
+            @Override
+            public void onFinish() {
+                binding.timerWaitForStart.setVisibility(View.GONE);
+                startTrainingOnCreate();
+            }
+        }.start();
+        timerRunning = true;
+    }
+
+    private void startTrainingOnCreate(){
+
     }
 }
