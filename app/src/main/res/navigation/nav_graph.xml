@@ -31,6 +31,7 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_generateTraining"
+            app:popUpTo="@+id/fragment_home"
             app:destination="@id/generateTrainingForm" />
         <action
             android:id="@+id/action_homeFragment_to_displayReceivedTraining"
@@ -115,9 +116,9 @@
         android:name="pl.gittobefit.workoutforms.fragments.GenerateTrainingForm"
         android:label="@string/generateTrainingForm"
         tools:layout="@layout/fragment_generate_training" >
-
         <action
             android:id="@+id/action_generateTrainingForm_to_displayReceivedTraining"
+            app:popUpTo="@+id/homeFragment"
             app:destination="@id/displayReceivedTraining" />
     </fragment>
 
@@ -135,7 +136,9 @@
         android:id="@+id/displayReceivedTraining"
         android:name="pl.gittobefit.WorkoutDisplay.fragments.DisplayReceivedTraining"
         android:label="Twój trening"
-        tools:layout="@layout/fragment_received_training" />
+        tools:layout="@layout/fragment_received_training" >
+
+    </fragment>
     <action
         android:id="@+id/action_global_logout"
         app:destination="@id/logout"

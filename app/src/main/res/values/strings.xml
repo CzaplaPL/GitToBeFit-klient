@@ -149,9 +149,9 @@
     <string name="calfs">Łydki</string>
     <string name="biceps">Biceps</string>
     <string name="triceps">Triceps</string>
-    <string name="shoulders">barki</string>
-    <string name="legs">nogi</string>
-    <string name="arms">ręce</string>
+    <string name="shoulders">Barki</string>
+    <string name="legs">Nogi</string>
+    <string name="arms">Ręce</string>
     <string name="noNetwork">Brak internetu.Aplikacja działa w trybie offline</string>
     <string name="change_pass">Hasło zostało zmienione</string>
     <string name="wrong_old_pass">Niepoprawne stare hasło !</string>
@@ -161,7 +161,7 @@
     <string name="delete_acount_title">Usuń konto</string>
     <string name="set_time">Czas trwania treningu </string>
     <string name="set_schedule">Sposób generowania</string>
-    <string name="noeqiupment">Ćwiczenia bez sprzętu</string>
+    <string name="noeqiupment">Ćwiczenia nie wymagające sprzętu </string>
     <string name="registrationStart">Trwa rejestracja</string>
     <string name="chosen_type">"Wybrany typ treningu : "</string>
     <string name="chosen_type_form">"Wybrany typ treningu "</string>
