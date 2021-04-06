@@ -124,6 +124,15 @@ public class SummaryFragment extends Fragment {
         bodyPartsAdapter.notifyDataSetChanged();
         model.updateCheckedEqiupment();
         equipmentAdapter.notifyDataSetChanged();
+        if(model.isNoEquipmentcheched() && binding.eqiupmentsList.getVisibility()!=View.GONE)
+        {
+            binding.noEquipmentItemImage.setVisibility(View.VISIBLE);
+            binding.noEquipmentTitle.setVisibility(View.VISIBLE);
+        }else
+        {
+            binding.noEquipmentItemImage.setVisibility(View.GONE);
+            binding.noEquipmentTitle.setVisibility(View.GONE);
+        }
     }
 
 

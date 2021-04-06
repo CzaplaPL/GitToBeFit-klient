@@ -150,7 +150,6 @@
                 android:id="@+id/body_parts_list"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/main_guideline_right2"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left2"
                 app:layout_constraintTop_toBottomOf="@+id/bodyTitle">
@@ -217,7 +216,6 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/ic_baseline_clear_24"
-                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left3"
                 app:layout_constraintTop_toBottomOf="@+id/eqiupmentTitle" />
 
@@ -231,7 +229,6 @@
                 android:textColor="?attr/colorPrimaryVariant"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/eqiupmentsList"
                 app:layout_constraintStart_toEndOf="@+id/no_equipment_item_image"
                 app:layout_constraintTop_toBottomOf="@+id/eqiupmentTitle"
@@ -241,7 +238,6 @@
                 android:id="@+id/eqiupmentsList"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/main_guideline_right3"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left3"

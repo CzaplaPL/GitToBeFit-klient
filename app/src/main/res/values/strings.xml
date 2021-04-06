@@ -69,23 +69,21 @@
     <string name="wrongPassword">Słabe hasło. Hasło musi składać się z 8 znaków oraz zawierać wielką litere, cyfrę i znak specjalny.</string>
     <string name="incoredPassword">Podano błędne hasło.</string>
     <string name="wrongPassword2">Hasła różnią się.</string>
-
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
     <string-array name="trening_type_name">
-        <item>SPLIT</item>
-        <item>FBW</item>
-        <item>CARDIO</item>
-        <item>FITNESS</item>
+        <item>Split</item>
+        <item>Full Body Workout </item>
+        <item>Cardio</item>
+        <item>Fitness</item>
     </string-array>
 
     <string-array name="trening_type">
-        <item>Trening split</item>
-        <item>Trening fbw</item>
-        <item>Trening cardio</item>
-        <item>Trening fitness</item>
+        <item>Split</item>
+        <item>Full Body Workout</item>
+        <item>Cardio</item>
+        <item>Fitness</item>
     </string-array>
     <string-array name="training_subtype">
         <item>Seriowy</item>
