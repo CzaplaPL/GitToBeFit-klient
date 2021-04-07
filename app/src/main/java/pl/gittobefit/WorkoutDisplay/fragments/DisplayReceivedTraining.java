@@ -277,9 +277,9 @@ public class DisplayReceivedTraining extends Fragment
                 case "FBW":
                     durationDisplay = "Czas treningu: " + UserTrainings.getInstance().getTraining(index).getTrainingForm().getDaysCount() + " dni";
                     if (UserTrainings.getInstance().getTraining(index).getTrainingForm().getScheduleType().equals("PER_DAY")) {
-                        scheduleTypeDisplay = "Forma treningu: na dzień";
+                        scheduleTypeDisplay = "Forma treningu: otrzymałeś na każdy dzień trenigowy inny trening";
                     } else {
-                        scheduleTypeDisplay = "Forma treningu: powtarzalny";
+                        scheduleTypeDisplay = "Forma treningu: otrzymałeś na każdy dzień trenigowy taki sam trening";
                     }
                     for (int i = 0; i < UserTrainings.getInstance().getTraining(index).getTrainingForm().getDaysCount(); i++) {
                         buttonArrayList.get(i).setVisibility(View.VISIBLE);
