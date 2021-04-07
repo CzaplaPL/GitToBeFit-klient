@@ -110,6 +110,10 @@
         android:id="@+id/deleteAccountDialog"
         android:name="pl.gittobefit.user.dialog.DeleteAccountDialog"
         android:label="DeleteAccountDialog" />
+    <dialog
+        android:id="@+id/detailsInfoLayout"
+        android:name="pl.gittobefit.running_training.dialog.DetailsInfoDialog"
+        android:label="DetailsInfoDialog" />
     <fragment
         android:id="@+id/generateTrainingForm"
         android:name="pl.gittobefit.workoutforms.fragments.GenerateTrainingForm"
@@ -118,8 +122,10 @@
         <action
             android:id="@+id/action_generateTrainingForm_to_displayReceivedTraining"
             app:destination="@id/displayReceivedTraining" />
+        <action
+            android:id="@+id/action_generateTrainingForm_to_detailsInfoLayout"
+            app:destination="@id/detailsInfoLayout" />
     </fragment>
-
     <fragment
         android:id="@+id/listOfTrainings"
         android:name="pl.gittobefit.WorkoutDisplay.fragments.ListOfTrainings"

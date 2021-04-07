@@ -179,6 +179,7 @@
     <string name="sumary">Podsumowanie</string>
     <string name="generate">Generuj</string>
     <string name="onlynext">Dalej</string>
+    <string name="detailsInfoTitle">Wskazówka</string>
 
     <string name="aboutUsInfo">Numer zespołu: 8\n
         Opiekun zespołu: Daniel Borucki\n
@@ -253,4 +254,5 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="timeTitle">Czas Wykonywania Ćwiczenia:</string>
     <string name="seriesTitle">Ilość Serii:</string>
     <string name="repeatsTitle">Ilość Powtórzeń:</string>
+    <string name="detailsInfo">Siema siema</string>
 </resources>
