@@ -2,7 +2,6 @@ package pl.gittobefit.WorkoutDisplay.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,18 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import java.util.List;
-
 import pl.gittobefit.R;
-import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.AppDataBase;
-import pl.gittobefit.database.entity.training.SavedTraining;
 
 public class EditTrainingNameDialog extends AppCompatDialogFragment
 {

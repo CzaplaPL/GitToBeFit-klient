@@ -1,14 +1,10 @@
 package pl.gittobefit.network;
 
-import android.content.Context;
-import android.os.Bundle;
 import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +12,6 @@ import java.util.Date;
 
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
-import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.repository.TrainingRepository;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
 import pl.gittobefit.database.entity.training.WorkoutForm;
@@ -24,7 +19,6 @@ import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
-import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
 import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import retrofit2.Call;

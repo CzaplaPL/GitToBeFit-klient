@@ -1,7 +1,6 @@
 package pl.gittobefit.WorkoutDisplay.fragments;
 
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,29 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.adapters.ExerciseListAdapter;
 import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.EditTrainingNameDialog;
-import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
-import pl.gittobefit.WorkoutDisplay.objects.Training;
-import pl.gittobefit.WorkoutDisplay.objects.TrainingPlan;
-import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
-import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.training.Exercise;
-import pl.gittobefit.database.entity.training.SavedTraining;
-import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.repository.TrainingRepository;
 
@@ -82,19 +71,16 @@ public class DisplayReceivedTraining extends Fragment
             exercisesArrayList.add(TrainingRepository.getInstance(getContext()).getExerciseForPlanList(trainingWithForm.training.getPlanList().get(i)));
         }
 
-
         TextView trainingType = getView().findViewById(R.id.trainingType);
         TextView trainingForm = getView().findViewById(R.id.trainingForm);
         TextView trainingDuration = getView().findViewById(R.id.trainingDuration);
         TextView trainingName = getView().findViewById(R.id.trainingName);
-
 
         RelativeLayout relativeLayout1 = getView().findViewById(R.id.layout0);
         RelativeLayout relativeLayout2 = getView().findViewById(R.id.layout1);
         RelativeLayout relativeLayout3 = getView().findViewById(R.id.layout2);
         RelativeLayout relativeLayout4 = getView().findViewById(R.id.layout3);
         RelativeLayout relativeLayout5 = getView().findViewById(R.id.layout4);
-
 
         ArrayList<RelativeLayout> linearLayoutArrayList = new ArrayList<>();
         linearLayoutArrayList.add(relativeLayout1);
@@ -103,13 +89,11 @@ public class DisplayReceivedTraining extends Fragment
         linearLayoutArrayList.add(relativeLayout4);
         linearLayoutArrayList.add(relativeLayout5);
 
-
         RecyclerView exercisesList = getView().findViewById(R.id.exercisesList);
         RecyclerView exercisesList2 = getView().findViewById(R.id.exercisesList2);
         RecyclerView exercisesList3 = getView().findViewById(R.id.exercisesList3);
         RecyclerView exercisesList4 = getView().findViewById(R.id.exercisesList4);
         RecyclerView exercisesList5 = getView().findViewById(R.id.exercisesList5);
-
 
         ArrayList<RecyclerView> recyclerViewArrayList = new ArrayList<>();
         recyclerViewArrayList.add(exercisesList);
@@ -119,7 +103,6 @@ public class DisplayReceivedTraining extends Fragment
         recyclerViewArrayList.add(exercisesList5);
 
         ArrayList<ExerciseListAdapter> exerciseListAdapters = new ArrayList<>();
-
 
         Button day1Button = getView().findViewById(R.id.day1_button);
         Button day2Button = getView().findViewById(R.id.day2_button);
@@ -259,7 +242,7 @@ public class DisplayReceivedTraining extends Fragment
         trainingDuration.setText(durationDisplay);
 
         for (int i = 0; i < exercisesArrayList.size(); i++) {
-            exerciseListAdapters.add(new ExerciseListAdapter(exercisesArrayList.get(i), trainingWithForm.training.getPlanList().get(i), this));
+            exerciseListAdapters.add(new ExerciseListAdapter(exercisesArrayList.get(i), trainingWithForm.training.getPlanList().get(i), trainingWithForm.form.getScheduleType(), trainingWithForm.training.getId(),this));
             recyclerViewArrayList.get(i).addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
             recyclerViewArrayList.get(i).setAdapter(exerciseListAdapters.get(i));
             if (trainingWithForm.form.getTrainingType().equals("FBW") || trainingWithForm.form.getTrainingType().equals("SPLIT")) {

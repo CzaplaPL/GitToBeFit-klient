@@ -13,21 +13,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.adapters.TrainingListAdapter;
-import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
-import pl.gittobefit.WorkoutDisplay.objects.Training;
-import pl.gittobefit.WorkoutDisplay.objects.TrainingPlan;
-import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
-import pl.gittobefit.database.AppDataBase;
-import pl.gittobefit.database.entity.UserEntity;
-import pl.gittobefit.database.entity.training.Exercise;
-import pl.gittobefit.database.entity.training.SavedTraining;
-import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.database.repository.TrainingRepository;
 
 public class ListOfTrainings extends Fragment
@@ -53,12 +41,6 @@ public class ListOfTrainings extends Fragment
 
 
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
-
-
-        if (model.getTrainingWithForms().size() == 0)
-        {
-            model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).getAllTrainingsForUser(""));
-        }
 
         RecyclerView recyclerView = getView().findViewById(R.id.list_of_trainings);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));

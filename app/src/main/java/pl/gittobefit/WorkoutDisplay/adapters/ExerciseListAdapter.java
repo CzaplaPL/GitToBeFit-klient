@@ -17,6 +17,7 @@ import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.EditExerciseDialog;
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
+import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 
@@ -26,6 +27,8 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     private ArrayList<Exercise> exerciseArrayList;
     private ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList;
     private Fragment fragment;
+    private String scheduleType;
+    private int trainingID;
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
@@ -41,10 +44,12 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         }
     }
 
-    public ExerciseListAdapter(ArrayList<Exercise> exerciseArrayList, ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList, Fragment fragment) {
+    public ExerciseListAdapter(ArrayList<Exercise> exerciseArrayList, ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList, String scheduleType, int trainingID, Fragment fragment) {
         this.exerciseArrayList = exerciseArrayList;
         this.fragment = fragment;
         this.exercisesExecutionArrayList = exercisesExecutionArrayList;
+        this.scheduleType = scheduleType;
+        this.trainingID = trainingID;
     }
 
     @NonNull
@@ -60,6 +65,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.exerciseName.setText(exerciseArrayList.get(position).getName());
         String text = "";
+
         if (exercisesExecutionArrayList.get(position).getTime() > 20)
         {
             text = exercisesExecutionArrayList.get(position).getSeries() + " serie, " + exercisesExecutionArrayList.get(position).getTime() + " sekund";
@@ -73,7 +79,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
 
         holder.itemView.setOnClickListener(v -> {
-            EditExerciseDialog editExerciseDialog = new EditExerciseDialog(fragment.getView());
+            EditExerciseDialog editExerciseDialog = new EditExerciseDialog(fragment.getView(), scheduleType, exercisesExecutionArrayList.get(position), trainingID, exerciseArrayList.get(position).getName());
             editExerciseDialog.show(fragment.getFragmentManager(), "dialog");
         });
     }
