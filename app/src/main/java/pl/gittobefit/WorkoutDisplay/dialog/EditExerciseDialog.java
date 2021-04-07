@@ -74,6 +74,16 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
         {
             seriesCount.setText("Ilość obwodów");
         }
+
+        TextView count_time = view.findViewById(R.id.count_time);
+        if (exerciseExecutionPOJODB.getTime() > 20)
+        {
+            count_time.setText("Czas trwania");
+        }
+        else {
+            count_time.setText("Ilość powtórzeń");
+        }
+
         builder.setView(view)
                 .setTitle(exerciseName)
                 .setNegativeButton(getString(R.string.admit_changes), (dialog, which) ->
