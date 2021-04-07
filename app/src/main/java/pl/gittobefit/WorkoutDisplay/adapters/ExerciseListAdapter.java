@@ -17,11 +17,14 @@ import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.EditExerciseDialog;
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
+import pl.gittobefit.database.entity.training.Exercise;
+import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 
 public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ViewHolder>
 {
 
-    private ArrayList<ExerciseExecution> exerciseArrayList;
+    private ArrayList<Exercise> exerciseArrayList;
+    private ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList;
     private Fragment fragment;
 
     public static class ViewHolder extends RecyclerView.ViewHolder
@@ -38,9 +41,10 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         }
     }
 
-    public ExerciseListAdapter(ArrayList<ExerciseExecution> exerciseArrayList, Fragment fragment) {
+    public ExerciseListAdapter(ArrayList<Exercise> exerciseArrayList, ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList, Fragment fragment) {
         this.exerciseArrayList = exerciseArrayList;
         this.fragment = fragment;
+        this.exercisesExecutionArrayList = exercisesExecutionArrayList;
     }
 
     @NonNull
@@ -54,27 +58,23 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.exerciseName.setText(exerciseArrayList.get(position).getExercise().getName());
+        holder.exerciseName.setText(exerciseArrayList.get(position).getName());
         String text = "";
-        if (exerciseArrayList.get(position).getTime() > 20)
+        if (exercisesExecutionArrayList.get(position).getTime() > 20)
         {
-            text = exerciseArrayList.get(position).getSeries() + " serie, " + exerciseArrayList.get(position).getTime() + " sekund";
+            text = exercisesExecutionArrayList.get(position).getSeries() + " serie, " + exercisesExecutionArrayList.get(position).getTime() + " sekund";
         }
         else
         {
-            text = exerciseArrayList.get(position).getSeries() + " serie, " + exerciseArrayList.get(position).getCount() + " powtórzeń";
+            text = exercisesExecutionArrayList.get(position).getSeries() + " serie, " + exercisesExecutionArrayList.get(position).getCount() + " powtórzeń";
         }
 
         holder.exerciseInfo.setText(text);
 
 
-        holder.itemView.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                EditExerciseDialog editExerciseDialog = new EditExerciseDialog(fragment.getView());
-                editExerciseDialog.show(fragment.getFragmentManager(), "dialog");
-            }
+        holder.itemView.setOnClickListener(v -> {
+            EditExerciseDialog editExerciseDialog = new EditExerciseDialog(fragment.getView());
+            editExerciseDialog.show(fragment.getFragmentManager(), "dialog");
         });
     }
 

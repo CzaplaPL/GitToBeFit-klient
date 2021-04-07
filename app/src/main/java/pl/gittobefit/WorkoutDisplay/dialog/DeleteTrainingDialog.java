@@ -12,12 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import java.util.List;
 
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
+import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.training.SavedTraining;
 
@@ -35,6 +37,9 @@ public class DeleteTrainingDialog extends AppCompatDialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_delete_training, null);
+
+        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
+
         builder.setView(view)
                 .setTitle(getString(R.string.delete_training))
                 .setNegativeButton(getString(R.string.cancel), (dialog, which) ->
@@ -46,10 +51,9 @@ public class DeleteTrainingDialog extends AppCompatDialogFragment
                     String trainingID = args.getString("trainingID");
                     String[] tokens = trainingID.split("/");
 
-                    UserTrainings.getInstance().getTrainingArrayList().remove(Integer.parseInt(tokens[0]));
-
-                    AppDataBase.getInstance(getContext()).training().deleteTrainingInDataBase(Integer.parseInt(tokens[1]));
-                    AppDataBase.getInstance(getContext()).workoutForm().deleteFormInDataBase(Integer.parseInt(tokens[1]));
+                    model.getTrainingWithForms().remove(Integer.parseInt(tokens[0]));
+                    AppDataBase.getInstance(getContext()).trainingDao().deleteTrainingInDataBase(Integer.parseInt(tokens[1]));
+                    AppDataBase.getInstance(getContext()).workoutFormDao().deleteFormInDataBase(Integer.parseInt(tokens[1]));
                     Navigation.findNavController(myView).navigate(R.id. training_to_delete_action);
                 });
         return builder.create();

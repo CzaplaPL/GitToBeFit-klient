@@ -40,6 +40,9 @@ public class EditTrainingNameDialog extends AppCompatDialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_edit_training_name_dialog, null);
+
+        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
+
         builder.setView(view)
                 .setTitle(getString(R.string.edit_training_name))
                 .setNegativeButton(getString(R.string.cancel), (dialog, which) ->
@@ -52,8 +55,8 @@ public class EditTrainingNameDialog extends AppCompatDialogFragment
                     String trainingID = args.getString("trainingID");
                     String[] tokens = trainingID.split("/");
 
-                    UserTrainings.getInstance().getTraining(Integer.parseInt(tokens[0])).setTrainingName(newTrainingName);
-                    AppDataBase.getInstance(getContext()).training().updateTrainingNameInDataBase(newTrainingName, Integer.parseInt(tokens[1]));
+                    model.getTrainingWithForms().get(Integer.parseInt(tokens[0])).training.setTrainingName(newTrainingName);
+                    AppDataBase.getInstance(getContext()).trainingDao().updateTrainingNameInDataBase(newTrainingName, Integer.parseInt(tokens[1]));
                     Navigation.findNavController(myView).navigate(R.id. reload);
 
                 });

@@ -39,4 +39,10 @@ public interface ITrainingDao
     @Transaction
     @Query("UPDATE SavedTraining SET idUser = :id WHERE idUser=\"\" ")
     void addUserForTrainings(String id);
+
+    @Query("DELETE FROM SavedTraining  WHERE id = :id")
+    public void deleteTrainingInDataBase(long id);
+
+    @Query("UPDATE SavedTraining SET trainingName = :newName WHERE id = :id")
+    public void updateTrainingNameInDataBase(String newName, long id);
 }

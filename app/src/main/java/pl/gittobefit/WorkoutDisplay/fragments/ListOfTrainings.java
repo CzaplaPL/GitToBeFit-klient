@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,11 +22,13 @@ import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.WorkoutDisplay.objects.TrainingPlan;
 import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
+import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.UserEntity;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.entity.training.SavedTraining;
 import pl.gittobefit.database.entity.training.WorkoutForm;
+import pl.gittobefit.database.repository.TrainingRepository;
 
 public class ListOfTrainings extends Fragment
 {
@@ -49,30 +52,17 @@ public class ListOfTrainings extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
 
-        if (UserTrainings.getInstance().getTrainingArrayList().size() == 0)
+        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
+
+
+        if (model.getTrainingWithForms().size() == 0)
         {
-            List<WorkoutForm> result = AppDataBase.getInstance(getContext()).workoutForm().getTrainingsFrom();
-            List<SavedTraining> result2 = AppDataBase.getInstance(getContext()).training().getInfoForTrainingList();
-            if (result2.size() != 0)
-            {
-                Training training;
-
-                for (int i = 0; i < result.size(); i++) {
-                    training = new Training();
-                    training.setTrainingForm(new WorkoutForm(null, result.get(i).getTrainingType(), null, result.get(i).getDaysCount(), result.get(i).getScheduleType(), result.get(i).getDuration()));
-                    training.setTrainingName(result2.get(i).getTrainingName());
-                    training.setGenerationDate(result2.get(i).getGenerationDate());
-                    training.setId(result2.get(i).getId());
-
-                    UserTrainings.getInstance().add(training);
-                }
-            }
-
+            model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).getAllTrainingsForUser(""));
         }
 
         RecyclerView recyclerView = getView().findViewById(R.id.list_of_trainings);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        TrainingListAdapter trainingListAdapter = new TrainingListAdapter(UserTrainings.getInstance().getTrainingArrayList(), this);
+        TrainingListAdapter trainingListAdapter = new TrainingListAdapter(model.getTrainingWithForms(), this);
         recyclerView.setAdapter(trainingListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     }

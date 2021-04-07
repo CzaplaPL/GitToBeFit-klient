@@ -59,8 +59,8 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
 
                     UserTrainings.getInstance().getTrainingArrayList().remove(Integer.parseInt(tokens[0]));
 
-                    AppDataBase.getInstance(getContext()).training().deleteTrainingInDataBase(Integer.parseInt(tokens[1]));
-                    AppDataBase.getInstance(getContext()).workoutForm().deleteFormInDataBase(Integer.parseInt(tokens[1]));
+                    AppDataBase.getInstance(getContext()).trainingDao().deleteTrainingInDataBase(Integer.parseInt(tokens[1]));
+                    AppDataBase.getInstance(getContext()).workoutFormDao().deleteFormInDataBase(Integer.parseInt(tokens[1]));
                     Navigation.findNavController(myView).navigate(R.id. reload);
                 });
         return builder.create();

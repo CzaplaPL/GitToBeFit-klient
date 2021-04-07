@@ -154,11 +154,8 @@ public class WorkoutFormsServices
         String text = formatter.format(date);
         body.setGenerationDate(text);
         body.setTrainingName("Default training name");
-        UserTrainings.getInstance().add(body);
-        TrainingRepository trainingRepository = new TrainingRepository(AppDataBase.getInstance(fragment.getContext()));
-        trainingRepository.add(body);
-
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
-        model.setNumberOfClickedTraining(UserTrainings.getInstance().getTrainingArrayList().size() - 1);
+        model.addTrainingWithForm(TrainingRepository.getInstance(fragment.getContext()).add(body));
+        model.setNumberOfClickedTraining(model.getTrainingWithForms().size() - 1);
     }
 }
