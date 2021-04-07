@@ -12,6 +12,8 @@ public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
 {
     private MutableLiveData<Integer> numberOfClickedTraining = new MutableLiveData<>();
     private ArrayList<TrainingWithForm> trainingWithForms = new ArrayList<>();
+    private ArrayList<Boolean> states = new ArrayList<Boolean>();
+    private int lastIndex = -1;
 
     public LiveData<Integer> getPosition() {
 
@@ -33,5 +35,30 @@ public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
     public void addTrainingWithForm(TrainingWithForm trainingWithForm)
     {
         trainingWithForms.add(trainingWithForm);
+    }
+
+    public void setStatesExerciseLists(int count)
+    {
+        states.clear();
+        for (int i = 0; i < count; i++)
+        {
+            states.add(false);
+        }
+    }
+    public void setState(int index)
+    {
+        states.set(index, !states.get(index));
+    }
+
+    public ArrayList<Boolean> getStates() {
+        return states;
+    }
+
+    public int getLastIndex() {
+        return lastIndex;
+    }
+
+    public void setLastIndex(int lastIndex) {
+        this.lastIndex = lastIndex;
     }
 }

@@ -71,6 +71,13 @@ public class DisplayReceivedTraining extends Fragment
             exercisesArrayList.add(TrainingRepository.getInstance(getContext()).getExerciseForPlanList(trainingWithForm.training.getPlanList().get(i)));
         }
 
+        if(model.getLastIndex() != index)
+        {
+            model.setStatesExerciseLists(exercisesArrayList.size());
+            model.setLastIndex(index);
+        }
+
+
         TextView trainingType = getView().findViewById(R.id.trainingType);
         TextView trainingForm = getView().findViewById(R.id.trainingForm);
         TextView trainingDuration = getView().findViewById(R.id.trainingDuration);
@@ -152,6 +159,7 @@ public class DisplayReceivedTraining extends Fragment
                 relativeLayout1.setVisibility(View.VISIBLE);
                 exercisesList.setVisibility(View.VISIBLE);
             }
+            model.setState(0);
 
         });
 
@@ -163,6 +171,7 @@ public class DisplayReceivedTraining extends Fragment
                 relativeLayout2.setVisibility(View.VISIBLE);
                 exercisesList2.setVisibility(View.VISIBLE);
             }
+            model.setState(1);
 
         });
 
@@ -174,6 +183,7 @@ public class DisplayReceivedTraining extends Fragment
                 relativeLayout3.setVisibility(View.VISIBLE);
                 exercisesList3.setVisibility(View.VISIBLE);
             }
+            model.setState(2);
 
         });
 
@@ -185,6 +195,7 @@ public class DisplayReceivedTraining extends Fragment
                 relativeLayout4.setVisibility(View.VISIBLE);
                 exercisesList4.setVisibility(View.VISIBLE);
             }
+            model.setState(3);
 
         });
 
@@ -196,6 +207,7 @@ public class DisplayReceivedTraining extends Fragment
                 relativeLayout5.setVisibility(View.VISIBLE);
                 exercisesList5.setVisibility(View.VISIBLE);
             }
+            model.setState(4);
 
         });
 
@@ -204,6 +216,20 @@ public class DisplayReceivedTraining extends Fragment
         }
         for (int i = 0; i < recyclerViewArrayList.size(); i++) {
             recyclerViewArrayList.get(i).setVisibility(View.GONE);
+        }
+
+        for (int i = 0; i < model.getStates().size(); i++) {
+            if (model.getStates().get(i))
+            {
+                linearLayoutArrayList.get(i).setVisibility(View.VISIBLE);
+            }
+        }
+        for (int i = 0; i < model.getStates().size(); i++) {
+            if (model.getStates().get(i))
+            {
+                recyclerViewArrayList.get(i).setVisibility(View.VISIBLE);
+            }
+
         }
 
 
