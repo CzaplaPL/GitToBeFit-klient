@@ -16,12 +16,13 @@ import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 @Dao
 public interface ITrainingDao
 {
+    @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long addTraining(SavedTraining training);
 
    @Transaction
    @Query("SELECT * FROM SavedTraining")
-   public List<TrainingWithForm> getAllTrainingWhitForm();
+   public List<TrainingWithForm> getAllTrainingWitForm();
 
     @Transaction
     @Query("SELECT * FROM SavedTraining WHERE id = :id")
@@ -29,19 +30,13 @@ public interface ITrainingDao
 
     @Transaction
     @Query("SELECT * FROM SavedTraining ")
-    public List<SavedTraining> getAllTraining();
+    public List<SavedTraining> getAllTrainings();
 
     @Transaction
-    @Query("SELECT id, idForm,generationDate,trainingName FROM SavedTraining ")
-    public List<SavedTraining> getInfoForTrainingList();
+    @Query("SELECT * FROM SavedTraining  WHERE idUser=:id ")
+    List<TrainingWithForm> getAllTrainingForUser(String id);
 
-    @Query("SELECT * FROM SavedTraining WHERE id = :id")
-    public SavedTraining getOneTraining(long id);
-
-    @Query("UPDATE SavedTraining SET trainingName = :newName WHERE id = :id")
-    public void updateTrainingNameInDataBase(String newName, long id);
-
-    @Query("DELETE FROM SavedTraining  WHERE id = :id")
-    public void deleteTrainingInDataBase(long id);
-
+    @Transaction
+    @Query("UPDATE SavedTraining SET idUser = :id WHERE idUser=\"\" ")
+    void addUserForTrainings(String id);
 }

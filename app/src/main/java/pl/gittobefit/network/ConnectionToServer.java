@@ -16,6 +16,7 @@ public class ConnectionToServer
 {
     public final UserServices userServices;
     public final WorkoutFormsServices WorkoutFormsServices;
+    public final TrainingServices trainingServices;
     private static volatile ConnectionToServer INSTANCE;
 
     static public ConnectionToServer getInstance()
@@ -47,11 +48,12 @@ public class ConnectionToServer
                 .build();
         userServices = new UserServices(restAdapter);
         WorkoutFormsServices = new WorkoutFormsServices(restAdapter);
+        trainingServices = new TrainingServices(restAdapter);
     }
 
     /**
      * sprawdza czy użytkownik ma internet
-     * @return true jezeli ma 
+     * @return true jezeli ma
      */
     public static boolean isNetwork(Context context)
     {

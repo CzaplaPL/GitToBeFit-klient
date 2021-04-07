@@ -12,12 +12,21 @@ public class Training
     private String trainingName;
     private int id;
 
+    public Training() { }
 
-    public WorkoutForm getTrainingForm() {
+    public Training(WorkoutForm form, ArrayList<TrainingPlan> trainingPlansServer)
+    {
+        this.trainingForm = form;
+        this.planList = trainingPlansServer;
+    }
+
+    public WorkoutForm getTrainingForm()
+    {
         return trainingForm;
     }
 
-    public ArrayList<TrainingPlan> getPlanList() {
+    public ArrayList<TrainingPlan> getPlanList()
+    {
         return planList;
     }
 
@@ -26,11 +35,13 @@ public class Training
         return planList.get(i);
     }
 
-    public String getGenerationDate() {
+    public String getGenerationDate()
+    {
         return generationDate;
     }
 
-    public void setGenerationDate(String generationDate) {
+    public void setGenerationDate(String generationDate)
+    {
         this.generationDate = generationDate;
     }
 

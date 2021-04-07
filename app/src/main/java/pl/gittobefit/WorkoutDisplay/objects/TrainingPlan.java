@@ -4,21 +4,32 @@ import java.util.ArrayList;
 
 public class TrainingPlan
 {
-   private int id;
-   private int trainingId;
-   private ArrayList<ExerciseExecution> exercisesExecutions = new ArrayList<>();
+    private int id;
+    private int trainingId;
+    private ArrayList<ExerciseExecution> exercisesExecutions = new ArrayList<>();
+
+    public TrainingPlan() { }
+
+    public TrainingPlan(ArrayList<ExerciseExecution> exerciseExecutions, int idPlanList, int idTraining)
+    {
+        this.exercisesExecutions = exerciseExecutions;
+        this.id = idPlanList;
+        this.trainingId = idTraining;
+    }
 
 
-
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public int getTrainingId() {
+    public int getTrainingId()
+    {
         return trainingId;
     }
 
-    public ArrayList<ExerciseExecution> getExercisesExecutions() {
+    public ArrayList<ExerciseExecution> getExercisesExecutions()
+    {
         return exercisesExecutions;
     }
 

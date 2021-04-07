@@ -31,9 +31,9 @@ public class SavedTraining
         if(User.getInstance().getLoggedBy() != User.WayOfLogin.NO_LOGIN)
         {
             this.idUser = "";
-        } else
+        }else
         {
-            this.idUser = User.getInstance().getIdSerwer();
+            this.idUser = User.getInstance().getIdServer();
         }
 
         Date date = new Date();
@@ -48,10 +48,11 @@ public class SavedTraining
             ArrayList<ExerciseExecutionPOJODB> savePlan = new ArrayList<>();
             for(int j = 0; j < readPlan.getExercisesExecutions().size(); j++)
             {
-                savePlan.add(new ExerciseExecutionPOJODB(readPlan.getExerciseExecution(j)));
+                savePlan.add(new ExerciseExecutionPOJODB(readPlan.getExerciseExecution(j), readPlan.getId(), readPlan.getTrainingId()));
             }
             this.planList.add(savePlan);
         }
+
     }
 
     public SavedTraining()
@@ -99,19 +100,23 @@ public class SavedTraining
         this.idUser = idUser;
     }
 
-    public String getGenerationDate() {
+    public String getGenerationDate()
+    {
         return generationDate;
     }
 
-    public String getTrainingName() {
-        return trainingName;
-    }
-
-    public void setGenerationDate(String generationDate) {
+    public void setGenerationDate(String generationDate)
+    {
         this.generationDate = generationDate;
     }
 
-    public void setTrainingName(String trainingName) {
+    public String getTrainingName()
+    {
+        return trainingName;
+    }
+
+    public void setTrainingName(String trainingName)
+    {
         this.trainingName = trainingName;
     }
 }

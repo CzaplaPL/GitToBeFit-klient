@@ -21,7 +21,8 @@
             android:contentDescription="@string/todo"
             android:src="@drawable/ic_baseline_downloading_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/colorPrimaryVariant" />
 
         <TextView
             android:id="@+id/no_equipment_title"
