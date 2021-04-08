@@ -1,7 +1,11 @@
 package pl.gittobefit.WorkoutDisplay.fragments;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -233,18 +237,18 @@ public class DisplayReceivedTraining extends Fragment
         }
 
 
-        String trainingTypeDisplay = "Rodzaj treningu: " + trainingWithForm.form.getTrainingType().toLowerCase();
-        String nameOfTraining = "Nazwa treningu: " + trainingWithForm.training.getTrainingName();
+        String trainingTypeDisplay = trainingWithForm.form.getTrainingType().toLowerCase();
+        String nameOfTraining = trainingWithForm.training.getTrainingName();
         String durationDisplay = "";
         String scheduleTypeDisplay = "";
         switch (trainingWithForm.form.getTrainingType()) {
             case "SPLIT":
             case "FBW":
-                durationDisplay = "Czas treningu: " + trainingWithForm.form.getDaysCount() + " dni";
+                durationDisplay = trainingWithForm.form.getDaysCount() + " dni";
                 if (trainingWithForm.form.getScheduleType().equals("PER_DAY")) {
-                    scheduleTypeDisplay = "Forma treningu: otrzymałeś na każdy dzień trenigowy inny trening";
+                    scheduleTypeDisplay = "wykonujesz każdego dnia inny trening";
                 } else {
-                    scheduleTypeDisplay = "Forma treningu: otrzymałeś na każdy dzień trenigowy taki sam trening";
+                    scheduleTypeDisplay = "wykonujesz każdego dnia taki sam trening";
                 }
                 for (int i = 0; i < trainingWithForm.form.getDaysCount(); i++) {
                     buttonArrayList.get(i).setVisibility(View.VISIBLE);
@@ -253,19 +257,32 @@ public class DisplayReceivedTraining extends Fragment
                 break;
             case "CARDIO":
             case "FITNESS":
-                durationDisplay = "Czas treningu: " + trainingWithForm.form.getDuration() + " minut";
+                durationDisplay = trainingWithForm.form.getDuration() + " minut";
                 if (trainingWithForm.form.getScheduleType().equals("SERIES")) {
-                    scheduleTypeDisplay = "Forma treningu: seriowy";
+                    scheduleTypeDisplay = "wykonujesz wybraną ilość serii każdego ćwiczenia";
                 } else {
-                    scheduleTypeDisplay = "Forma treningu: obwodowy";
+                    scheduleTypeDisplay = "wykonujesz jedno ćwiczenie po drugim, z przerwami pomiędzy nimi, bądź bez";
                 }
                 day1Button.setVisibility(View.VISIBLE);
                 break;
         }
-        trainingName.setText(nameOfTraining);
-        trainingType.setText(trainingTypeDisplay);
-        trainingForm.setText(scheduleTypeDisplay);
-        trainingDuration.setText(durationDisplay);
+        String trainingTimeString = "Czas treningu: ";
+        SpannableStringBuilder timeBuilder = getSpannableStringBuilder(durationDisplay, trainingTimeString);
+
+        String formTrainingString = "Forma treningu: ";
+        SpannableStringBuilder formBuilder = getSpannableStringBuilder(scheduleTypeDisplay, formTrainingString);
+
+        String trainingTypeString = "Rodzaj treningu: ";
+        SpannableStringBuilder typeBuilder = getSpannableStringBuilder(trainingTypeDisplay, trainingTypeString);
+
+        String trainingNameString = "Nazwa treningu: ";
+        SpannableStringBuilder nameBuilder = getSpannableStringBuilder(nameOfTraining, trainingNameString);
+
+        trainingName.setText(nameBuilder, TextView.BufferType.SPANNABLE);
+        trainingType.setText(typeBuilder, TextView.BufferType.SPANNABLE);
+        trainingForm.setText(formBuilder, TextView.BufferType.SPANNABLE);
+        trainingDuration.setText(timeBuilder, TextView.BufferType.SPANNABLE);
+        trainingDuration.setVisibility(View.GONE);
 
         for (int i = 0; i < exercisesArrayList.size(); i++) {
             exerciseListAdapters.add(new ExerciseListAdapter(exercisesArrayList.get(i), trainingWithForm.training.getPlanList().get(i), trainingWithForm.form.getScheduleType(), trainingWithForm.training.getId(),this));
@@ -277,5 +294,15 @@ public class DisplayReceivedTraining extends Fragment
 
             recyclerViewArrayList.get(i).setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         }
+    }
+
+
+    private SpannableStringBuilder getSpannableStringBuilder(String durationDisplay, String stringToColor) {
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        SpannableString redSpannable= new SpannableString(stringToColor);
+        redSpannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.ourGreen)), 0, stringToColor.length(), 0);
+        builder.append(redSpannable);
+        builder.append(durationDisplay);
+        return builder;
     }
 }

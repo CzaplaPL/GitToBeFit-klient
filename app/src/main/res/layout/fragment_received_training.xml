@@ -39,7 +39,7 @@
                         android:layout_marginHorizontal="15dp"
                         android:text="@string/name_of_training"
                         android:textColor="?attr/colorPrimaryVariant"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,7 +64,7 @@
                         android:layout_marginHorizontal="15dp"
                         android:text="@string/type_of_training"
                         android:textColor="?attr/colorPrimaryVariant"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,7 +84,7 @@
                     android:layout_marginHorizontal="15dp"
                     android:text="@string/form_of_training"
                     android:textColor="?attr/colorPrimaryVariant"
-                    android:textSize="18sp" />
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/trainingDuration"
@@ -93,7 +93,7 @@
                     android:layout_marginHorizontal="15dp"
                     android:text="@string/duration_of_training"
                     android:textColor="?attr/colorPrimaryVariant"
-                    android:textSize="18sp" />
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <Button

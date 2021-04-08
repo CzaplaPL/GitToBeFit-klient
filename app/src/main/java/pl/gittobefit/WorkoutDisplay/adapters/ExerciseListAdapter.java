@@ -128,7 +128,6 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
         holder.exerciseInfo.setText(text);
 
-
         holder.itemView.setOnClickListener(v -> {
             EditExerciseDialog editExerciseDialog = new EditExerciseDialog(fragment.getView(), scheduleType,
                     position ,exercisesExecutionArrayList, trainingID, exerciseArrayList.get(position).getName());
