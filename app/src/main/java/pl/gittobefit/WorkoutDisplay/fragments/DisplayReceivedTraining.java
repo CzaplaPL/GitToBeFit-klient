@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -86,6 +87,16 @@ public class DisplayReceivedTraining extends Fragment
         TextView trainingForm = getView().findViewById(R.id.trainingForm);
         TextView trainingDuration = getView().findViewById(R.id.trainingDuration);
         TextView trainingName = getView().findViewById(R.id.trainingName);
+
+        final Observer<String> nameObserver = new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable final String newName) {
+                String trainingNameString = "Nazwa treningu: ";
+                SpannableStringBuilder nameBuilder = getSpannableStringBuilder(newName, trainingNameString);
+                trainingName.setText(nameBuilder, TextView.BufferType.SPANNABLE);
+            }
+        };
+        model.getCurrentName().observe(this, nameObserver);
 
         RelativeLayout relativeLayout1 = getView().findViewById(R.id.layout0);
         RelativeLayout relativeLayout2 = getView().findViewById(R.id.layout1);

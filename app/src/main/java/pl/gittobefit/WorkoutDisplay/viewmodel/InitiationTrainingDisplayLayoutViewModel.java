@@ -13,6 +13,7 @@ public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
     private MutableLiveData<Integer> numberOfClickedTraining = new MutableLiveData<>();
     private ArrayList<TrainingWithForm> trainingWithForms = new ArrayList<>();
     private ArrayList<Boolean> states = new ArrayList<Boolean>();
+    private MutableLiveData<String> trainingName;
     private int lastIndex = -1;
 
     public LiveData<Integer> getPosition() {
@@ -61,4 +62,12 @@ public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
     public void setLastIndex(int lastIndex) {
         this.lastIndex = lastIndex;
     }
+
+    public MutableLiveData<String> getCurrentName() {
+        if (trainingName == null) {
+            trainingName = new MutableLiveData<String>();
+        }
+        return trainingName;
+    }
+
 }

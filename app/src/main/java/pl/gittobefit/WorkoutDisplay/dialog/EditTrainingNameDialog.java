@@ -3,6 +3,9 @@ package pl.gittobefit.WorkoutDisplay.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -49,9 +52,8 @@ public class EditTrainingNameDialog extends AppCompatDialogFragment
                     String[] tokens = trainingID.split("/");
 
                     model.getTrainingWithForms().get(Integer.parseInt(tokens[0])).training.setTrainingName(newTrainingName);
+                    model.getCurrentName().setValue(newTrainingName);
                     AppDataBase.getInstance(getContext()).trainingDao().updateTrainingNameInDataBase(newTrainingName, Integer.parseInt(tokens[1]));
-                    Navigation.findNavController(myView).navigate(R.id. reload);
-
                 });
         newName = view.findViewById(R.id.newTrainingName);
         return builder.create();
