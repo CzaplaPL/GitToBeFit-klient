@@ -98,6 +98,9 @@ public class DisplayReceivedTraining extends Fragment
         };
         model.getCurrentName().observe(this, nameObserver);
 
+
+
+
         RelativeLayout relativeLayout1 = getView().findViewById(R.id.layout0);
         RelativeLayout relativeLayout2 = getView().findViewById(R.id.layout1);
         RelativeLayout relativeLayout3 = getView().findViewById(R.id.layout2);
@@ -244,8 +247,28 @@ public class DisplayReceivedTraining extends Fragment
             {
                 recyclerViewArrayList.get(i).setVisibility(View.VISIBLE);
             }
-
         }
+
+
+        final Observer<Integer> exerciseInfoObserver = new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                for (int i = 0; i < exercisesArrayList.size(); i++) {
+                    exerciseListAdapters.add(new ExerciseListAdapter(exercisesArrayList.get(i), trainingWithForm.training.getPlanList().get(i),
+                            trainingWithForm.form.getScheduleType(), trainingWithForm.training.getId(), getParentFragment(), trainingWithForm.training.getPlanList()));
+                    recyclerViewArrayList.get(i).addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+                    recyclerViewArrayList.get(i).setAdapter(exerciseListAdapters.get(i));
+                    if (trainingWithForm.form.getTrainingType().equals("FBW") || trainingWithForm.form.getTrainingType().equals("SPLIT")) {
+                        recyclerViewArrayList.get(i).setNestedScrollingEnabled(false);
+                    }
+
+                    recyclerViewArrayList.get(i).setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                }
+            }
+        };
+        model.getCurrentCount().observe(this, exerciseInfoObserver);
+        model.getCurrentTime().observe(this, exerciseInfoObserver);
+        model.getCurrentSeries().observe(this, exerciseInfoObserver);
 
 
         String trainingTypeDisplay = trainingWithForm.form.getTrainingType().toLowerCase();

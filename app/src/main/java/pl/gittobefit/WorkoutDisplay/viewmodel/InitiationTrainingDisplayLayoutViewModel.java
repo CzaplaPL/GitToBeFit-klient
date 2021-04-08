@@ -14,6 +14,9 @@ public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
     private ArrayList<TrainingWithForm> trainingWithForms = new ArrayList<>();
     private ArrayList<Boolean> states = new ArrayList<Boolean>();
     private MutableLiveData<String> trainingName;
+    private MutableLiveData<Integer> trainingTime;
+    private MutableLiveData<Integer> trainingSeries;
+    private MutableLiveData<Integer> trainingCount;
     private int lastIndex = -1;
 
     public LiveData<Integer> getPosition() {
@@ -68,6 +71,24 @@ public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
             trainingName = new MutableLiveData<String>();
         }
         return trainingName;
+    }
+    public MutableLiveData<Integer> getCurrentTime() {
+        if (trainingTime == null) {
+            trainingTime = new MutableLiveData<Integer>();
+        }
+        return trainingTime;
+    }
+    public MutableLiveData<Integer> getCurrentCount() {
+        if (trainingCount == null) {
+            trainingCount = new MutableLiveData<Integer>();
+        }
+        return trainingCount;
+    }
+    public MutableLiveData<Integer> getCurrentSeries() {
+        if (trainingSeries == null) {
+            trainingSeries = new MutableLiveData<Integer>();
+        }
+        return trainingSeries;
     }
 
 }

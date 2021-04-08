@@ -22,28 +22,24 @@ import pl.gittobefit.database.repository.TrainingRepository;
 public class ListOfTrainings extends Fragment
 {
     public ListOfTrainings() {
-        System.out.println(5);
     }
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println(1);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_of_trainings, container, false);
-        System.out.println(2);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        System.out.println(3);
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
 
         model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).getAllTrainingsForUser(""));
@@ -59,6 +55,5 @@ public class ListOfTrainings extends Fragment
     public void onResume()
     {
         super.onResume();
-        System.out.println(4);
     }
 }

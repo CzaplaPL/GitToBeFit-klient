@@ -12,12 +12,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
 
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
+import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 
@@ -93,6 +95,7 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
         else {
             count_time.setText("Ilość powtórzeń");
         }
+        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
 
         builder.setView(view)
                 .setTitle(exerciseName)
@@ -103,23 +106,26 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
                         for (ExerciseExecutionPOJODB item: exercisesExecutionArrayList
                              ) {
                             item.setSeries(seriesNumberPicker.getValue());
+                            model.getCurrentSeries().setValue(seriesNumberPicker.getValue());
                         }
                     }
                     else
                     {
                         exercisesExecutionArrayList.get(position).setSeries(seriesNumberPicker.getValue());
+                        model.getCurrentSeries().setValue(seriesNumberPicker.getValue());
                     }
 
                     if (exercisesExecutionArrayList.get(position).getTime() > 20)
                     {
                         exercisesExecutionArrayList.get(position).setTime(countNumberPicker.getValue());
+                        model.getCurrentTime().setValue(countNumberPicker.getValue());
                     }
                     else {
                         exercisesExecutionArrayList.get(position).setCount(countNumberPicker.getValue());
+                        model.getCurrentCount().setValue(countNumberPicker.getValue());
                     }
 
                     AppDataBase.getInstance(getContext()).trainingDao().updateTrainingPlan(exerciseExecutionPOJODBS, trainingID);
-                    Navigation.findNavController(myView).navigate(R.id. reload);
                 })
                 .setPositiveButton(getString(R.string.change_exercise), (dialog, which) ->
                 {
