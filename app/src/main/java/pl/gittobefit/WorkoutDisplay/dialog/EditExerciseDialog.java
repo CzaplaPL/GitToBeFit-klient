@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.navigation.Navigation;
 
+import java.util.ArrayList;
+
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 import pl.gittobefit.database.AppDataBase;
@@ -24,18 +26,21 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
     private View myView;
     private NumberPicker seriesNumberPicker;
     private NumberPicker countNumberPicker;
+    private int position;
     private String scheduleType;
-    private ExerciseExecutionPOJODB exerciseExecutionPOJODB;
+    private ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList;
     private int trainingID;
     private String exerciseName;
 
-    public EditExerciseDialog(View view, String scheduleType, ExerciseExecutionPOJODB exerciseExecutionPOJODB, int trainingID, String exerciseName)
+    public EditExerciseDialog(View view, String scheduleType, int position, ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList, int trainingID, String exerciseName)
     {
         this.myView = view;
         this.scheduleType = scheduleType;
-        this.exerciseExecutionPOJODB = exerciseExecutionPOJODB;
+        this.position = position;
+        this.exercisesExecutionArrayList = exercisesExecutionArrayList;
         this.trainingID = trainingID;
         this.exerciseName = exerciseName;
+        System.out.println(scheduleType);
     }
 
     @NonNull
@@ -47,21 +52,24 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
 
         seriesNumberPicker = view.findViewById(R.id.seriesNumberPicker);
         seriesNumberPicker.setMaxValue(10);
-        seriesNumberPicker.setValue(exerciseExecutionPOJODB.getSeries());
+        seriesNumberPicker.setValue(exercisesExecutionArrayList.get(position).getSeries());
         seriesNumberPicker.setMinValue(1);
         seriesNumberPicker.setWrapSelectorWheel(false);
         seriesNumberPicker.setOnValueChangedListener(this);
 
         countNumberPicker = view.findViewById(R.id.countNumberPicker);
-        countNumberPicker.setMaxValue(50);
 
-        if (exerciseExecutionPOJODB.getTime() > 20) {
-            countNumberPicker.setValue(exerciseExecutionPOJODB.getTime());
+        if (exercisesExecutionArrayList.get(position).getTime() > 20) {
+            countNumberPicker.setMaxValue(90);
+            countNumberPicker.setMinValue(10);
+            countNumberPicker.setValue(exercisesExecutionArrayList.get(position).getTime());
         } else {
-            countNumberPicker.setValue(exerciseExecutionPOJODB.getCount());
+            countNumberPicker.setMaxValue(50);
+            countNumberPicker.setMinValue(1);
+            countNumberPicker.setValue(exercisesExecutionArrayList.get(position).getCount());
         }
 
-        countNumberPicker.setMinValue(1);
+
         countNumberPicker.setWrapSelectorWheel(false);
         countNumberPicker.setOnValueChangedListener(this);
 
@@ -76,7 +84,7 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
         }
 
         TextView count_time = view.findViewById(R.id.count_time);
-        if (exerciseExecutionPOJODB.getTime() > 20)
+        if (exercisesExecutionArrayList.get(position).getTime() > 20)
         {
             count_time.setText("Czas trwania");
         }
@@ -88,14 +96,24 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
                 .setTitle(exerciseName)
                 .setNegativeButton(getString(R.string.admit_changes), (dialog, which) ->
                 {
-                    exerciseExecutionPOJODB.setSeries(seriesNumberPicker.getValue());
-
-                    if (exerciseExecutionPOJODB.getTime() > 20)
+                    if (scheduleType.equals("CIRCUIT"))
                     {
-                        exerciseExecutionPOJODB.setTime(countNumberPicker.getValue());
+                        for (ExerciseExecutionPOJODB item: exercisesExecutionArrayList
+                             ) {
+                            item.setSeries(seriesNumberPicker.getValue());
+                        }
+                    }
+                    else
+                    {
+                        exercisesExecutionArrayList.get(position).setSeries(seriesNumberPicker.getValue());
+                    }
+
+                    if (exercisesExecutionArrayList.get(position).getTime() > 20)
+                    {
+                        exercisesExecutionArrayList.get(position).setTime(countNumberPicker.getValue());
                     }
                     else {
-                        exerciseExecutionPOJODB.setCount(countNumberPicker.getValue());
+                        exercisesExecutionArrayList.get(position).setCount(countNumberPicker.getValue());
                     }
 
                     System.out.println(seriesNumberPicker.getValue() + " " + countNumberPicker.getValue());

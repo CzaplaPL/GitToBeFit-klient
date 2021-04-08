@@ -21,31 +21,32 @@ import pl.gittobefit.database.repository.TrainingRepository;
 
 public class ListOfTrainings extends Fragment
 {
-    public ListOfTrainings() {}
+    public ListOfTrainings() {
+        System.out.println(5);
+    }
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println(1);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_of_trainings, container, false);
+        System.out.println(2);
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        System.out.println(3);
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
 
-        if (model.getTrainingWithForms().size() == 0 || model.getTrainingWithForms().size() == 1)
-        {
-            model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).getAllTrainingsForUser(""));
-        }
+        model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).getAllTrainingsForUser(""));
 
         RecyclerView recyclerView = getView().findViewById(R.id.list_of_trainings);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
@@ -58,5 +59,6 @@ public class ListOfTrainings extends Fragment
     public void onResume()
     {
         super.onResume();
+        System.out.println(4);
     }
 }

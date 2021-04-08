@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
@@ -66,20 +67,71 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         holder.exerciseName.setText(exerciseArrayList.get(position).getName());
         String text = "";
 
+        String properFormSeries = "";
+        switch (exercisesExecutionArrayList.get(position).getSeries())
+        {
+            case 1: properFormSeries = "seria"; break;
+            case 2:
+            case 4:
+            case 3:
+                properFormSeries = "serie"; break;
+            default:  properFormSeries = "serii"; break;
+        }
+
+        String properFormCircuit = "";
+        switch (exercisesExecutionArrayList.get(position).getSeries())
+        {
+            case 1: properFormCircuit = "obwód"; break;
+            case 2:
+            case 4:
+            case 3:
+                properFormCircuit = "obwody"; break;
+            default:  properFormCircuit = "obwodów"; break;
+        }
+        String properFormRep = "";
+        switch (exercisesExecutionArrayList.get(position).getCount())
+        {
+            case 1: properFormRep = "powtórzenie"; break;
+            case 2:
+            case 4:
+            case 3:
+                properFormRep = "powtórzenia"; break;
+            default:  properFormRep = "powtórzeń"; break;
+        }
+
         if (exercisesExecutionArrayList.get(position).getTime() > 20)
         {
-            text = exercisesExecutionArrayList.get(position).getSeries() + " serie, " + exercisesExecutionArrayList.get(position).getTime() + " sekund";
+            if (scheduleType.equals("CIRCUIT"))
+            {
+                text = String.format(Locale.getDefault(),"%d %s, %d sekund", exercisesExecutionArrayList.get(position).getSeries(),
+                        properFormCircuit, exercisesExecutionArrayList.get(position).getTime());
+            }
+            else
+            {
+                text = String.format(Locale.getDefault(),"%d %s, %d sekund", exercisesExecutionArrayList.get(position).getSeries(),
+                        properFormSeries, exercisesExecutionArrayList.get(position).getTime());
+            }
         }
         else
         {
-            text = exercisesExecutionArrayList.get(position).getSeries() + " serie, " + exercisesExecutionArrayList.get(position).getCount() + " powtórzeń";
+            if (scheduleType.equals("CIRCUIT"))
+            {
+                text = String.format(Locale.getDefault(),"%d %s, %d %s", exercisesExecutionArrayList.get(position).getSeries(),
+                        properFormCircuit, exercisesExecutionArrayList.get(position).getCount(), properFormRep);
+            }
+            else
+            {
+                text = String.format(Locale.getDefault(),"%d %s, %d %s", exercisesExecutionArrayList.get(position).getSeries(),
+                        properFormSeries, exercisesExecutionArrayList.get(position).getCount(), properFormRep);
+            }
         }
 
         holder.exerciseInfo.setText(text);
 
 
         holder.itemView.setOnClickListener(v -> {
-            EditExerciseDialog editExerciseDialog = new EditExerciseDialog(fragment.getView(), scheduleType, exercisesExecutionArrayList.get(position), trainingID, exerciseArrayList.get(position).getName());
+            EditExerciseDialog editExerciseDialog = new EditExerciseDialog(fragment.getView(), scheduleType,
+                    position ,exercisesExecutionArrayList, trainingID, exerciseArrayList.get(position).getName());
             editExerciseDialog.show(fragment.getFragmentManager(), "dialog");
         });
     }
