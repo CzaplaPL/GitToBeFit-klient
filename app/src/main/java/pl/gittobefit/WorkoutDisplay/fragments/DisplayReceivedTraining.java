@@ -285,7 +285,8 @@ public class DisplayReceivedTraining extends Fragment
         trainingDuration.setVisibility(View.GONE);
 
         for (int i = 0; i < exercisesArrayList.size(); i++) {
-            exerciseListAdapters.add(new ExerciseListAdapter(exercisesArrayList.get(i), trainingWithForm.training.getPlanList().get(i), trainingWithForm.form.getScheduleType(), trainingWithForm.training.getId(),this));
+            exerciseListAdapters.add(new ExerciseListAdapter(exercisesArrayList.get(i), trainingWithForm.training.getPlanList().get(i),
+                    trainingWithForm.form.getScheduleType(), trainingWithForm.training.getId(),this, trainingWithForm.training.getPlanList()));
             recyclerViewArrayList.get(i).addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
             recyclerViewArrayList.get(i).setAdapter(exerciseListAdapters.get(i));
             if (trainingWithForm.form.getTrainingType().equals("FBW") || trainingWithForm.form.getTrainingType().equals("SPLIT")) {

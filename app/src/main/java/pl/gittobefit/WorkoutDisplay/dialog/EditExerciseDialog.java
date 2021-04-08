@@ -31,8 +31,10 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
     private ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList;
     private int trainingID;
     private String exerciseName;
+    private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
 
-    public EditExerciseDialog(View view, String scheduleType, int position, ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList, int trainingID, String exerciseName)
+    public EditExerciseDialog(View view, String scheduleType, int position, ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
+                              int trainingID, String exerciseName, ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS)
     {
         this.myView = view;
         this.scheduleType = scheduleType;
@@ -40,7 +42,7 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
         this.exercisesExecutionArrayList = exercisesExecutionArrayList;
         this.trainingID = trainingID;
         this.exerciseName = exerciseName;
-        System.out.println(scheduleType);
+        this.exerciseExecutionPOJODBS = exerciseExecutionPOJODBS;
     }
 
     @NonNull
@@ -115,13 +117,35 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
                     else {
                         exercisesExecutionArrayList.get(position).setCount(countNumberPicker.getValue());
                     }
+                    int c1 = 0, c2 = 0;
+                    boolean stop = false;
+                    for (int i = 0; i < exerciseExecutionPOJODBS.size() && !stop; i++)
+                    {c1++;
+                        for (int j = 0; j < exerciseExecutionPOJODBS.get(i).size() && !stop; j++) {c2++;
+                            if (exerciseExecutionPOJODBS.get(i).get(j).getTime() != exercisesExecutionArrayList.get(j).getTime() ||
+                            exerciseExecutionPOJODBS.get(i).get(j).getCount() != exercisesExecutionArrayList.get(j).getCount() ||
+                            exerciseExecutionPOJODBS.get(i).get(j).getSeries() != exercisesExecutionArrayList.get(j).getSeries())
+                            {
+                                stop = true;
+                                if( !stop)
+                                {
+                                    exerciseExecutionPOJODBS.get(i).get(j).setTime(exercisesExecutionArrayList.get(j).getTime());
+                                    exerciseExecutionPOJODBS.get(i).get(j).setCount(exercisesExecutionArrayList.get(j).getCount());
+                                    exerciseExecutionPOJODBS.get(i).get(j).setSeries(exercisesExecutionArrayList.get(j).getSeries());
 
-                    System.out.println(seriesNumberPicker.getValue() + " " + countNumberPicker.getValue());
+                                }
+
+                            }
+                        }
+                    }
+
+                    System.out.println(c1 + "--------------------------->c1");
+                    System.out.println(c2 + "--------------------------->c2");
+                    AppDataBase.getInstance(getContext()).trainingDao().updateTrainingPlan(exerciseExecutionPOJODBS, trainingID);
                     Navigation.findNavController(myView).navigate(R.id. reload);
                 })
                 .setPositiveButton(getString(R.string.change_exercise), (dialog, which) ->
                 {
-                    //AppDataBase.getInstance(getContext()).trainingDao().deleteTrainingInDataBase(Integer.parseInt(tokens[1]));
                     Navigation.findNavController(myView).navigate(R.id. reload);
                 });
         return builder.create();

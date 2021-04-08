@@ -30,6 +30,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     private Fragment fragment;
     private String scheduleType;
     private int trainingID;
+    private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
@@ -45,12 +46,14 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         }
     }
 
-    public ExerciseListAdapter(ArrayList<Exercise> exerciseArrayList, ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList, String scheduleType, int trainingID, Fragment fragment) {
+    public ExerciseListAdapter(ArrayList<Exercise> exerciseArrayList, ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
+                               String scheduleType, int trainingID, Fragment fragment, ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS) {
         this.exerciseArrayList = exerciseArrayList;
         this.fragment = fragment;
         this.exercisesExecutionArrayList = exercisesExecutionArrayList;
         this.scheduleType = scheduleType;
         this.trainingID = trainingID;
+        this.exerciseExecutionPOJODBS = exerciseExecutionPOJODBS;
     }
 
     @NonNull
@@ -130,7 +133,8 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
         holder.itemView.setOnClickListener(v -> {
             EditExerciseDialog editExerciseDialog = new EditExerciseDialog(fragment.getView(), scheduleType,
-                    position ,exercisesExecutionArrayList, trainingID, exerciseArrayList.get(position).getName());
+                    position ,exercisesExecutionArrayList, trainingID, exerciseArrayList.get(position).getName(),
+                    exerciseExecutionPOJODBS);
             editExerciseDialog.show(fragment.getFragmentManager(), "dialog");
         });
     }
