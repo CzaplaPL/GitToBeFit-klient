@@ -253,10 +253,10 @@ public class DisplayReceivedTraining extends Fragment
         final Observer<Integer> exerciseInfoObserver = new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                for (int i = 0; i < exercisesArrayList.size(); i++) {
+                for (int i = 0; i < exercisesArrayList.size(); i++)
+                {
                     exerciseListAdapters.add(new ExerciseListAdapter(exercisesArrayList.get(i), trainingWithForm.training.getPlanList().get(i),
                             trainingWithForm.form.getScheduleType(), trainingWithForm.training.getId(), getParentFragment(), trainingWithForm.training.getPlanList()));
-                    recyclerViewArrayList.get(i).addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
                     recyclerViewArrayList.get(i).setAdapter(exerciseListAdapters.get(i));
                     if (trainingWithForm.form.getTrainingType().equals("FBW") || trainingWithForm.form.getTrainingType().equals("SPLIT")) {
                         recyclerViewArrayList.get(i).setNestedScrollingEnabled(false);
