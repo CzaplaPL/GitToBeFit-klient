@@ -247,16 +247,11 @@ public class DisplayReceivedTraining extends Fragment
         for (int i = 0; i < model.getStates().size(); i++) {
             if (model.getStates().get(i))
             {
+                changePlusToMinus(buttonArrayList.get(i), R.drawable.ic_baseline_horizontal_rule);
                 linearLayoutArrayList.get(i).setVisibility(View.VISIBLE);
-            }
-        }
-        for (int i = 0; i < model.getStates().size(); i++) {
-            if (model.getStates().get(i))
-            {
                 recyclerViewArrayList.get(i).setVisibility(View.VISIBLE);
             }
         }
-
 
         final Observer<Integer> exerciseInfoObserver = new Observer<Integer>() {
             @Override
