@@ -9,7 +9,7 @@ public class BodyParts
     public BodyParts(String bodyPart ,String title) {
         this.bodyName = bodyPart;
         this.bodyTitle = title;
-        this.selected = true;
+        this.selected = false;
     }
 
     public String getBodyName() {

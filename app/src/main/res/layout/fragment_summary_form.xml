@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/typeTraning" />
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/frequency" />
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="18sp"
 
             app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/time" />
@@ -112,7 +112,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.05" />
+                app:layout_constraintGuide_percent="0.05"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/main_guideline_right2"
@@ -158,18 +159,11 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toBottomOf="@+id/body_parts"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/equipment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/body_parts">
 

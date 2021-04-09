@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,13 +24,16 @@ public class BodyPartsAdapter extends RecyclerView.Adapter<BodyPartsAdapter.View
     {
         private final TextView textView;
         private final CheckBox checkBox;
+        private final RelativeLayout item;
+        private final ImageView dot;
 
         public ViewHolder (View view)
         {
             super(view);
-
+            item =(RelativeLayout) view.findViewById(R.id.item_body_parts);
             textView = (TextView) view.findViewById(R.id.bodyPartsTextView);
             checkBox = (CheckBox) view.findViewById(R.id.bodyPartsCheckBox);
+            dot = (ImageView) view.findViewById(R.id.dot);
         }
     }
 
@@ -41,7 +46,7 @@ public class BodyPartsAdapter extends RecyclerView.Adapter<BodyPartsAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_spinner2, parent, false);
+                .inflate(R.layout.body_parts_item, parent, false);
 
         return new ViewHolder(view);
     }
@@ -51,11 +56,13 @@ public class BodyPartsAdapter extends RecyclerView.Adapter<BodyPartsAdapter.View
         holder.checkBox.setChecked(bodyPartsArrayList.get(position).isSelected());
         holder.textView.setText(bodyPartsArrayList.get(position).getBodyName());
         holder.checkBox.setTag(position);
+        holder.dot.setVisibility(View.GONE);
 
-        holder.checkBox.setOnClickListener(v ->
+        holder.item.setOnClickListener(v ->
         {
             Integer pos = (Integer) holder.checkBox.getTag();
             bodyPartsArrayList.get(pos).setSelected(!bodyPartsArrayList.get(pos).isSelected());
+            holder.checkBox.setChecked(bodyPartsArrayList.get(pos).isSelected());
         });
     }
 

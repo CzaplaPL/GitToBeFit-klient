@@ -65,7 +65,7 @@ public class SummaryFragment extends Fragment {
             {
                 frequency = getResources().getStringArray(R.array.fbw_duration);
             }
-            if(position==0)
+            if( frequency[position].equals("1"))
             binding.frequency.setText(getString(R.string.chosen_frequency_prefix) + frequency[position] +  getString(R.string.chosen_frequency_sufix_one));
             else
             binding.frequency.setText(getString(R.string.chosen_frequency_prefix) + frequency[position] +  getString(R.string.chosen_frequency_sufix));
