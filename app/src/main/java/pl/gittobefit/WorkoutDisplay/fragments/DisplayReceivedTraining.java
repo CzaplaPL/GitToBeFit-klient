@@ -168,71 +168,31 @@ public class DisplayReceivedTraining extends Fragment
 
 
         day1Button.setOnClickListener(v -> {
-            if (exercisesList.getVisibility() == View.VISIBLE) {
-                changePlusToMinus(day1Button, R.drawable.ic_add);
-                relativeLayout1.setVisibility(View.GONE);
-                exercisesList.setVisibility(View.GONE);
-            } else {
-                changePlusToMinus(day1Button, R.drawable.ic_baseline_horizontal_rule);
-                relativeLayout1.setVisibility(View.VISIBLE);
-                exercisesList.setVisibility(View.VISIBLE);
-            }
+            setTrainingDayVisibility(relativeLayout1, exercisesList, day1Button);
             model.setState(0);
 
         });
 
         day2Button.setOnClickListener(v -> {
-            if (exercisesList2.getVisibility() == View.VISIBLE) {
-                changePlusToMinus(day2Button, R.drawable.ic_add);
-                relativeLayout2.setVisibility(View.GONE);
-                exercisesList2.setVisibility(View.GONE);
-            } else {
-                changePlusToMinus(day2Button, R.drawable.ic_baseline_horizontal_rule);
-                relativeLayout2.setVisibility(View.VISIBLE);
-                exercisesList2.setVisibility(View.VISIBLE);
-            }
+            setTrainingDayVisibility(relativeLayout2, exercisesList2, day2Button);
             model.setState(1);
 
         });
 
         day3Button.setOnClickListener(v -> {
-            if (exercisesList3.getVisibility() == View.VISIBLE) {
-                changePlusToMinus(day3Button, R.drawable.ic_add);
-                relativeLayout3.setVisibility(View.GONE);
-                exercisesList3.setVisibility(View.GONE);
-            } else {
-                changePlusToMinus(day3Button, R.drawable.ic_baseline_horizontal_rule);
-                relativeLayout3.setVisibility(View.VISIBLE);
-                exercisesList3.setVisibility(View.VISIBLE);
-            }
+            setTrainingDayVisibility(relativeLayout3, exercisesList3, day3Button);
             model.setState(2);
 
         });
 
         day4Button.setOnClickListener(v -> {
-            if (exercisesList4.getVisibility() == View.VISIBLE) {
-                changePlusToMinus(day4Button, R.drawable.ic_add);
-                relativeLayout4.setVisibility(View.GONE);
-                exercisesList4.setVisibility(View.GONE);
-            } else {
-                changePlusToMinus(day4Button, R.drawable.ic_baseline_horizontal_rule);
-                relativeLayout4.setVisibility(View.VISIBLE);
-                exercisesList4.setVisibility(View.VISIBLE);
-            }
+            setTrainingDayVisibility(relativeLayout4, exercisesList4, day4Button);
             model.setState(3);
 
         });
 
         day5Button.setOnClickListener(v -> {
-            if (exercisesList5.getVisibility() == View.VISIBLE) {
-                changePlusToMinus(day5Button, R.drawable.ic_add);
-                relativeLayout5.setVisibility(View.GONE);
-                exercisesList5.setVisibility(View.GONE);
-            } else {
-                changePlusToMinus(day5Button, R.drawable.ic_baseline_horizontal_rule);
-                relativeLayout5.setVisibility(View.VISIBLE);
-                exercisesList5.setVisibility(View.VISIBLE);
-            }
+            setTrainingDayVisibility(relativeLayout5, exercisesList5, day5Button);
             model.setState(4);
 
         });
@@ -331,6 +291,18 @@ public class DisplayReceivedTraining extends Fragment
             }
 
             recyclerViewArrayList.get(i).setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        }
+    }
+
+    private void setTrainingDayVisibility(RelativeLayout relativeLayout1, RecyclerView exercisesList, Button day1Button) {
+        if (exercisesList.getVisibility() == View.VISIBLE) {
+            changePlusToMinus(day1Button, R.drawable.ic_add);
+            relativeLayout1.setVisibility(View.GONE);
+            exercisesList.setVisibility(View.GONE);
+        } else {
+            changePlusToMinus(day1Button, R.drawable.ic_baseline_horizontal_rule);
+            relativeLayout1.setVisibility(View.VISIBLE);
+            exercisesList.setVisibility(View.VISIBLE);
         }
     }
 
