@@ -99,8 +99,6 @@ public class DisplayReceivedTraining extends Fragment
         model.getCurrentName().observe(this, nameObserver);
 
 
-
-
         RelativeLayout relativeLayout1 = getView().findViewById(R.id.layout0);
         RelativeLayout relativeLayout2 = getView().findViewById(R.id.layout1);
         RelativeLayout relativeLayout3 = getView().findViewById(R.id.layout2);
@@ -171,9 +169,11 @@ public class DisplayReceivedTraining extends Fragment
 
         day1Button.setOnClickListener(v -> {
             if (exercisesList.getVisibility() == View.VISIBLE) {
+                changePlusToMinus(day1Button, R.drawable.ic_add);
                 relativeLayout1.setVisibility(View.GONE);
                 exercisesList.setVisibility(View.GONE);
             } else {
+                changePlusToMinus(day1Button, R.drawable.ic_baseline_horizontal_rule);
                 relativeLayout1.setVisibility(View.VISIBLE);
                 exercisesList.setVisibility(View.VISIBLE);
             }
@@ -183,9 +183,11 @@ public class DisplayReceivedTraining extends Fragment
 
         day2Button.setOnClickListener(v -> {
             if (exercisesList2.getVisibility() == View.VISIBLE) {
+                changePlusToMinus(day2Button, R.drawable.ic_add);
                 relativeLayout2.setVisibility(View.GONE);
                 exercisesList2.setVisibility(View.GONE);
             } else {
+                changePlusToMinus(day2Button, R.drawable.ic_baseline_horizontal_rule);
                 relativeLayout2.setVisibility(View.VISIBLE);
                 exercisesList2.setVisibility(View.VISIBLE);
             }
@@ -195,9 +197,11 @@ public class DisplayReceivedTraining extends Fragment
 
         day3Button.setOnClickListener(v -> {
             if (exercisesList3.getVisibility() == View.VISIBLE) {
+                changePlusToMinus(day3Button, R.drawable.ic_add);
                 relativeLayout3.setVisibility(View.GONE);
                 exercisesList3.setVisibility(View.GONE);
             } else {
+                changePlusToMinus(day3Button, R.drawable.ic_baseline_horizontal_rule);
                 relativeLayout3.setVisibility(View.VISIBLE);
                 exercisesList3.setVisibility(View.VISIBLE);
             }
@@ -207,9 +211,11 @@ public class DisplayReceivedTraining extends Fragment
 
         day4Button.setOnClickListener(v -> {
             if (exercisesList4.getVisibility() == View.VISIBLE) {
+                changePlusToMinus(day4Button, R.drawable.ic_add);
                 relativeLayout4.setVisibility(View.GONE);
                 exercisesList4.setVisibility(View.GONE);
             } else {
+                changePlusToMinus(day4Button, R.drawable.ic_baseline_horizontal_rule);
                 relativeLayout4.setVisibility(View.VISIBLE);
                 exercisesList4.setVisibility(View.VISIBLE);
             }
@@ -219,9 +225,11 @@ public class DisplayReceivedTraining extends Fragment
 
         day5Button.setOnClickListener(v -> {
             if (exercisesList5.getVisibility() == View.VISIBLE) {
+                changePlusToMinus(day5Button, R.drawable.ic_add);
                 relativeLayout5.setVisibility(View.GONE);
                 exercisesList5.setVisibility(View.GONE);
             } else {
+                changePlusToMinus(day5Button, R.drawable.ic_baseline_horizontal_rule);
                 relativeLayout5.setVisibility(View.VISIBLE);
                 exercisesList5.setVisibility(View.VISIBLE);
             }
@@ -295,7 +303,7 @@ public class DisplayReceivedTraining extends Fragment
                 if (trainingWithForm.form.getScheduleType().equals("SERIES")) {
                     scheduleTypeDisplay = "wykonujesz wybraną ilość serii każdego ćwiczenia";
                 } else {
-                    scheduleTypeDisplay = "wykonujesz jedno ćwiczenie po drugim, z przerwami pomiędzy nimi, bądź bez";
+                    scheduleTypeDisplay = "wykonujemy jedno ćwiczenie po drugim, z przerwami pomiędzy nimi, bądź bez";
                 }
                 day1Button.setVisibility(View.VISIBLE);
                 break;
@@ -329,6 +337,11 @@ public class DisplayReceivedTraining extends Fragment
 
             recyclerViewArrayList.get(i).setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         }
+    }
+
+    private void changePlusToMinus(Button day1Button, int p) {
+        Drawable newDrawable = AppCompatResources.getDrawable(getContext(), p);
+        day1Button.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null);
     }
 
 
