@@ -303,7 +303,7 @@ public class DisplayReceivedTraining extends Fragment
                 if (trainingWithForm.form.getScheduleType().equals("SERIES")) {
                     scheduleTypeDisplay = "wykonujesz wybraną ilość serii każdego ćwiczenia";
                 } else {
-                    scheduleTypeDisplay = "wykonujemy jedno ćwiczenie po drugim, z przerwami pomiędzy nimi, bądź bez";
+                    scheduleTypeDisplay = "wykonujesz jedno ćwiczenie po drugim, z przerwami pomiędzy nimi, bądź bez";
                 }
                 day1Button.setVisibility(View.VISIBLE);
                 break;
