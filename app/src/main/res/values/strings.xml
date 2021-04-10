@@ -176,7 +176,7 @@
     <string name="chosenSchedule">"Wybrany sposób generowania : "</string>
     <string name="eqiupment">Sprzęt</string>
     <string name="details">Szczególy</string>
-    <string name="sumary">Podsumowanie</string>
+    <string name="sumary">Podgląd</string>
     <string name="generate">Generuj</string>
     <string name="onlynext">Dalej</string>
     <string name="detailsInfoTitle">Wskazówka</string>
@@ -255,4 +255,10 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="seriesTitle">Ilość Serii:</string>
     <string name="repeatsTitle">Ilość Powtórzeń:</string>
     <string name="detailsInfo">Siema siema</string>
+    <string name="miss">Pomiń</string>
+    <string name="previev_info">PRZYGOTUJ SIĘ</string>
+    <string name="preview_info">PRZYGOTUJ SIĘ</string>
+    <string name="text_info_next">JEŚLI WYKONAŁEŚ ĆWICZENIE KLIKNIJ W POWYŻSZY OBRAZEK</string>
+    <string name="textinfobreak">CZAS NA PRZERWE!</string>
+    <string name="next_exercise">Następne Ćwiczenie</string>
 </resources>

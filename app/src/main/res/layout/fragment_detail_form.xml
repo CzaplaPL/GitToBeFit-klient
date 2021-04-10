@@ -11,18 +11,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="right">
-        <ImageView
-            android:id="@+id/detailsInfoPicture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@drawable/ic_baseline_info_24" />
 
-    <LinearLayout
+        <RelativeLayout
         android:id="@+id/positionFirstTitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <TextView
@@ -34,7 +28,16 @@
             android:textColor="?attr/colorPrimaryVariant"
             android:textSize="15sp"
             android:textStyle="bold" />
-    </LinearLayout>
+
+            <ImageView
+                android:id="@+id/detailsInfoPicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="right"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/ic_baseline_info_24" />
+        </RelativeLayout>
 
     <Spinner
         android:id="@+id/typeSpinner"

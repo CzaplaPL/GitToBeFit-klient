@@ -18,7 +18,7 @@ public class TrainingViewModel extends ViewModel {
     private ArrayList<Exercise> listExercises;
     private ArrayList<ExerciseExecutionPOJODB> planList;
     private int indexExercise;
-    private int numberOfSeries;
+    public int numberOfSeries;
 
     public TrainingViewModel()
     {
@@ -66,7 +66,7 @@ public class TrainingViewModel extends ViewModel {
     }
 
     public int getNumberOfSeries() {
-        return numberOfSeries;
+        return numberOfSeries++;
     }
 
     public void setNumberOfSeries(int numberOfSeries) {
@@ -84,7 +84,6 @@ public class TrainingViewModel extends ViewModel {
     public boolean nextExercise() {
         if(indexExercise < listExercises.size()-1){
             indexExercise++;
-            numberOfSeries = 1;
         }
         else{
             return false;

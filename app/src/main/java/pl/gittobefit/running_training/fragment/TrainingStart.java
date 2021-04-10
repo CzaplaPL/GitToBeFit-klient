@@ -7,21 +7,11 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
-import java.util.Locale;
 
 import pl.gittobefit.R;
 import pl.gittobefit.databinding.FragmentTrainingStartBinding;
@@ -29,23 +19,9 @@ import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.running_training.viewmodel.TrainingViewModel;
 
 public class TrainingStart extends Fragment  {
-
-    private static final long START_TIME_IN_MILLIS = 6000;
-    private boolean timerRunning;
-    private long timeLeftInMillis = START_TIME_IN_MILLIS;
-    private CountDownTimer timerAdapter;
-    private TextView timerText;
-    private View view;
-    private ImageView buttonPlay, buttonPause;
-    private LinearLayout exerciseStart, exerciseBackground;
-    private RelativeLayout buttonLayout;
-    private Animation started, exit, downtoup, bright;
-    private Button miss, start, nextExercise;
-    private VideoView videoViewTraining, videoViewStartTraining;
-
-
     private TrainingViewModel model;
     private FragmentTrainingStartBinding binding;
+    private int getSeries;
 
     public TrainingStart() {
     }
@@ -61,41 +37,18 @@ public class TrainingStart extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_training_start, container, false);
-
         binding = FragmentTrainingStartBinding.inflate(inflater, container, false);
         model =  new ViewModelProvider(this).get(TrainingViewModel.class);
         model.init(TrainingStartArgs.fromBundle(getArguments()).getDisplayToTraining(),getContext());
-        generateView();
-
-        started = AnimationUtils.loadAnimation(getActivity(),R.anim.started);
-        bright = AnimationUtils.loadAnimation(getActivity(),R.anim.bright);
-        downtoup = AnimationUtils.loadAnimation(getActivity(),R.anim.downtoup);
-        exit = AnimationUtils.loadAnimation(getActivity(),R.anim.exit);
-
-        /**/
+        generateMainView();
 
         binding.miss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(model.nextExercise()){
-                    binding.loaderVideo.setVisibility(View.VISIBLE);
-                    binding.videoViewTraining.setAlpha(0);
-                    generateView();
-                }
-                else{
-                    // do przegadania !!!!!!!!!
-                }
-            }
-        });
-
-        binding.nextExercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(model.nextExercise()){
-                    binding.loaderVideo.setVisibility(View.VISIBLE);
-                    binding.videoViewTraining.setAlpha(0);
-                    generateView();
+                    binding.readVideo.setVisibility(View.VISIBLE);
+                    binding.loaderVideo.setAlpha(0);
+                    generateMainView();
                 }
                 else{
                     // do przegadania !!!!!!!!!
@@ -106,34 +59,27 @@ public class TrainingStart extends Fragment  {
         binding.start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.videoViewTraining.setVisibility(View.INVISIBLE);
                 binding.miss.setEnabled(false);
                 binding.start.setEnabled(false);
-                binding.exerciseBackground.setVisibility(View.VISIBLE);
-                binding.exerciseStart.setVisibility(View.VISIBLE);
-                binding.exerciseBackground.startAnimation(bright);
-                binding.exerciseStart.startAnimation(started);
-                binding.buttonLayout.startAnimation(downtoup);
-                getSmallVideo();
-                binding.timerWaitForStart.startAnimation(downtoup);
-                startCircleTimer();
+                generateForegroundView();
             }
         });
 
-        /**/
-
-        /*buttonPause.setOnClickListener(v -> {
-            pauseTimer();
-            buttonPause.setVisibility(View.GONE);
-            buttonPlay.setVisibility(View.VISIBLE);
+        binding.nextExercise.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(model.nextExercise()){
+                    generateMainView();
+                    binding.readVideo.setVisibility(View.VISIBLE);
+                    binding.loaderVideo.setAlpha(0);
+                    binding.nextExercise.setVisibility(View.GONE);
+                    binding.miss.setVisibility(View.VISIBLE);
+                    binding.start.setVisibility(View.VISIBLE);
+                    binding.miss.setEnabled(true);
+                    binding.start.setEnabled(true);
+                }
+            }
         });
-
-        buttonPlay.setOnClickListener(v -> {
-            startTimer();
-            buttonPause.setVisibility(View.VISIBLE);
-            buttonPlay.setVisibility(View.GONE);
-        });*/
-
         return binding.getRoot();
     }
 
@@ -146,7 +92,7 @@ public class TrainingStart extends Fragment  {
         }
     }
 
-    private void generateView()
+    private void generateMainView() // glowny widok prowadzenia treningu
     {
         getVideo();
         binding.titleExercise.setText(getString(R.string.exercise) + String.valueOf(model.getIndexExercise() + 1) + " - " + model.getExercise().getName());
@@ -162,7 +108,50 @@ public class TrainingStart extends Fragment  {
         setupForTime();
     }
 
-    private void setupForTime(){
+    private void generateForegroundView(){ // wczytanie okienka po kliknieciu start
+        getSmallVideo();
+        model.setNumberOfSeries(1);
+        binding.exerciseBackground.setVisibility(View.VISIBLE);
+        binding.exerciseBackground.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.bright));
+        binding.exerciseStart.setVisibility(View.VISIBLE);
+        binding.exerciseStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.started));
+        if(model.getExerciseExecution().getCount() == 0){
+            binding.timerWaitForStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.downtoup));
+            binding.timerWaitForStart.setVisibility(View.VISIBLE);
+            startCircleTimer();
+        }
+        else{
+            binding.timerPause.setVisibility(View.GONE);
+            binding.textInfoNext.setText(getString(R.string.text_info_next));
+            binding.buttonClicker.setVisibility(View.VISIBLE);
+            binding.printExerciseInfo.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.downtoup));
+            binding.printExerciseInfo.setVisibility(View.VISIBLE);
+            binding.printCountOfRepeats.setText(String.valueOf(model.getExerciseExecution().getCount()));
+
+            binding.buttonClicker.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    binding.buttonClicker.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
+                    binding.buttonClicker.setVisibility(View.GONE);
+                    binding.textInfoNext.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
+                    binding.textInfoNext.setText(getString(R.string.textinfobreak));
+                    binding.textInfoNext.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
+                    binding.timerPause.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
+                    binding.timerPause.setVisibility(View.VISIBLE);
+                    startCircleTimerPause();
+                }
+            });
+        }
+        binding.printCountOfSeries.setText(String.valueOf(model.getNumberOfSeries()) + " / " + String.valueOf(model.getExerciseExecution().getSeries()));
+        if(model.getTrainingWithForm().form.getScheduleType().equals("CIRCUIT")){
+            binding.printScheduleTypeTitle.setText(getString(R.string.scheduleTypeCircuit));
+        }
+        else{
+            binding.printScheduleTypeTitle.setText(getString(R.string.scheduleTypeSeries));
+        }
+    }
+
+    private void setupForTime(){ // odroznienie czy to jest cwiczenie na czas, czy na serie
         if(model.getExerciseExecution().getCount() == 0){
             binding.titleCountOfRepeats.setText(getString((R.string.timeTitle)));
             binding.countOfRepeats.setText(String.valueOf(model.getExerciseExecution().getTime()) + " sekund") ;
@@ -173,80 +162,14 @@ public class TrainingStart extends Fragment  {
         }
     }
 
-    private void setupForCircuit() {
+    private void setupForCircuit() { // zmiana na obwodowy
         binding.scheduleTypeTitle.setText(getString(R.string.scheduleTypeCircuit));
-        binding.countOfSeries.setText(String.valueOf(model.getNumberOfSeries() + " / " + String.valueOf(model.getExerciseExecution().getSeries())));
+        binding.countOfSeries.setText(String.valueOf(model.getExerciseExecution().getSeries()));
     }
 
-    private void setupForSeries(){
-        binding.scheduleTypeTitle.setText(getString(R.string.scheduleTypeSeries));
-        binding.countOfSeries.setText(String.valueOf(model.getNumberOfSeries()) + " / " + String.valueOf(model.getExerciseExecution().getSeries()));
-    }
-
-    private void getVideo() {
-        Uri uri = Uri.parse(ConnectionToServer.getInstance().PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
-        binding.videoViewTraining.setVideoURI(uri);
-        binding.videoViewTraining.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
-        binding.videoViewTraining.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp)
-            {
-                binding.videoViewTraining.start();
-                binding.loaderVideo.setVisibility(View.GONE);
-                binding.videoViewTraining.setAlpha(1);
-                mp.setLooping(true);
-            }
-        });
-    }
-
-    private void getSmallVideo(){
-        Uri uri = Uri.parse(ConnectionToServer.getInstance().PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
-        binding.videoViewStartTraining.setVideoURI(uri);
-        binding.videoViewStartTraining.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
-        binding.videoViewStartTraining.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp)
-            {
-                binding.videoViewStartTraining.start();
-                mp.setLooping(true);
-            }
-        });
-    }
-
-    private void pauseTimer() {
-        timerAdapter.cancel();
-        timerRunning = false;
-    }
-
-    private void startTimer() {
-        timerAdapter = new CountDownTimer(timeLeftInMillis, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                timeLeftInMillis = millisUntilFinished;
-                updateCountDownText();
-            }
-
-            @Override
-            public void onFinish() {
-                timerRunning = false;
-                binding.miss.setVisibility(View.GONE);
-                binding.start.setVisibility(View.GONE);
-                binding.exerciseBackground.startAnimation(exit);
-                binding.exerciseStart.startAnimation(exit);
-                ViewCompat.animate(binding.exerciseBackground).setStartDelay(1000).alpha(0).start();
-                ViewCompat.animate(binding.exerciseStart).setStartDelay(1000).alpha(0).start();
-                binding.videoViewTraining.setVisibility(View.VISIBLE);
-                binding.nextExercise.setVisibility(View.VISIBLE);
-            }
-        }.start();
-        timerRunning = true;
-    }
-
-    private void updateCountDownText() {
-        int minutes = (int) (timeLeftInMillis / 1000) / 60;
-        int seconds = (int) (timeLeftInMillis / 1000) % 60;
-        String timeFormatted = String.format(Locale.getDefault(),"%02d:%02d",minutes,seconds);
-        binding.textTime.setText(timeFormatted);
+    private void setupForSeries(){ // zmiana na seriowy
+        binding.scheduleTypeTitle.setText(getString(R.string.seriesTitle));
+        binding.countOfSeries.setText(String.valueOf(model.getExerciseExecution().getSeries()));
     }
 
     private void startCircleTimer() {
@@ -260,14 +183,73 @@ public class TrainingStart extends Fragment  {
 
             @Override
             public void onFinish() {
+                binding.timerWaitForStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
                 binding.timerWaitForStart.setVisibility(View.GONE);
-                startTrainingOnCreate();
             }
         }.start();
-        timerRunning = true;
     }
 
-    private void startTrainingOnCreate(){
+    private void startCircleTimerPause() {
+        new CountDownTimer(4000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                int seconds = (int) (millisUntilFinished / 1000);
+                String timeFormatted = String.valueOf(seconds);
+                binding.circleTimerPauseText.setText(timeFormatted);
+            }
 
+            @Override
+            public void onFinish() {
+                if(model.numberOfSeries == model.getExerciseExecution().getSeries() + 1){
+                    binding.miss.setVisibility(View.INVISIBLE);
+                    binding.start.setVisibility(View.INVISIBLE);
+                    binding.exerciseBackground.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.exit));
+                    binding.exerciseStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.exit));
+                    binding.exerciseBackground.setVisibility(View.INVISIBLE);
+                    binding.exerciseStart.setVisibility(View.INVISIBLE);
+                    binding.nextExercise.setVisibility(View.VISIBLE);
+                }
+                else{
+                    binding.printCountOfSeries.setText(String.valueOf(model.getNumberOfSeries()) + " / " + String.valueOf(model.getExerciseExecution().getSeries()));
+                    binding.timerPause.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
+                    binding.timerPause.setVisibility(View.GONE);
+                    binding.textInfoNext.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
+                    binding.textInfoNext.setText(getString(R.string.text_info_next));
+                    binding.textInfoNext.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
+                    binding.buttonClicker.setVisibility(View.VISIBLE);
+                    binding.buttonClicker.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
+                }
+            }
+        }.start();
+    }
+
+    private void getVideo() { // wczytanie wideo do maina
+        Uri uri = Uri.parse(ConnectionToServer.getInstance().PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
+        binding.loaderVideo.setVideoURI(uri);
+        binding.loaderVideo.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
+        binding.loaderVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp)
+            {
+                binding.readVideo.setVisibility(View.INVISIBLE);
+                binding.loaderVideo.start();
+                binding.loaderVideo.setAlpha(1);
+                mp.setLooping(true);
+            }
+        });
+    }
+
+    private void getSmallVideo(){ // wczytanie wideo do foregrounda
+        Uri uri = Uri.parse(ConnectionToServer.getInstance().PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
+        binding.videoViewStartTraining.setVideoURI(uri);
+        binding.videoViewStartTraining.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
+        binding.videoViewStartTraining.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp)
+            {
+                binding.videoViewStartTraining.start();
+                mp.setLooping(true);
+            }
+        });
     }
 }
