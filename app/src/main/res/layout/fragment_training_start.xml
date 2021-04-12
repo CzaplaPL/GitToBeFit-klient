@@ -19,7 +19,7 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
@@ -236,7 +236,8 @@
             app:layout_constraintBottom_toBottomOf="@id/exercise_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/exercise_background">
+            app:layout_constraintTop_toTopOf="@id/exercise_background"
+            tools:visibility="visible">
 
             <VideoView
                 android:id="@+id/videoViewStartTraining"
@@ -261,7 +262,8 @@
                 android:id="@+id/timerWaitForStart"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:visibility="gone">
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <TextView
                     android:id="@+id/preview"
@@ -370,7 +372,8 @@
                         android:id="@+id/buttonClickButton"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center_horizontal">
+                        android:gravity="center_horizontal"
+                        tools:visibility="invisible">
 
                         <Button
                             android:id="@+id/button_clicker"
@@ -386,7 +389,8 @@
                         android:id="@+id/timerPause"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <ProgressBar
                             android:id="@+id/circleTimerPause"
@@ -435,7 +439,8 @@
             android:background="@drawable/background_transparent"
             android:elevation="3dp"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:visibility="visible">
 
         </LinearLayout>
 
