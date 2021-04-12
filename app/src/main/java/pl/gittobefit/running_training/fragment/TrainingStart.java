@@ -21,7 +21,6 @@ import pl.gittobefit.running_training.viewmodel.TrainingViewModel;
 public class TrainingStart extends Fragment  {
     private TrainingViewModel model;
     private FragmentTrainingStartBinding binding;
-    private int getSeries;
 
     public TrainingStart() {
     }
