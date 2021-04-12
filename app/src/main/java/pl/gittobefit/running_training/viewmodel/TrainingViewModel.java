@@ -66,7 +66,7 @@ public class TrainingViewModel extends ViewModel {
     }
 
     public int getNumberOfSeries() {
-        return numberOfSeries++;
+        return numberOfSeries;
     }
 
     public void setNumberOfSeries(int numberOfSeries) {
@@ -84,6 +84,25 @@ public class TrainingViewModel extends ViewModel {
     public boolean nextExercise() {
         if(indexExercise < listExercises.size()-1){
             indexExercise++;
+            numberOfSeries = 1;
+        }
+        else{
+            return false;
+        }
+        return true;
+    }
+
+    public void nextSeries() {
+        numberOfSeries++;
+    }
+
+    public boolean nextExerciseForCircuit() {
+        if(indexExercise < listExercises.size()-1){
+            indexExercise++;
+        }
+        else if(numberOfSeries < getExerciseExecution().getSeries()){
+            indexExercise = 0;
+            numberOfSeries++;
         }
         else{
             return false;

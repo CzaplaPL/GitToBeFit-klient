@@ -43,13 +43,15 @@
                 android:background="@drawable/shape_rectangle"
                 android:gravity="center_vertical"
                 android:text="Cwiczenia 1 - Unoszenie Ramion Do Góry"
+                android:textAlignment="center"
                 android:textColor="?attr/colorPrimaryVariant"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/read_video"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlCompat" />
 
             <ProgressBar
                 android:id="@+id/read_video"
@@ -219,21 +221,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:shapeAppearanceOverlay="@style/noroundedButton"
                 app:strokeColor="@color/ourGreen" />
-
-            <Button
-                android:id="@+id/next_exercise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/next_exercise"
-                android:textColor="?attr/colorPrimaryVariant"
-                android:textSize="12sp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:shapeAppearanceOverlay="@style/noroundedButton"
-                app:strokeColor="@color/ourGreen"
-                tools:visibility="visible" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
