@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -52,6 +55,9 @@ private final EquipmentListener equipmentListener;
         {
             viewHolder.getButton().setVisibility(View.GONE);
             viewHolder.getImage().setVisibility(View.VISIBLE);
+            RelativeLayout.LayoutParams margin =new RelativeLayout.LayoutParams(viewHolder.getContainer().getLayoutParams());
+            margin.setMargins(30,0,0,0);
+            viewHolder.getContainer().setLayoutParams(margin);
             viewHolder.getNameView().setText(localDataSet.get(position).getName());
             viewHolder.getCheckBox().setVisibility(View.VISIBLE);
             viewHolder.getCheckBox().setChecked(localDataSet.get(position).isIschecked());
@@ -61,6 +67,9 @@ private final EquipmentListener equipmentListener;
                         .into(viewHolder.getImage());
         }else
         {
+            RelativeLayout.LayoutParams margin =new RelativeLayout.LayoutParams(viewHolder.getContainer().getLayoutParams());
+            margin.setMargins(0,0,0,0);
+            viewHolder.getContainer().setLayoutParams(margin);
             viewHolder.getButton().setVisibility(View.VISIBLE);
             viewHolder.getImage().setVisibility(View.VISIBLE);
             viewHolder.getNameView().setText(localDataSet.get(position).getName());
@@ -85,6 +94,7 @@ private final EquipmentListener equipmentListener;
         private final CheckBox checkBox;
         private final EquipmentListener equipmentListener;
         private final Context context;
+        private final ConstraintLayout container;
 
         public ViewHolder(View view,EquipmentListener equipmentListener)
         {
@@ -97,6 +107,7 @@ private final EquipmentListener equipmentListener;
             button.setOnClickListener(this);
             checkBox.setOnClickListener(this);
             context = view.getContext();
+            container = view.findViewById(R.id.equipment_item_container);
             view.setOnClickListener(this);
         }
 
@@ -113,6 +124,11 @@ private final EquipmentListener equipmentListener;
         public void onClick(View v)
         {
             equipmentListener.onItemClick(getAdapterPosition());
+        }
+
+        public ConstraintLayout getContainer()
+        {
+            return container;
         }
     }
 

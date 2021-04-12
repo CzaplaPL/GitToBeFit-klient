@@ -143,7 +143,7 @@
                 android:layout_height="35dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/ourGreen"
-                android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                android:src="@drawable/ic_drop_up"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -200,7 +200,7 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:background="@color/ourGreen"
-                android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                android:src="@drawable/ic_drop_up"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

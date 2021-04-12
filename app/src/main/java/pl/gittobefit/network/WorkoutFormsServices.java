@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
@@ -122,7 +123,8 @@ public class WorkoutFormsServices
     public void getTrainingPlan(Fragment fragment, WorkoutForm form)
     {
         Log.w("form","equipmentIDs" + form.getEquipmentIDs().toString() + " trainingType "+ form.getTrainingType() + " bodyParts " + form.getBodyParts() + " daysCount" + form.getDaysCount() + " scheduleType " + form.getScheduleType() + " duration " + form.getDuration());
-
+        IShowSnackbar activity = (IShowSnackbar) fragment.getActivity();
+        activity.showSnackbar(fragment.getString(R.string.generateTraining));
         Call<Training> call = workout.getTrainingPlan(form);
         call.enqueue(new Callback<Training>()
         {
@@ -134,6 +136,7 @@ public class WorkoutFormsServices
                     InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
                     model.setNumberOfClickedTraining(-999);
                     Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+                    activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
                 }
                 else
                 {

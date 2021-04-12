@@ -94,9 +94,11 @@ public class SummaryFragment extends Fragment {
         {
             if(binding.bodyPartsList.getVisibility()!=View.GONE)
             {
+                binding.bodyButton.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24);
                 binding.bodyPartsList.setVisibility(View.GONE);
             }else
             {
+                binding.bodyButton.setImageResource(R.drawable.ic_drop_up);
                 binding.bodyPartsList.setVisibility(View.VISIBLE);
             }
         });
@@ -104,10 +106,12 @@ public class SummaryFragment extends Fragment {
         {
             if(binding.bodyPartsList.getVisibility()!=View.GONE)
             {
+                binding.bodyButton.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24);
                 binding.bodyPartsList.setVisibility(View.GONE);
             }else
             {
                 binding.bodyPartsList.setVisibility(View.VISIBLE);
+                binding.bodyButton.setImageResource(R.drawable.ic_drop_up);
             }
         });
 
@@ -177,11 +181,13 @@ public class SummaryFragment extends Fragment {
     {
         if(binding.eqiupmentsList.getVisibility()!=View.GONE)
         {
+            binding.eqiupmentButton.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24);
             binding.eqiupmentsList.setVisibility(View.GONE);
             binding.noEquipmentItemImage.setVisibility(View.GONE);
             binding.noEquipmentTitle.setVisibility(View.GONE);
         }else
         {
+            binding.eqiupmentButton.setImageResource(R.drawable.ic_drop_up);
             if(model.isNoEquipmentcheched())
             {
                 binding.noEquipmentItemImage.setVisibility(View.VISIBLE);

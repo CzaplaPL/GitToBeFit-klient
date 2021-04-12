@@ -73,10 +73,10 @@
     <string name="action_settings">Settings</string>
 
     <string-array name="trening_type_name">
-        <item>Split</item>
-        <item>Full Body Workout </item>
-        <item>Cardio</item>
-        <item>Fitness</item>
+        <item>SPLIT</item>
+        <item>FBW</item>
+        <item>CARDIO</item>
+        <item>FITNESS</item>
     </string-array>
 
     <string-array name="trening_type">
@@ -244,4 +244,6 @@ sprawdzanie czy użytkownik ma internet\n
        synchronizacja zapisywania treningow z serwerem \n
     </string>
     <string name="chosen_eqiupment">Wybrany sprzęt</string>
+    <string name="generateTraining">Trwa generowanie treningu.</string>
+    <string name="generateTrainingSukccess">Wygenerowano trening poprawnie.</string>
 </resources>
