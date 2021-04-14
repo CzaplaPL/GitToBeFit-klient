@@ -25,7 +25,7 @@ import pl.gittobefit.user.Validation;
 public class ChangeMailDialog extends AppCompatDialogFragment
 {
     public interface ChangeMailDialogInterface {
-        void onChangeMail(Boolean sukces,String message );
+        void onChangeMail(Boolean sukces, String message);
     }
     private EditText editTextUserNewEmail;
     private EditText editTextUserPassword;
@@ -56,8 +56,4 @@ public class ChangeMailDialog extends AppCompatDialogFragment
                 });
         return builder.create();
     }
-
-
-
-
 }

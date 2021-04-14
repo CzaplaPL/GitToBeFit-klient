@@ -6,26 +6,44 @@
     android:padding="12dp">
 
     <TextView
-        android:id="@+id/list_of_trainings_training_type"
+        android:id="@+id/training_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="name"
-        android:textColor="@color/ourWhite"
+        android:textColor="@color/ourGreen"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/training_additional_info"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
-        android:padding="2dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:text="Some data"
-        android:textColor="@color/ourWhite"
-        android:textSize="16sp" />
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/training_additional_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:padding="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Some data"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="16sp"
+            android:layout_marginLeft="5dp"/>
+        <TextView
+            android:id="@+id/list_of_trainings_training_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:padding="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="Some data"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="16sp" />
+    </LinearLayout>
+
 
 </LinearLayout>
