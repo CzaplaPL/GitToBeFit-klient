@@ -16,16 +16,18 @@ import java.util.ArrayList;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
+import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 
 public class TrainingListAdapter extends RecyclerView.Adapter<TrainingListAdapter.ViewHolder>
 {
 
-    private ArrayList<Training> trainingArrayList;
+    private ArrayList<TrainingWithForm> trainingArrayList;
     private Fragment fragment;
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
         private TextView TrainingTypeTextView;
         private TextView GenerationTrainingDateTextView;
+        private TextView TrainingName;
 
         public ViewHolder (View view)
         {
@@ -33,10 +35,11 @@ public class TrainingListAdapter extends RecyclerView.Adapter<TrainingListAdapte
 
             TrainingTypeTextView = (TextView) view.findViewById(R.id.list_of_trainings_training_type);
             GenerationTrainingDateTextView = (TextView) view.findViewById(R.id.training_additional_info);
+            TrainingName = (TextView) view.findViewById(R.id.training_name);
         }
     }
 
-    public TrainingListAdapter(ArrayList<Training> trainingArrayList, Fragment fragment) {
+    public TrainingListAdapter(ArrayList<TrainingWithForm> trainingArrayList, Fragment fragment) {
         this.trainingArrayList = trainingArrayList;
         this.fragment = fragment;
     }
@@ -53,18 +56,16 @@ public class TrainingListAdapter extends RecyclerView.Adapter<TrainingListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.TrainingTypeTextView.setText(trainingArrayList.get(position).getTrainingForm().getTrainingType());
+        holder.TrainingTypeTextView.setText(trainingArrayList.get(position).form.getTrainingType());
 
-        holder.GenerationTrainingDateTextView.setText(trainingArrayList.get(position).getGenerationDate());
+        holder.GenerationTrainingDateTextView.setText(trainingArrayList.get(position).training.getGenerationDate());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
-                model.setNumberOfClickedTraining(position);
-                Navigation.findNavController(fragment.getView()).navigate(R.id.list_of_trainings_to_displayReceivedTraining);
-            }
+        holder.TrainingName.setText(trainingArrayList.get(position).training.getTrainingName());
+
+        holder.itemView.setOnClickListener(v -> {
+            InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
+            model.setNumberOfClickedTraining(position);
+            Navigation.findNavController(fragment.getView()).navigate(R.id.list_of_trainings_to_displayReceivedTraining);
         });
 
     }
