@@ -30,7 +30,7 @@ public class BodyPartsAdapter extends RecyclerView.Adapter<BodyPartsAdapter.View
         public ViewHolder (View view)
         {
             super(view);
-            item =(RelativeLayout) view.findViewById(R.id.item_body_parts);
+            item = (RelativeLayout) view.findViewById(R.id.item_body_parts);
             textView = (TextView) view.findViewById(R.id.bodyPartsTextView);
             checkBox = (CheckBox) view.findViewById(R.id.bodyPartsCheckBox);
             dot = (ImageView) view.findViewById(R.id.dot);

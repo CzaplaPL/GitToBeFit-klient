@@ -248,6 +248,12 @@ sprawdzanie czy użytkownik ma internet\n
         utworzenie encji w bazie danych do zapisywania treningu \n
           0.1.6\n
        synchronizacja zapisywania treningow z serwerem \n
+          0.1.7\n
+        poprwy w generowaniu trningu\n
+        ulepszenie podglądu wygenerowanego treningu \n
+        ulepszenie podglądu listy wygenerowanych treningow\n
+        edycja nazwy treningu \n
+
     </string>
     <string name="chosen_eqiupment">Wybrany sprzęt</string>
     <string name="generateTraining">Trwa generowanie treningu.</string>

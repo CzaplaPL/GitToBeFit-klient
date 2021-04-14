@@ -55,8 +55,8 @@ private final EquipmentListener equipmentListener;
         {
             viewHolder.getButton().setVisibility(View.GONE);
             viewHolder.getImage().setVisibility(View.VISIBLE);
-            RelativeLayout.LayoutParams margin =new RelativeLayout.LayoutParams(viewHolder.getContainer().getLayoutParams());
-            margin.setMargins(30,0,0,0);
+            RelativeLayout.LayoutParams margin = new RelativeLayout.LayoutParams(viewHolder.getContainer().getLayoutParams());
+            margin.setMargins(30, 0, 0, 0);
             viewHolder.getContainer().setLayoutParams(margin);
             viewHolder.getNameView().setText(localDataSet.get(position).getName());
             viewHolder.getCheckBox().setVisibility(View.VISIBLE);
@@ -68,7 +68,7 @@ private final EquipmentListener equipmentListener;
         }else
         {
             RelativeLayout.LayoutParams margin =new RelativeLayout.LayoutParams(viewHolder.getContainer().getLayoutParams());
-            margin.setMargins(0,0,0,0);
+            margin.setMargins(0, 0, 0, 0);
             viewHolder.getContainer().setLayoutParams(margin);
             viewHolder.getButton().setVisibility(View.VISIBLE);
             viewHolder.getImage().setVisibility(View.VISIBLE);
