@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.adapters.ExerciseListAdapter;
@@ -73,7 +74,13 @@ public class DisplayReceivedTraining extends Fragment
 
         for (int i = 0; i < trainingWithForm.training.getPlanList().size(); i++)
         {
-            exercisesArrayList.add(TrainingRepository.getInstance(getContext()).getExerciseForPlanList(trainingWithForm.training.getPlanList().get(i)));
+            exercisesArrayList
+                    .add(TrainingRepository
+                            .getInstance(getContext())
+                            .getExerciseForPlanList(trainingWithForm
+                                    .training
+                                    .getPlanList()
+                                    .get(i)));
         }
 
         if(model.getLastIndex() != index)
@@ -149,21 +156,29 @@ public class DisplayReceivedTraining extends Fragment
         Button editTrainingNameButton = getView().findViewById(R.id.editTrainingNameButton);
         editTrainingNameButton.setOnClickListener(v -> {
             Bundle args = new Bundle();
-            args.putString("trainingID", String.format("%d/%d", index, trainingWithForm.training.getId()));
+            args.putString("trainingID",
+                    String.format(Locale.getDefault(),
+                    "%d/%d",
+                    index,
+                    trainingWithForm.training.getId()));
 
             EditTrainingNameDialog editTrainingNameDialog = new EditTrainingNameDialog(getView());
             editTrainingNameDialog.setArguments(args);
-            editTrainingNameDialog.show(getFragmentManager(), "dialog");
+            editTrainingNameDialog.show(getParentFragmentManager(), "dialog");
         });
 
         Button deleteTrainingButton = getView().findViewById(R.id.deleteTraining);
         deleteTrainingButton.setOnClickListener(v -> {
             Bundle args = new Bundle();
-            args.putString("trainingID", String.format("%d/%d", index, trainingWithForm.training.getId()));
+            args.putString("trainingID",
+                    String.format(Locale.getDefault(),
+                            "%d/%d",
+                            index,
+                            trainingWithForm.training.getId()));
 
             DeleteTrainingDialog deleteTrainingDialog = new DeleteTrainingDialog(getView());
             deleteTrainingDialog.setArguments(args);
-            deleteTrainingDialog.show(getFragmentManager(), "dialog");
+            deleteTrainingDialog.show(getParentFragmentManager(), "dialog");
         });
 
 
@@ -213,20 +228,23 @@ public class DisplayReceivedTraining extends Fragment
             }
         }
 
-        final Observer<Integer> exerciseInfoObserver = new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                for (int i = 0; i < exercisesArrayList.size(); i++)
-                {
-                    exerciseListAdapters.add(new ExerciseListAdapter(exercisesArrayList.get(i), trainingWithForm.training.getPlanList().get(i),
-                            trainingWithForm.form.getScheduleType(), trainingWithForm.training.getId(), getParentFragment(), trainingWithForm.training.getPlanList()));
-                    recyclerViewArrayList.get(i).setAdapter(exerciseListAdapters.get(i));
-                    if (trainingWithForm.form.getTrainingType().equals("FBW") || trainingWithForm.form.getTrainingType().equals("SPLIT")) {
-                        recyclerViewArrayList.get(i).setNestedScrollingEnabled(false);
-                    }
+        final Observer<Integer> exerciseInfoObserver = integer ->
+        {
+            for (int i = 0; i < exercisesArrayList.size(); i++)
+            {
+                exerciseListAdapters.add(new ExerciseListAdapter(
+                        exercisesArrayList.get(i),
+                        trainingWithForm.training.getPlanList().get(i),
+                        trainingWithForm.form.getScheduleType(),
+                        trainingWithForm.training.getId(),
+                        getParentFragment(),
+                        trainingWithForm.training.getPlanList()));
+                recyclerViewArrayList.get(i).setAdapter(exerciseListAdapters.get(i));
+                recyclerViewArrayList.get(i).setNestedScrollingEnabled(false);
 
-                    recyclerViewArrayList.get(i).setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-                }
+                recyclerViewArrayList.get(i).setLayoutManager(new LinearLayoutManager(getContext(),
+                        LinearLayoutManager.VERTICAL,
+                        false));
             }
         };
         model.getCurrentCount().observe(this, exerciseInfoObserver);
@@ -281,16 +299,24 @@ public class DisplayReceivedTraining extends Fragment
         trainingDuration.setText(timeBuilder, TextView.BufferType.SPANNABLE);
         trainingDuration.setVisibility(View.GONE);
 
-        for (int i = 0; i < exercisesArrayList.size(); i++) {
-            exerciseListAdapters.add(new ExerciseListAdapter(exercisesArrayList.get(i), trainingWithForm.training.getPlanList().get(i),
-                    trainingWithForm.form.getScheduleType(), trainingWithForm.training.getId(),this, trainingWithForm.training.getPlanList()));
-            recyclerViewArrayList.get(i).addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        for (int i = 0; i < exercisesArrayList.size(); i++)
+        {
+            exerciseListAdapters.add(new ExerciseListAdapter(exercisesArrayList.get(i),
+                    trainingWithForm.training.getPlanList().get(i),
+                    trainingWithForm.form.getScheduleType(),
+                    trainingWithForm.training.getId(),
+                    this,
+                    trainingWithForm.training.getPlanList()));
+            recyclerViewArrayList.get(i).addItemDecoration(new DividerItemDecoration(
+                    getContext(),
+                    DividerItemDecoration.VERTICAL));
             recyclerViewArrayList.get(i).setAdapter(exerciseListAdapters.get(i));
-            if (trainingWithForm.form.getTrainingType().equals("FBW") || trainingWithForm.form.getTrainingType().equals("SPLIT")) {
-                recyclerViewArrayList.get(i).setNestedScrollingEnabled(false);
-            }
+            recyclerViewArrayList.get(i).setNestedScrollingEnabled(false);
 
-            recyclerViewArrayList.get(i).setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+            recyclerViewArrayList.get(i).setLayoutManager(new LinearLayoutManager(
+                    getContext(),
+                    LinearLayoutManager.VERTICAL,
+                    false));
         }
     }
 
@@ -315,7 +341,10 @@ public class DisplayReceivedTraining extends Fragment
     private SpannableStringBuilder getSpannableStringBuilder(String durationDisplay, String stringToColor) {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         SpannableString redSpannable= new SpannableString(stringToColor);
-        redSpannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.ourGreen)), 0, stringToColor.length(), 0);
+        redSpannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.ourGreen)),
+                0,
+                stringToColor.length(),
+                0);
         builder.append(redSpannable);
         builder.append(durationDisplay);
         return builder;

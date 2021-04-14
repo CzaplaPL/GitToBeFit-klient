@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 

@@ -35,8 +35,13 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
     private String exerciseName;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
 
-    public EditExerciseDialog(View view, String scheduleType, int position, ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
-                              int trainingID, String exerciseName, ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS)
+    public EditExerciseDialog(View view,
+                              String scheduleType,
+                              int position,
+                              ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
+                              int trainingID,
+                              String exerciseName,
+                              ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS)
     {
         this.myView = view;
         this.scheduleType = scheduleType;
@@ -49,7 +54,8 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState)
+    {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_edit_exercise_dialog, null);
@@ -63,16 +69,18 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
 
         countNumberPicker = view.findViewById(R.id.countNumberPicker);
 
-        if (exercisesExecutionArrayList.get(position).getTime() > 20) {
+        TextView count_time = view.findViewById(R.id.count_time);
+        if (exercisesExecutionArrayList.get(position).getTime() != 0) {
             countNumberPicker.setMaxValue(90);
             countNumberPicker.setMinValue(10);
             countNumberPicker.setValue(exercisesExecutionArrayList.get(position).getTime());
+            count_time.setText("Czas trwania");
         } else {
             countNumberPicker.setMaxValue(50);
             countNumberPicker.setMinValue(1);
             countNumberPicker.setValue(exercisesExecutionArrayList.get(position).getCount());
+            count_time.setText("Ilość powtórzeń");
         }
-
 
         countNumberPicker.setWrapSelectorWheel(false);
         countNumberPicker.setOnValueChangedListener(this);
@@ -87,14 +95,6 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
             seriesCount.setText("Ilość obwodów");
         }
 
-        TextView count_time = view.findViewById(R.id.count_time);
-        if (exercisesExecutionArrayList.get(position).getTime() > 20)
-        {
-            count_time.setText("Czas trwania");
-        }
-        else {
-            count_time.setText("Ilość powtórzeń");
-        }
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
 
         builder.setView(view)
@@ -115,7 +115,7 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
                         model.getCurrentSeries().setValue(seriesNumberPicker.getValue());
                     }
 
-                    if (exercisesExecutionArrayList.get(position).getTime() > 20)
+                    if (exercisesExecutionArrayList.get(position).getTime() != 0)
                     {
                         exercisesExecutionArrayList.get(position).setTime(countNumberPicker.getValue());
                         model.getCurrentTime().setValue(countNumberPicker.getValue());

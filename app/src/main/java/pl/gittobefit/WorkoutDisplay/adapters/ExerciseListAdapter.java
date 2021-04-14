@@ -46,8 +46,13 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         }
     }
 
-    public ExerciseListAdapter(ArrayList<Exercise> exerciseArrayList, ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
-                               String scheduleType, int trainingID, Fragment fragment, ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS) {
+    public ExerciseListAdapter(ArrayList<Exercise> exerciseArrayList,
+                               ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
+                               String scheduleType,
+                               int trainingID,
+                               Fragment fragment,
+                               ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS)
+    {
         this.exerciseArrayList = exerciseArrayList;
         this.fragment = fragment;
         this.exercisesExecutionArrayList = exercisesExecutionArrayList;
@@ -58,7 +63,8 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
     @NonNull
     @Override
-    public ExerciseListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ExerciseListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.layout_exercise_listview_item, parent, false);
 
@@ -102,40 +108,52 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
             default:  properFormRep = "powtórzeń"; break;
         }
 
-        if (exercisesExecutionArrayList.get(position).getTime() > 20)
+        if (exercisesExecutionArrayList.get(position).getTime() != 0)
         {
             if (scheduleType.equals("CIRCUIT"))
             {
-                text = String.format(Locale.getDefault(),"%d %s, %d sekund", exercisesExecutionArrayList.get(position).getSeries(),
-                        properFormCircuit, exercisesExecutionArrayList.get(position).getTime());
+                text = String.format(Locale.getDefault(),"%d %s, %d sekund",
+                        exercisesExecutionArrayList.get(position).getSeries(),
+                        properFormCircuit,
+                        exercisesExecutionArrayList.get(position).getTime());
             }
             else
             {
-                text = String.format(Locale.getDefault(),"%d %s, %d sekund", exercisesExecutionArrayList.get(position).getSeries(),
-                        properFormSeries, exercisesExecutionArrayList.get(position).getTime());
+                text = String.format(Locale.getDefault(),"%d %s, %d sekund",
+                        exercisesExecutionArrayList.get(position).getSeries(),
+                        properFormSeries,
+                        exercisesExecutionArrayList.get(position).getTime());
             }
         }
         else
         {
             if (scheduleType.equals("CIRCUIT"))
             {
-                text = String.format(Locale.getDefault(),"%d %s, %d %s", exercisesExecutionArrayList.get(position).getSeries(),
-                        properFormCircuit, exercisesExecutionArrayList.get(position).getCount(), properFormRep);
+                text = String.format(Locale.getDefault(),"%d %s, %d %s",
+                        exercisesExecutionArrayList.get(position).getSeries(),
+                        properFormCircuit,
+                        exercisesExecutionArrayList.get(position).getCount(), properFormRep);
             }
             else
             {
-                text = String.format(Locale.getDefault(),"%d %s, %d %s", exercisesExecutionArrayList.get(position).getSeries(),
-                        properFormSeries, exercisesExecutionArrayList.get(position).getCount(), properFormRep);
+                text = String.format(Locale.getDefault(),"%d %s, %d %s",
+                        exercisesExecutionArrayList.get(position).getSeries(),
+                        properFormSeries,
+                        exercisesExecutionArrayList.get(position).getCount(), properFormRep);
             }
         }
 
         holder.exerciseInfo.setText(text);
 
         holder.itemView.setOnClickListener(v -> {
-            EditExerciseDialog editExerciseDialog = new EditExerciseDialog(fragment.getView(), scheduleType,
-                    position ,exercisesExecutionArrayList, trainingID, exerciseArrayList.get(position).getName(),
+            EditExerciseDialog editExerciseDialog = new EditExerciseDialog(fragment.getView(),
+                    scheduleType,
+                    position ,
+                    exercisesExecutionArrayList,
+                    trainingID,
+                    exerciseArrayList.get(position).getName(),
                     exerciseExecutionPOJODBS);
-            editExerciseDialog.show(fragment.getFragmentManager(), "dialog");
+            editExerciseDialog.show(fragment.getParentFragmentManager(), "dialog");
         });
     }
 
