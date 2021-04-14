@@ -74,13 +74,11 @@ public class DisplayReceivedTraining extends Fragment
 
         for (int i = 0; i < trainingWithForm.training.getPlanList().size(); i++)
         {
-            exercisesArrayList
-                    .add(TrainingRepository
-                            .getInstance(getContext())
-                            .getExerciseForPlanList(trainingWithForm
-                                    .training
-                                    .getPlanList()
-                                    .get(i)));
+            exercisesArrayList.add(
+                    TrainingRepository.getInstance(getContext()).getExerciseForPlanList(
+                            trainingWithForm.training.getPlanList().get(i)
+                    )
+            );
         }
 
         if(model.getLastIndex() != index)

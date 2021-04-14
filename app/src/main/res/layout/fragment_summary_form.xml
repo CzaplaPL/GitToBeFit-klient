@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/typeTraning" />
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/frequency" />
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="18sp"
 
             app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text=""
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
             app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/time" />
@@ -112,7 +112,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.05" />
+                app:layout_constraintGuide_percent="0.05"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/main_guideline_right2"
@@ -142,7 +143,7 @@
                 android:layout_height="35dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/ourGreen"
-                android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                android:src="@drawable/ic_drop_up"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -150,7 +151,6 @@
                 android:id="@+id/body_parts_list"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/main_guideline_right2"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left2"
                 app:layout_constraintTop_toBottomOf="@+id/bodyTitle">
@@ -159,18 +159,11 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toBottomOf="@+id/body_parts"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/equipment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/body_parts">
 
@@ -207,7 +200,7 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:background="@color/ourGreen"
-                android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                android:src="@drawable/ic_drop_up"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -217,7 +210,6 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/ic_baseline_clear_24"
-                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left3"
                 app:layout_constraintTop_toBottomOf="@+id/eqiupmentTitle" />
 
@@ -231,7 +223,6 @@
                 android:textColor="?attr/colorPrimaryVariant"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/eqiupmentsList"
                 app:layout_constraintStart_toEndOf="@+id/no_equipment_item_image"
                 app:layout_constraintTop_toBottomOf="@+id/eqiupmentTitle"
@@ -241,7 +232,6 @@
                 android:id="@+id/eqiupmentsList"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/main_guideline_right3"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left3"
