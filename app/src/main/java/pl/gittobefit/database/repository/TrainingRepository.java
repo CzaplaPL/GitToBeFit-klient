@@ -73,6 +73,17 @@ public class TrainingRepository
         return loadTraining;
     }
 
+
+    public ArrayList<TrainingWithForm> getAllTrainings()
+    {
+        ArrayList<TrainingWithForm> loadTraining = new ArrayList<>(base.trainingDao().getAllTrainings());
+        for(TrainingWithForm training : loadTraining)
+        {
+            loadedTrainingWithForm.put((long) training.training.getId(), training);
+        }
+        return loadTraining;
+    }
+
     public ArrayList<Training> getTrainingsToSend()
     {
         ArrayList<Training> trainingsToSend = new ArrayList<>();

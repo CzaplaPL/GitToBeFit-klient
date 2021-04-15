@@ -18,7 +18,6 @@ import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.UserEntity;
 import pl.gittobefit.network.interfaces.IUserServices;
-import pl.gittobefit.network.object.EmailUser;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
 import pl.gittobefit.network.object.UserChangeEmail;
@@ -529,7 +528,7 @@ public class UserServices
 
     public void sendActivationLink(Fragment fragment, String email)
     {
-        Call<Void> call = user.sendActivationLink(new EmailUser(email));
+        Call<Void> call = user.sendActivationLink(email);
         call.enqueue(new Callback<Void>()
         {
             @Override

@@ -5,12 +5,15 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.LogUtils;
+import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.database.repository.TrainingRepository;
 import pl.gittobefit.network.interfaces.ITrainingServices;
 import pl.gittobefit.user.User;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -47,5 +50,34 @@ public class TrainingServices
         repository.synchroniseUser();
         Log.w("Network", "Trainings.synchronisedTraining sukces");
         User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.Synchronise_Success);
+    }
+
+    public void updateTrainingName(String id, IShowSnackbar activity)
+    {
+        Call<Void> call = training.updateTrainingTitle(id, User.getInstance().getToken());
+        call.enqueue(new Callback<Void>()
+        {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                int code = response.code();
+                if (response.isSuccessful())
+                {
+                    activity.showSnackbar("Nazwa zmieniona");
+                }
+                else
+                {
+                    LogUtils.logCause(response.headers().get("Cause"));
+                }
+                Log.e("error code change title", String.valueOf(code));
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t)
+            {
+                Log.e(" error ", "change training title : " + t.toString());
+                activity.showSnackbar("Błąd servera");
+            }
+        });
+
     }
 }
