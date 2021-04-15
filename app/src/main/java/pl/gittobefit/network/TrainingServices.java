@@ -32,7 +32,7 @@ public class TrainingServices
         {
             Log.e("Network", "Trainings.SendTraining " + String.valueOf(downloadResponse.code()));
             LogUtils.logCause(downloadResponse.headers().get("Cause"));
-        //    throw new Exception("get Training not work");
+            throw new Exception("get Training not work");
         }
         for(Training training : downloadResponse.body())
         {
@@ -44,7 +44,7 @@ public class TrainingServices
         {
             Log.e("Network", "Trainings.SendTraining " + String.valueOf(sendResponse.code()));
             LogUtils.logCause(sendResponse.headers().get("Cause"));
-        //    throw new Exception("Send Training not work");
+            throw new Exception("Send Training not work");
         }
         repository.synchroniseUser();
         Log.w("Network", "Trainings.synchronisedTraining sukces");
