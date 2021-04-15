@@ -54,7 +54,7 @@ public class EditTrainingNameDialog extends AppCompatDialogFragment
                     String trainingID = args.getString("trainingID");
                     String[] tokens = trainingID.split("/");
                     IShowSnackbar activity = (IShowSnackbar) getActivity();
-                    System.out.println();
+
                     if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
                     {
                         if(User.getInstance().getSynchroniseTraining().equals(User.SynchroniseTraining.Synchronise_Success))

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
         setSupportActionBar(myToolbar);
         myToolbar.setNavigationOnClickListener(v -> openDrawer(drawerLayout));
         AppBarConfiguration mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.setting, R.id.aboutUs, R.id.homeFragment, R.id.displayReceivedTraining, R.id.listOfTrainings,R.id.generateTrainingForm)
+                R.id.setting, R.id.aboutUs, R.id.homeFragment, R.id.displayReceivedTraining, R.id.listOfTrainings,R.id.generateTrainingForm, R.id.exerciseDetails)
                 .setOpenableLayout(drawerLayout)
                 .build();
 

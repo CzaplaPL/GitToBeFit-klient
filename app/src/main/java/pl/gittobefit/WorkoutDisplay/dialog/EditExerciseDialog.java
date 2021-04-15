@@ -129,7 +129,7 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
                 })
                 .setPositiveButton(getString(R.string.change_exercise), (dialog, which) ->
                 {
-                    Navigation.findNavController(myView).navigate(R.id. reload);
+
                 });
         return builder.create();
     }
