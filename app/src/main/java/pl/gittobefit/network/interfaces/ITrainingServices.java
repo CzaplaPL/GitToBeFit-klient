@@ -16,8 +16,8 @@ import retrofit2.http.Query;
 public interface ITrainingServices
 {
     @POST("/training-plan/save")
-    Call<Void> sendTrainings( @Header("Authorization") String auth ,@Header("userId") String idUser,@Body ArrayList<Training> trainings);
+    Call<Void> sendTrainings( @Header("Authorization") String auth ,@Body ArrayList<Training> trainings);
 
     @GET("/training-plan")
-    Call<ArrayList<Training>> getTrainings( @Header("Authorization") String auth ,@Header("userId") String idUser);
+    Call<ArrayList<Training>> getTrainings( @Header("Authorization") String auth );
 }

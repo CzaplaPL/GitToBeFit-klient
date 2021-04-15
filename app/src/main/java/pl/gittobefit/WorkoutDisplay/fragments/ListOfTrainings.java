@@ -18,6 +18,7 @@ import pl.gittobefit.WorkoutDisplay.adapters.TrainingListAdapter;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.repository.TrainingRepository;
+import pl.gittobefit.user.User;
 
 public class ListOfTrainings extends Fragment
 {
@@ -42,7 +43,7 @@ public class ListOfTrainings extends Fragment
         super.onViewCreated(view, savedInstanceState);
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
 
-        model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).getAllTrainingsForUser(""));
+        model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).getAllTrainingsForUser(User.getInstance().getIdServer()));
 
         RecyclerView recyclerView = getView().findViewById(R.id.list_of_trainings);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
