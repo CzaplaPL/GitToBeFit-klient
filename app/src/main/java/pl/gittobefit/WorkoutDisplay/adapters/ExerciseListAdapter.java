@@ -2,12 +2,15 @@ package pl.gittobefit.WorkoutDisplay.adapters;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.NumberPicker;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,10 +19,13 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
 import pl.gittobefit.R;
+import pl.gittobefit.WorkoutDisplay.dialog.BottomMenuDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.EditExerciseDialog;
 import pl.gittobefit.WorkoutDisplay.fragments.DisplayReceivedTraining;
@@ -162,23 +168,19 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
                 } else
                 if(event.getAction() == android.view.MotionEvent.ACTION_UP){
-                    System.out.println("222222222");
                 }
                 return false;
             }
         });
         holder.itemView.setOnClickListener(v -> {
-//            EditExerciseDialog editExerciseDialog = new EditExerciseDialog(fragment.getView(),
-//                    scheduleType,
-//                    position ,
-//                    exercisesExecutionArrayList,
-//                    trainingID,
-//                    exerciseArrayList.get(position).getName(),
-//                    exerciseExecutionPOJODBS);
-//            editExerciseDialog.show(fragment.getParentFragmentManager(), "dialog");
-            Bundle args = new Bundle();
-            args.putInt("exerciseID", exerciseArrayList.get(position).getId());
-            Navigation.findNavController(fragment.getView()).navigate(R.id.training_to_exercise_details, args);
+            BottomMenuDialog bottomSheetDialog = new BottomMenuDialog(exerciseArrayList,
+                    fragment,scheduleType,
+                    position ,
+                    exercisesExecutionArrayList,
+                    trainingID,
+                    exerciseArrayList.get(position).getName(),
+                    exerciseExecutionPOJODBS);
+            bottomSheetDialog.show(fragment.getParentFragmentManager(), "bottomMenu");
         });
     }
 

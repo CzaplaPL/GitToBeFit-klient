@@ -127,7 +127,7 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
 
                     AppDataBase.getInstance(getContext()).trainingDao().updateTrainingPlan(exerciseExecutionPOJODBS, trainingID);
                 })
-                .setPositiveButton(getString(R.string.change_exercise), (dialog, which) ->
+                .setPositiveButton(getString(R.string.anuluj), (dialog, which) ->
                 {
 
                 });
