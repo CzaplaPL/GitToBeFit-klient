@@ -10,27 +10,27 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ćwiczenie"
-        android:textSize="25dp"/>
+        android:text="@string/exercise_pl"
+        android:textSize="25sp"/>
 
     <Button
         android:id="@+id/goToEditButton"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
-        android:text="Edytuj"
+        android:text="@string/edit_pl"
         app:shapeAppearanceOverlay="@style/roundedButton"/>
     <Button
         android:id="@+id/goToInfoButton"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
-        android:text="Informacje"
+        android:text="@string/info_pl"
         app:shapeAppearanceOverlay="@style/roundedButton"/>
 
     <Button
         android:id="@+id/goToChangeButton"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
-        android:text="Wymień"
+        android:text="@string/change_pl"
         app:shapeAppearanceOverlay="@style/roundedButton"/>
 
 </LinearLayout>

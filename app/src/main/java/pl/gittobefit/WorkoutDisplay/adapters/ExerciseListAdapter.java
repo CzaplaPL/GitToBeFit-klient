@@ -159,26 +159,12 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
         holder.exerciseInfo.setText(text);
 
-        holder.itemView.setOnTouchListener(new View.OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                if(event.getAction() == android.view.MotionEvent.ACTION_DOWN ) {
-
-                } else
-                if(event.getAction() == android.view.MotionEvent.ACTION_UP){
-                }
-                return false;
-            }
-        });
         holder.itemView.setOnClickListener(v -> {
             BottomMenuDialog bottomSheetDialog = new BottomMenuDialog(exerciseArrayList,
                     fragment,scheduleType,
                     position ,
                     exercisesExecutionArrayList,
                     trainingID,
-                    exerciseArrayList.get(position).getName(),
                     exerciseExecutionPOJODBS);
             bottomSheetDialog.show(fragment.getParentFragmentManager(), "bottomMenu");
         });

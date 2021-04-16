@@ -1,6 +1,5 @@
 package pl.gittobefit.WorkoutDisplay.dialog;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
@@ -30,7 +27,6 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
     private String scheduleType;
     private ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList;
     private int trainingID;
-    private String exerciseName;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
 
     public BottomMenuDialog(ArrayList<Exercise> exerciseArrayList,
@@ -39,7 +35,6 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
                             int position,
                             ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
                             int trainingID,
-                            String exerciseName,
                             ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS)
     {
         this.exerciseArrayList = exerciseArrayList;
@@ -48,7 +43,6 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
         this.position = position;
         this.exercisesExecutionArrayList = exercisesExecutionArrayList;
         this.trainingID = trainingID;
-        this.exerciseName = exerciseName;
         this.exerciseExecutionPOJODBS = exerciseExecutionPOJODBS;
     }
 

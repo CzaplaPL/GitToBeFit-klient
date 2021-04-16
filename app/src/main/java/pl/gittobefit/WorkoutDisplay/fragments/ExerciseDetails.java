@@ -51,15 +51,14 @@ public class ExerciseDetails extends Fragment
             activity.getSupportActionBar().setTitle(exercise.getName());
         }
 
-        TextView textView1 = getView().findViewById(R.id.textView4);
-        TextView textView2 = getView().findViewById(R.id.textView5);
-        TextView textView3 = getView().findViewById(R.id.textView6);
+        TextView descriptionOfStartPosition = getView().findViewById(R.id.textView4);
+        TextView descriptionOfCorrectExecution = getView().findViewById(R.id.textView5);
+        TextView hints = getView().findViewById(R.id.textView6);
 
-        textView1.setText(exercise.getDescriptionOfStartPosition());
-        textView2.setText(exercise.getDescriptionOfCorrectExecution());
-        textView3.setText(exercise.getHints());
+        descriptionOfStartPosition.setText(exercise.getDescriptionOfStartPosition());
+        descriptionOfCorrectExecution.setText(exercise.getDescriptionOfCorrectExecution());
+        hints.setText(exercise.getHints());
 
-        System.out.println(exercise.getName());
         String PREFIX_VIDEO_URL = "https://static.fabrykasily.pl/atlas/";
         Uri uri = Uri.parse(PREFIX_VIDEO_URL+ exercise.getVideoUrl());
         VideoView videoView = getView().findViewById(R.id.exerciseDisplay);
