@@ -257,8 +257,9 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="detailsInfo">Siema siema</string>
     <string name="miss">Pomiń</string>
     <string name="preview_info">PRZYGOTUJ SIĘ</string>
-    <string name="text_info_next">JEŚLI WYKONAŁEŚ ĆWICZENIE KLIKNIJ W POWYŻSZY OBRAZEK</string>
+    <string name="text_info_next">KLIKNIJ W POWYŻSZY PRZYCISK ABY PRZEJSC DALEJ</string>
     <string name="textinfobreak">CZAS NA PRZERWE!</string>
     <string name="next_exercise">Następne Ćwiczenie</string>
     <string name="textForTimerExercise">TRENUJ PRZEZ</string>
+    <string name="start">START</string>
 </resources>

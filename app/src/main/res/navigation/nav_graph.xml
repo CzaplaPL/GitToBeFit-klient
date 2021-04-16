@@ -112,7 +112,7 @@
         android:label="DeleteAccountDialog" />
     <dialog
         android:id="@+id/detailsInfoLayout"
-        android:name="pl.gittobefit.running_training.dialog.DetailsInfoDialog"
+        android:name="pl.gittobefit.workoutforms.dialog.DetailsInfoDialog"
         android:label="DetailsInfoDialog" />
     <fragment
         android:id="@+id/generateTrainingForm"

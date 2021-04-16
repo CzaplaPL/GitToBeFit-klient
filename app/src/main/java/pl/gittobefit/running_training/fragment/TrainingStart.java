@@ -18,12 +18,12 @@ import pl.gittobefit.databinding.FragmentTrainingStartBinding;
 import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.running_training.viewmodel.TrainingViewModel;
 
-public class TrainingStart extends Fragment  {
+public class TrainingStart extends Fragment {
     private TrainingViewModel model;
     private FragmentTrainingStartBinding binding;
 
-    public TrainingStart() {
-    }
+    public TrainingStart() { }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,48 +37,31 @@ public class TrainingStart extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentTrainingStartBinding.inflate(inflater, container, false);
-        model =  new ViewModelProvider(this).get(TrainingViewModel.class);
-        model.init(TrainingStartArgs.fromBundle(getArguments()).getDisplayToTraining(),getContext());
+        model = new ViewModelProvider(this).get(TrainingViewModel.class);
+        model.init(TrainingStartArgs.fromBundle(getArguments()).getDisplayToTraining(), getContext());
         generateMainView();
-
         binding.miss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(model.nextExercise()){
+                if (model.nextExercise()) {
                     binding.readVideo.setVisibility(View.VISIBLE);
                     binding.loaderVideo.setAlpha(0);
                     generateMainView();
                 }
-                else{
+                else {
                     // do przegadania !!!!!!!!!
                 }
             }
         });
-
         binding.start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 binding.miss.setEnabled(false);
                 binding.start.setEnabled(false);
+                binding.scrollViewDescription.setEnabled(false);
                 generateForegroundView();
             }
         });
-
-       /* binding.nextExercise.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(model.nextExercise()){
-                    generateMainView();
-                    binding.readVideo.setVisibility(View.VISIBLE);
-                    binding.loaderVideo.setAlpha(0);
-                    binding.nextExercise.setVisibility(View.GONE);
-                    binding.miss.setVisibility(View.VISIBLE);
-                    binding.start.setVisibility(View.VISIBLE);
-                    binding.miss.setEnabled(true);
-                    binding.start.setEnabled(true);
-                }
-            }
-        });*/
         return binding.getRoot();
     }
 
@@ -97,153 +80,13 @@ public class TrainingStart extends Fragment  {
         binding.titleExercise.setText(getString(R.string.exercise) + String.valueOf(model.getIndexExercise() + 1) + " - " + model.getExercise().getName());
         binding.descriptionOfStartText.setText(model.getExercise().getDescriptionOfStartPosition());
         binding.descriptionOfMoveText.setText(model.getExercise().getDescriptionOfCorrectExecution());
-
-        if(model.getTrainingWithForm().form.getScheduleType().equals("CIRCUIT")){
+        if (model.getTrainingWithForm().form.getScheduleType().equals("CIRCUIT")) {
             setupForCircuit();
-            }
-            else {
+        }
+        else{
             setupForSeries();
         }
         setupForTime();
-    }
-
-    private void generateForegroundView(){ // wczytanie okienka po kliknieciu start
-        getSmallVideo();
-        binding.printSeries.setVisibility(View.VISIBLE);
-        if(model.getTrainingWithForm().form.getScheduleType().equals("CIRCUIT")){
-            binding.printScheduleTypeTitle.setVisibility(View.INVISIBLE);
-            binding.printCountOfSeries.setVisibility(View.INVISIBLE);
-        }
-        binding.exerciseBackground.setVisibility(View.VISIBLE);
-        binding.exerciseBackground.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.bright));
-        binding.exerciseStart.setVisibility(View.VISIBLE);
-        binding.exerciseStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.started));
-
-        if(model.getExerciseExecution().getCount() == 0){
-            binding.timerWaitForStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.downtoup));
-            binding.timerWaitForStart.setVisibility(View.VISIBLE);
-            binding.printSeries.setVisibility(View.GONE);
-            startCircleTimer();
-        }
-        else{
-            binding.timerPause.setVisibility(View.GONE);
-            binding.textInfoNext.setText(getString(R.string.text_info_next));
-            binding.buttonClicker.setVisibility(View.VISIBLE);
-            binding.printExerciseInfo.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.downtoup));
-            binding.printExerciseInfo.setVisibility(View.VISIBLE);
-            binding.printCountOfRepeats.setText(String.valueOf(model.getExerciseExecution().getCount()));
-
-            binding.buttonClicker.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    endExerciseForRepeat();
-                }
-            });
-        }
-        binding.printCountOfSeries.setText(String.valueOf(model.getNumberOfSeries()) + " / " + String.valueOf(model.getExerciseExecution().getSeries()));
-        if(model.getTrainingWithForm().form.getScheduleType().equals("CIRCUIT")){
-            binding.printScheduleTypeTitle.setText(getString(R.string.scheduleTypeCircuit));
-        }
-        else{
-            binding.printScheduleTypeTitle.setText(getString(R.string.scheduleTypeSeries));
-        }
-    }
-
-    private void endExerciseForRepeat() {
-        if(model.getTrainingWithForm().form.getScheduleType().equals("CIRCUIT")){
-            binding.miss.setVisibility(View.INVISIBLE);
-            binding.start.setVisibility(View.INVISIBLE);
-            binding.exerciseBackground.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.exit));
-            binding.exerciseStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.exit));
-            binding.exerciseBackground.setVisibility(View.INVISIBLE);
-            binding.exerciseStart.setVisibility(View.INVISIBLE);
-            if(model.nextExerciseForCircuit()) {
-                binding.readVideo.setVisibility(View.VISIBLE);
-                binding.loaderVideo.setAlpha(0);
-                binding.miss.setEnabled(true);
-                binding.start.setEnabled(true);
-                binding.miss.setVisibility(View.VISIBLE);
-                binding.start.setVisibility(View.VISIBLE);
-                generateMainView();
-            }
-        }
-        else{
-            binding.buttonClicker.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
-            binding.buttonClicker.setVisibility(View.GONE);
-            binding.textInfoNext.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
-            binding.textInfoNext.setText(getString(R.string.textinfobreak));
-            binding.textInfoNext.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
-            binding.timerPause.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
-            binding.timerPause.setVisibility(View.VISIBLE);
-            if(model.getNumberOfSeries() < model.getExerciseExecution().getSeries()){
-                startCircleTimerPause();
-            }
-            else{
-                binding.miss.setVisibility(View.INVISIBLE);
-                binding.start.setVisibility(View.INVISIBLE);
-                binding.exerciseBackground.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.exit));
-                binding.exerciseStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.exit));
-                binding.exerciseBackground.setVisibility(View.INVISIBLE);
-                binding.exerciseStart.setVisibility(View.INVISIBLE);
-                if(model.nextExercise()){
-                    binding.readVideo.setVisibility(View.VISIBLE);
-                    binding.loaderVideo.setAlpha(0);
-                    binding.miss.setEnabled(true);
-                    binding.start.setEnabled(true);
-                    binding.miss.setVisibility(View.VISIBLE);
-                    binding.start.setVisibility(View.VISIBLE);
-                    generateMainView();
-                }
-            }
-        }
-    }
-    private void endExerciseForTimer() {
-        if(model.getTrainingWithForm().form.getScheduleType().equals("CIRCUIT")){
-            binding.timerWaitForStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
-            binding.timerWaitForStart.setVisibility(View.GONE);
-            binding.miss.setVisibility(View.INVISIBLE);
-            binding.start.setVisibility(View.INVISIBLE);
-            binding.exerciseBackground.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.exit));
-            binding.exerciseStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.exit));
-            binding.exerciseBackground.setVisibility(View.INVISIBLE);
-            binding.exerciseStart.setVisibility(View.INVISIBLE);
-            if(model.nextExerciseForCircuit()) {
-                binding.buttonClickButton.setVisibility(View.GONE);
-                binding.readVideo.setVisibility(View.VISIBLE);
-                binding.loaderVideo.setAlpha(0);
-                binding.miss.setEnabled(true);
-                binding.start.setEnabled(true);
-                binding.miss.setVisibility(View.VISIBLE);
-                binding.start.setVisibility(View.VISIBLE);
-                generateMainView();
-            }
-        }
-        else{
-            binding.timerWaitForStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
-            binding.timerWaitForStart.setVisibility(View.GONE);
-            binding.timerPause.setVisibility(View.VISIBLE);
-            binding.timerPause.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
-            if(model.getNumberOfSeries() < model.getExerciseExecution().getSeries()){
-                startCircleTimerPause();
-            }
-            else{
-                binding.miss.setVisibility(View.INVISIBLE);
-                binding.start.setVisibility(View.INVISIBLE);
-                binding.exerciseBackground.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.exit));
-                binding.exerciseStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.exit));
-                binding.exerciseBackground.setVisibility(View.INVISIBLE);
-                binding.exerciseStart.setVisibility(View.INVISIBLE);
-                if(model.nextExercise()){
-                    binding.readVideo.setVisibility(View.VISIBLE);
-                    binding.loaderVideo.setAlpha(0);
-                    binding.miss.setEnabled(true);
-                    binding.start.setEnabled(true);
-                    binding.miss.setVisibility(View.VISIBLE);
-                    binding.start.setVisibility(View.VISIBLE);
-                    generateMainView();
-                }
-            }
-        }
     }
 
     private void setupForTime(){ // odroznienie czy to jest cwiczenie na czas, czy na serie
@@ -267,45 +110,87 @@ public class TrainingStart extends Fragment  {
         binding.countOfSeries.setText(String.valueOf(model.getExerciseExecution().getSeries()));
     }
 
-    private void startCircleTimer() {
-        new CountDownTimer(9000, 1000) {
+    private void generateForegroundView() { // wczytanie okienka po kliknieciu start
+
+        printDefault();
+        if (model.getExerciseExecution().getCount() == 0) {
+            binding.textInfoNext.setText(getString(R.string.preview_info));
+            binding.timerPause.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.downtoup));
+            binding.textInfoNext.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.downtoup));
+            timerBeforeStartTraining();
+        }
+        else{
+            binding.textInfoNext.setText(getString(R.string.text_info_next));
+            binding.printCountOfRepeats.setText(String.valueOf(model.getExerciseExecution().getCount()));
+            binding.buttonClicker.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    timerOnBreak();
+                }
+            });
+        }
+        if(model.getTrainingWithForm().form.getScheduleType().equals("CIRCUIT")) {
+            binding.printScheduleTypeTitle.setText(getString(R.string.scheduleTypeCircuit));
+        }
+        else{
+            binding.printScheduleTypeTitle.setText(getString(R.string.scheduleTypeSeries));
+        }
+    }
+
+    private void printDefault(){
+        binding.printCountOfSeries.setText(String.valueOf(model.getNumberOfSeries()) + " / " + String.valueOf(model.getExerciseExecution().getSeries()));
+        if (model.getExerciseExecution().getCount() == 0) {
+            binding.buttonClickButton.setVisibility(View.GONE);
+            binding.timerPause.setVisibility(View.VISIBLE);
+            binding.printCount.setVisibility(View.GONE);
+        }
+        else{
+            binding.buttonClickButton.setVisibility(View.VISIBLE);
+            binding.printCount.setVisibility(View.VISIBLE);
+            binding.timerPause.setVisibility(View.GONE);
+        }
+        binding.exerciseBackground.setVisibility(View.VISIBLE);
+        binding.exerciseStart.setVisibility(View.VISIBLE);
+        binding.exerciseStart.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.started));
+        getSmallVideo();
+        binding.printExerciseInfo.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.downtoup));
+        binding.printExerciseInfo.setVisibility(View.VISIBLE);
+    }
+    private void timerBreakDuringExercises(){
+        new CountDownTimer(11000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 int seconds = (int) (millisUntilFinished / 1000);
                 String timeFormatted = String.valueOf(seconds);
-                binding.circleTimerText.setText(timeFormatted);
+                binding.start.setText(timeFormatted);
             }
-
             @Override
             public void onFinish() {
-                binding.preview.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
-                binding.circleTimerText.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
-                binding.preview.setText(getString(R.string.textForTimerExercise));
-                binding.preview.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
-                binding.circleTimerText.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
-                startCircleTimerForTraining();
+                binding.start.setText(R.string.start);
+                binding.start.setEnabled(true);
+                binding.miss.setEnabled(true);
             }
         }.start();
     }
-
-    private void startCircleTimerForTraining() {
-        new CountDownTimer(model.getExerciseExecution().getTime() * 100, 1000) {
+    private void timerBeforeStartTraining() {
+        new CountDownTimer(8000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 int seconds = (int) (millisUntilFinished / 1000);
                 String timeFormatted = String.valueOf(seconds);
-                binding.circleTimerText.setText(timeFormatted);
+                binding.circleTimerPauseText.setText(timeFormatted);
             }
-
             @Override
             public void onFinish() {
-                endExerciseForTimer();
+                binding.timerPause.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
+                binding.textInfoNext.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
+                binding.textInfoNext.setText(getString(R.string.textForTimerExercise));
+                timerOnStartTraining();
             }
         }.start();
     }
-
-    private void startCircleTimerPause() {
-        new CountDownTimer(4000, 1000) {
+    private void timerOnStartTraining() {
+        new CountDownTimer(model.getExerciseExecution().getTime() * 1000 + 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 int seconds = (int) (millisUntilFinished / 1000);
@@ -315,32 +200,95 @@ public class TrainingStart extends Fragment  {
 
             @Override
             public void onFinish() {
-                    model.nextSeries();
-                    reloadExercise();
+                if((model.getNumberOfSeries() < model.getExerciseExecution().getSeries())){
+                    binding.timerPause.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
+                    binding.textInfoNext.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
+                    binding.textInfoNext.setText(getString(R.string.textinfobreak));
+                    timerOnBreak();
                 }
+                else{
+                    exitExerciseForSeries();
+                }
+            }
         }.start();
     }
-
-    private void reloadExercise() {
-        if(model.getExerciseExecution().getCount() == 0){
-            binding.preview.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
-            binding.timerPause.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
-            binding.timerPause.setVisibility(View.GONE);
-            binding.timerWaitForStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
-            binding.timerWaitForStart.setVisibility(View.VISIBLE);
-            binding.preview.setText(getString(R.string.preview_info));
-            binding.preview.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
-            startCircleTimer();
+    private void exitExerciseForSeries() {
+        if (model.nextExercise()) {
+            binding.exerciseBackground.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.exit));
+            binding.exerciseStart.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.exit));
+            binding.exerciseBackground.setVisibility(View.INVISIBLE);
+            binding.exerciseStart.setVisibility(View.INVISIBLE);
+            binding.scrollViewDescription.setEnabled(true);
+            binding.miss.setEnabled(true);
+            binding.miss.setVisibility(View.VISIBLE);
+            binding.start.setVisibility(View.VISIBLE);
+            generateMainView();
+            timerBreakDuringExercises();
+        }
+    }
+    private void timerOnBreak() {
+        if(model.getTrainingWithForm().form.getScheduleType().equals("CIRCUIT")){
+            exitExerciseForCircuit();
         }
         else{
-            binding.printCountOfSeries.setText(String.valueOf(model.getNumberOfSeries()) + " / " + String.valueOf(model.getExerciseExecution().getSeries()));
-            binding.timerPause.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
-            binding.timerPause.setVisibility(View.GONE);
-            binding.textInfoNext.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.lefttoright));
+            if(model.getNumberOfSeries() < model.getExerciseExecution().getSeries()){
+                if(model.getExerciseExecution().getCount() != 0){
+                    binding.buttonClickButton.setVisibility(View.GONE);
+                    binding.textInfoNext.setAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
+                    binding.timerPause.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
+                    binding.timerPause.setVisibility(View.VISIBLE);
+                    binding.textInfoNext.setText(getString(R.string.textinfobreak));
+                }
+                new CountDownTimer(11000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        int seconds = (int) (millisUntilFinished / 1000);
+                        String timeFormatted = String.valueOf(seconds);
+                        binding.circleTimerPauseText.setText(timeFormatted);
+                    }
+                    @Override
+                    public void onFinish() {
+                        model.nextSeries();
+                        nextSeriesOrCircuit();
+                    }
+                }.start();
+            }
+            else{
+                exitExerciseForSeries();
+            }
+        }
+    }
+
+    private void exitExerciseForCircuit() {
+        if (model.nextExerciseForCircuit()) {
+            binding.exerciseBackground.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.exit));
+            binding.exerciseStart.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.exit));
+            binding.exerciseBackground.setVisibility(View.INVISIBLE);
+            binding.exerciseStart.setVisibility(View.INVISIBLE);
+            binding.scrollViewDescription.setEnabled(true);
+            binding.miss.setEnabled(true);
+            binding.start.setEnabled(true);
+            binding.miss.setVisibility(View.VISIBLE);
+            binding.start.setVisibility(View.VISIBLE);
+            generateMainView();
+            timerBreakDuringExercises();
+        }
+    }
+
+    private void nextSeriesOrCircuit() {
+        binding.printCountOfSeries.setText(String.valueOf(model.getNumberOfSeries()) + " / " + String.valueOf(model.getExerciseExecution().getSeries()));
+        if (model.getExerciseExecution().getCount() == 0) {
+            binding.timerPause.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
+            binding.textInfoNext.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
+            binding.textInfoNext.setText(getString(R.string.textForTimerExercise));
+            timerOnStartTraining();
+        }
+        else{
             binding.textInfoNext.setText(getString(R.string.text_info_next));
-            binding.textInfoNext.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
-            binding.buttonClicker.setVisibility(View.VISIBLE);
-            binding.buttonClicker.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.righttoleft));
+            binding.timerPause.setVisibility(View.GONE);
+            binding.textInfoNext.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
+            binding.buttonClickButton.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.righttoleft));
+            binding.buttonClickButton.setVisibility(View.VISIBLE);
         }
     }
 

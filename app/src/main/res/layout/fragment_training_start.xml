@@ -16,10 +16,9 @@
             android:id="@+id/main_layer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:visibility="gone">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
@@ -39,7 +38,7 @@
                 android:id="@+id/title_exercise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/shape_rectangle"
                 android:gravity="center_vertical"
                 android:text="Cwiczenia 1 - Unoszenie Ramion Do Góry"
@@ -47,53 +46,51 @@
                 android:textColor="?attr/colorPrimaryVariant"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/read_video"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="RtlCompat" />
 
-            <ProgressBar
-                android:id="@+id/read_video"
-                style="?android:attr/progressBarStyle"
+            <RelativeLayout
+                android:id="@+id/initVideo"
                 android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/title_exercise" />
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintEnd_toStartOf="@id/guideline3"
+                app:layout_constraintBottom_toTopOf="@id/scroll_view_description"
+                app:layout_constraintTop_toBottomOf="@+id/title_exercise">
 
-            <VideoView
-                android:id="@+id/loaderVideo"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:layout_marginTop="10dp"
-                android:alpha="0"
-                app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/title_exercise" />
+                <VideoView
+                    android:id="@+id/loaderVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ProgressBar
+                    android:id="@+id/read_video"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:indeterminateBehavior="repeat"
+                    android:visibility="visible" />
+            </RelativeLayout>
 
             <ScrollView
                 android:id="@+id/scroll_view_description"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/miss"
+                app:layout_constraintBottom_toTopOf="@+id/start"
+                app:layout_constraintTop_toBottomOf="@id/initVideo"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/read_video">
+                app:layout_constraintStart_toStartOf="@+id/guideline2">
 
                 <LinearLayout
                     android:id="@+id/description_main"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/shape_rectangle"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline4"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                    app:layout_constraintStart_toStartOf="@+id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@+id/read_video">
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:id="@+id/series"
@@ -226,6 +223,19 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
+            android:id="@+id/exercise_background"
+            style="@style/Theme.Transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_transparent"
+            android:elevation="3dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/exercise_start"
             android:layout_width="0dp"
             android:layout_height="470dp"
@@ -237,33 +247,155 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/exercise_background"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <VideoView
                 android:id="@+id/videoViewStartTraining"
                 android:layout_width="wrap_content"
                 android:layout_height="212dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:visibility="visible" />
+                android:layout_marginTop="10dp" />
 
-            <TextView
-                android:id="@+id/textTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="00:00"
-                android:textColor="@color/ourGreenDay"
-                android:textSize="50dp"
-                android:visibility="gone" />
+            <LinearLayout
+                android:id="@+id/printExerciseInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/printSeries"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/printTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/printScheduleTypeTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Numer Serii :"
+                            android:textColor="@color/ourWhite"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/printCountOfSeries"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="3"
+                            android:textColor="@color/ourWhite"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/printCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/printTitleCountOfRepeats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="Ilość Powtórzeń :"
+                            android:textColor="@color/ourWhite"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/printCountOfRepeats"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="3"
+                            android:textColor="@color/ourWhite"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/timerPause"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <ProgressBar
+                        android:id="@+id/circleTimerPause"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp" />
+
+                    <TextView
+                        android:id="@+id/circleTimerPauseText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:gravity="center|center_vertical"
+                        android:text="5"
+                        android:textColor="@color/ourGreenDay"
+                        android:textSize="50dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/buttonClickButton"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/button_clicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selected"
+                        android:drawableTop="@drawable/ic_baseline_forward_24"
+                        android:gravity="center_vertical" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/text_info_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="bottom|center"
+                    android:text="@string/text_info_next"
+                    android:textColor="@color/ourWhite"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/timerWaitForStart"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/preview"
@@ -296,151 +428,6 @@
                     android:textColor="@color/ourGreenDay"
                     android:textSize="50dp" />
             </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/printExerciseInfo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="visible">
-
-                <RelativeLayout
-                    android:id="@+id/printSeries"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="visible">
-
-                    <TextView
-                        android:id="@+id/printScheduleTypeTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Numer Serii :"
-                        android:textColor="@color/ourWhite"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/printCountOfSeries"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="100dp"
-                        android:layout_marginTop="10dp"
-                        android:text="3"
-                        android:textColor="@color/ourWhite"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/printTitleCountOfRepeats"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="20dp"
-                        android:gravity="right"
-                        android:text="Ilość Powtórzeń :"
-                        android:textColor="@color/ourWhite"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/printCountOfRepeats"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="5dp"
-                        android:gravity="right"
-                        android:text="3"
-                        android:textColor="@color/ourWhite"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/print_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="20dp"
-                    android:visibility="visible">
-
-                    <RelativeLayout
-                        android:id="@+id/buttonClickButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        tools:visibility="invisible">
-
-                        <Button
-                            android:id="@+id/button_clicker"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/selected"
-                            android:drawableTop="@drawable/ic_baseline_forward_24"
-                            android:paddingTop="10dp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/timerPause"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="gone"
-                        tools:visibility="visible">
-
-                        <ProgressBar
-                            android:id="@+id/circleTimerPause"
-                            style="?android:attr/progressBarStyle"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp" />
-
-                        <TextView
-                            android:id="@+id/circleTimerPauseText"
-                            android:layout_width="match_parent"
-                            android:layout_height="150dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:fontFamily="sans-serif-condensed"
-                            android:gravity="center|center_vertical"
-                            android:text="5"
-                            android:textColor="@color/ourGreenDay"
-                            android:textSize="50dp" />
-                    </RelativeLayout>
-
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/text_info_next"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/text_info_next"
-                    android:textColor="@color/ourWhite"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/exercise_background"
-            style="@style/Theme.Transparent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/background_transparent"
-            android:elevation="3dp"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible">
 
         </LinearLayout>
 

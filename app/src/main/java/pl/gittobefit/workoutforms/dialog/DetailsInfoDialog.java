@@ -1,4 +1,4 @@
-package pl.gittobefit.running_training.dialog;
+package pl.gittobefit.workoutforms.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
