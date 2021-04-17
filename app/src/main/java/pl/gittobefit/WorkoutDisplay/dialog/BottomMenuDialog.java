@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,6 +54,9 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
         Button goToEditButton = v.findViewById(R.id.goToEditButton);
         Button goToChangeButton = v.findViewById(R.id.goToChangeButton);
         Button goToInfoButton = v.findViewById(R.id.goToInfoButton);
+
+        TextView title = v.findViewById(R.id.menu_title);
+        title.setText(exerciseArrayList.get(position).getName());
 
         goToChangeButton.setOnClickListener(new View.OnClickListener()
         {
