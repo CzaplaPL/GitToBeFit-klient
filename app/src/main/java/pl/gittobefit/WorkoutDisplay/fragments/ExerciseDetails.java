@@ -62,7 +62,7 @@ public class ExerciseDetails extends Fragment
         hints.setText(exercise.getHints());
 
         String PREFIX_VIDEO_URL = "https://static.fabrykasily.pl/atlas/";
-        Uri uri = Uri.parse(PREFIX_VIDEO_URL+ exercise.getVideoUrl());
+        Uri uri = Uri.parse(PREFIX_VIDEO_URL + exercise.getVideoUrl());
         VideoView videoView = getView().findViewById(R.id.exerciseDisplay);
         videoView.setVideoURI(uri);
         videoView.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
@@ -71,8 +71,8 @@ public class ExerciseDetails extends Fragment
             @Override
             public void onPrepared(MediaPlayer mp) {
                 videoView.start();
-                onLoading.setVisibility(View.GONE);
                 videoView.setAlpha(1);
+                onLoading.setVisibility(View.GONE);
                 mp.setLooping(true);
             }
         });
