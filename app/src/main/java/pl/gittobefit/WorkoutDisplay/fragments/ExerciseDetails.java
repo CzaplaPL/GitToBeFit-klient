@@ -7,6 +7,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -54,6 +55,7 @@ public class ExerciseDetails extends Fragment
         TextView descriptionOfStartPosition = getView().findViewById(R.id.textView4);
         TextView descriptionOfCorrectExecution = getView().findViewById(R.id.textView5);
         TextView hints = getView().findViewById(R.id.textView6);
+        LinearLayout onLoading = getView().findViewById(R.id.movieLoading);
 
         descriptionOfStartPosition.setText(exercise.getDescriptionOfStartPosition());
         descriptionOfCorrectExecution.setText(exercise.getDescriptionOfCorrectExecution());
@@ -69,6 +71,7 @@ public class ExerciseDetails extends Fragment
             @Override
             public void onPrepared(MediaPlayer mp) {
                 videoView.start();
+                onLoading.setVisibility(View.GONE);
                 videoView.setAlpha(1);
                 mp.setLooping(true);
             }
