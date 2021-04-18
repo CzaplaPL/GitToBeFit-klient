@@ -84,7 +84,7 @@ public class TrainingRepository
             for(int i = 0; i < planListDB.size(); i++)
             {
                 ArrayList<ExerciseExecution> exerciseExecutionsServer = new ArrayList<>();
-                ArrayList<Exercise> exercisesDB = getExerciseForPlanList(planListDB.get(i));
+                ArrayList<Exercise> exercisesDB = getExercisesForPlanList(planListDB.get(i));
                 for(ExerciseExecutionPOJODB exercise : planListDB.get(i))
                 {
                     for(int j = 0; j < exercisesDB.size(); j++)
@@ -112,7 +112,7 @@ public class TrainingRepository
             for(int i = 0; i < planListDB.size(); i++)
             {
                 ArrayList<ExerciseExecution> exerciseExecutionsServer = new ArrayList<>();
-                ArrayList<Exercise> exercisesDB = getExerciseForPlanList(planListDB.get(i));
+                ArrayList<Exercise> exercisesDB = getExercisesForPlanList(planListDB.get(i));
                 for(ExerciseExecutionPOJODB exercise : planListDB.get(i))
                 {
                     for(int j = 0; j < exercisesDB.size(); j++)
@@ -138,7 +138,7 @@ public class TrainingRepository
         base.trainingDao().addUserForTrainings(User.getInstance().getIdServer());
     }
 
-    public ArrayList<Exercise> getExerciseForPlanList(ArrayList<ExerciseExecutionPOJODB> planList)
+    public ArrayList<Exercise> getExercisesForPlanList(ArrayList<ExerciseExecutionPOJODB> planList)
     {
         ArrayList<Exercise> toReturn = new ArrayList<>();
         for(ExerciseExecutionPOJODB plan : planList)
@@ -162,5 +162,10 @@ public class TrainingRepository
                 base.exerciseDao().addExercise(plan.getExerciseExecution(j).getExercise());
             }
         }
+    }
+
+    public void setNextDay(int day, int id)
+    {
+        base.trainingDao().setTrainingDay(day,id);
     }
 }

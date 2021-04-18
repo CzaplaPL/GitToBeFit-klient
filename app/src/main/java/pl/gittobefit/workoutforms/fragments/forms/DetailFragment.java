@@ -36,7 +36,7 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentDetailFormBinding.inflate(inflater, container, false);
-        binding.detailsInfoPicture.startAnimation(AnimationUtils.loadAnimation(getActivity(),R.anim.bright));
+        binding.detailsInfoPicture.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.bright));
         binding.detailsInfoPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

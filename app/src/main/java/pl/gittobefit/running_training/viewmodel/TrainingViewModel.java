@@ -7,38 +7,46 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 
 import pl.gittobefit.database.entity.training.Exercise;
+import pl.gittobefit.database.entity.training.SavedTraining;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 import pl.gittobefit.database.repository.TrainingRepository;
 
-public class TrainingViewModel extends ViewModel {
+public class TrainingViewModel extends ViewModel
+{
 
     private TrainingWithForm trainingWithForm;
     private TrainingRepository trainingRepository;
     private ArrayList<Exercise> listExercises;
     private ArrayList<ExerciseExecutionPOJODB> planList;
     private int indexExercise;
-    public int numberOfSeries;
+    private int numberOfSeries;
+    private final int FIRST_EXERCISE = 0;
+    private final int FIRST_SERIES = 1;
 
     public TrainingViewModel()
     {
-        this.numberOfSeries = 1;
-        this.indexExercise = 0;
+        this.numberOfSeries = FIRST_SERIES;
+        this.indexExercise = FIRST_EXERCISE;
     }
 
-    public ArrayList<Exercise> getListExercises() {
+    public ArrayList<Exercise> getListExercises()
+    {
         return listExercises;
     }
 
-    public void setListExercises(ArrayList<Exercise> listExercises) {
+    public void setListExercises(ArrayList<Exercise> listExercises)
+    {
         this.listExercises = listExercises;
     }
 
-    public int getIndexExercise() {
+    public int getIndexExercise()
+    {
         return indexExercise;
     }
 
-    public void setIndexExercise(int indexExercise) {
+    public void setIndexExercise(int indexExercise)
+    {
         this.indexExercise = indexExercise;
     }
 
@@ -46,67 +54,98 @@ public class TrainingViewModel extends ViewModel {
     {
         this.trainingRepository = TrainingRepository.getInstance(context);
         this.trainingWithForm = trainingRepository.getTraining(displayToTraining);
-        this.listExercises = trainingRepository.getExerciseForPlanList(trainingWithForm.training.getPlanList().get(trainingWithForm.training.getTrainingdays()));
-        this.planList = trainingWithForm.training.getPlanList().get(trainingWithForm.training.getTrainingdays());
+        SavedTraining training = trainingWithForm.training;
+        this.listExercises = trainingRepository.getExercisesForPlanList(
+                training.getPlanList().get(training.getTrainingDay())
+        );
+        this.planList = training.getPlanList().get(training.getTrainingDay());
     }
 
-    public Exercise getExercise() {
+    public Exercise getExercise()
+    {
         return listExercises.get(indexExercise);
     }
 
-    public ExerciseExecutionPOJODB getExerciseExecution() {
+    public ExerciseExecutionPOJODB getExerciseExecution()
+    {
         return planList.get(indexExercise);
     }
-    public TrainingWithForm getTrainingWithForm() {
+
+    public TrainingWithForm getTrainingWithForm()
+    {
         return trainingWithForm;
     }
 
-    public void setTrainingWithForm(TrainingWithForm trainingWithForm) {
+    public void setTrainingWithForm(TrainingWithForm trainingWithForm)
+    {
         this.trainingWithForm = trainingWithForm;
     }
 
-    public int getNumberOfSeries() {
+    public int getNumberOfSeries()
+    {
         return numberOfSeries;
     }
 
-    public void setNumberOfSeries(int numberOfSeries) {
+    public void setNumberOfSeries(int numberOfSeries)
+    {
         this.numberOfSeries = numberOfSeries;
     }
 
-    public ArrayList<ExerciseExecutionPOJODB> getPlanList() {
+    public ArrayList<ExerciseExecutionPOJODB> getPlanList()
+    {
         return planList;
     }
 
-    public void setPlanList(ArrayList<ExerciseExecutionPOJODB> planList) {
+    public void setPlanList(ArrayList<ExerciseExecutionPOJODB> planList)
+    {
         this.planList = planList;
     }
 
-    public boolean nextExercise() {
-        if(indexExercise < listExercises.size()-1){
+    public boolean nextExercise()
+    {
+        if(indexExercise < listExercises.size() - 1)
+        {
             indexExercise++;
             numberOfSeries = 1;
-        }
-        else{
+        }else
+        {
             return false;
         }
         return true;
     }
 
-    public void nextSeries() {
+    public void nextSeries()
+    {
         numberOfSeries++;
     }
 
-    public boolean nextExerciseForCircuit() {
-        if(indexExercise < listExercises.size()-1){
+    public boolean nextExerciseForCircuit()
+    {
+        if(indexExercise < listExercises.size() - 1)
+        {
             indexExercise++;
-        }
-        else if(numberOfSeries < getExerciseExecution().getSeries()){
+        }else if(numberOfSeries < getExerciseExecution().getSeries())
+        {
             indexExercise = 0;
             numberOfSeries++;
-        }
-        else{
+        }else
+        {
             return false;
         }
         return true;
+    }
+
+    public void endTraining()
+    {
+        if(trainingWithForm.training.isNextDay())
+        {
+            trainingRepository.setNextDay(
+                    trainingWithForm.training.getTrainingDay() + 1,
+                    trainingWithForm.training.getId()
+            );
+        }else
+        {
+            trainingRepository.setNextDay(0, trainingWithForm.training.getId());
+        }
     }
 }

@@ -14,7 +14,6 @@ import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
-import pl.gittobefit.WorkoutDisplay.objects.UserTrainings;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;

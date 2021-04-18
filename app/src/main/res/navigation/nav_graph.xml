@@ -142,11 +142,7 @@
     <dialog
         android:id="@+id/editTrainingNameDialog"
         android:name="pl.gittobefit.WorkoutDisplay.dialog.EditTrainingNameDialog"
-        android:label="EditTrainingName" >
-        <action
-            android:id="@+id/action_editTrainingNameDialog_to_displayTrainingFragment"
-            app:destination="@id/listOfTrainings" />
-    </dialog>
+        android:label="EditTrainingName" />
 
     <dialog
         android:id="@+id/editExerciseDialog"
@@ -156,11 +152,7 @@
     <dialog
         android:id="@+id/deleteTrainingDialog"
         android:name="pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog"
-        android:label="DeleteTrainingName" >
-        <action
-            android:id="@+id/action_editTrainingNameDialog_to_displayTrainingFragment"
-            app:destination="@id/listOfTrainings" />
-    </dialog>
+        android:label="DeleteTrainingName" />
 
     <fragment
         android:id="@+id/displayReceivedTraining"
@@ -172,8 +164,6 @@
             app:destination="@id/trainingStart" >
 
         </action>
-    </fragment>
-        tools:layout="@layout/fragment_received_training">
         <action
             android:id="@+id/training_to_edit_name_action"
             app:destination="@id/editTrainingNameDialog" />
@@ -181,13 +171,14 @@
             android:id="@+id/training_to_delete_action"
             app:destination="@id/listOfTrainings"
             app:popUpTo="@+id/homeFragment"
-           />
+            />
         <action
             android:id="@+id/reload"
             app:destination="@id/displayReceivedTraining"
             app:popUpTo="@+id/displayReceivedTraining"
             app:popUpToInclusive="true"/>
     </fragment>
+
     <action
         android:id="@+id/action_global_logout"
         app:destination="@id/logout"
@@ -203,6 +194,12 @@
             android:name="displayToTraining"
             app:argType="integer"
             android:defaultValue="0"/>
-    </fragment><action android:id="@+id/action_global_trainingStart" app:destination="@id/trainingStart"/>
-
+        <action
+            android:id="@+id/action_trainingStart_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

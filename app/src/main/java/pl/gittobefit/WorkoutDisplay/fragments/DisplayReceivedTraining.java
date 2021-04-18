@@ -1,6 +1,5 @@
 package pl.gittobefit.WorkoutDisplay.fragments;
 
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -63,6 +62,13 @@ public class DisplayReceivedTraining extends Fragment
         super.onViewCreated(view, savedInstanceState);
         model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
         model.getPosition().observe(getViewLifecycleOwner(), integer -> index = integer);
+        Button next = getView().findViewById(R.id.next);
+        next.setOnClickListener(v ->
+        {
+            DisplayReceivedTrainingDirections.ToTrainingAction action = DisplayReceivedTrainingDirections.toTrainingAction();
+            action.setDisplayToTraining(model.getTrainingWithForms().get(index).training.getId());
+            Navigation.findNavController(getView()).navigate(action);
+        });
     }
 
 
@@ -76,7 +82,7 @@ public class DisplayReceivedTraining extends Fragment
         for (int i = 0; i < trainingWithForm.training.getPlanList().size(); i++)
         {
             exercisesArrayList.add(
-                    TrainingRepository.getInstance(getContext()).getExerciseForPlanList(
+                    TrainingRepository.getInstance(getContext()).getExercisesForPlanList(
                             trainingWithForm.training.getPlanList().get(i)
                     )
             );
@@ -138,7 +144,7 @@ public class DisplayReceivedTraining extends Fragment
         Button day3Button = getView().findViewById(R.id.day3_button);
         Button day4Button = getView().findViewById(R.id.day4_button);
         Button day5Button = getView().findViewById(R.id.day5_button);
-        Button next = getView().findViewById(R.id.next);
+
 
         ArrayList<Button> buttonArrayList = new ArrayList<>();
         buttonArrayList.add(day1Button);
@@ -197,7 +203,6 @@ public class DisplayReceivedTraining extends Fragment
         day3Button.setOnClickListener(v -> {
             setTrainingDayVisibility(relativeLayout3, exercisesList3, day3Button);
             model.setState(2);
-
         });
 
         day4Button.setOnClickListener(v -> {
@@ -332,21 +337,10 @@ public class DisplayReceivedTraining extends Fragment
         }
     }
 
-            next.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    DisplayReceivedTrainingDirections.ToTrainingAction action=
-                            DisplayReceivedTrainingDirections.toTrainingAction();
-                    action.setDisplayToTraining(UserTrainings.getInstance().getTraining(index).getId());
-                    Navigation.findNavController(getView()).navigate(action);
-                }
-            });
     private void changePlusToMinus(Button day1Button, int p) {
         Drawable newDrawable = AppCompatResources.getDrawable(getContext(), p);
         day1Button.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null);
     }
-
 
     private SpannableStringBuilder getSpannableStringBuilder(String durationDisplay, String stringToColor) {
         SpannableStringBuilder builder = new SpannableStringBuilder();

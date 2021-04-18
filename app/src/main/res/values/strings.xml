@@ -274,4 +274,5 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="next_exercise">Następne Ćwiczenie</string>
     <string name="textForTimerExercise">TRENUJ PRZEZ</string>
     <string name="start">START</string>
+    <string name="seconds">sekund</string>
 </resources>

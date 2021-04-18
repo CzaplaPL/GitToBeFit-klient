@@ -18,9 +18,7 @@ public class DetailsInfoDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_details_info, null);
         builder.setView(view)
-                .setPositiveButton(getString(R.string.ok), (dialog, which) ->
-                {
-                });
+                .setPositiveButton(getString(R.string.ok), (dialog, which) -> { });
         return builder.create();
     }
 }
