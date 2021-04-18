@@ -52,11 +52,17 @@
     <string name="type_of_training">Rodzaj treningu:</string>
     <string name="form_of_training">Forma treningu:</string>
     <string name="duration_of_training">Czas treningu:</string>
+    <string name="name_of_training">Nazwa treningu:</string>
     <string name="day_1">Dzień 1</string>
     <string name="day_2">Dzień 2</string>
     <string name="day_3">Dzień 3</string>
     <string name="day_4">Dzień 4</string>
     <string name="day_5">Dzień 5</string>
+    <string name="edit_training_name">Edytuj nazwę treningu.</string>
+    <string name="delete_training">Czy na pewno chcesz usunąć ten trening?</string>
+    <string name="edit_exercise">Edytuj ćwiczenie</string>
+    <string name="admit_changes">Zatwierdź</string>
+    <string name="change_exercise">Wymień</string>
 
     <string name="loading">trwa wczytywanie...</string>
     <string name="generateTrainingForm">Generowanie treningu</string>
@@ -69,8 +75,6 @@
     <string name="wrongPassword">Słabe hasło. Hasło musi składać się z 8 znaków oraz zawierać wielką litere, cyfrę i znak specjalny.</string>
     <string name="incoredPassword">Podano błędne hasło.</string>
     <string name="wrongPassword2">Hasła różnią się.</string>
-
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
@@ -82,10 +86,10 @@
     </string-array>
 
     <string-array name="trening_type">
-        <item>Trening split</item>
-        <item>Trening fbw</item>
-        <item>Trening cardio</item>
-        <item>Trening fitness</item>
+        <item>Split</item>
+        <item>Full Body Workout</item>
+        <item>Cardio</item>
+        <item>Fitness</item>
     </string-array>
     <string-array name="training_subtype">
         <item>Seriowy</item>
@@ -149,9 +153,9 @@
     <string name="calfs">Łydki</string>
     <string name="biceps">Biceps</string>
     <string name="triceps">Triceps</string>
-    <string name="shoulders">barki</string>
-    <string name="legs">nogi</string>
-    <string name="arms">ręce</string>
+    <string name="shoulders">Barki</string>
+    <string name="legs">Nogi</string>
+    <string name="arms">Ręce</string>
     <string name="noNetwork">Brak internetu.Aplikacja działa w trybie offline</string>
     <string name="change_pass">Hasło zostało zmienione</string>
     <string name="wrong_old_pass">Niepoprawne stare hasło !</string>
@@ -161,7 +165,7 @@
     <string name="delete_acount_title">Usuń konto</string>
     <string name="set_time">Czas trwania treningu </string>
     <string name="set_schedule">Sposób generowania</string>
-    <string name="noeqiupment">Ćwiczenia bez sprzętu</string>
+    <string name="noeqiupment">Ćwiczenia nie wymagające sprzętu </string>
     <string name="registrationStart">Trwa rejestracja</string>
     <string name="chosen_type">"Wybrany typ treningu : "</string>
     <string name="chosen_type_form">"Wybrany typ treningu "</string>
@@ -245,8 +249,16 @@ sprawdzanie czy użytkownik ma internet\n
         utworzenie encji w bazie danych do zapisywania treningu \n
           0.1.6\n
        synchronizacja zapisywania treningow z serwerem \n
+          0.1.7\n
+        poprwy w generowaniu trningu\n
+        ulepszenie podglądu wygenerowanego treningu \n
+        ulepszenie podglądu listy wygenerowanych treningow\n
+        edycja nazwy treningu \n
+
     </string>
     <string name="chosen_eqiupment">Wybrany sprzęt</string>
+    <string name="generateTraining">Trwa generowanie treningu.</string>
+    <string name="generateTrainingSukccess">Wygenerowano trening poprawnie.</string>
     <string name="prowadzenie_treningu" />
     <string name="exercise">"Ćwiczenie "</string>
     <string name="scheduleTypeCircuit">Numer Obwodu:</string>

@@ -58,15 +58,15 @@ public class SummaryFragment extends Fragment {
         model.getFrequencySpinnerChose().observe(getViewLifecycleOwner(), position ->
         {
             String[] frequency;
-            if( model.getTypeSpinnerChose().getValue()==0)
+            if(model.getTypeSpinnerChose().getValue()==0)
             {
                 frequency = getResources().getStringArray(R.array.split_duration);
             }else
             {
                 frequency = getResources().getStringArray(R.array.fbw_duration);
             }
-            if(position==0)
-            binding.frequency.setText(getString(R.string.chosen_frequency_prefix) + frequency[position] +  getString(R.string.chosen_frequency_sufix_one));
+            if(frequency[position].equals("1"))
+            binding.frequency.setText(String.format("%s %s %s",getString(R.string.chosen_frequency_prefix),frequency[position],getString(R.string.chosen_frequency_sufix_one)));
             else
             binding.frequency.setText(getString(R.string.chosen_frequency_prefix) + frequency[position] +  getString(R.string.chosen_frequency_sufix));
         });
@@ -94,9 +94,11 @@ public class SummaryFragment extends Fragment {
         {
             if(binding.bodyPartsList.getVisibility()!=View.GONE)
             {
+                binding.bodyButton.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24);
                 binding.bodyPartsList.setVisibility(View.GONE);
             }else
             {
+                binding.bodyButton.setImageResource(R.drawable.ic_drop_up);
                 binding.bodyPartsList.setVisibility(View.VISIBLE);
             }
         });
@@ -104,10 +106,12 @@ public class SummaryFragment extends Fragment {
         {
             if(binding.bodyPartsList.getVisibility()!=View.GONE)
             {
+                binding.bodyButton.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24);
                 binding.bodyPartsList.setVisibility(View.GONE);
             }else
             {
                 binding.bodyPartsList.setVisibility(View.VISIBLE);
+                binding.bodyButton.setImageResource(R.drawable.ic_drop_up);
             }
         });
 
@@ -124,6 +128,15 @@ public class SummaryFragment extends Fragment {
         bodyPartsAdapter.notifyDataSetChanged();
         model.updateCheckedEqiupment();
         equipmentAdapter.notifyDataSetChanged();
+        if(model.isNoEquipmentcheched() && binding.eqiupmentsList.getVisibility()!=View.GONE)
+        {
+            binding.noEquipmentItemImage.setVisibility(View.VISIBLE);
+            binding.noEquipmentTitle.setVisibility(View.VISIBLE);
+        }else
+        {
+            binding.noEquipmentItemImage.setVisibility(View.GONE);
+            binding.noEquipmentTitle.setVisibility(View.GONE);
+        }
     }
 
 
@@ -166,13 +179,15 @@ public class SummaryFragment extends Fragment {
 
     private void showEqiupment()
     {
-        if(binding.eqiupmentsList.getVisibility()!=View.GONE)
+        if(binding.eqiupmentsList.getVisibility() != View.GONE)
         {
+            binding.eqiupmentButton.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24);
             binding.eqiupmentsList.setVisibility(View.GONE);
             binding.noEquipmentItemImage.setVisibility(View.GONE);
             binding.noEquipmentTitle.setVisibility(View.GONE);
         }else
         {
+            binding.eqiupmentButton.setImageResource(R.drawable.ic_drop_up);
             if(model.isNoEquipmentcheched())
             {
                 binding.noEquipmentItemImage.setVisibility(View.VISIBLE);

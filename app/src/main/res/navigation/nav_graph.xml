@@ -8,7 +8,7 @@
         android:id="@+id/login"
         android:name="pl.gittobefit.user.fragments.Login"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_login2_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -28,9 +28,10 @@
         android:id="@+id/homeFragment"
         android:name="pl.gittobefit.HomeFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_generateTraining"
+            app:popUpTo="@+id/fragment_home"
             app:destination="@id/generateTrainingForm" />
         <action
             android:id="@+id/action_homeFragment_to_displayReceivedTraining"
@@ -43,7 +44,7 @@
         android:id="@+id/setting"
         android:name="pl.gittobefit.user.fragments.Settings"
         android:label="@string/menu_setting"
-        tools:layout="@layout/fragment_settings" >
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_setting_to_changeMailDialog"
             app:destination="@id/changeMailDialog" />
@@ -65,7 +66,7 @@
     <fragment
         android:id="@+id/registration"
         android:name="pl.gittobefit.user.fragments.Registration"
-        android:label="Registration" >
+        android:label="Registration">
         <action
             android:id="@+id/action_registration_to_login2"
             app:destination="@id/login"
@@ -77,7 +78,7 @@
         android:id="@+id/logout"
         android:name="pl.gittobefit.user.fragments.Logout"
         android:label="@string/logout"
-        tools:layout="@layout/fragment_logout" >
+        tools:layout="@layout/fragment_logout">
         <action
             android:id="@+id/action_logout_to_login"
             app:destination="@id/login"
@@ -88,8 +89,8 @@
     <dialog
         android:id="@+id/remindPasswoedDialog"
         android:name="pl.gittobefit.user.dialog.RemindPasswordDialog"
-        tools:layout="@layout/layout_remind_password_dialog"
-        android:label="RemindPasswoedDialog" />
+        android:label="RemindPasswoedDialog"
+        tools:layout="@layout/layout_remind_password_dialog" />
     <dialog
         android:id="@+id/registrationSuccesDialog"
         android:name="pl.gittobefit.user.dialog.RegistrationSuccesDialog"
@@ -97,7 +98,7 @@
     <dialog
         android:id="@+id/changeMailDialog"
         android:name="pl.gittobefit.user.dialog.ChangeMailDialog"
-        android:label="ChangeMailDialog" >
+        android:label="ChangeMailDialog">
         <action
             android:id="@+id/action_changeMailDialog_to_login"
             app:destination="@id/login" />
@@ -118,9 +119,10 @@
         android:id="@+id/generateTrainingForm"
         android:name="pl.gittobefit.workoutforms.fragments.GenerateTrainingForm"
         android:label="@string/generateTrainingForm"
-        tools:layout="@layout/fragment_generate_training" >
+        tools:layout="@layout/fragment_generate_training">
         <action
             android:id="@+id/action_generateTrainingForm_to_displayReceivedTraining"
+            app:popUpTo="@+id/homeFragment"
             app:destination="@id/displayReceivedTraining" />
         <action
             android:id="@+id/action_generateTrainingForm_to_detailsInfoLayout"
@@ -130,11 +132,35 @@
         android:id="@+id/listOfTrainings"
         android:name="pl.gittobefit.WorkoutDisplay.fragments.ListOfTrainings"
         android:label="Twoje treningi"
-        tools:layout="@layout/fragment_list_of_trainings" >
-    <action
-        android:id="@+id/list_of_trainings_to_displayReceivedTraining"
-        app:destination="@id/displayReceivedTraining" />
+        tools:layout="@layout/fragment_list_of_trainings">
+        <action
+            android:id="@+id/list_of_trainings_to_displayReceivedTraining"
+            app:destination="@id/displayReceivedTraining" />
     </fragment>
+
+
+    <dialog
+        android:id="@+id/editTrainingNameDialog"
+        android:name="pl.gittobefit.WorkoutDisplay.dialog.EditTrainingNameDialog"
+        android:label="EditTrainingName" >
+        <action
+            android:id="@+id/action_editTrainingNameDialog_to_displayTrainingFragment"
+            app:destination="@id/listOfTrainings" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/editExerciseDialog"
+        android:name="pl.gittobefit.WorkoutDisplay.dialog.EditExerciseDialog"
+        android:label="EditExerciseDialog" />
+
+    <dialog
+        android:id="@+id/deleteTrainingDialog"
+        android:name="pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog"
+        android:label="DeleteTrainingName" >
+        <action
+            android:id="@+id/action_editTrainingNameDialog_to_displayTrainingFragment"
+            app:destination="@id/listOfTrainings" />
+    </dialog>
 
     <fragment
         android:id="@+id/displayReceivedTraining"
@@ -146,6 +172,21 @@
             app:destination="@id/trainingStart" >
 
         </action>
+    </fragment>
+        tools:layout="@layout/fragment_received_training">
+        <action
+            android:id="@+id/training_to_edit_name_action"
+            app:destination="@id/editTrainingNameDialog" />
+        <action
+            android:id="@+id/training_to_delete_action"
+            app:destination="@id/listOfTrainings"
+            app:popUpTo="@+id/homeFragment"
+           />
+        <action
+            android:id="@+id/reload"
+            app:destination="@id/displayReceivedTraining"
+            app:popUpTo="@+id/displayReceivedTraining"
+            app:popUpToInclusive="true"/>
     </fragment>
     <action
         android:id="@+id/action_global_logout"

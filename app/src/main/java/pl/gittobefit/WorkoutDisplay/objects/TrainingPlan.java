@@ -37,4 +37,8 @@ public class TrainingPlan
     {
         return exercisesExecutions.get(i);
     }
+
+    public void setExercisesExecutions(ArrayList<ExerciseExecution> exercisesExecutions) {
+        this.exercisesExecutions = exercisesExecutions;
+    }
 }

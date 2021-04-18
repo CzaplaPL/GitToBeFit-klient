@@ -6,12 +6,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
@@ -24,6 +23,7 @@ import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.Equipment;
 import pl.gittobefit.workoutforms.object.EquipmentType;
+import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -119,8 +119,9 @@ public class WorkoutFormsServices
 
     public void getTrainingPlan(Fragment fragment, WorkoutForm form)
     {
-        Log.w("form","equipmentIDs" + form.getEquipmentIDs().toString() + " trainingType "+ form.getTrainingType() + " bodyParts " + form.getBodyParts() + " daysCount" + form.getDaysCount() + " scheduleType " + form.getScheduleType() + " duration " + form.getDuration());
-
+        Log.w("form",String.format("%s %s %s %s %s %s %s %s %s %s %s %s","equipmentIDs",form.getEquipmentIDs().toString()," trainingType ",form.getTrainingType()," bodyParts ",form.getBodyParts()," daysCount",form.getDaysCount()," scheduleType ",form.getScheduleType()," duration ",form.getDuration()));
+        IShowSnackbar activity = (IShowSnackbar) fragment.getActivity();
+        activity.showSnackbar(fragment.getString(R.string.generateTraining));
         Call<Training> call = workout.getTrainingPlan(form);
         call.enqueue(new Callback<Training>()
         {
@@ -128,11 +129,9 @@ public class WorkoutFormsServices
             public void onResponse(Call<Training> call, Response<Training> response) {
                 if(response.isSuccessful())
                 {
-                    TrainingWithForm tmp = TrainingRepository.getInstance(fragment.getContext()).add(response.body());
-                    createTraining(response.body(), tmp.training.getId());
-                    InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
-                    model.setNumberOfClickedTraining(-999);
-                    Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+                  createTraining(response.body(), fragment);
+                  Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+                    activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
                 }
                 else
                 {
@@ -149,13 +148,14 @@ public class WorkoutFormsServices
         });
     }
 
-    private void createTraining(Training body, int id)
-    {
-
+    private void createTraining(Training body, Fragment fragment) {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         String text = formatter.format(date);
         body.setGenerationDate(text);
-        UserTrainings.getInstance().add(body,id);
+        body.setTrainingName("Default training name");
+        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
+        model.addTrainingWithForm(TrainingRepository.getInstance(fragment.getContext()).add(body));
+        model.setNumberOfClickedTraining(model.getTrainingWithForms().size() - 1);
     }
 }

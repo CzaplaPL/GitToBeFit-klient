@@ -30,12 +30,9 @@ public class GenerateTraningViewModel extends ViewModel
     private ArrayList<Equipment> checkedEqiupment = new ArrayList<>();
     private  ArrayList<BodyParts> bodyPartsToChoose = new ArrayList<>();
     private  ArrayList<BodyParts> bodyPartsChecked = new ArrayList<>();
-
-
     private MutableLiveData<Integer> typeSpinnerChose =new  MutableLiveData<>();
     private MutableLiveData<Integer> waySpinnerChose =new  MutableLiveData<>();
     private MutableLiveData<Integer> frequencySpinnerChose =new  MutableLiveData<>();
-
     private MutableLiveData<Integer> timeCardioSpinnerChose =new  MutableLiveData<>();
     private MutableLiveData<Integer> timeFitnesSpinnerChose =new  MutableLiveData<>();
     private MutableLiveData<Integer> scheduleSpinnerChose =new  MutableLiveData<>();
@@ -128,6 +125,8 @@ public class GenerateTraningViewModel extends ViewModel
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.chest),"CHEST"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.sixpack),"SIXPACK"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.back),"BACK"));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.arms),"ARMS"));
+        bodyPartsToChoose.add(new BodyParts(context.getString(R.string.legs),"LEGS"));
 
     }
     public ArrayList<BodyParts> getBodyParts()
@@ -251,7 +250,7 @@ scheduleSpinnerChose.setValue(position);
     {
         String[] Type = resources.getStringArray(R.array.trening_type_name);
         String[] daysCount ;
-        String[] scheduleType= new String[] {"PER_DAY","REPETITIVE"};
+        String[] scheduleType= new String[] {"REPETITIVE","PER_DAY"};
         String[] subtype= new String[] {"SERIES","CIRCUIT"};
         int[] duration;
         switch(getTypeSpinnerChose().getValue())

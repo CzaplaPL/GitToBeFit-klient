@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_body_parts"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:padding="5dp">
 
+    <ImageView
+        android:id="@+id/dot"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_centerVertical="true"
+        android:textColor="?attr/colorPrimaryVariant"
+        android:visibility="gone"
+        app:srcCompat="@drawable/dot" />
     <TextView
         android:id="@+id/bodyPartsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/dot"
         android:text="@string/example"
         android:textColor="?attr/colorPrimaryVariant"
         android:textSize="16sp"
         tools:ignore="RelativeOverlap" />
+
     <CheckBox
         android:id="@+id/bodyPartsCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:clickable="false"
         tools:ignore="RelativeOverlap" />
+
+
 
 </RelativeLayout>
