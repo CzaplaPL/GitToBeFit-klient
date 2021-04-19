@@ -60,7 +60,7 @@ public class TrainingStart extends Fragment
                 generateMainView();
             }else
             {
-               model.endTraining();
+                model.endTraining();
                 Navigation.findNavController(getView()).navigate(R.id.action_trainingStart_to_homeFragment);
             }
         });
@@ -165,9 +165,8 @@ public class TrainingStart extends Fragment
         binding.printCountOfSeries.setText(String.format("%s / %s",
                 model.getNumberOfSeries(),
                 model.getExerciseExecution().getSeries()
-                ));
-
-
+        ));
+        
         if(model.getExerciseExecution().getCount() == 0)
         {
             binding.buttonClickButton.setVisibility(View.GONE);
@@ -189,14 +188,15 @@ public class TrainingStart extends Fragment
 
     private void timerBreakDuringExercises()
     {
-        new CountDownTimer(29000, 1000)
+        new CountDownTimer(30000, 1000)
         {
             @Override
             public void onTick(long millisUntilFinished)
             {
                 int seconds = (int) (millisUntilFinished / 1000);
-                binding.start.setText(String.valueOf(seconds+1));
+                binding.start.setText(String.valueOf(seconds + 1));
             }
+
             @Override
             public void onFinish()
             {
@@ -209,13 +209,13 @@ public class TrainingStart extends Fragment
 
     private void timerBeforeStartTraining()
     {
-        new CountDownTimer(3000, 1000)
+        new CountDownTimer(4000, 1000)
         {
             @Override
             public void onTick(long millisUntilFinished)
             {
                 int seconds = (int) (millisUntilFinished / 1000);
-                binding.circleTimerPauseText.setText( String.valueOf(seconds));
+                binding.circleTimerPauseText.setText(String.valueOf(seconds));
             }
 
             @Override
@@ -231,12 +231,12 @@ public class TrainingStart extends Fragment
 
     private void timerOnStartTraining()
     {
-        new CountDownTimer(model.getExerciseExecution().getTime() * 1000 , 1000)
+        new CountDownTimer(model.getExerciseExecution().getTime() * 1000, 1000)
         {
             @Override
             public void onTick(long millisUntilFinished)
             {
-                int seconds = (int) (millisUntilFinished / 11000);
+                int seconds = (int) (millisUntilFinished / 1000);
                 binding.circleTimerPauseText.setText(String.valueOf(seconds));
             }
 
@@ -312,7 +312,7 @@ public class TrainingStart extends Fragment
             public void onTick(long millisUntilFinished)
             {
                 int seconds = (int) (millisUntilFinished / 1000);
-                binding.circleTimerPauseText.setText( String.valueOf(seconds));
+                binding.circleTimerPauseText.setText(String.valueOf(seconds));
             }
 
             @Override
@@ -370,7 +370,7 @@ public class TrainingStart extends Fragment
 
     private void getVideo()
     { // wczytanie wideo do maina
-        Uri uri = Uri.parse(ConnectionToServer.getInstance().PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
+        Uri uri = Uri.parse(ConnectionToServer.PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
         binding.loaderVideo.setVideoURI(uri);
         binding.loaderVideo.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
         binding.loaderVideo.setOnPreparedListener(mp ->
@@ -384,7 +384,7 @@ public class TrainingStart extends Fragment
 
     private void getSmallVideo()
     { // wczytanie wideo do foregrounda
-        Uri uri = Uri.parse(ConnectionToServer.getInstance().PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
+        Uri uri = Uri.parse(ConnectionToServer.PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
         binding.videoViewStartTraining.setVideoURI(uri);
         binding.videoViewStartTraining.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
         binding.videoViewStartTraining.setOnPreparedListener(mp ->

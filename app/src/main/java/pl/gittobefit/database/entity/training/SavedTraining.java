@@ -51,11 +51,6 @@ public class SavedTraining
             }
             this.planList.add(savePlan);
         }
-        for(int i = 0; i < planList.size(); i++)
-        {
-            TrainingPlan readPlan = planList.get(i);
-
-        }
 
         this.trainingDay = 0;
     }
@@ -126,16 +121,18 @@ public class SavedTraining
         this.trainingName = trainingName;
     }
 
-    public int getTrainingDay() {
+    public int getTrainingDay()
+    {
         return trainingDay;
     }
 
-    public void setTrainingDay(int trainingDay) {
+    public void setTrainingDay(int trainingDay)
+    {
         this.trainingDay = trainingDay;
     }
 
     public boolean isNextDay()
     {
-        return planList.size()>trainingDay+1;
+        return planList.size() > trainingDay + 1;
     }
 }

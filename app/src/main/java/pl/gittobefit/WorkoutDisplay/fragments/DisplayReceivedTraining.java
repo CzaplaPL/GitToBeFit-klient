@@ -145,7 +145,6 @@ public class DisplayReceivedTraining extends Fragment
         Button day4Button = getView().findViewById(R.id.day4_button);
         Button day5Button = getView().findViewById(R.id.day5_button);
 
-
         ArrayList<Button> buttonArrayList = new ArrayList<>();
         buttonArrayList.add(day1Button);
         buttonArrayList.add(day2Button);

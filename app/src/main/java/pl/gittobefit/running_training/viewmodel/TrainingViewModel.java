@@ -21,13 +21,13 @@ public class TrainingViewModel extends ViewModel
     private ArrayList<ExerciseExecutionPOJODB> planList;
     private int indexExercise;
     private int numberOfSeries;
-    private final int FIRST_EXERCISE = 0;
+    private final int FIRST_EXERCISE_INDEX = 0;
     private final int FIRST_SERIES = 1;
 
     public TrainingViewModel()
     {
         this.numberOfSeries = FIRST_SERIES;
-        this.indexExercise = FIRST_EXERCISE;
+        this.indexExercise = FIRST_EXERCISE_INDEX;
     }
 
     public ArrayList<Exercise> getListExercises()

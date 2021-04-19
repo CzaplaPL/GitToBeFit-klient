@@ -37,12 +37,7 @@ public class DetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentDetailFormBinding.inflate(inflater, container, false);
         binding.detailsInfoPicture.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.bright));
-        binding.detailsInfoPicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_generateTrainingForm_to_detailsInfoLayout);
-            }
-        });
+        binding.detailsInfoPicture.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_generateTrainingForm_to_detailsInfoLayout));
         return binding.getRoot();
     }
 

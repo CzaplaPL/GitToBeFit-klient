@@ -20,8 +20,10 @@ import pl.gittobefit.user.User;
 public class TrainingRepository
 {
     private final AppDataBase base;
-    private Map<Long, TrainingWithForm> loadedTrainingWithForm = new HashMap<Long, TrainingWithForm>();;
-    private Map<Integer, Exercise> loadedExercises = new HashMap<Integer, Exercise>();;
+    private Map<Long, TrainingWithForm> loadedTrainingWithForm = new HashMap<Long, TrainingWithForm>();
+    ;
+    private Map<Integer, Exercise> loadedExercises = new HashMap<Integer, Exercise>();
+    ;
     private static volatile TrainingRepository INSTANCE;
 
     private TrainingRepository(Context context)
@@ -166,6 +168,6 @@ public class TrainingRepository
 
     public void setNextDay(int day, int id)
     {
-        base.trainingDao().setTrainingDay(day,id);
+        base.trainingDao().setTrainingDay(day, id);
     }
 }

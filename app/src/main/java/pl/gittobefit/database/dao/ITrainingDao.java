@@ -21,9 +21,9 @@ public interface ITrainingDao
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long addTraining(SavedTraining training);
 
-   @Transaction
-   @Query("SELECT * FROM SavedTraining")
-   public List<TrainingWithForm> getAllTrainingWitForm();
+    @Transaction
+    @Query("SELECT * FROM SavedTraining")
+    public List<TrainingWithForm> getAllTrainingWitForm();
 
     @Transaction
     @Query("SELECT * FROM SavedTraining WHERE id = :id")
@@ -44,12 +44,15 @@ public interface ITrainingDao
     @Transaction
     @Query("UPDATE SavedTraining SET planList = :exerciseExecutionPOJODBS WHERE id=:id")
     void updateTrainingPlan(ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS, long id);
+
     @Transaction
     @Query("DELETE FROM SavedTraining  WHERE id = :id")
     public void deleteTrainingInDataBase(long id);
+
     @Transaction
     @Query("UPDATE SavedTraining SET trainingName = :newName WHERE id = :id")
     public void updateTrainingNameInDataBase(String newName, long id);
+
     @Transaction
     @Query("UPDATE SavedTraining SET trainingDay = :day WHERE id = :id")
     void setTrainingDay(int day, int id);
