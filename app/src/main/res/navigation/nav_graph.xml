@@ -138,6 +138,20 @@
             app:destination="@id/displayReceivedTraining" />
     </fragment>
 
+    <fragment
+        android:id="@+id/exerciseDetails"
+        android:name="pl.gittobefit.WorkoutDisplay.fragments.ExerciseDetails"
+        android:label="Twoje ćwiczenie"
+        tools:layout="@layout/fragment_exercise_details">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="data"
+            android:defaultValue=""
+            app:argType="string" />
+    </fragment>
+
 
     <dialog
         android:id="@+id/editTrainingNameDialog"
@@ -167,6 +181,11 @@
         <action
             android:id="@+id/training_to_edit_name_action"
             app:destination="@id/editTrainingNameDialog" />
+        <action
+            android:id="@+id/training_to_exercise_details"
+            app:destination="@id/exerciseDetails">
+
+        </action>
         <action
             android:id="@+id/training_to_delete_action"
             app:destination="@id/listOfTrainings"
