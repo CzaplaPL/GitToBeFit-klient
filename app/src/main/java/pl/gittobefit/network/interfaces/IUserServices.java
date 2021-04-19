@@ -18,7 +18,7 @@ import retrofit2.http.Query;
 /**
  * interfejs(dao) do komunikacji sieciowej o użytkowniku
  */
-public interface UserServices
+public interface IUserServices
 {
     /**
      * logowanie kontem aplikacji

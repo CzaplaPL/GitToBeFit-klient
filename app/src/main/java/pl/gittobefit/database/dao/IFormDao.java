@@ -12,7 +12,7 @@ import pl.gittobefit.database.entity.UserEntity;
 import pl.gittobefit.database.entity.training.WorkoutForm;
 
 @Dao
-public interface FormDao
+public interface IFormDao
 {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long addForm(WorkoutForm form);

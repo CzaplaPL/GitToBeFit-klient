@@ -13,7 +13,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
-public interface TrainingServices
+public interface ITrainingServices
 {
     @POST("/training-plan/save")
     Call<Void> sendTrainings( @Header("Authorization") String auth ,@Header("userId") String idUser,@Body ArrayList<Training> trainings);

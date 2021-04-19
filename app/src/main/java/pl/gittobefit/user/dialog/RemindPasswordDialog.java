@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import pl.gittobefit.ShowSnackbar;
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
 
@@ -37,7 +37,7 @@ public class RemindPasswordDialog extends AppCompatDialogFragment
                 .setTitle(getResources().getString(R.string.remindPasswordTitle))
                 .setPositiveButton(getResources().getString(R.string.remindPassword), (dialog, which) ->
                 {
-                    ShowSnackbar activity = (ShowSnackbar) getActivity();
+                    IShowSnackbar activity = (IShowSnackbar) getActivity();
                     String mail=email.getEditText().getText().toString();
                     ConnectionToServer.getInstance().userServices.remindPassword(mail,context,activity);
                 });

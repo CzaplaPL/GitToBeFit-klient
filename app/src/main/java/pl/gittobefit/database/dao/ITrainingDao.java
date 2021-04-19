@@ -15,7 +15,7 @@ import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 
 @Dao
-public interface TrainingDao
+public interface ITrainingDao
 {
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)

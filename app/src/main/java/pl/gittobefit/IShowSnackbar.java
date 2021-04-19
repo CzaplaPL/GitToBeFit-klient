@@ -3,7 +3,7 @@ package pl.gittobefit;
 /**
  * interfejs pokazujący snackbar
  */
-public interface ShowSnackbar
+public interface IShowSnackbar
 {
     void showSnackbar(String message);
 }

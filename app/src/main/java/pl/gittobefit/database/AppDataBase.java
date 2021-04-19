@@ -8,10 +8,10 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import pl.gittobefit.database.conventer.TrainingConverter;
-import pl.gittobefit.database.dao.ExerciseDao;
-import pl.gittobefit.database.dao.FormDao;
-import pl.gittobefit.database.dao.TrainingDao;
-import pl.gittobefit.database.dao.UserDao;
+import pl.gittobefit.database.dao.IExerciseDao;
+import pl.gittobefit.database.dao.IFormDao;
+import pl.gittobefit.database.dao.ITrainingDao;
+import pl.gittobefit.database.dao.IUserDao;
 import pl.gittobefit.database.entity.UserEntity;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.entity.training.SavedTraining;
@@ -25,10 +25,10 @@ import pl.gittobefit.database.entity.training.WorkoutForm;
 public abstract class AppDataBase extends RoomDatabase
 {
     private static volatile AppDataBase INSTANCE;
-    public abstract UserDao userDao();
-    public abstract TrainingDao trainingDao();
-    public abstract ExerciseDao exerciseDao();
-    public abstract FormDao workoutFormDao();
+    public abstract IUserDao userDao();
+    public abstract ITrainingDao trainingDao();
+    public abstract IExerciseDao exerciseDao();
+    public abstract IFormDao workoutFormDao();
 
     public static AppDataBase getInstance(final Context context) {
         if (INSTANCE == null) {
