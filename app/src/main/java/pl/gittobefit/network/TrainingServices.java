@@ -21,7 +21,7 @@ public class TrainingServices
 
     public void synchronisedTraining(Context context) throws Exception
     {
-        Log.w("Network", "Trainings.synchronisedTraining");
+        Log.w(" Network", "Trainings.synchronisedTraining");
         TrainingRepository repository = TrainingRepository.getInstance(context);
         Call<ArrayList<Training>> downloadCall = training.getTrainings(User.getInstance().getToken(), User.getInstance().getIdServer());
         Response<ArrayList<Training>> downloadResponse = downloadCall.execute();
