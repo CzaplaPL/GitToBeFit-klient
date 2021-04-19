@@ -9,13 +9,24 @@ public class Training
     private WorkoutForm trainingForm;
     private ArrayList<TrainingPlan> planList = new ArrayList<>();
     private String generationDate;
+    private String trainingName;
+    private int id;
 
+    public Training() { }
 
-    public WorkoutForm getTrainingForm() {
+    public Training(WorkoutForm form, ArrayList<TrainingPlan> trainingPlansServer)
+    {
+        this.trainingForm = form;
+        this.planList = trainingPlansServer;
+    }
+
+    public WorkoutForm getTrainingForm()
+    {
         return trainingForm;
     }
 
-    public ArrayList<TrainingPlan> getPlanList() {
+    public ArrayList<TrainingPlan> getPlanList()
+    {
         return planList;
     }
 
@@ -24,11 +35,37 @@ public class Training
         return planList.get(i);
     }
 
-    public String getGenerationDate() {
+    public String getGenerationDate()
+    {
         return generationDate;
     }
 
-    public void setGenerationDate(String generationDate) {
+    public void setGenerationDate(String generationDate)
+    {
         this.generationDate = generationDate;
+    }
+
+    public String getTrainingName() {
+        return trainingName;
+    }
+
+    public void setTrainingName(String trainingName) {
+        this.trainingName = trainingName;
+    }
+
+    public void setTrainingForm(WorkoutForm trainingForm) {
+        this.trainingForm = trainingForm;
+    }
+
+    public void setPlanList(ArrayList<TrainingPlan> planList) {
+        this.planList = planList;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

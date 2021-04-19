@@ -10,19 +10,20 @@
         <item name="android:navigationBarColor">@color/ourBlackBar</item>
     </style>
     <style name="Theme.GitToBeFit.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:windowBackground">@drawable/background_activity</item>
-        <item name="colorPrimary">@color/ourGreen</item>
+        <item name="background">@drawable/background_activity</item>
+        <item name="android:windowBackground">@drawable/background_activity</item> // kolor tła aplikacji
+        <item name="colorPrimary">@color/ourGreen</item> // kolor buttona, kolor bara
         <item name="colorPrimaryVariant">@color/ourWhite</item>
         <item name="colorOnSurface">@color/ourWhite</item>
         <item name="colorOnPrimary">@color/ourGray</item>
         <item name="colorOnBackground">@color/appBarNight</item>
         <item name="colorPrimarySurface">@color/ourGray</item>
-        <item name="android:statusBarColor" tools:targetApi="l">@color/ourBlackBar</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/ourBlackBar</item> // kolor nad barem
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorAccent">@color/ourGreen</item>
         <item name="colorSurface">@color/detailsList</item>
-        <item name="android:navigationBarColor">@color/ourBlackBar</item>
+        <item name="android:navigationBarColor">@color/ourBlackBar</item> // kolor przyciskow
     </style>
     <!--style przycisków -->
     <style name="roundedButton" parent="">

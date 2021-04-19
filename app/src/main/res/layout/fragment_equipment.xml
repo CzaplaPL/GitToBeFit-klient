@@ -111,7 +111,7 @@
                 android:layout_marginStart="24dp"
                 android:text="@string/noeqiupment"
                 android:textColor="?attr/colorPrimaryVariant"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 tools:ignore="RelativeOverlap" />
 

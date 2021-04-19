@@ -58,6 +58,7 @@ public class WorkoutForm
         this.duration = duration;
     }
 
+
     public int getFormId()
     {
         return FormId;

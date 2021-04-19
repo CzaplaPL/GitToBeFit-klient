@@ -20,15 +20,15 @@ import pl.gittobefit.database.entity.training.WorkoutForm;
 /**
  * klasa bazy danych
  */
-@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SavedTraining.class}, version = 6, exportSchema = false)
+@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SavedTraining.class}, version =9, exportSchema = false)
 @TypeConverters({TrainingConverter.class})
 public abstract class AppDataBase extends RoomDatabase
 {
     private static volatile AppDataBase INSTANCE;
-    public abstract IUserDao user();
-    public abstract ITrainingDao training();
-    public abstract IExerciseDao exercise();
-    public abstract IFormDao workoutForm();
+    public abstract IUserDao userDao();
+    public abstract ITrainingDao trainingDao();
+    public abstract IExerciseDao exerciseDao();
+    public abstract IFormDao workoutFormDao();
 
     public static AppDataBase getInstance(final Context context) {
         if (INSTANCE == null) {

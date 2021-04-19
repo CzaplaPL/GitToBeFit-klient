@@ -19,9 +19,10 @@ tools:openDrawer="start">
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:layout_marginTop="20dp"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/main_nav_drawer"
-        android:background="@drawable/gradient_green"
+        android:background="?attr/background"
         app:menu="@menu/drawer_menu"/>
 
 
