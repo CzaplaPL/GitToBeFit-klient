@@ -10,11 +10,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import pl.gittobefit.IShowSnackbar;
+import pl.gittobefit.ShowSnackbar;
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
 import pl.gittobefit.database.repository.TrainingRepository;
-import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
 import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.Equipment;
@@ -29,11 +28,11 @@ import retrofit2.Retrofit;
 
 public class WorkoutFormsServices
 {
-    private final IWorkoutFormsServices workout;
+    private final pl.gittobefit.network.interfaces.WorkoutFormsServices workout;
 
     WorkoutFormsServices(Retrofit adapter)
     {
-        workout = adapter.create(IWorkoutFormsServices.class);
+        workout = adapter.create(pl.gittobefit.network.interfaces.WorkoutFormsServices.class);
     }
     public void getEquipmentType(EquipmentFragment fragment)
     {
@@ -117,7 +116,7 @@ public class WorkoutFormsServices
     public void getTrainingPlan(Fragment fragment, WorkoutForm form)
     {
         Log.w("form",String.format("%s %s %s %s %s %s %s %s %s %s %s %s","equipmentIDs",form.getEquipmentIDs().toString()," trainingType ",form.getTrainingType()," bodyParts ",form.getBodyParts()," daysCount",form.getDaysCount()," scheduleType ",form.getScheduleType()," duration ",form.getDuration()));
-        IShowSnackbar activity = (IShowSnackbar) fragment.getActivity();
+        ShowSnackbar activity = (ShowSnackbar) fragment.getActivity();
         activity.showSnackbar(fragment.getString(R.string.generateTraining));
         Call<Training> call = workout.getTrainingPlan(form);
         call.enqueue(new Callback<Training>()

@@ -12,12 +12,11 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 import java.util.Objects;
 
-import pl.gittobefit.IShowSnackbar;
+import pl.gittobefit.ShowSnackbar;
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.UserEntity;
-import pl.gittobefit.network.interfaces.IUserServices;
 import pl.gittobefit.network.object.EmailUser;
 import pl.gittobefit.network.object.RespondUser;
 import pl.gittobefit.network.object.TokenUser;
@@ -38,18 +37,18 @@ import retrofit2.Retrofit;
  */
 public class UserServices
 {
-    private final IUserServices user;
+    private final pl.gittobefit.network.interfaces.UserServices user;
 
     UserServices(Retrofit adapter)
     {
-        user = adapter.create(IUserServices.class);
+        user = adapter.create(pl.gittobefit.network.interfaces.UserServices.class);
     }
 
     /**
      * logowanie kontem użytkownika
      * @author czapla
      */
-    public void login(String email, String password, Login fragment , IShowSnackbar activity)
+    public void login(String email, String password, Login fragment , ShowSnackbar activity)
     {
 
         Log.w("Network", "      user.login");
@@ -278,7 +277,7 @@ public class UserServices
      * funkcja zmieniająca hasło
      * @author Kuba
      */
-    public void changePassword(String actualPassword, String newPassword, Context context, IShowSnackbar activity)
+    public void changePassword(String actualPassword, String newPassword, Context context, ShowSnackbar activity)
     {
         String userID =  User.getInstance().getIdServer();
         Call<Void> call2 = user.changePassword(userID, User.getInstance().getToken(), new UserChangePass(User.getInstance().getEmail(), actualPassword, newPassword));
@@ -412,7 +411,7 @@ public class UserServices
      * przypomnienie hasła
      * @author czapla
      */
-    public void remindPassword(String email, Context context, IShowSnackbar activity)
+    public void remindPassword(String email, Context context, ShowSnackbar activity)
     {
         Log.w("network  ", "przypominanie hasła");
         Call<Void> call = user.remindPass(email);

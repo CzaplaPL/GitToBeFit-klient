@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import pl.gittobefit.IShowSnackbar;
+import pl.gittobefit.ShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.user.Validation;
@@ -41,7 +41,7 @@ public class ChangePasswordDialog extends AppCompatDialogFragment
                 {
                     String oldPassword = editTextUserOldPassword.getText().toString();
                     String newPassword = editTextUserNewPassword.getText().toString();
-                    IShowSnackbar activity = (IShowSnackbar) getActivity();
+                    ShowSnackbar activity = (ShowSnackbar) getActivity();
                     if (newPassword.matches(Validation.PASSWORD_REGEX)) {
                         ConnectionToServer.getInstance().userServices.changePassword(oldPassword, newPassword, getContext(),activity);
                     }

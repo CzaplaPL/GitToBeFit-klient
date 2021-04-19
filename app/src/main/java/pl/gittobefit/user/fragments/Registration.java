@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 
-import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -17,13 +16,10 @@ import androidx.navigation.Navigation;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.safetynet.SafetyNet;
-import com.google.android.gms.safetynet.SafetyNetApi;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import pl.gittobefit.IShowSnackbar;
+import pl.gittobefit.ShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.user.Validation;
@@ -109,7 +105,7 @@ public class Registration extends Fragment implements View.OnClickListener
                 if(correct)
                 {
                     Log.w("rejestracja" ,"jest");
-                    IShowSnackbar activity = (IShowSnackbar) getActivity();
+                    ShowSnackbar activity = (ShowSnackbar) getActivity();
                     activity.showSnackbar(getString(R.string.registrationStart));
                     ConnectionToServer.getInstance().userServices.singup(email.getEditText().getText().toString(),pass.getEditText().getText().toString(),this,getView());
                 }
