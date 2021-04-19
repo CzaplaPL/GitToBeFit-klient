@@ -31,7 +31,7 @@ public interface ITrainingDao
 
     @Transaction
     @Query("SELECT * FROM SavedTraining ")
-    public List<SavedTraining> getAllTrainings();
+    public List<TrainingWithForm> getAllTrainings();
 
     @Transaction
     @Query("SELECT * FROM SavedTraining  WHERE idUser=:id ")
@@ -50,4 +50,5 @@ public interface ITrainingDao
 
     @Query("UPDATE SavedTraining SET trainingName = :newName WHERE id = :id")
     public void updateTrainingNameInDataBase(String newName, long id);
+
 }

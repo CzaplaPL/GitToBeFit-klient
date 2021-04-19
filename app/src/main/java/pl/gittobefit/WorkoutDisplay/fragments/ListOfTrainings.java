@@ -42,7 +42,7 @@ public class ListOfTrainings extends Fragment
         super.onViewCreated(view, savedInstanceState);
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
 
-        model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).getAllTrainingsForUser(""));
+        model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).getAllTrainings());
 
         RecyclerView recyclerView = getView().findViewById(R.id.list_of_trainings);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));

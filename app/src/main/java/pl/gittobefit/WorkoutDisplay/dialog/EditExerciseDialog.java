@@ -17,6 +17,7 @@ import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
@@ -35,13 +36,15 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
     private String exerciseName;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
 
-    public EditExerciseDialog(View view,
-                              String scheduleType,
-                              int position,
-                              ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
-                              int trainingID,
-                              String exerciseName,
-                              ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS)
+    public EditExerciseDialog(
+            View view,
+            String scheduleType,
+            int position,
+            ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
+            int trainingID,
+            String exerciseName,
+            ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS
+    )
     {
         this.myView = view;
         this.scheduleType = scheduleType;
@@ -99,12 +102,15 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
 
         builder.setView(view)
                 .setTitle(exerciseName)
-                .setNegativeButton(getString(R.string.admit_changes), (dialog, which) ->
+                .setNegativeButton(getString(R.string.cancel), (dialog, which) ->
+                {
+                })
+                .setPositiveButton(getString(R.string.admit_changes), (dialog, which) ->
                 {
                     if (scheduleType.equals("CIRCUIT"))
                     {
-                        for (ExerciseExecutionPOJODB item: exercisesExecutionArrayList
-                             ) {
+                        for (ExerciseExecutionPOJODB item: exercisesExecutionArrayList)
+                        {
                             item.setSeries(seriesNumberPicker.getValue());
                             model.getCurrentSeries().setValue(seriesNumberPicker.getValue());
                         }
@@ -126,10 +132,8 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
                     }
 
                     AppDataBase.getInstance(getContext()).trainingDao().updateTrainingPlan(exerciseExecutionPOJODBS, trainingID);
-                })
-                .setPositiveButton(getString(R.string.change_exercise), (dialog, which) ->
-                {
-                    Navigation.findNavController(myView).navigate(R.id. reload);
+                    IShowSnackbar activity = (IShowSnackbar) getActivity();
+                    activity.showSnackbar(getResources().getString(R.string.editionComplete));
                 });
         return builder.create();
     }

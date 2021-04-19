@@ -1,6 +1,5 @@
 package pl.gittobefit.network.interfaces;
 
-import pl.gittobefit.network.object.EmailUser;
 import pl.gittobefit.network.object.UserChangeEmail;
 import pl.gittobefit.network.object.UserChangePass;
 import pl.gittobefit.network.object.RespondUser;
@@ -96,5 +95,5 @@ public interface IUserServices
      */
 
     @POST("/user/activation/renew")
-    Call<Void> sendActivationLink(@Body EmailUser emailUser);
+    Call<Void> sendActivationLink(@Header("email") String userEmail);
 }
