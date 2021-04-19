@@ -14,7 +14,7 @@ import pl.gittobefit.database.entity.UserEntity;
  * Dao dla encji uzytkownnika
  */
 @Dao
-public interface IUserDao
+public interface UserDao
 {
     /**
      * umieszczanie uzytkownika w bazie

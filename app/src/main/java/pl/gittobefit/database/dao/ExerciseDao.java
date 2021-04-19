@@ -13,7 +13,7 @@ import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 
 @Dao
-public interface IExerciseDao
+public interface ExerciseDao
 {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addExercise(Exercise exercise);
