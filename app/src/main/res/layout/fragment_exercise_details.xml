@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/exercise_details_layout">
+
+    <LinearLayout
+        android:id="@+id/movieLoading"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        >
+
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/loadingOnProgress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif"
+            android:text="@string/loading"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+
+    <VideoView
+        android:id="@+id/exerciseDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:alpha="0"
+        android:layout_alignParentTop="true"/>
+
+    <ScrollView
+        android:id="@+id/my_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/exerciseDisplay"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/position_des"
+                android:textColor="@color/ourGreen"
+                android:layout_margin="8dp"/>
+
+            <TextView
+                android:id="@+id/descriptionOfStartPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:layout_margin="8dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/exercise_des"
+                android:textColor="@color/ourGreen"
+                android:layout_margin="8dp"
+                />
+
+            <TextView
+                android:id="@+id/descriptionOfCorrectExecution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:layout_margin="8dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/hints"
+                android:textColor="@color/ourGreen"
+                android:layout_margin="8dp"/>
+
+            <TextView
+                android:id="@+id/hintsForExercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:layout_margin="8dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -20,6 +20,9 @@
     <string name="remindPasswordText">Podaj email twojego konta. Zostanie na nie wysłane nowe hasło.</string>
     <string name="remindPasswordTitle">Przypomnij hasło </string>
     <string name="incorrectData">Błędne dane</string>
+    <string name="editionComplete">Edycja pomyślna !</string>
+    <string name="nameChanged">Nazwa zmieniona !</string>
+
 
     <string name="incorrectpassword">hasła różnią się </string>
     <string name="serwerError">Błąd serwera</string>
@@ -46,7 +49,14 @@
     <string name="titleEquipment">Wybierz swój sprzęt do wykonania treningu:</string>
     <string name="next">Przejdź Dalej</string>
 
+    <string name="exercise_pl">Ćwieczenie</string>
+    <string name="edit_pl">Edytuj</string>
+    <string name="info_pl">Informacje</string>
+    <string name="change_pl">Wymień</string>
     <string name="logout">Wyloguj</string>
+    <string name="hints">Wskazówki do wykonywanego ćwiczenia</string>
+    <string name="exercise_des">Opis wykonywanego ćwiczenia</string>
+    <string name="position_des">Opis pozycji wyjściowej do wykonaania ćwiczenia</string>
 
     <string name="start_training">Start</string>
     <string name="type_of_training">Rodzaj treningu:</string>

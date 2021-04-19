@@ -69,9 +69,24 @@ public class TrainingRepository
         return loadedTrainingWithForm.get(id);
     }
 
+    public Exercise getExercise(long id)
+    {
+        return base.exerciseDao().getExercise(id);
+    }
+
     public ArrayList<TrainingWithForm> getAllTrainingsForUser(String id)
     {
         ArrayList<TrainingWithForm> loadTraining = new ArrayList<>(base.trainingDao().getAllTrainingForUser(id));
+        for(TrainingWithForm training : loadTraining)
+        {
+            loadedTrainingWithForm.put((long) training.training.getId(), training);
+        }
+        return loadTraining;
+    }
+
+    public ArrayList<TrainingWithForm> getAllTrainings()
+    {
+        ArrayList<TrainingWithForm> loadTraining = new ArrayList<>(base.trainingDao().getAllTrainings());
         for(TrainingWithForm training : loadTraining)
         {
             loadedTrainingWithForm.put((long) training.training.getId(), training);

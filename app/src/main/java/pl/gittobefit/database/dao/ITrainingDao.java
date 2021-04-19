@@ -31,7 +31,7 @@ public interface ITrainingDao
 
     @Transaction
     @Query("SELECT * FROM SavedTraining ")
-    public List<SavedTraining> getAllTrainings();
+    public List<TrainingWithForm> getAllTrainings();
 
     @Transaction
     @Query("SELECT * FROM SavedTraining  WHERE idUser=:id ")
