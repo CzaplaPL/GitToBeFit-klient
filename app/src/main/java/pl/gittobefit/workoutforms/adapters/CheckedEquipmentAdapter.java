@@ -15,13 +15,13 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import pl.gittobefit.R;
-import pl.gittobefit.workoutforms.object.Equipment;
+import pl.gittobefit.workoutforms.object.EquipmentItem;
 
 public class CheckedEquipmentAdapter extends RecyclerView.Adapter<CheckedEquipmentAdapter.ViewHolder> {
 
-private final ArrayList<Equipment> localDataSet;
+private final ArrayList<EquipmentItem> localDataSet;
 
-    public CheckedEquipmentAdapter(ArrayList<Equipment> dataSet)
+    public CheckedEquipmentAdapter(ArrayList<EquipmentItem> dataSet)
     {
         localDataSet = dataSet;
     }

@@ -17,8 +17,8 @@ import pl.gittobefit.database.repository.TrainingRepository;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
 import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
-import pl.gittobefit.workoutforms.object.Equipment;
-import pl.gittobefit.workoutforms.object.EquipmentType;
+import pl.gittobefit.workoutforms.object.EquipmentItem;
+import pl.gittobefit.workoutforms.object.EquipmentTypeItem;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
@@ -38,11 +38,11 @@ public class WorkoutFormsServices
     public void getEquipmentType(EquipmentFragment fragment)
     {
         Log.w("Network", "WorkoutForms.getEquipmentType");
-        Call<ArrayList<EquipmentType>> call = workout.getEquipmentType();
-        call.enqueue(new Callback<ArrayList<EquipmentType>>()
+        Call<ArrayList<EquipmentTypeItem>> call = workout.getEquipmentType();
+        call.enqueue(new Callback<ArrayList<EquipmentTypeItem>>()
         {
             @Override
-            public void onResponse(Call<ArrayList<EquipmentType>> call, Response<ArrayList<EquipmentType>> response)
+            public void onResponse(Call<ArrayList<EquipmentTypeItem>> call, Response<ArrayList<EquipmentTypeItem>> response)
             {
                 if(response.isSuccessful())
                 {
@@ -77,7 +77,7 @@ public class WorkoutFormsServices
                 }
             }
             @Override
-            public void onFailure(Call<ArrayList<EquipmentType>> call, Throwable t)
+            public void onFailure(Call<ArrayList<EquipmentTypeItem>> call, Throwable t)
             {
                 Log.e("Network ", "WorkoutForms.getEquipmentType error = " + t.toString());
             }
@@ -88,12 +88,12 @@ public class WorkoutFormsServices
     public void getEquipment(int typeid, int position, WorkoutFormsRepository repository)
     {
         Log.w("Network", "WorkoutForms.getEquipment");
-        ArrayList<Equipment> data =new ArrayList<Equipment>();
-        Call<ArrayList<Equipment>> call = workout.getEquipment(typeid);
-        call.enqueue(new Callback<ArrayList<Equipment>>()
+        ArrayList<EquipmentItem> data =new ArrayList<EquipmentItem>();
+        Call<ArrayList<EquipmentItem>> call = workout.getEquipment(typeid);
+        call.enqueue(new Callback<ArrayList<EquipmentItem>>()
         {
             @Override
-            public void onResponse(Call<ArrayList<Equipment>> call, Response<ArrayList<Equipment>> response)
+            public void onResponse(Call<ArrayList<EquipmentItem>> call, Response<ArrayList<EquipmentItem>> response)
             {
                 if(response.isSuccessful())
                 {
@@ -105,7 +105,7 @@ public class WorkoutFormsServices
                 }
             }
             @Override
-            public void onFailure(Call<ArrayList<Equipment>> call, Throwable t)
+            public void onFailure(Call<ArrayList<EquipmentItem>> call, Throwable t)
             {
                 Log.e("Network ", "WorkoutForms.getEquipmentType error = " + t.toString());
             }
