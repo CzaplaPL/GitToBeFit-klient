@@ -59,12 +59,14 @@ public class EditTrainingNameDialog extends AppCompatDialogFragment
                     {
                         if(User.getInstance().getSynchroniseTraining().equals(User.SynchroniseTraining.Synchronise_Success))
                         {
-                            ConnectionToServer.getInstance().trainingServices.updateTrainingName(tokens[1], activity);
+                            ConnectionToServer.getInstance().trainingServices.updateTrainingName(tokens[1], activity, getContext());
                         }
                     }
                     model.getTrainingWithForms().get(Integer.parseInt(tokens[0])).training.setTrainingName(newTrainingName);
                     model.getCurrentName().setValue(newTrainingName);
-                    AppDataBase.getInstance(getContext()).trainingDao().updateTrainingNameInDataBase(newTrainingName, Integer.parseInt(tokens[1]));
+                    AppDataBase.getInstance(getContext())
+                            .trainingDao()
+                            .updateTrainingNameInDataBase(newTrainingName, Integer.parseInt(tokens[1]));
                 });
         newName = view.findViewById(R.id.newTrainingName);
         return builder.create();

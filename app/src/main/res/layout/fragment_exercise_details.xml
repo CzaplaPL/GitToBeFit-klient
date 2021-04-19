@@ -57,7 +57,7 @@
                 android:layout_margin="8dp"/>
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/descriptionOfStartPosition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:justificationMode="inter_word"
@@ -71,7 +71,7 @@
                 />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/descriptionOfCorrectExecution"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:justificationMode="inter_word"
@@ -84,7 +84,7 @@
                 android:layout_margin="8dp"/>
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/hintsForExercise"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:justificationMode="inter_word"

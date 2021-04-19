@@ -30,13 +30,15 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
     private int trainingID;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
 
-    public BottomMenuDialog(ArrayList<Exercise> exerciseArrayList,
-                            Fragment fragment,
-                            String scheduleType,
-                            int position,
-                            ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
-                            int trainingID,
-                            ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS)
+    public BottomMenuDialog(
+            ArrayList<Exercise> exerciseArrayList,
+            Fragment fragment,
+            String scheduleType,
+            int position,
+            ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
+            int trainingID,
+            ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS
+    )
     {
         this.exerciseArrayList = exerciseArrayList;
         this.fragment = fragment;
@@ -71,13 +73,15 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
         {
             @Override
             public void onClick(View v) {
-                EditExerciseDialog editExerciseDialog = new EditExerciseDialog(fragment.getView(),
-                    scheduleType,
-                    position ,
-                    exercisesExecutionArrayList,
-                    trainingID,
-                    exerciseArrayList.get(position).getName(),
-                    exerciseExecutionPOJODBS);
+                EditExerciseDialog editExerciseDialog = new EditExerciseDialog(
+                        fragment.getView(),
+                        scheduleType,
+                        position ,
+                        exercisesExecutionArrayList,
+                        trainingID,
+                        exerciseArrayList.get(position).getName(),
+                        exerciseExecutionPOJODBS
+                );
             editExerciseDialog.show(fragment.getParentFragmentManager(), "dialog");
                 dismiss();
             }

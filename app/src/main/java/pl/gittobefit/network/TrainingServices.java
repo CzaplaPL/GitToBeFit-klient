@@ -52,7 +52,7 @@ public class TrainingServices
         User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.Synchronise_Success);
     }
 
-    public void updateTrainingName(String id, IShowSnackbar activity)
+    public void updateTrainingName(String id, IShowSnackbar activity, Context context)
     {
         Call<Void> call = training.updateTrainingTitle(id, User.getInstance().getToken());
         call.enqueue(new Callback<Void>()
@@ -62,7 +62,7 @@ public class TrainingServices
                 int code = response.code();
                 if (response.isSuccessful())
                 {
-                    activity.showSnackbar("Nazwa zmieniona");
+                    activity.showSnackbar(context.getResources().getString(R.string.nameChanged));
                 }
                 else
                 {
@@ -75,9 +75,8 @@ public class TrainingServices
             public void onFailure(Call<Void> call, Throwable t)
             {
                 Log.e(" error ", "change training title : " + t.toString());
-                activity.showSnackbar("Błąd servera");
+                activity.showSnackbar(context.getResources().getString(R.string.serwerError));
             }
         });
-
     }
 }

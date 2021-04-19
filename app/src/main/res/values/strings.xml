@@ -20,6 +20,9 @@
     <string name="remindPasswordText">Podaj email twojego konta. Zostanie na nie wysłane nowe hasło.</string>
     <string name="remindPasswordTitle">Przypomnij hasło </string>
     <string name="incorrectData">Błędne dane</string>
+    <string name="editionComplete">Edycja pomyślna !</string>
+    <string name="nameChanged">Nazwa zmieniona !</string>
+
 
     <string name="incorrectpassword">hasła różnią się </string>
     <string name="serwerError">Błąd serwera</string>

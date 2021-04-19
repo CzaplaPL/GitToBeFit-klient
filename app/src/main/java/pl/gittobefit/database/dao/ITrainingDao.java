@@ -51,5 +51,4 @@ public interface ITrainingDao
     @Query("UPDATE SavedTraining SET trainingName = :newName WHERE id = :id")
     public void updateTrainingNameInDataBase(String newName, long id);
 
-
 }

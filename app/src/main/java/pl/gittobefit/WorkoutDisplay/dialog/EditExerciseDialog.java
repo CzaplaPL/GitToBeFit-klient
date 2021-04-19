@@ -36,13 +36,15 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
     private String exerciseName;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
 
-    public EditExerciseDialog(View view,
-                              String scheduleType,
-                              int position,
-                              ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
-                              int trainingID,
-                              String exerciseName,
-                              ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS)
+    public EditExerciseDialog(
+            View view,
+            String scheduleType,
+            int position,
+            ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
+            int trainingID,
+            String exerciseName,
+            ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS
+    )
     {
         this.myView = view;
         this.scheduleType = scheduleType;
@@ -102,14 +104,13 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
                 .setTitle(exerciseName)
                 .setNegativeButton(getString(R.string.cancel), (dialog, which) ->
                 {
-
                 })
                 .setPositiveButton(getString(R.string.admit_changes), (dialog, which) ->
                 {
                     if (scheduleType.equals("CIRCUIT"))
                     {
-                        for (ExerciseExecutionPOJODB item: exercisesExecutionArrayList
-                        ) {
+                        for (ExerciseExecutionPOJODB item: exercisesExecutionArrayList)
+                        {
                             item.setSeries(seriesNumberPicker.getValue());
                             model.getCurrentSeries().setValue(seriesNumberPicker.getValue());
                         }
@@ -132,7 +133,7 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
 
                     AppDataBase.getInstance(getContext()).trainingDao().updateTrainingPlan(exerciseExecutionPOJODBS, trainingID);
                     IShowSnackbar activity = (IShowSnackbar) getActivity();
-                    activity.showSnackbar("Edycja pomyślna !");
+                    activity.showSnackbar(getResources().getString(R.string.editionComplete));
                 });
         return builder.create();
     }

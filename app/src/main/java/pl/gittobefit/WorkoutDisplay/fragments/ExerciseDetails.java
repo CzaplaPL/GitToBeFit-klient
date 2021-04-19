@@ -3,7 +3,6 @@ package pl.gittobefit.WorkoutDisplay.fragments;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,9 +51,9 @@ public class ExerciseDetails extends Fragment
             activity.getSupportActionBar().setTitle(exercise.getName());
         }
 
-        TextView descriptionOfStartPosition = getView().findViewById(R.id.textView4);
-        TextView descriptionOfCorrectExecution = getView().findViewById(R.id.textView5);
-        TextView hints = getView().findViewById(R.id.textView6);
+        TextView descriptionOfStartPosition = getView().findViewById(R.id.descriptionOfStartPosition);
+        TextView descriptionOfCorrectExecution = getView().findViewById(R.id.descriptionOfCorrectExecution);
+        TextView hints = getView().findViewById(R.id.hintsForExercise);
         LinearLayout onLoading = getView().findViewById(R.id.movieLoading);
 
         descriptionOfStartPosition.setText(exercise.getDescriptionOfStartPosition());
