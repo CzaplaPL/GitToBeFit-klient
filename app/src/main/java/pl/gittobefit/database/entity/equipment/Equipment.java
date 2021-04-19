@@ -4,20 +4,20 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class EquipmentType
+public class Equipment
 {
     @PrimaryKey()
     private int id;
     private String name;
-    private String path;
-    private boolean offline;
+    private String url;
+    private int type;
 
-    public EquipmentType(int id, String name, String path)
+    public Equipment(int id, String name, String url, int type)
     {
         this.id = id;
         this.name = name;
-        this.path = path;
-        this.offline = true;
+        this.url = url;
+        this.type = type;
     }
 
     public int getId()
@@ -40,23 +40,23 @@ public class EquipmentType
         this.name = name;
     }
 
-    public String getPath()
+    public String getUrl()
     {
-        return path;
+        return url;
     }
 
-    public void setPath(String path)
+    public void setUrl(String url)
     {
-        this.path = path;
+        this.url = url;
     }
 
-    public boolean isOffline()
+    public int getType()
     {
-        return offline;
+        return type;
     }
 
-    public void setOffline(boolean offline)
+    public void setType(int type)
     {
-        this.offline = offline;
+        this.type = type;
     }
 }

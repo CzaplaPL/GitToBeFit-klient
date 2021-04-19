@@ -20,8 +20,10 @@ import pl.gittobefit.user.User;
 public class TrainingRepository
 {
     private final AppDataBase base;
-    private Map<Long, TrainingWithForm> loadedTrainingWithForm = new HashMap<Long, TrainingWithForm>();;
-    private Map<Integer, Exercise> loadedExercises = new HashMap<Integer, Exercise>();;
+    private Map<Long, TrainingWithForm> loadedTrainingWithForm = new HashMap<Long, TrainingWithForm>();
+    ;
+    private Map<Integer, Exercise> loadedExercises = new HashMap<Integer, Exercise>();
+    ;
     private static volatile TrainingRepository INSTANCE;
 
     private TrainingRepository(Context context)
@@ -85,7 +87,7 @@ public class TrainingRepository
         ArrayList<TrainingWithForm> trainingsInDB = getAllTrainingsForUser("");
         for(TrainingWithForm trainingDB : trainingsInDB)
         {
-            trainingsToSend.add(new Training(trainingDB,this));
+            trainingsToSend.add(new Training(trainingDB, this));
         }
         return trainingsToSend;
     }
@@ -120,16 +122,13 @@ public class TrainingRepository
             }
         }
     }
+
     public void deleteAllTrainingsForUser(String id)
     {
-       base.runInTransaction(new Runnable()
-       {
-           @Override
-           public void run()
-           {
-                base.workoutFormDao().deleteFormForUser(id);
-                base.trainingDao().deleteTrainingForUser(id);
-           }
-       });
+        base.runInTransaction(() ->
+        {
+            base.workoutFormDao().deleteFormForUser(id);
+            base.trainingDao().deleteTrainingForUser(id);
+        });
     }
 }

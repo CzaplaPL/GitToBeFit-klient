@@ -16,7 +16,6 @@ public class Training
     private String title;
     private int id;
 
-
     public Training(WorkoutForm form, ArrayList<TrainingPlan> trainingPlansServer, String trainingName)
     {
         this.trainingForm = form;
@@ -29,9 +28,7 @@ public class Training
         this.trainingForm = trainingDB.form;
         this.title = trainingDB.training.getTrainingName();
         this.planList = generatePlanList(trainingDB.training.getPlanList(),trainingRepository);
-
     }
-
 
 
     public WorkoutForm getTrainingForm()
@@ -86,10 +83,11 @@ public class Training
     private ArrayList<TrainingPlan> generatePlanList(ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList,TrainingRepository trainingRepository)
     {
         ArrayList<TrainingPlan> trainingPlansServer = new ArrayList<>();
-        for(int i = 0; i < planList.size(); ++i)
+
+        for(ArrayList<ExerciseExecutionPOJODB> exerciseExecution : planList)
         {
-            ArrayList<Exercise> exercisesDB = trainingRepository.getExerciseForPlanList(planList.get(i));
-            trainingPlansServer.add(new TrainingPlan(planList.get(i),exercisesDB));
+            ArrayList<Exercise> exercisesDB = trainingRepository.getExerciseForPlanList(exerciseExecution);
+            trainingPlansServer.add(new TrainingPlan(exerciseExecution,exercisesDB));
         }
         return trainingPlansServer;
     }

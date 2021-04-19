@@ -51,8 +51,6 @@ public interface ITrainingDao
     @Query("UPDATE SavedTraining SET trainingName = :newName WHERE id = :id")
     public void updateTrainingNameInDataBase(String newName, long id);
 
-
-
     @Transaction
     @Query("DELETE FROM SavedTraining  WHERE idUser=:userId ")
     public void deleteTrainingForUser(String userId);

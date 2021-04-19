@@ -12,7 +12,9 @@ public class TrainingPlan
     private int trainingId;
     private ArrayList<ExerciseExecution> exercisesExecutions = new ArrayList<>();
 
-    public TrainingPlan() { }
+    public TrainingPlan()
+    {
+    }
 
     public TrainingPlan(ArrayList<ExerciseExecution> exerciseExecutions, int idPlanList, int idTraining)
     {
@@ -24,18 +26,18 @@ public class TrainingPlan
 
     public TrainingPlan(ArrayList<ExerciseExecutionPOJODB> exerciseExecutionPOJODBS, ArrayList<Exercise> exercisesDB)
     {
-        if(exerciseExecutionPOJODBS.size()!=0)
+        if(exerciseExecutionPOJODBS.size() != 0)
         {
             final ExerciseExecutionPOJODB exerciseExecutionPOJODB = exerciseExecutionPOJODBS.get(0);
-            int id=exerciseExecutionPOJODB.getIdServerPlanList();
-            int trainingId=exerciseExecutionPOJODB.getIdServerTraining();
-            for(ExerciseExecutionPOJODB  exercisePOJODB : exerciseExecutionPOJODBS)
+            int id = exerciseExecutionPOJODB.getIdServerPlanList();
+            int trainingId = exerciseExecutionPOJODB.getIdServerTraining();
+            for(ExerciseExecutionPOJODB exercisePOJODB : exerciseExecutionPOJODBS)
             {
                 for(Exercise exercise : exercisesDB)
                 {
-                    if(exercise.getId()==exercisePOJODB.getExerciseId())
+                    if(exercise.getId() == exercisePOJODB.getExerciseId())
                     {
-                        exercisesExecutions.add(  new ExerciseExecution(exercisePOJODB, exercise));
+                        exercisesExecutions.add(new ExerciseExecution(exercisePOJODB, exercise));
                         exercisesDB.remove(exercise);
                         break;
                     }
@@ -64,7 +66,8 @@ public class TrainingPlan
         return exercisesExecutions.get(i);
     }
 
-    public void setExercisesExecutions(ArrayList<ExerciseExecution> exercisesExecutions) {
+    public void setExercisesExecutions(ArrayList<ExerciseExecution> exercisesExecutions)
+    {
         this.exercisesExecutions = exercisesExecutions;
     }
 }
