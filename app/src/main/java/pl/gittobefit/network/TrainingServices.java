@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.database.repository.TrainingRepository;
+import pl.gittobefit.network.interfaces.ITrainingServices;
 import pl.gittobefit.user.User;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -15,9 +16,9 @@ import retrofit2.Retrofit;
 
 public class TrainingServices
 {
-    private final pl.gittobefit.network.interfaces.TrainingServices training;
+    private final ITrainingServices training;
 
-    public TrainingServices(Retrofit adapter) { this.training = adapter.create(pl.gittobefit.network.interfaces.TrainingServices.class); }
+    public TrainingServices(Retrofit adapter) { this.training = adapter.create(ITrainingServices.class); }
 
     public void synchronisedTraining(Context context) throws Exception
     {
