@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -140,7 +139,7 @@ public class DetailFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                model.setScheduleSpinnerChose(position);
+                model.setScheduleSpinnerChosen(position);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }

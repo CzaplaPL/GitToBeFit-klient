@@ -78,7 +78,6 @@ public class WorkoutFormsRepository
         }
     }
 
-
     public void setEqiupmentTypes(ArrayList<EquipmentTypeItem> equipmentTypes)
     {
         this.equipmentTypes= equipmentTypes;

@@ -12,8 +12,8 @@ import retrofit2.http.POST;
 public interface ITrainingServices
 {
     @POST("/training-plan/save")
-    Call<Void> sendTrainings( @Header("Authorization") String auth ,@Body ArrayList<Training> trainings);
+    Call<Void> sendTrainings(@Header("Authorization") String auth, @Body ArrayList<Training> trainings);
 
     @GET("/training-plan")
-    Call<ArrayList<Training>> getTrainings( @Header("Authorization") String auth );
+    Call<ArrayList<Training>> getTrainings(@Header("Authorization") String auth);
 }

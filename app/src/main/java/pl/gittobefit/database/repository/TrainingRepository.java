@@ -21,9 +21,7 @@ public class TrainingRepository
 {
     private final AppDataBase base;
     private Map<Long, TrainingWithForm> loadedTrainingWithForm = new HashMap<Long, TrainingWithForm>();
-    ;
     private Map<Integer, Exercise> loadedExercises = new HashMap<Integer, Exercise>();
-    ;
     private static volatile TrainingRepository INSTANCE;
 
     private TrainingRepository(Context context)

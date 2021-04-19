@@ -29,8 +29,6 @@ import pl.gittobefit.database.entity.training.WorkoutForm;
 public abstract class AppDataBase extends RoomDatabase
 {
     private static volatile AppDataBase INSTANCE;
-    private static Callback rdc;
-
     public abstract IUserDao userDao();
     public abstract EquipmentDao equipmentDao();
     public abstract ITrainingDao trainingDao();
@@ -48,12 +46,9 @@ public abstract class AppDataBase extends RoomDatabase
                             .build();
                     INSTANCE.equipmentDao().insertEquipmentTypes(EquipmentData.equipmentTypes());
                     INSTANCE.equipmentDao().insertEquipments(EquipmentData.equipments());
-
                 }
             }
         }
         return INSTANCE;
     }
-
-
 }

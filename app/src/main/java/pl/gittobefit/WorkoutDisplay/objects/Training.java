@@ -27,9 +27,8 @@ public class Training
     {
         this.trainingForm = trainingDB.form;
         this.title = trainingDB.training.getTrainingName();
-        this.planList = generatePlanList(trainingDB.training.getPlanList(),trainingRepository);
+        this.planList = generatePlanList(trainingDB.training.getPlanList(), trainingRepository);
     }
-
 
     public WorkoutForm getTrainingForm()
     {
@@ -56,38 +55,44 @@ public class Training
         this.generationDate = generationDate;
     }
 
-    public String getTrainingName() {
+    public String getTrainingName()
+    {
         return title;
     }
 
-    public void setTrainingName(String trainingName) {
+    public void setTrainingName(String trainingName)
+    {
         this.title = trainingName;
     }
 
-    public void setTrainingForm(WorkoutForm trainingForm) {
+    public void setTrainingForm(WorkoutForm trainingForm)
+    {
         this.trainingForm = trainingForm;
     }
 
-    public void setPlanList(ArrayList<TrainingPlan> planList) {
+    public void setPlanList(ArrayList<TrainingPlan> planList)
+    {
         this.planList = planList;
     }
 
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
-    private ArrayList<TrainingPlan> generatePlanList(ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList,TrainingRepository trainingRepository)
+    private ArrayList<TrainingPlan> generatePlanList(ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList, TrainingRepository trainingRepository)
     {
         ArrayList<TrainingPlan> trainingPlansServer = new ArrayList<>();
 
         for(ArrayList<ExerciseExecutionPOJODB> exerciseExecution : planList)
         {
             ArrayList<Exercise> exercisesDB = trainingRepository.getExerciseForPlanList(exerciseExecution);
-            trainingPlansServer.add(new TrainingPlan(exerciseExecution,exercisesDB));
+            trainingPlansServer.add(new TrainingPlan(exerciseExecution, exercisesDB));
         }
         return trainingPlansServer;
     }

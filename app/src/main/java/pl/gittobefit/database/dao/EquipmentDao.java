@@ -21,5 +21,4 @@ public interface EquipmentDao
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertEquipments(ArrayList<Equipment> equipments);
-
 }

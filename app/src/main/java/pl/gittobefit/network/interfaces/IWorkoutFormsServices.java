@@ -18,7 +18,8 @@ public interface IWorkoutFormsServices
     Call<ArrayList<EquipmentTypeItem>> getEquipmentType();
 
     @GET("/equipment")
-    Call<ArrayList<EquipmentItem>> getEquipment(@Query("typeId")int id);
+    Call<ArrayList<EquipmentItem>> getEquipment(@Query("typeId") int id);
+
     @GET("/equipment/no-equipment")
     Call<Void> getNoEquipment();
 

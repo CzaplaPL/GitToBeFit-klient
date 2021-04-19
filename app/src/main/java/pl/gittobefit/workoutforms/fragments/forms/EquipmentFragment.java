@@ -20,16 +20,19 @@ import pl.gittobefit.workoutforms.object.EquipmentTypeItem;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
 /**
- fragment wyposażenia
+ * fragment wyposażenia
  */
 public class EquipmentFragment extends Fragment implements EquipmentAdapter.EquipmentListener
 {
     private FragmentEquipmentBinding binding;
     private GenerateTraningViewModel model;
+
     public EquipmentFragment() { }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) { super.onCreate ( savedInstanceState );
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -39,10 +42,11 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
         binding = FragmentEquipmentBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
+        model = new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
         model.loadEqiupmentTypes(this);
         model.getEquiomentIsChecked().observe(getViewLifecycleOwner(), new Observer<Boolean>()
         {
@@ -57,9 +61,9 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
                 binding.noEquipmentChecbox.setEnabled(aBoolean);
             }
         });
-        binding.bezSprzetu.setOnClickListener(v ->
+        binding.noEquipment.setOnClickListener(v ->
         {
-            if(!binding.noEquipmentChecbox.isChecked()&& binding.noEquipmentChecbox.isEnabled())
+            if(!binding.noEquipmentChecbox.isChecked() && binding.noEquipmentChecbox.isEnabled())
             {
                 binding.noEquipmentChecbox.setChecked(true);
                 model.setNoEquipmentcheched(true);
@@ -67,7 +71,6 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
             {
                 binding.noEquipmentChecbox.setChecked(false);
                 model.setNoEquipmentcheched(false);
-
             }
         });
         binding.noEquipmentChecbox.setOnClickListener(v -> model.setNoEquipmentcheched(binding.noEquipmentChecbox.isChecked()));
@@ -75,27 +78,28 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
 
     public void createList(ArrayList<EquipmentTypeItem> equipmentType, int noEquipmentId)
     {
-        model.initList(equipmentType,this);
+        model.initList(equipmentType, this);
         model.setNoEquipmentid(noEquipmentId);
         model.setNoEquipmentcheched(true);
         binding.titleEquipment.setVisibility(View.VISIBLE);
-        binding.bezSprzetu.setVisibility(View.VISIBLE);
+        binding.noEquipment.setVisibility(View.VISIBLE);
         binding.rvContacts.setAdapter(model.getListAdapter());
         binding.rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.equipmentLoading.setVisibility(View.GONE);
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroyView()
+    {
         super.onDestroyView();
         binding = null;
     }
+
     @Override
     public void onItemClick(int position)
     {
         model.equipmentListClick(position);
     }
-
 
 
 }
