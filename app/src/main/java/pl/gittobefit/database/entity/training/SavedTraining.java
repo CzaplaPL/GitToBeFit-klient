@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 import pl.gittobefit.WorkoutDisplay.objects.TrainingPlan;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 import pl.gittobefit.user.User;
@@ -22,6 +23,7 @@ public class SavedTraining
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList;
     private String generationDate;
     private String trainingName;
+    private int trainingDay;
 
     public SavedTraining(long idForm, ArrayList<TrainingPlan> planList,String name)
     {
@@ -40,21 +42,22 @@ public class SavedTraining
         this.trainingName = name;
 
         this.idForm = idForm;
-        for(int i = 0; i < planList.size(); i++)
+        for(TrainingPlan readPlan : planList)
         {
-            TrainingPlan readPlan = planList.get(i);
             ArrayList<ExerciseExecutionPOJODB> savePlan = new ArrayList<>();
-            for(int j = 0; j < readPlan.getExercisesExecutions().size(); j++)
+            for(ExerciseExecution exercisesExecution : readPlan.getExercisesExecutions())
             {
-                savePlan.add(new ExerciseExecutionPOJODB(readPlan.getExerciseExecution(j), readPlan.getId(), readPlan.getTrainingId()));
+                savePlan.add(new ExerciseExecutionPOJODB(exercisesExecution, readPlan.getId(), readPlan.getTrainingId()));
             }
             this.planList.add(savePlan);
         }
 
+        this.trainingDay = 0;
     }
 
     public SavedTraining()
     {
+        this.trainingDay = 0;
     }
 
 
@@ -116,5 +119,20 @@ public class SavedTraining
     public void setTrainingName(String trainingName)
     {
         this.trainingName = trainingName;
+    }
+
+    public int getTrainingDay()
+    {
+        return trainingDay;
+    }
+
+    public void setTrainingDay(int trainingDay)
+    {
+        this.trainingDay = trainingDay;
+    }
+
+    public boolean isNextDay()
+    {
+        return planList.size() > trainingDay + 1;
     }
 }

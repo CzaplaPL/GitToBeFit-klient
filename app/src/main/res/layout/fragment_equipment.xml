@@ -70,7 +70,8 @@
                 android:id="@+id/progressBar2"
                 style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="150dp"
+                android:indeterminateBehavior="repeat" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -108,7 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="26dp"
                 android:text="@string/noeqiupment"
                 android:textColor="?attr/colorPrimaryVariant"
                 android:textSize="13sp"

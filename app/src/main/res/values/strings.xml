@@ -190,9 +190,10 @@
     <string name="chosenSchedule">"Wybrany sposób generowania : "</string>
     <string name="eqiupment">Sprzęt</string>
     <string name="details">Szczególy</string>
-    <string name="sumary">Podsumowanie</string>
+    <string name="sumary">Podgląd</string>
     <string name="generate">Generuj</string>
     <string name="onlynext">Dalej</string>
+    <string name="detailsInfoTitle">Wskazówka</string>
 
     <string name="aboutUsInfo">Numer zespołu: 8\n
         Opiekun zespołu: Daniel Borucki\n
@@ -268,4 +269,20 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="chosen_eqiupment">Wybrany sprzęt</string>
     <string name="generateTraining">Trwa generowanie treningu.</string>
     <string name="generateTrainingSukccess">Wygenerowano trening poprawnie.</string>
+    <string name="prowadzenie_treningu" />
+    <string name="exercise">"Ćwiczenie "</string>
+    <string name="scheduleTypeCircuit">Numer Obwodu:</string>
+    <string name="scheduleTypeSeries">Numer Serii:</string>
+    <string name="timeTitle">Czas Wykonywania Ćwiczenia:</string>
+    <string name="seriesTitle">Ilość Serii:</string>
+    <string name="repeatsTitle">Ilość Powtórzeń:</string>
+    <string name="detailsInfo">Siema siema</string>
+    <string name="miss">Pomiń</string>
+    <string name="preview_info">PRZYGOTUJ SIĘ</string>
+    <string name="text_info_next">KLIKNIJ W POWYŻSZY PRZYCISK ABY PRZEJSC DALEJ</string>
+    <string name="textinfobreak">CZAS NA PRZERWE!</string>
+    <string name="next_exercise">Następne Ćwiczenie</string>
+    <string name="textForTimerExercise">TRENUJ PRZEZ</string>
+    <string name="start">START</string>
+    <string name="seconds">sekund</string>
 </resources>
