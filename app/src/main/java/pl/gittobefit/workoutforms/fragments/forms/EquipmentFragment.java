@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -15,20 +16,23 @@ import java.util.ArrayList;
 
 import pl.gittobefit.databinding.FragmentEquipmentBinding;
 import pl.gittobefit.workoutforms.adapters.EquipmentAdapter;
-import pl.gittobefit.workoutforms.object.EquipmentType;
+import pl.gittobefit.workoutforms.object.EquipmentTypeItem;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
 /**
- fragment wyposażenia
+ * fragment wyposażenia
  */
 public class EquipmentFragment extends Fragment implements EquipmentAdapter.EquipmentListener
 {
     private FragmentEquipmentBinding binding;
     private GenerateTraningViewModel model;
+
     public EquipmentFragment() { }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) { super.onCreate ( savedInstanceState );
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -38,49 +42,64 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
         binding = FragmentEquipmentBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
+        model = new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
         model.loadEqiupmentTypes(this);
-        binding.bezSprzetu.setOnClickListener(v ->
+        model.getEquiomentIsChecked().observe(getViewLifecycleOwner(), new Observer<Boolean>()
         {
-            if(binding.noEquipmentChecbox.isChecked())
+            @Override
+            public void onChanged(Boolean aBoolean)
             {
-                binding.noEquipmentChecbox.setChecked(false);
-                model.setNoEquipmentcheched(false);
-            }else
+                if(!aBoolean)
+                {
+                    model.setNoEquipmentcheched(true);
+                    binding.noEquipmentChecbox.setChecked(true);
+                }
+                binding.noEquipmentChecbox.setEnabled(aBoolean);
+            }
+        });
+        binding.noEquipment.setOnClickListener(v ->
+        {
+            if(!binding.noEquipmentChecbox.isChecked() && binding.noEquipmentChecbox.isEnabled())
             {
                 binding.noEquipmentChecbox.setChecked(true);
                 model.setNoEquipmentcheched(true);
+            }else
+            {
+                binding.noEquipmentChecbox.setChecked(false);
+                model.setNoEquipmentcheched(false);
             }
         });
         binding.noEquipmentChecbox.setOnClickListener(v -> model.setNoEquipmentcheched(binding.noEquipmentChecbox.isChecked()));
     }
 
-    public void createList(ArrayList<EquipmentType> equipmentType, int noEquipmentId)
+    public void createList(ArrayList<EquipmentTypeItem> equipmentType, int noEquipmentId)
     {
-        model.initList(equipmentType,this);
+        model.initList(equipmentType, this);
         model.setNoEquipmentid(noEquipmentId);
         model.setNoEquipmentcheched(true);
         binding.titleEquipment.setVisibility(View.VISIBLE);
-        binding.bezSprzetu.setVisibility(View.VISIBLE);
+        binding.noEquipment.setVisibility(View.VISIBLE);
         binding.rvContacts.setAdapter(model.getListAdapter());
         binding.rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.equipmentLoading.setVisibility(View.GONE);
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroyView()
+    {
         super.onDestroyView();
         binding = null;
     }
+
     @Override
     public void onItemClick(int position)
     {
         model.equipmentListClick(position);
     }
-
 
 
 }

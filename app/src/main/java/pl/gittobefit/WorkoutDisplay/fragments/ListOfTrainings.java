@@ -18,6 +18,7 @@ import pl.gittobefit.WorkoutDisplay.adapters.TrainingListAdapter;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.repository.TrainingRepository;
+import pl.gittobefit.user.User;
 
 public class ListOfTrainings extends Fragment
 {

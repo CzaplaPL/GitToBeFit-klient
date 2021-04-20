@@ -56,4 +56,8 @@ public interface ITrainingDao
     @Transaction
     @Query("UPDATE SavedTraining SET trainingDay = :day WHERE id = :id")
     void setTrainingDay(int day, int id);
+
+    @Transaction
+    @Query("DELETE FROM SavedTraining  WHERE idUser=:userId ")
+    public void deleteTrainingForUser(String userId);
 }

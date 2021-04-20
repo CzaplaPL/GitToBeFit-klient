@@ -21,9 +21,7 @@ public class TrainingRepository
 {
     private final AppDataBase base;
     private Map<Long, TrainingWithForm> loadedTrainingWithForm = new HashMap<Long, TrainingWithForm>();
-    ;
     private Map<Integer, Exercise> loadedExercises = new HashMap<Integer, Exercise>();
-    ;
     private static volatile TrainingRepository INSTANCE;
 
     private TrainingRepository(Context context)
@@ -50,7 +48,13 @@ public class TrainingRepository
     {
         long idForm = base.workoutFormDao().addForm(training.getTrainingForm());
         saveExercise(training.getPlanList());
-        long idTraining = base.trainingDao().addTraining(new SavedTraining(idForm, training.getPlanList()));
+        long idTraining = base.trainingDao().addTraining(
+                new SavedTraining(
+                        idForm,
+                        training.getPlanList(),
+                        training.getTrainingName()
+                )
+        );
         TrainingWithForm savedTraining = base.trainingDao().getTraining(idTraining);
         loadedTrainingWithForm.put((long) savedTraining.training.getId(), savedTraining);
         return savedTraining;
@@ -93,59 +97,10 @@ public class TrainingRepository
     public ArrayList<Training> getTrainingsToSend()
     {
         ArrayList<Training> trainingsToSend = new ArrayList<>();
-        ArrayList<TrainingWithForm> trainingsDB = getAllTrainingsForUser(User.getInstance().getIdServer());
-        for(TrainingWithForm trainingDB : trainingsDB)
+        ArrayList<TrainingWithForm> trainingsInDB = getAllTrainingsForUser("");
+        for(TrainingWithForm trainingDB : trainingsInDB)
         {
-            ArrayList<ArrayList<ExerciseExecutionPOJODB>> planListDB = trainingDB.training.getPlanList();
-            ArrayList<TrainingPlan> trainingPlansServer = new ArrayList<>();
-            for(int i = 0; i < planListDB.size(); i++)
-            {
-                ArrayList<ExerciseExecution> exerciseExecutionsServer = new ArrayList<>();
-                ArrayList<Exercise> exercisesDB = getExercisesForPlanList(planListDB.get(i));
-                for(ExerciseExecutionPOJODB exercise : planListDB.get(i))
-                {
-                    for(int j = 0; j < exercisesDB.size(); j++)
-                    {
-                        if(exercise.getExerciseId() == exercisesDB.get(j).getId())
-                        {
-                            exerciseExecutionsServer.add(new ExerciseExecution(exercise, exercisesDB.get(j)));
-                            exercisesDB.remove(j);
-                            break;
-                        }
-                    }
-                }
-                trainingPlansServer.add(new TrainingPlan(
-                        exerciseExecutionsServer,
-                        planListDB.get(i).get(0).getIdServerPlanList(),
-                        planListDB.get(i).get(0).getIdServerTraining()));
-            }
-            trainingsToSend.add(new Training(trainingDB.form, trainingPlansServer));
-        }
-        trainingsDB = getAllTrainingsForUser("");
-        for(TrainingWithForm trainingDB : trainingsDB)
-        {
-            ArrayList<ArrayList<ExerciseExecutionPOJODB>> planListDB = trainingDB.training.getPlanList();
-            ArrayList<TrainingPlan> trainingPlansServer = new ArrayList<>();
-            for(int i = 0; i < planListDB.size(); i++)
-            {
-                ArrayList<ExerciseExecution> exerciseExecutionsServer = new ArrayList<>();
-                ArrayList<Exercise> exercisesDB = getExercisesForPlanList(planListDB.get(i));
-                for(ExerciseExecutionPOJODB exercise : planListDB.get(i))
-                {
-                    for(int j = 0; j < exercisesDB.size(); j++)
-                    {
-                        if(exercise.getExerciseId() == exercisesDB.get(j).getId())
-                        {
-                            exerciseExecutionsServer.add(new ExerciseExecution(exercise, exercisesDB.get(j)));
-                            exercisesDB.remove(j);
-                            break;
-                        }
-                    }
-
-                }
-                trainingPlansServer.add(new TrainingPlan(exerciseExecutionsServer, planListDB.get(i).get(0).getIdServerPlanList(), planListDB.get(i).get(0).getIdServerTraining()));
-            }
-            trainingsToSend.add(new Training(trainingDB.form, trainingPlansServer));
+            trainingsToSend.add(new Training(trainingDB, this));
         }
         return trainingsToSend;
     }
@@ -184,5 +139,14 @@ public class TrainingRepository
     public void setNextDay(int day, int id)
     {
         base.trainingDao().setTrainingDay(day, id);
+    }
+
+    public void deleteAllTrainingsForUser(String id)
+    {
+        base.runInTransaction(() ->
+        {
+            base.workoutFormDao().deleteFormForUser(id);
+            base.trainingDao().deleteTrainingForUser(id);
+        });
     }
 }

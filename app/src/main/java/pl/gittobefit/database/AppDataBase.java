@@ -8,11 +8,15 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import pl.gittobefit.database.conventer.TrainingConverter;
+import pl.gittobefit.database.dao.EquipmentDao;
 import pl.gittobefit.database.dao.IExerciseDao;
 import pl.gittobefit.database.dao.IFormDao;
 import pl.gittobefit.database.dao.ITrainingDao;
 import pl.gittobefit.database.dao.IUserDao;
+import pl.gittobefit.database.data.EquipmentData;
 import pl.gittobefit.database.entity.UserEntity;
+import pl.gittobefit.database.entity.equipment.Equipment;
+import pl.gittobefit.database.entity.equipment.EquipmentType;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.entity.training.SavedTraining;
 import pl.gittobefit.database.entity.training.WorkoutForm;
@@ -20,12 +24,13 @@ import pl.gittobefit.database.entity.training.WorkoutForm;
 /**
  * klasa bazy danych
  */
-@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SavedTraining.class}, version = 2, exportSchema = false)
+@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SavedTraining.class, EquipmentType.class, Equipment.class}, version =12, exportSchema = false)
 @TypeConverters({TrainingConverter.class})
 public abstract class AppDataBase extends RoomDatabase
 {
     private static volatile AppDataBase INSTANCE;
     public abstract IUserDao userDao();
+    public abstract EquipmentDao equipmentDao();
     public abstract ITrainingDao trainingDao();
     public abstract IExerciseDao exerciseDao();
     public abstract IFormDao workoutFormDao();
@@ -39,6 +44,8 @@ public abstract class AppDataBase extends RoomDatabase
                             .allowMainThreadQueries()
                             .fallbackToDestructiveMigration()
                             .build();
+                    INSTANCE.equipmentDao().insertEquipmentTypes(EquipmentData.equipmentTypes());
+                    INSTANCE.equipmentDao().insertEquipments(EquipmentData.equipments());
                 }
             }
         }

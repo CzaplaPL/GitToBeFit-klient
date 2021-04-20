@@ -21,15 +21,20 @@ public class TrainingServices
 {
     private final ITrainingServices training;
 
-    public TrainingServices(Retrofit adapter) { this.training = adapter.create(ITrainingServices.class); }
+    public TrainingServices(Retrofit adapter)
+    {
+        this.training = adapter.create(ITrainingServices.class);
+    }
 
     public void synchronisedTraining(Context context) throws Exception
     {
         Log.w("Network", "Trainings.synchronisedTraining");
         TrainingRepository repository = TrainingRepository.getInstance(context);
-        Call<ArrayList<Training>> downloadCall = training.getTrainings(User.getInstance().getToken(), User.getInstance().getIdServer());
+        User user = User.getInstance();
+        repository.deleteAllTrainingsForUser(user.getIdServer());
+        Call<ArrayList<Training>> downloadCall = training.getTrainings(user.getToken());
         Response<ArrayList<Training>> downloadResponse = downloadCall.execute();
-        if(!downloadResponse.isSuccessful())
+        if(downloadResponse.code() != 200)
         {
             Log.e("Network", "Trainings.SendTraining " + String.valueOf(downloadResponse.code()));
             LogUtils.logCause(downloadResponse.headers().get("Cause"));
@@ -39,9 +44,9 @@ public class TrainingServices
         {
             repository.add(training);
         }
-        Call<Void> sendCall = training.sendTrainings(User.getInstance().getToken(), User.getInstance().getIdServer(), repository.getTrainingsToSend());
+        Call<Void> sendCall = training.sendTrainings(user.getToken(), repository.getTrainingsToSend());
         Response<Void> sendResponse = sendCall.execute();
-        if(!sendResponse.isSuccessful())
+        if(sendResponse.code() != 200)
         {
             Log.e("Network", "Trainings.SendTraining " + String.valueOf(sendResponse.code()));
             LogUtils.logCause(sendResponse.headers().get("Cause"));

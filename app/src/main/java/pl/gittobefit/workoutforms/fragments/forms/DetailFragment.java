@@ -143,7 +143,7 @@ public class DetailFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                model.setScheduleSpinnerChose(position);
+                model.setScheduleSpinnerChosen(position);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) { }

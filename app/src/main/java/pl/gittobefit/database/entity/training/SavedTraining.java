@@ -25,10 +25,10 @@ public class SavedTraining
     private String trainingName;
     private int trainingDay;
 
-    public SavedTraining(long idForm, ArrayList<TrainingPlan> planList)
+    public SavedTraining(long idForm, ArrayList<TrainingPlan> planList,String name)
     {
         this.planList = new ArrayList<>();
-        if(User.getInstance().getLoggedBy() != User.WayOfLogin.NO_LOGIN)
+        if(User.getInstance().getLoggedBy() == User.WayOfLogin.NO_LOGIN)
         {
             this.idUser = "";
         }else
@@ -39,7 +39,7 @@ public class SavedTraining
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         this.generationDate = formatter.format(date);
-        this.trainingName = "Default training name";
+        this.trainingName = name;
 
         this.idForm = idForm;
         for(TrainingPlan readPlan : planList)

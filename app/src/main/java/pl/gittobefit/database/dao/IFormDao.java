@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import java.util.List;
 
@@ -22,5 +23,9 @@ public interface IFormDao
 
     @Query("DELETE FROM WorkoutForm  WHERE FormId = :id")
     public void deleteFormInDataBase(long id);
+
+    @Transaction
+    @Query("DELETE FROM WorkoutForm  WHERE FormId IN (SELECT idForm FROM SavedTraining  WHERE idUser=:userId)")
+    public void deleteFormForUser(String userId);
 
 }

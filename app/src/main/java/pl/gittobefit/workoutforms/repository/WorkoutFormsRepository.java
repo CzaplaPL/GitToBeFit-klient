@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
-import pl.gittobefit.workoutforms.object.Equipment;
-import pl.gittobefit.workoutforms.object.EquipmentType;
+import pl.gittobefit.workoutforms.object.EquipmentItem;
+import pl.gittobefit.workoutforms.object.EquipmentTypeItem;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
 public class WorkoutFormsRepository
 {
-    ArrayList<EquipmentType> equipmentTypes = new ArrayList<>();
+    ArrayList<EquipmentTypeItem> equipmentTypes = new ArrayList<>();
     GenerateTraningViewModel observer;
 
     public WorkoutFormsRepository(GenerateTraningViewModel generateTraningViewModel)
@@ -54,7 +54,7 @@ public class WorkoutFormsRepository
      * @param response  lista sprzetów do dodania
      * @param position pozycja po której był wczytywany sprzet
      */
-    public void addEquipment(int typeid, ArrayList<Equipment> response,int position)
+    public void addEquipment(int typeid, ArrayList<EquipmentItem> response, int position)
     {
         for(int i = 0; i < equipmentTypes.size(); i++)
         {
@@ -78,8 +78,7 @@ public class WorkoutFormsRepository
         }
     }
 
-
-    public void setEqiupmentTypes(ArrayList<EquipmentType> equipmentTypes)
+    public void setEqiupmentTypes(ArrayList<EquipmentTypeItem> equipmentTypes)
     {
         this.equipmentTypes= equipmentTypes;
     }
@@ -101,9 +100,9 @@ public class WorkoutFormsRepository
         return respond;
     }
 
-    public ArrayList<Equipment> getCheckEqiupment()
+    public ArrayList<EquipmentItem> getCheckEqiupment()
     {
-        ArrayList<Equipment> respond = new ArrayList<>();
+        ArrayList<EquipmentItem> respond = new ArrayList<>();
         for(int i = 0; i < equipmentTypes.size(); i++)
         {
             if(!equipmentTypes.get(i).isLoad())continue;
