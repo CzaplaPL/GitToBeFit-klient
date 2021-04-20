@@ -91,7 +91,7 @@ public class Training
 
         for(ArrayList<ExerciseExecutionPOJODB> exerciseExecution : planList)
         {
-            ArrayList<Exercise> exercisesDB = trainingRepository.getExerciseForPlanList(exerciseExecution);
+            ArrayList<Exercise> exercisesDB = trainingRepository.getExercisesForPlanList(exerciseExecution);
             trainingPlansServer.add(new TrainingPlan(exerciseExecution, exercisesDB));
         }
         return trainingPlansServer;

@@ -264,7 +264,10 @@ sprawdzanie czy użytkownik ma internet\n
         ulepszenie podglądu wygenerowanego treningu \n
         ulepszenie podglądu listy wygenerowanych treningow\n
         edycja nazwy treningu \n
-
+         0.2\n
+        Dodanie prowadzenia treningu\n
+        synchronizacja zapisów \n
+        nowy podgląd edycji ćwiczeń\n
     </string>
     <string name="chosen_eqiupment">Wybrany sprzęt</string>
     <string name="generateTraining">Trwa generowanie treningu.</string>
