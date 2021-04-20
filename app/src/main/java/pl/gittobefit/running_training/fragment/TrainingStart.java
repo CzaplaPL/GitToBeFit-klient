@@ -266,8 +266,8 @@ public class TrainingStart extends Fragment
             binding.exerciseBackground.setVisibility(View.INVISIBLE);
             binding.exerciseStart.setVisibility(View.INVISIBLE);
             binding.scrollViewDescription.setEnabled(true);
-            binding.miss.setEnabled(true);
-            binding.start.setEnabled(true);
+            binding.miss.setEnabled(false);
+            binding.start.setEnabled(false);
             binding.miss.setVisibility(View.VISIBLE);
             binding.start.setVisibility(View.VISIBLE);
             generateMainView();
@@ -333,8 +333,8 @@ public class TrainingStart extends Fragment
             binding.exerciseBackground.setVisibility(View.INVISIBLE);
             binding.exerciseStart.setVisibility(View.INVISIBLE);
             binding.scrollViewDescription.setEnabled(true);
-            binding.miss.setEnabled(true);
-            binding.start.setEnabled(true);
+            binding.miss.setEnabled(false);
+            binding.start.setEnabled(false);
             binding.miss.setVisibility(View.VISIBLE);
             binding.start.setVisibility(View.VISIBLE);
             generateMainView();
