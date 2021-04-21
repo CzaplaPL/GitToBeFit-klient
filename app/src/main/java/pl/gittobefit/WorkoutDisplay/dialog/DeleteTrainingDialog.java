@@ -12,9 +12,12 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.AppDataBase;
+import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.user.User;
 
 public class DeleteTrainingDialog extends AppCompatDialogFragment
 {
@@ -43,10 +46,15 @@ public class DeleteTrainingDialog extends AppCompatDialogFragment
                     Bundle args = getArguments();
                     String trainingID = args.getString("trainingID");
                     String[] tokens = trainingID.split("/");
-
+                    long idFromServer = AppDataBase.getInstance(getContext()).trainingDao().getIdFromServerById(tokens[1]);
                     model.getTrainingWithForms().remove(Integer.parseInt(tokens[0]));
                     AppDataBase.getInstance(getContext()).trainingDao().deleteTrainingInDataBase(Integer.parseInt(tokens[1]));
                     AppDataBase.getInstance(getContext()).workoutFormDao().deleteFormInDataBase(Integer.parseInt(tokens[1]));
+                    IShowSnackbar activity = (IShowSnackbar) getActivity();
+                    if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
+                    {
+                        ConnectionToServer.getInstance().trainingServices.deleteTrainingFromServer(activity, idFromServer, getContext());
+                    }
                     Navigation.findNavController(myView).navigate(R.id. training_to_delete_action);
                 });
         return builder.create();

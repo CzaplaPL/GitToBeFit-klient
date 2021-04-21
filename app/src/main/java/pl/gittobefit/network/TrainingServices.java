@@ -115,4 +115,31 @@ public class TrainingServices
         });
     }
 
+    public void deleteTrainingFromServer(IShowSnackbar activity, long id, Context context)
+    {
+        Call<Void> call = training.deleteTrainingPLan(String.valueOf(id), User.getInstance().getToken());
+        call.enqueue(new Callback<Void>()
+        {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                int code = response.code();
+                if (response.isSuccessful())
+                {
+
+                }
+                else
+                {
+                    LogUtils.logCause(response.headers().get("Cause"));
+                }
+                Log.e("error delete training", String.valueOf(code));
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e(" error ", "change training title : " + t.toString());
+                activity.showSnackbar(context.getResources().getString(R.string.serwerError));
+            }
+        });
+    }
+
 }
