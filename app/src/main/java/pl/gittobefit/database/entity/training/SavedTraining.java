@@ -20,12 +20,13 @@ public class SavedTraining
     private int id;
     private String idUser;
     private long idForm;
+    private long idFromServer;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList;
     private String generationDate;
     private String trainingName;
     private int trainingDay;
 
-    public SavedTraining(long idForm, ArrayList<TrainingPlan> planList,String name)
+    public SavedTraining(long idFromServer, long idForm, ArrayList<TrainingPlan> planList, String name)
     {
         this.planList = new ArrayList<>();
         if(User.getInstance().getLoggedBy() == User.WayOfLogin.NO_LOGIN)
@@ -40,7 +41,7 @@ public class SavedTraining
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         this.generationDate = formatter.format(date);
         this.trainingName = name;
-
+        this.idFromServer = idFromServer;
         this.idForm = idForm;
         for(TrainingPlan readPlan : planList)
         {
@@ -134,5 +135,13 @@ public class SavedTraining
     public boolean isNextDay()
     {
         return planList.size() > trainingDay + 1;
+    }
+
+    public long getIdFromServer() {
+        return idFromServer;
+    }
+
+    public void setIdFromServer(long idFromServer) {
+        this.idFromServer = idFromServer;
     }
 }

@@ -9,6 +9,7 @@ import pl.gittobefit.WorkoutDisplay.objects.Training;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -24,5 +25,9 @@ public interface IWorkoutFormsServices
     Call<Void> getNoEquipment();
 
     @POST("/training-plan/generate")
-    Call<Training> getTrainingPlan(@Body WorkoutForm formSend);
+    Call<Training> getTrainingPlan(@Body WorkoutForm formSend, @Header("Date") String date);
+
+
+    @POST("/training-plan/generate")
+    Call<Training> getTrainingPlanForLoggedInUser(@Body WorkoutForm formSend, @Header("Authorization") String authHeader, @Header("Date") String date);
 }

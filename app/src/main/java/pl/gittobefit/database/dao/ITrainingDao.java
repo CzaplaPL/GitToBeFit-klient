@@ -38,6 +38,10 @@ public interface ITrainingDao
     List<TrainingWithForm> getAllTrainingForUser(String id);
 
     @Transaction
+    @Query("SELECT idFromServer FROM SavedTraining  WHERE id=:id ")
+    Long getIdFromServerById(String id);
+
+    @Transaction
     @Query("UPDATE SavedTraining SET idUser = :id WHERE idUser=\"\" ")
     void addUserForTrainings(String id);
 

@@ -57,9 +57,9 @@ public class TrainingServices
         User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.Synchronise_Success);
     }
 
-    public void updateTrainingName(String id, IShowSnackbar activity, Context context)
+    public void updateTrainingName(long id, IShowSnackbar activity, Context context, String title)
     {
-        Call<Void> call = training.updateTrainingTitle(id, User.getInstance().getToken());
+        Call<Void> call = training.updateTrainingTitle(String.valueOf(id), User.getInstance().getToken(), title);
         call.enqueue(new Callback<Void>()
         {
             @Override
@@ -84,4 +84,33 @@ public class TrainingServices
             }
         });
     }
+    public void saveTrainingAfterChanges(IShowSnackbar activity, Context context)
+    {
+        TrainingRepository repository = TrainingRepository.getInstance(context);
+        User user = User.getInstance();
+        Call<Void> call = training.sendTrainings(user.getToken(), repository.getTrainingsToSendAfterChanges());
+        call.enqueue(new Callback<Void>()
+        {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                int code = response.code();
+                if (response.isSuccessful())
+                {
+                    activity.showSnackbar(context.getResources().getString(R.string.editionComplete));
+                }
+                else
+                {
+                    LogUtils.logCause(response.headers().get("Cause"));
+                }
+                Log.e("error save edit changes", String.valueOf(code));
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e(" error ", "change training title : " + t.toString());
+                activity.showSnackbar(context.getResources().getString(R.string.serwerError));
+            }
+        });
+    }
+
 }

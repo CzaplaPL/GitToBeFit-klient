@@ -19,6 +19,7 @@ import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.repository.TrainingRepository;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
+import pl.gittobefit.user.User;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.EquipmentItem;
 import pl.gittobefit.workoutforms.object.EquipmentTypeItem;
@@ -121,7 +122,18 @@ public class WorkoutFormsServices
         Log.w("form",String.format("%s %s %s %s %s %s %s %s %s %s %s %s","equipmentIDs",form.getEquipmentIDs().toString()," trainingType ",form.getTrainingType()," bodyParts ",form.getBodyParts()," daysCount",form.getDaysCount()," scheduleType ",form.getScheduleType()," duration ",form.getDuration()));
         IShowSnackbar activity = (IShowSnackbar) fragment.getActivity();
         activity.showSnackbar(fragment.getString(R.string.generateTraining));
-        Call<Training> call = workout.getTrainingPlan(form);
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Call<Training> call;
+        if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
+        {
+             call = workout.getTrainingPlanForLoggedInUser(form, User.getInstance().getToken(), formatter.format(date));
+        }
+        else
+        {
+             call = workout.getTrainingPlan(form, formatter.format(date));
+        }
+
         call.enqueue(new Callback<Training>()
         {
             @Override

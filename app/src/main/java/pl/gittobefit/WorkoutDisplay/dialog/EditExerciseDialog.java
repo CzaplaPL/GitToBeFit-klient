@@ -23,6 +23,8 @@ import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
+import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.user.User;
 
 public class EditExerciseDialog extends AppCompatDialogFragment implements NumberPicker.OnValueChangeListener
 {
@@ -133,7 +135,14 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
 
                     AppDataBase.getInstance(getContext()).trainingDao().updateTrainingPlan(exerciseExecutionPOJODBS, trainingID);
                     IShowSnackbar activity = (IShowSnackbar) getActivity();
-                    activity.showSnackbar(getResources().getString(R.string.editionComplete));
+                    if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
+                    {
+                        ConnectionToServer.getInstance().trainingServices.saveTrainingAfterChanges(activity, getContext());
+                    }
+                    else
+                    {
+                        activity.showSnackbar(getContext().getResources().getString(R.string.editionComplete));
+                    }
                 });
         return builder.create();
     }
