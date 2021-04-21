@@ -119,7 +119,7 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
                 {
                     if (scheduleType.equals("CIRCUIT"))
                     {
-                        if (seriesNumberPicker.getValue() != model.getTrainingWithForms().get(position).training.getCircuitsCount())
+                        if (seriesNumberPicker.getValue() != model.getTrainingByID(trainingID).training.getCircuitsCount())
                         {
                             model.getTrainingByID(trainingID).training.setCircuitsCount(seriesNumberPicker.getValue());
                             model.getCurrentSeries().setValue(seriesNumberPicker.getValue());

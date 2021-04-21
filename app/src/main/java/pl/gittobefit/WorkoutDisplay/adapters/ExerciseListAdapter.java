@@ -64,7 +64,6 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     }
 
     public ExerciseListAdapter(
-            Integer circuitsCount,
             ArrayList<Exercise> exerciseArrayList,
             ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
             String scheduleType,
@@ -72,7 +71,6 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
             Fragment fragment,
             ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS)
     {
-        this.circuitsCount = circuitsCount;
         this.exerciseArrayList = exerciseArrayList;
         this.fragment = fragment;
         this.exercisesExecutionArrayList = exercisesExecutionArrayList;
@@ -95,7 +93,6 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.exerciseName.setText(exerciseArrayList.get(position).getName());
         String text = "";
-
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
         circuitsCount = model.getTrainingByID(trainingID).training.getCircuitsCount();
         String properFormSeries = "";

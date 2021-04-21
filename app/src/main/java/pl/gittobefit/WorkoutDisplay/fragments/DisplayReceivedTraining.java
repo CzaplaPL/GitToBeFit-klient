@@ -237,7 +237,6 @@ public class DisplayReceivedTraining extends Fragment
             for (int i = 0; i < exercisesArrayList.size(); i++)
             {
                 exerciseListAdapters.add(new ExerciseListAdapter(
-                        trainingWithForm.training.getCircuitsCount(),
                         exercisesArrayList.get(i),
                         trainingWithForm.training.getPlanList().get(i),
                         trainingWithForm.form.getScheduleType(),
@@ -308,7 +307,6 @@ public class DisplayReceivedTraining extends Fragment
         for (int i = 0; i < exercisesArrayList.size(); i++)
         {
             exerciseListAdapters.add(new ExerciseListAdapter(
-                    trainingWithForm.training.getCircuitsCount(),
                     exercisesArrayList.get(i),
                     trainingWithForm.training.getPlanList().get(i),
                     trainingWithForm.form.getScheduleType(),
