@@ -11,16 +11,26 @@ public class TrainingPlan
     private int id;
     private int trainingId;
     private ArrayList<ExerciseExecution> exercisesExecutions = new ArrayList<>();
+    private int breakTime;
+    private int circuitsCount;
 
     public TrainingPlan()
     {
     }
 
-    public TrainingPlan(ArrayList<ExerciseExecution> exerciseExecutions, int idPlanList, int idTraining)
+    public TrainingPlan(
+            ArrayList<ExerciseExecution> exerciseExecutions,
+            int idPlanList,
+            int idTraining,
+            int breakTime,
+            int circuitsCount
+    )
     {
         this.exercisesExecutions = exerciseExecutions;
         this.id = idPlanList;
         this.trainingId = idTraining;
+        this.breakTime = breakTime;
+        this.circuitsCount  = circuitsCount;
     }
 
 
@@ -69,5 +79,21 @@ public class TrainingPlan
     public void setExercisesExecutions(ArrayList<ExerciseExecution> exercisesExecutions)
     {
         this.exercisesExecutions = exercisesExecutions;
+    }
+
+    public int getBreakTime() {
+        return breakTime;
+    }
+
+    public void setBreakTime(int breakTime) {
+        this.breakTime = breakTime;
+    }
+
+    public int getCircuitsCount() {
+        return circuitsCount;
+    }
+
+    public void setCircuitsCount(int circuitsCount) {
+        this.circuitsCount = circuitsCount;
     }
 }

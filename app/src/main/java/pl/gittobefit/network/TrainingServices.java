@@ -40,8 +40,10 @@ public class TrainingServices
             LogUtils.logCause(downloadResponse.headers().get("Cause"));
             throw new Exception("get Training not work");
         }
+
         for(Training training : downloadResponse.body())
         {
+            System.out.println(training.getGenerationDate());
             repository.add(training);
         }
         Call<Void> sendCall = training.sendTrainings(user.getToken(), repository.getTrainingsToSend());

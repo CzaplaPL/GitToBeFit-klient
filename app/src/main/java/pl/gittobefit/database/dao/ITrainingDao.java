@@ -46,8 +46,12 @@ public interface ITrainingDao
     void addUserForTrainings(String id);
 
     @Transaction
-    @Query("UPDATE SavedTraining SET planList = :exerciseExecutionPOJODBS WHERE id=:id")
-    void updateTrainingPlan(ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS, long id);
+    @Query("UPDATE SavedTraining SET planList = :exerciseExecutionPOJODBS,  circuitsCount = :circuitsCount WHERE id=:id")
+    void updateTrainingPlan(ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS, int circuitsCount, long id);
+
+    @Transaction
+    @Query("UPDATE SavedTraining SET circuitsCount = :circuitsCount WHERE id=:id")
+    void updateTrainingPlanCircuitsCount(int circuitsCount, long id);
 
     @Transaction
     @Query("DELETE FROM SavedTraining  WHERE id = :id")

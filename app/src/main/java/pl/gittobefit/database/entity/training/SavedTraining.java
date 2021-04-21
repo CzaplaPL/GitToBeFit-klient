@@ -25,8 +25,10 @@ public class SavedTraining
     private String generationDate;
     private String trainingName;
     private int trainingDay;
+    private int breakTime;
+    private int circuitsCount;
 
-    public SavedTraining(long idFromServer, long idForm, ArrayList<TrainingPlan> planList, String name)
+    public SavedTraining(long idFromServer, long idForm, ArrayList<TrainingPlan> planList, String name, String date)
     {
         this.planList = new ArrayList<>();
         if(User.getInstance().getLoggedBy() == User.WayOfLogin.NO_LOGIN)
@@ -36,10 +38,9 @@ public class SavedTraining
         {
             this.idUser = User.getInstance().getIdServer();
         }
-
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        this.generationDate = formatter.format(date);
+        this.breakTime = planList.get(0).getBreakTime();
+        this.circuitsCount = planList.get(0).getCircuitsCount();
+        this.generationDate = date;
         this.trainingName = name;
         this.idFromServer = idFromServer;
         this.idForm = idForm;
@@ -143,5 +144,21 @@ public class SavedTraining
 
     public void setIdFromServer(long idFromServer) {
         this.idFromServer = idFromServer;
+    }
+
+    public int getBreakTime() {
+        return breakTime;
+    }
+
+    public void setBreakTime(int breakTime) {
+        this.breakTime = breakTime;
+    }
+
+    public int getCircuitsCount() {
+        return circuitsCount;
+    }
+
+    public void setCircuitsCount(int circuitsCount) {
+        this.circuitsCount = circuitsCount;
     }
 }

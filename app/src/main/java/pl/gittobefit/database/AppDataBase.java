@@ -24,7 +24,7 @@ import pl.gittobefit.database.entity.training.WorkoutForm;
 /**
  * klasa bazy danych
  */
-@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SavedTraining.class, EquipmentType.class, Equipment.class}, version =13, exportSchema = false)
+@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SavedTraining.class, EquipmentType.class, Equipment.class}, version = 14, exportSchema = false)
 @TypeConverters({TrainingConverter.class})
 public abstract class AppDataBase extends RoomDatabase
 {

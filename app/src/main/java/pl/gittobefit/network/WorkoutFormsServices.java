@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -123,7 +125,7 @@ public class WorkoutFormsServices
         IShowSnackbar activity = (IShowSnackbar) fragment.getActivity();
         activity.showSnackbar(fragment.getString(R.string.generateTraining));
         Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Call<Training> call;
         if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
         {
@@ -140,8 +142,8 @@ public class WorkoutFormsServices
             public void onResponse(Call<Training> call, Response<Training> response) {
                 if(response.isSuccessful())
                 {
-                  createTraining(response.body(), fragment);
-                  Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+                    createTraining(response.body(), fragment);
+                    Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
                     activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
                 }
                 else
@@ -160,10 +162,7 @@ public class WorkoutFormsServices
     }
 
     private void createTraining(Training body, Fragment fragment) {
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String text = formatter.format(date);
-        body.setGenerationDate(text);
+        body.setGenerationDate(body.getGenerationDate());
         body.setTrainingName("Default training name");
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
         model.addTrainingWithForm(TrainingRepository.getInstance(fragment.getContext()).add(body));
