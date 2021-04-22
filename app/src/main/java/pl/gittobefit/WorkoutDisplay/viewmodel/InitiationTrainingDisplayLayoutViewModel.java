@@ -2,6 +2,7 @@ package pl.gittobefit.WorkoutDisplay.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
@@ -9,9 +10,16 @@ import java.util.Collection;
 import java.util.Collections;
 
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
+import pl.gittobefit.user.User;
 
 public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
 {
+    public MutableLiveData<User.SynchroniseTraining> getSynchroniseTraining()
+    {
+        return synchroniseTraining;
+    }
+
+    private MutableLiveData<User.SynchroniseTraining> synchroniseTraining = new MutableLiveData<>();
     private MutableLiveData<Integer> numberOfClickedTraining = new MutableLiveData<>();
     private ArrayList<TrainingWithForm> trainingWithForms = new ArrayList<>();
     private ArrayList<Boolean> states = new ArrayList<Boolean>();
@@ -20,6 +28,11 @@ public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
     private MutableLiveData<Integer> trainingSeries;
     private MutableLiveData<Integer> trainingCount;
     private int lastIndex = -1;
+
+    public InitiationTrainingDisplayLayoutViewModel()
+    {
+        this.synchroniseTraining.setValue(User.getInstance().getSynchroniseTraining());
+    }
 
     public LiveData<Integer> getPosition() {
 

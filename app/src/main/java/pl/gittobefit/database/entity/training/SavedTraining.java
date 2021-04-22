@@ -24,6 +24,8 @@ public class SavedTraining
     private String generationDate;
     private String trainingName;
     private int trainingDay;
+    private boolean offline;
+
 
     public SavedTraining(long idForm, ArrayList<TrainingPlan> planList,String name)
     {
@@ -31,9 +33,11 @@ public class SavedTraining
         if(User.getInstance().getLoggedBy() == User.WayOfLogin.NO_LOGIN)
         {
             this.idUser = "";
+            this.offline =true;
         }else
         {
             this.idUser = User.getInstance().getIdServer();
+            this.offline =false;
         }
 
         Date date = new Date();
@@ -134,5 +138,15 @@ public class SavedTraining
     public boolean isNextDay()
     {
         return planList.size() > trainingDay + 1;
+    }
+
+    public boolean isOffline()
+    {
+        return offline;
+    }
+
+    public void setOffline(boolean offline)
+    {
+        this.offline = offline;
     }
 }

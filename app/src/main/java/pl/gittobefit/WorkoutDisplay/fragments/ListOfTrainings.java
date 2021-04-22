@@ -4,15 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.adapters.TrainingListAdapter;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
@@ -22,6 +25,9 @@ import pl.gittobefit.user.User;
 
 public class ListOfTrainings extends Fragment
 {
+    private RecyclerView trainingList;
+    private LinearLayout loading;
+
     public ListOfTrainings() {
     }
 
@@ -41,15 +47,42 @@ public class ListOfTrainings extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        trainingList = getView().findViewById(R.id.list_of_trainings);
+        loading = getView().findViewById(R.id.list_traing_loading);
+
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
 
-        model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).getAllTrainings());
+        User tmp = User.getInstance();
 
-        RecyclerView recyclerView = getView().findViewById(R.id.list_of_trainings);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        model.getSynchroniseTraining().observe(getViewLifecycleOwner(), new Observer<User.SynchroniseTraining>()
+        {
+            @Override
+            public void onChanged(User.SynchroniseTraining synchroniseTraining)
+            {
+                if(User.SynchroniseTraining.No_Synchronise == synchroniseTraining ||  synchroniseTraining == User.SynchroniseTraining.Synchronise_Success )
+                {
+                    model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).loadTrainings());
+                    loading.setVisibility(View.GONE);
+                    trainingList.setVisibility(View.VISIBLE);
+                }else if(synchroniseTraining == User.SynchroniseTraining.Synchronise_error)
+                {
+                    model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).loadTrainings());
+                    IShowSnackbar activity = (IShowSnackbar)getActivity();
+                    activity.showSnackbar(getString(R.string.noSynchronize));
+                    loading.setVisibility(View.GONE);
+                    trainingList.setVisibility(View.VISIBLE);
+                }else
+                {
+                    loading.setVisibility(View.VISIBLE);
+                    trainingList.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        trainingList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         TrainingListAdapter trainingListAdapter = new TrainingListAdapter(model.getTrainingWithForms(), this);
-        recyclerView.setAdapter(trainingListAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        trainingList.setAdapter(trainingListAdapter);
+        trainingList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
     }
 
     @Override

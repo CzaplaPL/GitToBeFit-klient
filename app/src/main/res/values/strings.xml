@@ -288,4 +288,5 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="textForTimerExercise">TRENUJ PRZEZ</string>
     <string name="start">START</string>
     <string name="seconds">sekund</string>
+    <string name="noSynchronize">Synchronizacja nie udana.</string>
 </resources>
