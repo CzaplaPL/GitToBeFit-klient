@@ -19,17 +19,19 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import pl.gittobefit.R;
+import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.workoutforms.object.EquipmentForm;
 
-public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.ViewHolder> {
+public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.ViewHolder>
+{
 
-private final ArrayList<EquipmentForm> localDataSet;
-private final EquipmentListener equipmentListener;
+    private final ArrayList<EquipmentForm> localDataSet;
+    private final EquipmentListener equipmentListener;
 
-    public EquipmentAdapter(ArrayList<EquipmentForm> dataSet,EquipmentListener equipmentListener)
+    public EquipmentAdapter(ArrayList<EquipmentForm> dataSet, EquipmentListener equipmentListener)
     {
         localDataSet = dataSet;
-        this.equipmentListener= equipmentListener;
+        this.equipmentListener = equipmentListener;
     }
 
     @Override
@@ -37,7 +39,7 @@ private final EquipmentListener equipmentListener;
     {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.equipment_item, viewGroup, false);
-        return new ViewHolder(view,equipmentListener);
+        return new ViewHolder(view, equipmentListener);
     }
 
     @Override
@@ -62,27 +64,28 @@ private final EquipmentListener equipmentListener;
             viewHolder.getCheckBox().setVisibility(View.VISIBLE);
             viewHolder.getCheckBox().setChecked(localDataSet.get(position).isIschecked());
             Glide.with(viewHolder.getContext())
-                        .load("http://c4szkolenia.pl/"+localDataSet.get(position).getUrl())
-                        .placeholder(R.drawable.ic_baseline_downloading_24)
-                        .into(viewHolder.getImage());
+                    .load(ConnectionToServer.PREFIX_PHOTO_URL + localDataSet.get(position).getUrl())
+                    .placeholder(R.drawable.ic_baseline_downloading_24)
+                    .into(viewHolder.getImage());
         }else
         {
-            RelativeLayout.LayoutParams margin =new RelativeLayout.LayoutParams(viewHolder.getContainer().getLayoutParams());
+            RelativeLayout.LayoutParams margin = new RelativeLayout.LayoutParams(viewHolder.getContainer().getLayoutParams());
             margin.setMargins(0, 0, 0, 0);
             viewHolder.getContainer().setLayoutParams(margin);
             viewHolder.getButton().setVisibility(View.VISIBLE);
             viewHolder.getImage().setVisibility(View.VISIBLE);
             viewHolder.getNameView().setText(localDataSet.get(position).getName());
             Glide.with(viewHolder.getContext())
-                    .load("http://c4szkolenia.pl/"+localDataSet.get(position).getUrl())
-                    .placeholder(R.drawable.baseline_email_24)
+                    .load(ConnectionToServer.PREFIX_PHOTO_URL + localDataSet.get(position).getUrl())
+                    .placeholder(R.drawable.ic_baseline_downloading_24)
                     .into(viewHolder.getImage());
             viewHolder.getCheckBox().setVisibility(View.GONE);
         }
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return localDataSet.size();
     }
 
@@ -96,14 +99,14 @@ private final EquipmentListener equipmentListener;
         private final Context context;
         private final ConstraintLayout container;
 
-        public ViewHolder(View view,EquipmentListener equipmentListener)
+        public ViewHolder(View view, EquipmentListener equipmentListener)
         {
             super(view);
-            this.equipmentListener=equipmentListener;
+            this.equipmentListener = equipmentListener;
             nameView = view.findViewById(R.id.no_equipment_title);
-            image = view.findViewById(R.id.no_equipment_item_image) ;
-            button = view.findViewById(R.id.bodyButton) ;
-            checkBox = view.findViewById(R.id.no_equipment_checbox) ;
+            image = view.findViewById(R.id.no_equipment_item_image);
+            button = view.findViewById(R.id.bodyButton);
+            checkBox = view.findViewById(R.id.no_equipment_checbox);
             button.setOnClickListener(this);
             checkBox.setOnClickListener(this);
             context = view.getContext();
@@ -115,10 +118,26 @@ private final EquipmentListener equipmentListener;
         {
             return nameView;
         }
-        public ImageView getImage() {return image;}
-        public ImageView getButton() {return button;}
-        public CheckBox getCheckBox(){ return checkBox; }
-        public Context getContext() { return context; }
+
+        public ImageView getImage()
+        {
+            return image;
+        }
+
+        public ImageView getButton()
+        {
+            return button;
+        }
+
+        public CheckBox getCheckBox()
+        {
+            return checkBox;
+        }
+
+        public Context getContext()
+        {
+            return context;
+        }
 
         @Override
         public void onClick(View v)

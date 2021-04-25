@@ -7,50 +7,71 @@ import androidx.room.PrimaryKey;
 /**
  * encja uzytkownika przechowywana w bazie
  * bedzie zmiana przetrzymywania automatycznego logowania
+ *
  * @author Czapla
  */
 @Entity
-public class UserEntity {
+public class UserEntity
+{
     @PrimaryKey()
     private int id;
 
     private String email;
     private String token;
+    private boolean google;
 
 
-    public UserEntity(int id, String email,String token)
+    public UserEntity(int id, String email, String token, boolean google)
     {
         this.id = id;
         this.email = email;
         this.token = token;
+        this.google = google;
     }
 
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public String getEmail() {
+    public String getEmail()
+    {
         return email;
     }
 
-    public String getToken() {
+    public String getToken()
+    {
         return token;
     }
 
-    public void setId(int id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email)
+    {
         this.email = email;
     }
 
-    public void setToken(String token) {
+    public void setToken(String token)
+    {
         this.token = token;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "EntityUser{" + "id=" + id + ", email='" + email + '\'' + ", token='" + token + '\'' + '}';
+    }
+
+    public boolean isGoogle()
+    {
+        return google;
+    }
+
+    public void setGoogle(boolean google)
+    {
+        this.google = google;
     }
 }

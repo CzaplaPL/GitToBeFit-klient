@@ -27,7 +27,8 @@ public class ListOfTrainings extends Fragment
 {
     private RecyclerView trainingList;
     private LinearLayout loading;
-
+    TrainingListAdapter trainingListAdapter;
+    InitiationTrainingDisplayLayoutViewModel model;
     public ListOfTrainings() {
     }
 
@@ -50,11 +51,11 @@ public class ListOfTrainings extends Fragment
         trainingList = getView().findViewById(R.id.list_of_trainings);
         loading = getView().findViewById(R.id.list_traing_loading);
 
-        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
-
-        User tmp = User.getInstance();
-
-        model.getSynchroniseTraining().observe(getViewLifecycleOwner(), new Observer<User.SynchroniseTraining>()
+        model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class); trainingList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        trainingListAdapter = new TrainingListAdapter(model.getTrainingWithForms(), this);
+        trainingList.setAdapter(trainingListAdapter);
+        trainingList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+       User.getInstance().getSynchroniseTraining$().observe(getViewLifecycleOwner(), new Observer<User.SynchroniseTraining>()
         {
             @Override
             public void onChanged(User.SynchroniseTraining synchroniseTraining)
@@ -62,13 +63,15 @@ public class ListOfTrainings extends Fragment
                 if(User.SynchroniseTraining.No_Synchronise == synchroniseTraining ||  synchroniseTraining == User.SynchroniseTraining.Synchronise_Success )
                 {
                     model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).loadTrainings());
+                    trainingListAdapter.notifyDataSetChanged();
                     loading.setVisibility(View.GONE);
                     trainingList.setVisibility(View.VISIBLE);
                 }else if(synchroniseTraining == User.SynchroniseTraining.Synchronise_error)
                 {
-                    model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).loadTrainings());
                     IShowSnackbar activity = (IShowSnackbar)getActivity();
                     activity.showSnackbar(getString(R.string.noSynchronize));
+                    model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).loadTrainings());
+                    trainingListAdapter.notifyDataSetChanged();
                     loading.setVisibility(View.GONE);
                     trainingList.setVisibility(View.VISIBLE);
                 }else
@@ -79,15 +82,13 @@ public class ListOfTrainings extends Fragment
             }
         });
 
-        trainingList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        TrainingListAdapter trainingListAdapter = new TrainingListAdapter(model.getTrainingWithForms(), this);
-        trainingList.setAdapter(trainingListAdapter);
-        trainingList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
     }
 
     @Override
     public void onResume()
     {
         super.onResume();
+
     }
 }
