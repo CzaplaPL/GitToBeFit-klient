@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey;
 /**
  * encja uzytkownika przechowywana w bazie
  * bedzie zmiana przetrzymywania automatycznego logowania
- *
  * @author Czapla
  */
 @Entity
@@ -19,7 +18,6 @@ public class UserEntity
     private String email;
     private String token;
     private boolean google;
-
 
     public UserEntity(int id, String email, String token, boolean google)
     {

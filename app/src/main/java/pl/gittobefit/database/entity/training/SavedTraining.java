@@ -26,18 +26,17 @@ public class SavedTraining
     private int trainingDay;
     private boolean offline;
 
-
-    public SavedTraining(long idForm, ArrayList<TrainingPlan> planList,String name)
+    public SavedTraining(long idForm, ArrayList<TrainingPlan> planList, String name)
     {
         this.planList = new ArrayList<>();
         if(User.getInstance().getLoggedBy() == User.WayOfLogin.NO_LOGIN)
         {
             this.idUser = "";
-            this.offline =true;
+            this.offline = true;
         }else
         {
             this.idUser = User.getInstance().getIdServer();
-            this.offline =false;
+            this.offline = false;
         }
 
         Date date = new Date();

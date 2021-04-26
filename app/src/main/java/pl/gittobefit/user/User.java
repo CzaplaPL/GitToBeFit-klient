@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData;
 public class User
 {
 
-
     public enum WayOfLogin
     {
         NO_LOGIN,

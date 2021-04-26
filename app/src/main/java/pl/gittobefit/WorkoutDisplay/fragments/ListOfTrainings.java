@@ -29,38 +29,40 @@ public class ListOfTrainings extends Fragment
     private LinearLayout loading;
     TrainingListAdapter trainingListAdapter;
     InitiationTrainingDisplayLayoutViewModel model;
-    public ListOfTrainings() {
-    }
 
+    public ListOfTrainings() { }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_list_of_trainings, container, false);
         return view;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
         trainingList = getView().findViewById(R.id.list_of_trainings);
         loading = getView().findViewById(R.id.list_traing_loading);
-
-        model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class); trainingList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
+        trainingList.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         trainingListAdapter = new TrainingListAdapter(model.getTrainingWithForms(), this);
         trainingList.setAdapter(trainingListAdapter);
         trainingList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-       User.getInstance().getSynchroniseTraining$().observe(getViewLifecycleOwner(), new Observer<User.SynchroniseTraining>()
+        User.getInstance().getSynchroniseTraining$().observe(getViewLifecycleOwner(), new Observer<User.SynchroniseTraining>()
         {
             @Override
             public void onChanged(User.SynchroniseTraining synchroniseTraining)
             {
-                if(User.SynchroniseTraining.No_Synchronise == synchroniseTraining ||  synchroniseTraining == User.SynchroniseTraining.Synchronise_Success )
+                if(User.SynchroniseTraining.No_Synchronise == synchroniseTraining || synchroniseTraining == User.SynchroniseTraining.Synchronise_Success)
                 {
                     model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).loadTrainings());
                     trainingListAdapter.notifyDataSetChanged();
@@ -68,7 +70,7 @@ public class ListOfTrainings extends Fragment
                     trainingList.setVisibility(View.VISIBLE);
                 }else if(synchroniseTraining == User.SynchroniseTraining.Synchronise_error)
                 {
-                    IShowSnackbar activity = (IShowSnackbar)getActivity();
+                    IShowSnackbar activity = (IShowSnackbar) getActivity();
                     activity.showSnackbar(getString(R.string.noSynchronize));
                     model.setTrainingWithForms(TrainingRepository.getInstance(getContext()).loadTrainings());
                     trainingListAdapter.notifyDataSetChanged();
@@ -89,6 +91,5 @@ public class ListOfTrainings extends Fragment
     public void onResume()
     {
         super.onResume();
-
     }
 }

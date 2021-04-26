@@ -152,9 +152,9 @@ public class TrainingRepository
 
     public ArrayList<TrainingWithForm> loadTrainings()
     {
-        User user =User.getInstance();
+        User user = User.getInstance();
         ArrayList<TrainingWithForm> loadedTraining = new ArrayList<>();
-        if(user.getLoggedBy()!=User.WayOfLogin.NO_LOGIN)
+        if(user.getLoggedBy() != User.WayOfLogin.NO_LOGIN)
         {
             loadedTraining.addAll(getAllTrainingsForUser(user.getIdServer()));
         }
