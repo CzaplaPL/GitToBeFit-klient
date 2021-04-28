@@ -196,6 +196,9 @@
             app:destination="@id/displayReceivedTraining"
             app:popUpTo="@+id/displayReceivedTraining"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/training_to_change_exercise"
+            app:destination="@id/change_exercise" />
     </fragment>
 
     <action
@@ -220,5 +223,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/change_exercise"
+        android:name="pl.gittobefit.WorkoutDisplay.fragments.ChangeExercise"
+        android:label=""
+        tools:layout="@layout/fragment_change_exercise" >
+
     </fragment>
 </navigation>

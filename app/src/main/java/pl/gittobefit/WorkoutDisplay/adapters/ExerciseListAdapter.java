@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,11 +29,13 @@ import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.dialog.BottomMenuDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.EditExerciseDialog;
+import pl.gittobefit.WorkoutDisplay.exceptions.TrainingNotFoundException;
 import pl.gittobefit.WorkoutDisplay.fragments.DisplayReceivedTraining;
 import pl.gittobefit.WorkoutDisplay.fragments.DisplayReceivedTrainingDirections;
 import pl.gittobefit.WorkoutDisplay.fragments.ExerciseDetails;
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
+import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 
@@ -45,6 +48,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     private String scheduleType;
     private int trainingID;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
+    private int circuitsCount;
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
@@ -88,84 +92,79 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
-    {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.exerciseName.setText(exerciseArrayList.get(position).getName());
         String text = "";
-
+        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity())
+                .get(InitiationTrainingDisplayLayoutViewModel.class);
+        try {
+            circuitsCount = model.getTrainingByID(trainingID).training.getCircuitsCount();
+        } catch (TrainingNotFoundException e) {
+            e.printStackTrace();
+        }
         String properFormSeries = "";
-        switch(exercisesExecutionArrayList.get(position).getSeries())
+        switch (exercisesExecutionArrayList.get(position).getSeries())
         {
-            case 1:
-                properFormSeries = "seria";
-                break;
+            case 1: properFormSeries = "seria"; break;
             case 2:
             case 4:
             case 3:
-                properFormSeries = "serie";
-                break;
-            default:
-                properFormSeries = "serii";
-                break;
+                properFormSeries = "serie"; break;
+            default:  properFormSeries = "serii"; break;
         }
 
         String properFormCircuit = "";
-        switch(exercisesExecutionArrayList.get(position).getSeries())
+        switch (exercisesExecutionArrayList.get(position).getSeries())
         {
-            case 1:
-                properFormCircuit = "obwód";
-                break;
+            case 1: properFormCircuit = "obwód"; break;
             case 2:
             case 4:
             case 3:
-                properFormCircuit = "obwody";
-                break;
-            default:
-                properFormCircuit = "obwodów";
-                break;
+                properFormCircuit = "obwody"; break;
+            default:  properFormCircuit = "obwodów"; break;
         }
         String properFormRep = "";
-        switch(exercisesExecutionArrayList.get(position).getCount())
+        switch (exercisesExecutionArrayList.get(position).getCount())
         {
-            case 1:
-                properFormRep = "powtórzenie";
-                break;
+            case 1: properFormRep = "powtórzenie"; break;
             case 2:
             case 4:
             case 3:
-                properFormRep = "powtórzenia";
-                break;
-            default:
-                properFormRep = "powtórzeń";
-                break;
+                properFormRep = "powtórzenia"; break;
+            default:  properFormRep = "powtórzeń"; break;
         }
 
-        if(exercisesExecutionArrayList.get(position).getTime() != 0)
+        if (exercisesExecutionArrayList.get(position).getTime() != 0)
         {
-            if(scheduleType.equals("CIRCUIT"))
+            if (scheduleType.equals("CIRCUIT"))
             {
-                text = String.format(Locale.getDefault(), "%d %s, %d sekund",
-                        exercisesExecutionArrayList.get(position).getSeries(),
+                text = String.format(Locale.getDefault(),"%d %s, %d sekund",
+                        circuitsCount,
                         properFormCircuit,
                         exercisesExecutionArrayList.get(position).getTime());
-            }else
+            }
+            else
             {
-                text = String.format(Locale.getDefault(), "%d %s, %d sekund",
+                text = String.format(Locale.getDefault(),"%d %s, %d sekund",
                         exercisesExecutionArrayList.get(position).getSeries(),
                         properFormSeries,
                         exercisesExecutionArrayList.get(position).getTime());
             }
-        }else
+        }
+        else
         {
-            if(scheduleType.equals("CIRCUIT"))
+            if (scheduleType.equals("CIRCUIT"))
             {
-                text = String.format(Locale.getDefault(), "%d %s, %d %s",
-                        exercisesExecutionArrayList.get(position).getSeries(),
+                text = String.format(Locale.getDefault(),
+                        "%d %s, %d %s",
+                        circuitsCount,
                         properFormCircuit,
                         exercisesExecutionArrayList.get(position).getCount(), properFormRep);
-            }else
+            }
+            else
             {
-                text = String.format(Locale.getDefault(), "%d %s, %d %s",
+                text = String.format(Locale.getDefault(),
+                        "%d %s, %d %s",
                         exercisesExecutionArrayList.get(position).getSeries(),
                         properFormSeries,
                         exercisesExecutionArrayList.get(position).getCount(), properFormRep);
@@ -174,13 +173,13 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
         holder.exerciseInfo.setText(text);
 
-        holder.itemView.setOnClickListener(v ->
-        {
+        holder.itemView.setOnClickListener(v -> {
             BottomMenuDialog bottomSheetDialog = new BottomMenuDialog(
+                    circuitsCount,
                     exerciseArrayList,
                     fragment,
                     scheduleType,
-                    position,
+                    position ,
                     exercisesExecutionArrayList,
                     trainingID,
                     exerciseExecutionPOJODBS
@@ -191,8 +190,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return exerciseArrayList.size();
     }
 

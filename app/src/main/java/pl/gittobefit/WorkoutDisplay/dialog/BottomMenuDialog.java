@@ -29,8 +29,10 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
     private ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList;
     private int trainingID;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
+    private int circuitsCount;
 
     public BottomMenuDialog(
+            int circuitsCount,
             ArrayList<Exercise> exerciseArrayList,
             Fragment fragment,
             String scheduleType,
@@ -40,6 +42,7 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
             ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS
     )
     {
+        this.circuitsCount = circuitsCount;
         this.exerciseArrayList = exerciseArrayList;
         this.fragment = fragment;
         this.scheduleType = scheduleType;
@@ -64,7 +67,9 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
         {
             @Override
             public void onClick(View v) {
-
+                Bundle args = new Bundle();
+                args.putInt("exerciseID", exerciseArrayList.get(position).getId());
+                Navigation.findNavController(fragment.getView()).navigate(R.id.training_to_change_exercise, args);
             dismiss();
             }
         });
@@ -74,6 +79,7 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
             @Override
             public void onClick(View v) {
                 EditExerciseDialog editExerciseDialog = new EditExerciseDialog(
+                        circuitsCount,
                         fragment.getView(),
                         scheduleType,
                         position ,

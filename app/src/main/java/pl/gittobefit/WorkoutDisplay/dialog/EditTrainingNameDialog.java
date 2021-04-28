@@ -3,6 +3,9 @@ package pl.gittobefit.WorkoutDisplay.dialog;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -11,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
@@ -50,13 +54,15 @@ public class EditTrainingNameDialog extends AppCompatDialogFragment
                     String trainingID = args.getString("trainingID");
                     String[] tokens = trainingID.split("/");
                     IShowSnackbar activity = (IShowSnackbar) getActivity();
-
+                    long idFromServer = AppDataBase.getInstance(getContext()).trainingDao().getIdFromServerById(tokens[1]);
                     if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
                     {
-                        if(User.getInstance().getSynchroniseTraining().equals(User.SynchroniseTraining.SYNCHRONISE_SUCCESS))
-                        {
-                            ConnectionToServer.getInstance().trainingServices.updateTrainingName(tokens[1], activity, getContext());
-                        }
+                            ConnectionToServer.getInstance().trainingServices.updateTrainingName(
+                                    idFromServer,
+                                    activity,
+                                    getContext(),
+                                    newTrainingName
+                            );
                     }
                     model.getTrainingWithForms().get(Integer.parseInt(tokens[0])).training.setTrainingName(newTrainingName);
                     model.getCurrentName().setValue(newTrainingName);

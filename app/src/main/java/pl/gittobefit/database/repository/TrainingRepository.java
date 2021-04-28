@@ -50,9 +50,11 @@ public class TrainingRepository
         saveExercise(training.getPlanList());
         long idTraining = base.trainingDao().addTraining(
                 new SavedTraining(
+                        training.getId(),
                         idForm,
                         training.getPlanList(),
-                        training.getTrainingName()
+                        training.getTrainingName(),
+                        training.getGenerationDate()
                 )
         );
         TrainingWithForm savedTraining = base.trainingDao().getTraining(idTraining);
@@ -98,6 +100,17 @@ public class TrainingRepository
     {
         ArrayList<Training> trainingsToSend = new ArrayList<>();
         ArrayList<TrainingWithForm> trainingsInDB = getAllTrainingsForUser("");
+        for(TrainingWithForm trainingDB : trainingsInDB)
+        {
+            trainingsToSend.add(new Training(trainingDB, this));
+        }
+        return trainingsToSend;
+    }
+
+    public ArrayList<Training> getTrainingsToSendAfterChanges()
+    {
+        ArrayList<Training> trainingsToSend = new ArrayList<>();
+        ArrayList<TrainingWithForm> trainingsInDB = getAllTrainings();
         for(TrainingWithForm trainingDB : trainingsInDB)
         {
             trainingsToSend.add(new Training(trainingDB, this));

@@ -40,8 +40,10 @@ public class TrainingServices
             LogUtils.logCause(downloadResponse.headers().get("Cause"));
             throw new Exception("get Training not work");
         }
+
         for(Training training : downloadResponse.body())
         {
+            System.out.println(training.getGenerationDate());
             repository.add(training);
         }
         Call<Void> sendCall = training.sendTrainings(user.getToken(), repository.getTrainingsToSend());
@@ -57,9 +59,9 @@ public class TrainingServices
         User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.SYNCHRONISE_SUCCESS);
     }
 
-    public void updateTrainingName(String id, IShowSnackbar activity, Context context)
+    public void updateTrainingName(long id, IShowSnackbar activity, Context context, String title)
     {
-        Call<Void> call = training.updateTrainingTitle(id, User.getInstance().getToken());
+        Call<Void> call = training.updateTrainingTitle(String.valueOf(id), User.getInstance().getToken(), title);
         call.enqueue(new Callback<Void>()
         {
             @Override
@@ -84,4 +86,60 @@ public class TrainingServices
             }
         });
     }
+    public void saveTrainingAfterChanges(IShowSnackbar activity, Context context)
+    {
+        TrainingRepository repository = TrainingRepository.getInstance(context);
+        User user = User.getInstance();
+        Call<Void> call = training.sendTrainings(user.getToken(), repository.getTrainingsToSendAfterChanges());
+        call.enqueue(new Callback<Void>()
+        {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                int code = response.code();
+                if (response.isSuccessful())
+                {
+                    activity.showSnackbar(context.getResources().getString(R.string.editionComplete));
+                }
+                else
+                {
+                    LogUtils.logCause(response.headers().get("Cause"));
+                }
+                Log.e("error save edit changes", String.valueOf(code));
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e(" error ", "change training title : " + t.toString());
+                activity.showSnackbar(context.getResources().getString(R.string.serwerError));
+            }
+        });
+    }
+
+    public void deleteTrainingFromServer(IShowSnackbar activity, long id, Context context)
+    {
+        Call<Void> call = training.deleteTrainingPLan(String.valueOf(id), User.getInstance().getToken());
+        call.enqueue(new Callback<Void>()
+        {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                int code = response.code();
+                if (response.isSuccessful())
+                {
+
+                }
+                else
+                {
+                    LogUtils.logCause(response.headers().get("Cause"));
+                }
+                Log.e("error delete training", String.valueOf(code));
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e(" error ", "change training title : " + t.toString());
+                activity.showSnackbar(context.getResources().getString(R.string.serwerError));
+            }
+        });
+    }
+
 }
