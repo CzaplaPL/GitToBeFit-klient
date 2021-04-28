@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import pl.gittobefit.database.entity.training.SavedTraining;
@@ -64,4 +65,8 @@ public interface ITrainingDao
     @Transaction
     @Query("DELETE FROM SavedTraining  WHERE idUser=:userId ")
     public void deleteTrainingForUser(String userId);
+
+    @Transaction
+    @Query("SELECT * FROM SavedTraining  WHERE offline = 1 ")
+    public List<TrainingWithForm>  getOfflineTraining();
 }

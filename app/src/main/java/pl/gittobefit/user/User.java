@@ -1,19 +1,12 @@
 package pl.gittobefit.user;
 
+import androidx.lifecycle.MutableLiveData;
+
 /**
  * klasa przechowująca informacje o użytkowniku
  */
 public class User
 {
-    public SynchroniseTraining getSynchroniseTraining()
-    {
-        return synchroniseTraining;
-    }
-
-    public void setSynchroniseTraining(SynchroniseTraining synchroniseTraining)
-    {
-        this.synchroniseTraining = synchroniseTraining;
-    }
 
     public enum WayOfLogin
     {
@@ -25,17 +18,17 @@ public class User
 
     public enum SynchroniseTraining
     {
-        No_Synchronise,
-        Start_Synchronise,
-        Synchronise_Success,
-        Synchronise_error
+        NO_SYNCHRONISE,
+        START_SYNCHRONISE,
+        SYNCHRONISE_SUCCESS,
+        SYNCHRONISE_ERROR
     }
 
     private String email = "";
     private String auth = "";
     private String idServer = "";
     private WayOfLogin loggedBy = WayOfLogin.NO_LOGIN;
-    private SynchroniseTraining synchroniseTraining = SynchroniseTraining.No_Synchronise;
+    private MutableLiveData<SynchroniseTraining> synchroniseTraining = new MutableLiveData<>(SynchroniseTraining.NO_SYNCHRONISE);
     private static volatile User INSTANCE;
 
     /**
@@ -73,7 +66,7 @@ public class User
         this.idServer = id;
         this.auth = auth;
         this.loggedBy = loggedBy;
-        this.synchroniseTraining = SynchroniseTraining.No_Synchronise;
+        this.synchroniseTraining.setValue(SynchroniseTraining.NO_SYNCHRONISE);
     }
 
     public String getIdServer()
@@ -122,5 +115,18 @@ public class User
         this.email = email;
     }
 
+    public SynchroniseTraining getSynchroniseTraining()
+    {
+        return synchroniseTraining.getValue();
+    }
 
+    public MutableLiveData<SynchroniseTraining> getSynchroniseTraining$()
+    {
+        return synchroniseTraining;
+    }
+
+    public void setSynchroniseTraining(SynchroniseTraining synchroniseTraining)
+    {
+        this.synchroniseTraining.postValue(synchroniseTraining);
+    }
 }

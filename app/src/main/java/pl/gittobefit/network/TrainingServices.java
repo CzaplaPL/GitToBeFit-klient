@@ -56,7 +56,7 @@ public class TrainingServices
         }
         repository.synchroniseUser();
         Log.w("Network", "Trainings.synchronisedTraining sukces");
-        User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.Synchronise_Success);
+        User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.SYNCHRONISE_SUCCESS);
     }
 
     public void updateTrainingName(long id, IShowSnackbar activity, Context context, String title)

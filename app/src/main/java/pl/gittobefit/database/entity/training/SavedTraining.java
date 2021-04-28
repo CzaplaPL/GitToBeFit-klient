@@ -25,6 +25,7 @@ public class SavedTraining
     private String generationDate;
     private String trainingName;
     private int trainingDay;
+    private boolean offline;
     private int breakTime;
     private int circuitsCount;
 
@@ -34,9 +35,11 @@ public class SavedTraining
         if(User.getInstance().getLoggedBy() == User.WayOfLogin.NO_LOGIN)
         {
             this.idUser = "";
+            this.offline = true;
         }else
         {
             this.idUser = User.getInstance().getIdServer();
+            this.offline = false;
         }
         this.breakTime = planList.get(0).getBreakTime();
         this.circuitsCount = planList.get(0).getCircuitsCount();
@@ -160,5 +163,15 @@ public class SavedTraining
 
     public void setCircuitsCount(int circuitsCount) {
         this.circuitsCount = circuitsCount;
+    }
+
+    public boolean isOffline()
+    {
+        return offline;
+    }
+
+    public void setOffline(boolean offline)
+    {
+        this.offline = offline;
     }
 }

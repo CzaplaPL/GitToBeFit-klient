@@ -162,4 +162,16 @@ public class TrainingRepository
             base.trainingDao().deleteTrainingForUser(id);
         });
     }
+
+    public ArrayList<TrainingWithForm> loadTrainings()
+    {
+        User user = User.getInstance();
+        ArrayList<TrainingWithForm> loadedTraining = new ArrayList<>();
+        if(user.getLoggedBy() != User.WayOfLogin.NO_LOGIN)
+        {
+            loadedTraining.addAll(getAllTrainingsForUser(user.getIdServer()));
+        }
+        loadedTraining.addAll(base.trainingDao().getOfflineTraining());
+        return loadedTraining;
+    }
 }
