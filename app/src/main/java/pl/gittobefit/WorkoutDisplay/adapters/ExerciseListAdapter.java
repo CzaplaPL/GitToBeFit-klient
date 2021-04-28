@@ -29,6 +29,7 @@ import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.dialog.BottomMenuDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.EditExerciseDialog;
+import pl.gittobefit.WorkoutDisplay.exceptions.TrainingNotFoundException;
 import pl.gittobefit.WorkoutDisplay.fragments.DisplayReceivedTraining;
 import pl.gittobefit.WorkoutDisplay.fragments.DisplayReceivedTrainingDirections;
 import pl.gittobefit.WorkoutDisplay.fragments.ExerciseDetails;
@@ -47,7 +48,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     private String scheduleType;
     private int trainingID;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
-    private Integer circuitsCount;
+    private int circuitsCount;
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
@@ -69,7 +70,8 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
             String scheduleType,
             int trainingID,
             Fragment fragment,
-            ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS)
+            ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS
+    )
     {
         this.exerciseArrayList = exerciseArrayList;
         this.fragment = fragment;
@@ -93,8 +95,13 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.exerciseName.setText(exerciseArrayList.get(position).getName());
         String text = "";
-        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
-        circuitsCount = model.getTrainingByID(trainingID).training.getCircuitsCount();
+        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity())
+                .get(InitiationTrainingDisplayLayoutViewModel.class);
+        try {
+            circuitsCount = model.getTrainingByID(trainingID).training.getCircuitsCount();
+        } catch (TrainingNotFoundException e) {
+            e.printStackTrace();
+        }
         String properFormSeries = "";
         switch (exercisesExecutionArrayList.get(position).getSeries())
         {

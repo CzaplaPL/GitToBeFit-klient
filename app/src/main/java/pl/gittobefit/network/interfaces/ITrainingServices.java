@@ -25,6 +25,7 @@ public interface ITrainingServices
     Call<Void> deleteTrainingPLan(@Path("id") String id, @Header("Authorization") String auth);
 
     @PUT("/training-plan/updateTitle/{id}")
-    Call<Void> updateTrainingTitle(@Path("id") String id, @Header("Authorization") String authHeader,
+    Call<Void> updateTrainingTitle(@Path("id") String id,
+                                   @Header("Authorization") String authHeader,
                                    @Header("title") String title);
 }

@@ -164,7 +164,8 @@ public class WorkoutFormsServices
     private void createTraining(Training body, Fragment fragment) {
         body.setGenerationDate(body.getGenerationDate());
         body.setTrainingName("Default training name");
-        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
+        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity())
+                .get(InitiationTrainingDisplayLayoutViewModel.class);
         model.addTrainingWithForm(TrainingRepository.getInstance(fragment.getContext()).add(body));
         model.setNumberOfClickedTraining(model.getTrainingWithForms().size() - 1);
     }

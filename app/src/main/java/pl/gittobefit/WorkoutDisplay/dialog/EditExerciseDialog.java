@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
+import pl.gittobefit.WorkoutDisplay.exceptions.TrainingNotFoundException;
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
@@ -77,12 +78,12 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
         if (scheduleType.equals("CIRCUIT"))
         {
             seriesNumberPicker.setValue(circuitsCount);
-            seriesCount.setText("Ilość obwodów");
+            seriesCount.setText(view.getResources().getString(R.string.circuitsCount));
         }
         else
         {
             seriesNumberPicker.setValue(exercisesExecutionArrayList.get(position).getSeries());
-            seriesCount.setText("Ilość serii");
+            seriesCount.setText(view.getResources().getString(R.string.seriesCount));
         }
         seriesNumberPicker.setMinValue(1);
         seriesNumberPicker.setWrapSelectorWheel(false);
@@ -95,17 +96,16 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
             countNumberPicker.setMaxValue(90);
             countNumberPicker.setMinValue(10);
             countNumberPicker.setValue(exercisesExecutionArrayList.get(position).getTime());
-            count_time.setText("Czas trwania");
+            count_time.setText(view.getResources().getString(R.string.time));
         } else {
             countNumberPicker.setMaxValue(50);
             countNumberPicker.setMinValue(1);
             countNumberPicker.setValue(exercisesExecutionArrayList.get(position).getCount());
-            count_time.setText("Ilość powtórzeń");
+            count_time.setText(view.getResources().getString(R.string.repCount));
         }
 
         countNumberPicker.setWrapSelectorWheel(false);
         countNumberPicker.setOnValueChangedListener(this);
-
 
 
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
@@ -119,16 +119,20 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
                 {
                     if (scheduleType.equals("CIRCUIT"))
                     {
-                        if (seriesNumberPicker.getValue() != model.getTrainingByID(trainingID).training.getCircuitsCount())
-                        {
-                            model.getTrainingByID(trainingID).training.setCircuitsCount(seriesNumberPicker.getValue());
-                            model.getCurrentSeries().setValue(seriesNumberPicker.getValue());
-                            circuitsCount = seriesNumberPicker.getValue();
+                        try {
+                            if (seriesNumberPicker.getValue() != model.getTrainingByID(trainingID).training.getCircuitsCount())
+                            {
+                                model.getTrainingByID(trainingID).training.setCircuitsCount(seriesNumberPicker.getValue());
+                                model.getCurrentSeries().setValue(seriesNumberPicker.getValue());
+                                circuitsCount = seriesNumberPicker.getValue();
+                            }
+                        } catch (TrainingNotFoundException e) {
+                            e.printStackTrace();
                         }
                     }
                     else
                     {
-                        if (seriesNumberPicker.getValue() !=  exercisesExecutionArrayList.get(position).getSeries())
+                        if (seriesNumberPicker.getValue() != exercisesExecutionArrayList.get(position).getSeries())
                         {
                             exercisesExecutionArrayList.get(position).setSeries(seriesNumberPicker.getValue());
                             model.getCurrentSeries().setValue(seriesNumberPicker.getValue());
@@ -138,19 +142,18 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
 
                     if (exercisesExecutionArrayList.get(position).getTime() != 0)
                     {
-                        if (countNumberPicker.getValue() !=  exercisesExecutionArrayList.get(position).getTime())
+                        if (countNumberPicker.getValue() != exercisesExecutionArrayList.get(position).getTime())
                         {
                             exercisesExecutionArrayList.get(position).setTime(countNumberPicker.getValue());
                             model.getCurrentTime().setValue(countNumberPicker.getValue());
                         }
                     }
                     else {
-                        if (countNumberPicker.getValue() !=  exercisesExecutionArrayList.get(position).getCount())
+                        if (countNumberPicker.getValue() != exercisesExecutionArrayList.get(position).getCount())
                         {
                             exercisesExecutionArrayList.get(position).setCount(countNumberPicker.getValue());
                             model.getCurrentCount().setValue(countNumberPicker.getValue());
                         }
-
                     }
 
                     AppDataBase.getInstance(getContext()).trainingDao().updateTrainingPlan(exerciseExecutionPOJODBS, circuitsCount, trainingID);

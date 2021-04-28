@@ -346,8 +346,8 @@ public class DisplayReceivedTraining extends Fragment
     private SpannableStringBuilder getSpannableStringBuilder(String durationDisplay, String stringToColor) {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         SpannableString redSpannable= new SpannableString(stringToColor);
-        redSpannable.setSpan(new ForegroundColorSpan(
-                getResources().getColor(R.color.ourGreen)),
+        redSpannable.setSpan(
+                new ForegroundColorSpan(getResources().getColor(R.color.ourGreen)),
                 0,
                 stringToColor.length(),
                 0

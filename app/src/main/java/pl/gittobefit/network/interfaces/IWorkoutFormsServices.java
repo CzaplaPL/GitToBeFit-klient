@@ -27,7 +27,8 @@ public interface IWorkoutFormsServices
     @POST("/training-plan/generate")
     Call<Training> getTrainingPlan(@Body WorkoutForm formSend, @Header("Date") String date);
 
-
     @POST("/training-plan/generate")
-    Call<Training> getTrainingPlanForLoggedInUser(@Body WorkoutForm formSend, @Header("Authorization") String authHeader, @Header("Date") String date);
+    Call<Training> getTrainingPlanForLoggedInUser(@Body WorkoutForm formSend,
+                                                  @Header("Authorization") String authHeader,
+                                                  @Header("Date") String date);
 }
