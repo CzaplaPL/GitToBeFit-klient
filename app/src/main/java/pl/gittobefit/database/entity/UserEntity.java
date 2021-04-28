@@ -17,14 +17,14 @@ public class UserEntity
 
     private String email;
     private String token;
-    private boolean google;
+    private boolean isLoggedByGoogle;
 
-    public UserEntity(int id, String email, String token, boolean google)
+    public UserEntity(int id, String email, String token, boolean isLoggedByGoogle)
     {
         this.id = id;
         this.email = email;
         this.token = token;
-        this.google = google;
+        this.isLoggedByGoogle = isLoggedByGoogle;
     }
 
     public int getId()
@@ -57,19 +57,13 @@ public class UserEntity
         this.token = token;
     }
 
-    @Override
-    public String toString()
+    public boolean isLoggedByGoogle()
     {
-        return "EntityUser{" + "id=" + id + ", email='" + email + '\'' + ", token='" + token + '\'' + '}';
+        return isLoggedByGoogle;
     }
 
-    public boolean isGoogle()
+    public void setLoggedByGoogle(boolean loggedByGoogle)
     {
-        return google;
-    }
-
-    public void setGoogle(boolean google)
-    {
-        this.google = google;
+        this.isLoggedByGoogle = loggedByGoogle;
     }
 }

@@ -18,17 +18,17 @@ public class User
 
     public enum SynchroniseTraining
     {
-        No_Synchronise,
-        Start_Synchronise,
-        Synchronise_Success,
-        Synchronise_error
+        NO_SYNCHRONISE,
+        START_SYNCHRONISE,
+        SYNCHRONISE_SUCCESS,
+        SYNCHRONISE_ERROR
     }
 
     private String email = "";
     private String auth = "";
     private String idServer = "";
     private WayOfLogin loggedBy = WayOfLogin.NO_LOGIN;
-    private MutableLiveData<SynchroniseTraining> synchroniseTraining = new MutableLiveData<>(SynchroniseTraining.No_Synchronise);
+    private MutableLiveData<SynchroniseTraining> synchroniseTraining = new MutableLiveData<>(SynchroniseTraining.NO_SYNCHRONISE);
     private static volatile User INSTANCE;
 
     /**
@@ -66,7 +66,7 @@ public class User
         this.idServer = id;
         this.auth = auth;
         this.loggedBy = loggedBy;
-        this.synchroniseTraining.setValue(SynchroniseTraining.No_Synchronise);
+        this.synchroniseTraining.setValue(SynchroniseTraining.NO_SYNCHRONISE);
     }
 
     public String getIdServer()

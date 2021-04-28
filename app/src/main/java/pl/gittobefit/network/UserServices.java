@@ -514,12 +514,22 @@ public class UserServices
                     Log.w("Autologwanie  ", "  sukces");
                     System.out.println("Kod zwracany przez autoLog: " + response.code());
                     AppDataBase.getInstance(fragment.getContext()).userDao().setToken(response.headers().get("Authorization"),userEntity.getId());
-                    if(userEntity.isGoogle())
+                    if(userEntity.isLoggedByGoogle())
                     {
-                        User.getInstance().add(userEntity.getEmail(), response.headers().get("Authorization"), String.valueOf(userEntity.getId()), User.WayOfLogin.GOOGLE);
+                        User.getInstance().add(
+                                userEntity.getEmail(),
+                                response.headers().get("Authorization"),
+                                String.valueOf(userEntity.getId()),
+                                User.WayOfLogin.GOOGLE
+                        );
                     }else
                     {
-                        User.getInstance().add(userEntity.getEmail(), response.headers().get("Authorization"), String.valueOf(userEntity.getId()), User.WayOfLogin.OUR_SERVER);
+                        User.getInstance().add(
+                                userEntity.getEmail(),
+                                response.headers().get("Authorization"),
+                                String.valueOf(userEntity.getId()),
+                                User.WayOfLogin.OUR_SERVER
+                        );
                     }
                     fragment.loginSuccess();
                 }

@@ -60,12 +60,14 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         }
     }
 
-    public ExerciseListAdapter(ArrayList<Exercise> exerciseArrayList,
-                               ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
-                               String scheduleType,
-                               int trainingID,
-                               Fragment fragment,
-                               ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS)
+    public ExerciseListAdapter(
+            ArrayList<Exercise> exerciseArrayList,
+            ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
+            String scheduleType,
+            int trainingID,
+            Fragment fragment,
+            ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS
+    )
     {
         this.exerciseArrayList = exerciseArrayList;
         this.fragment = fragment;
@@ -86,71 +88,84 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
+    {
         holder.exerciseName.setText(exerciseArrayList.get(position).getName());
         String text = "";
 
         String properFormSeries = "";
-        switch (exercisesExecutionArrayList.get(position).getSeries())
+        switch(exercisesExecutionArrayList.get(position).getSeries())
         {
-            case 1: properFormSeries = "seria"; break;
+            case 1:
+                properFormSeries = "seria";
+                break;
             case 2:
             case 4:
             case 3:
-                properFormSeries = "serie"; break;
-            default:  properFormSeries = "serii"; break;
+                properFormSeries = "serie";
+                break;
+            default:
+                properFormSeries = "serii";
+                break;
         }
 
         String properFormCircuit = "";
-        switch (exercisesExecutionArrayList.get(position).getSeries())
+        switch(exercisesExecutionArrayList.get(position).getSeries())
         {
-            case 1: properFormCircuit = "obwód"; break;
+            case 1:
+                properFormCircuit = "obwód";
+                break;
             case 2:
             case 4:
             case 3:
-                properFormCircuit = "obwody"; break;
-            default:  properFormCircuit = "obwodów"; break;
+                properFormCircuit = "obwody";
+                break;
+            default:
+                properFormCircuit = "obwodów";
+                break;
         }
         String properFormRep = "";
-        switch (exercisesExecutionArrayList.get(position).getCount())
+        switch(exercisesExecutionArrayList.get(position).getCount())
         {
-            case 1: properFormRep = "powtórzenie"; break;
+            case 1:
+                properFormRep = "powtórzenie";
+                break;
             case 2:
             case 4:
             case 3:
-                properFormRep = "powtórzenia"; break;
-            default:  properFormRep = "powtórzeń"; break;
+                properFormRep = "powtórzenia";
+                break;
+            default:
+                properFormRep = "powtórzeń";
+                break;
         }
 
-        if (exercisesExecutionArrayList.get(position).getTime() != 0)
+        if(exercisesExecutionArrayList.get(position).getTime() != 0)
         {
-            if (scheduleType.equals("CIRCUIT"))
+            if(scheduleType.equals("CIRCUIT"))
             {
-                text = String.format(Locale.getDefault(),"%d %s, %d sekund",
+                text = String.format(Locale.getDefault(), "%d %s, %d sekund",
                         exercisesExecutionArrayList.get(position).getSeries(),
                         properFormCircuit,
                         exercisesExecutionArrayList.get(position).getTime());
-            }
-            else
+            }else
             {
-                text = String.format(Locale.getDefault(),"%d %s, %d sekund",
+                text = String.format(Locale.getDefault(), "%d %s, %d sekund",
                         exercisesExecutionArrayList.get(position).getSeries(),
                         properFormSeries,
                         exercisesExecutionArrayList.get(position).getTime());
             }
-        }
-        else
+        }else
         {
-            if (scheduleType.equals("CIRCUIT"))
+            if(scheduleType.equals("CIRCUIT"))
             {
-                text = String.format(Locale.getDefault(),"%d %s, %d %s",
+                text = String.format(Locale.getDefault(), "%d %s, %d %s",
                         exercisesExecutionArrayList.get(position).getSeries(),
                         properFormCircuit,
                         exercisesExecutionArrayList.get(position).getCount(), properFormRep);
-            }
-            else
+            }else
             {
-                text = String.format(Locale.getDefault(),"%d %s, %d %s",
+                text = String.format(Locale.getDefault(), "%d %s, %d %s",
                         exercisesExecutionArrayList.get(position).getSeries(),
                         properFormSeries,
                         exercisesExecutionArrayList.get(position).getCount(), properFormRep);
@@ -159,12 +174,13 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
         holder.exerciseInfo.setText(text);
 
-        holder.itemView.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v ->
+        {
             BottomMenuDialog bottomSheetDialog = new BottomMenuDialog(
                     exerciseArrayList,
                     fragment,
                     scheduleType,
-                    position ,
+                    position,
                     exercisesExecutionArrayList,
                     trainingID,
                     exerciseExecutionPOJODBS
@@ -175,7 +191,8 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return exerciseArrayList.size();
     }
 
