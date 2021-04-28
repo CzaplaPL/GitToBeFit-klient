@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,11 +29,13 @@ import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.dialog.BottomMenuDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.EditExerciseDialog;
+import pl.gittobefit.WorkoutDisplay.exceptions.TrainingNotFoundException;
 import pl.gittobefit.WorkoutDisplay.fragments.DisplayReceivedTraining;
 import pl.gittobefit.WorkoutDisplay.fragments.DisplayReceivedTrainingDirections;
 import pl.gittobefit.WorkoutDisplay.fragments.ExerciseDetails;
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
+import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 
@@ -45,6 +48,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     private String scheduleType;
     private int trainingID;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
+    private int circuitsCount;
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
@@ -60,12 +64,14 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         }
     }
 
-    public ExerciseListAdapter(ArrayList<Exercise> exerciseArrayList,
-                               ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
-                               String scheduleType,
-                               int trainingID,
-                               Fragment fragment,
-                               ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS)
+    public ExerciseListAdapter(
+            ArrayList<Exercise> exerciseArrayList,
+            ArrayList<ExerciseExecutionPOJODB> exercisesExecutionArrayList,
+            String scheduleType,
+            int trainingID,
+            Fragment fragment,
+            ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS
+    )
     {
         this.exerciseArrayList = exerciseArrayList;
         this.fragment = fragment;
@@ -89,7 +95,13 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.exerciseName.setText(exerciseArrayList.get(position).getName());
         String text = "";
-
+        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity())
+                .get(InitiationTrainingDisplayLayoutViewModel.class);
+        try {
+            circuitsCount = model.getTrainingByID(trainingID).training.getCircuitsCount();
+        } catch (TrainingNotFoundException e) {
+            e.printStackTrace();
+        }
         String properFormSeries = "";
         switch (exercisesExecutionArrayList.get(position).getSeries())
         {
@@ -127,7 +139,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
             if (scheduleType.equals("CIRCUIT"))
             {
                 text = String.format(Locale.getDefault(),"%d %s, %d sekund",
-                        exercisesExecutionArrayList.get(position).getSeries(),
+                        circuitsCount,
                         properFormCircuit,
                         exercisesExecutionArrayList.get(position).getTime());
             }
@@ -143,14 +155,16 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         {
             if (scheduleType.equals("CIRCUIT"))
             {
-                text = String.format(Locale.getDefault(),"%d %s, %d %s",
-                        exercisesExecutionArrayList.get(position).getSeries(),
+                text = String.format(Locale.getDefault(),
+                        "%d %s, %d %s",
+                        circuitsCount,
                         properFormCircuit,
                         exercisesExecutionArrayList.get(position).getCount(), properFormRep);
             }
             else
             {
-                text = String.format(Locale.getDefault(),"%d %s, %d %s",
+                text = String.format(Locale.getDefault(),
+                        "%d %s, %d %s",
                         exercisesExecutionArrayList.get(position).getSeries(),
                         properFormSeries,
                         exercisesExecutionArrayList.get(position).getCount(), properFormRep);
@@ -161,6 +175,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
         holder.itemView.setOnClickListener(v -> {
             BottomMenuDialog bottomSheetDialog = new BottomMenuDialog(
+                    circuitsCount,
                     exerciseArrayList,
                     fragment,
                     scheduleType,

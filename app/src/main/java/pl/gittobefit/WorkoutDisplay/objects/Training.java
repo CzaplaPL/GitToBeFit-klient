@@ -12,7 +12,7 @@ public class Training
 {
     private WorkoutForm trainingForm;
     private ArrayList<TrainingPlan> planList = new ArrayList<>();
-    private String generationDate;
+    private String createdAt;
     private String title;
     private int id;
 
@@ -47,12 +47,12 @@ public class Training
 
     public String getGenerationDate()
     {
-        return generationDate;
+        return createdAt;
     }
 
     public void setGenerationDate(String generationDate)
     {
-        this.generationDate = generationDate;
+        this.createdAt = generationDate;
     }
 
     public String getTrainingName()

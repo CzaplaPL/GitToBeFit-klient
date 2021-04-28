@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import pl.gittobefit.WorkoutDisplay.exceptions.TrainingNotFoundException;
+import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 
 public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
@@ -34,9 +36,21 @@ public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
         return trainingWithForms;
     }
 
+    public TrainingWithForm getTrainingByID(int id) throws TrainingNotFoundException {
+        for (TrainingWithForm training : trainingWithForms)
+        {
+            if (training.training.getId() == id)
+            {
+                return training;
+            }
+        }
+        throw new TrainingNotFoundException("Training not found - invalid training ID");
+    }
+
     public void setTrainingWithForms(ArrayList<TrainingWithForm> trainingWithForms) {
         this.trainingWithForms = trainingWithForms;
     }
+
 
     public void addTrainingWithForm(TrainingWithForm trainingWithForm)
     {

@@ -38,12 +38,16 @@ public interface ITrainingDao
     List<TrainingWithForm> getAllTrainingForUser(String id);
 
     @Transaction
+    @Query("SELECT idFromServer FROM SavedTraining  WHERE id=:id ")
+    Long getIdFromServerById(String id);
+
+    @Transaction
     @Query("UPDATE SavedTraining SET idUser = :id WHERE idUser=\"\" ")
     void addUserForTrainings(String id);
 
     @Transaction
-    @Query("UPDATE SavedTraining SET planList = :exerciseExecutionPOJODBS WHERE id=:id")
-    void updateTrainingPlan(ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS, long id);
+    @Query("UPDATE SavedTraining SET planList = :exerciseExecutionPOJODBS,  circuitsCount = :circuitsCount WHERE id=:id")
+    void updateTrainingPlan(ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS, int circuitsCount, long id);
 
     @Transaction
     @Query("DELETE FROM SavedTraining  WHERE id = :id")

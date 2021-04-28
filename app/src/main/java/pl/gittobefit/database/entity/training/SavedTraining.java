@@ -20,12 +20,15 @@ public class SavedTraining
     private int id;
     private String idUser;
     private long idForm;
+    private long idFromServer;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList;
     private String generationDate;
     private String trainingName;
     private int trainingDay;
+    private int breakTime;
+    private int circuitsCount;
 
-    public SavedTraining(long idForm, ArrayList<TrainingPlan> planList,String name)
+    public SavedTraining(long idFromServer, long idForm, ArrayList<TrainingPlan> planList, String name, String date)
     {
         this.planList = new ArrayList<>();
         if(User.getInstance().getLoggedBy() == User.WayOfLogin.NO_LOGIN)
@@ -35,12 +38,11 @@ public class SavedTraining
         {
             this.idUser = User.getInstance().getIdServer();
         }
-
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        this.generationDate = formatter.format(date);
+        this.breakTime = planList.get(0).getBreakTime();
+        this.circuitsCount = planList.get(0).getCircuitsCount();
+        this.generationDate = date;
         this.trainingName = name;
-
+        this.idFromServer = idFromServer;
         this.idForm = idForm;
         for(TrainingPlan readPlan : planList)
         {
@@ -134,5 +136,29 @@ public class SavedTraining
     public boolean isNextDay()
     {
         return planList.size() > trainingDay + 1;
+    }
+
+    public long getIdFromServer() {
+        return idFromServer;
+    }
+
+    public void setIdFromServer(long idFromServer) {
+        this.idFromServer = idFromServer;
+    }
+
+    public int getBreakTime() {
+        return breakTime;
+    }
+
+    public void setBreakTime(int breakTime) {
+        this.breakTime = breakTime;
+    }
+
+    public int getCircuitsCount() {
+        return circuitsCount;
+    }
+
+    public void setCircuitsCount(int circuitsCount) {
+        this.circuitsCount = circuitsCount;
     }
 }
