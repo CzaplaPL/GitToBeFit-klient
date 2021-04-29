@@ -96,6 +96,10 @@
         android:name="pl.gittobefit.user.dialog.RegistrationSuccesDialog"
         android:label="RegistrationSuccesDialog" />
     <dialog
+        android:id="@+id/editTimeBreakDialog"
+        android:name="pl.gittobefit.WorkoutDisplay.dialog.EditBreakDialog"
+        android:label="EditBreakDialog" />
+    <dialog
         android:id="@+id/changeMailDialog"
         android:name="pl.gittobefit.user.dialog.ChangeMailDialog"
         android:label="ChangeMailDialog">

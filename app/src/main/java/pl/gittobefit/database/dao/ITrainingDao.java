@@ -51,6 +51,10 @@ public interface ITrainingDao
     void updateTrainingPlan(ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS, int circuitsCount, long id);
 
     @Transaction
+    @Query("UPDATE SavedTraining SET breakTime = :breakTime WHERE id=:id")
+    void updateBreakTime(int breakTime, long id);
+
+    @Transaction
     @Query("DELETE FROM SavedTraining  WHERE id = :id")
     public void deleteTrainingInDataBase(long id);
 

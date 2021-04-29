@@ -25,8 +25,8 @@ public class ListOfTrainings extends Fragment
 {
     private RecyclerView trainingList;
     private LinearLayout loading;
-    TrainingListAdapter trainingListAdapter;
-    InitiationTrainingDisplayLayoutViewModel model;
+    private TrainingListAdapter trainingListAdapter;
+    private InitiationTrainingDisplayLayoutViewModel model;
 
     public ListOfTrainings() { }
 

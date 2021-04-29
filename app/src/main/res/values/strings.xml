@@ -27,6 +27,8 @@
     <string name="time">Czas trwania</string>
     <string name="repCount">Ilość powtórzeń</string>
     <string name="deleteComplete">Usunięto trening poprawnie.</string>
+    <string name="breakTime">Przerwa pomiędzy seriami:</string>
+    <string name="edit_break_time">Edytuj czas przerwy.</string>
 
 
     <string name="incorrectpassword">hasła różnią się </string>

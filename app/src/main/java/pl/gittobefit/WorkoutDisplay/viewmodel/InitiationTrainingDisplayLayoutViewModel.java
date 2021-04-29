@@ -22,6 +22,7 @@ public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
     private MutableLiveData<Integer> trainingTime;
     private MutableLiveData<Integer> trainingSeries;
     private MutableLiveData<Integer> trainingCount;
+    private MutableLiveData<Integer> breakTime;
     private int lastIndex = -1;
 
     public InitiationTrainingDisplayLayoutViewModel()
@@ -111,6 +112,13 @@ public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
             trainingSeries = new MutableLiveData<Integer>();
         }
         return trainingSeries;
+    }
+
+    public MutableLiveData<Integer> getCurrentBreakTime() {
+        if (breakTime == null) {
+            breakTime = new MutableLiveData<Integer>();
+        }
+        return breakTime;
     }
 
 }

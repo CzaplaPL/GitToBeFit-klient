@@ -29,6 +29,7 @@ import java.util.Locale;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.adapters.ExerciseListAdapter;
 import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
+import pl.gittobefit.WorkoutDisplay.dialog.EditBreakDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.EditTrainingNameDialog;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.entity.training.Exercise;
@@ -99,6 +100,7 @@ public class DisplayReceivedTraining extends Fragment
         TextView trainingForm = getView().findViewById(R.id.trainingForm);
         TextView trainingDuration = getView().findViewById(R.id.trainingDuration);
         TextView trainingName = getView().findViewById(R.id.trainingName);
+        TextView trainingBreak = getView().findViewById(R.id.trainingBreak);
 
         final Observer<String> nameObserver = new Observer<String>() {
             @Override
@@ -109,6 +111,18 @@ public class DisplayReceivedTraining extends Fragment
             }
         };
         model.getCurrentName().observe(this, nameObserver);
+
+        final Observer<Integer> breakTimeObserver = new Observer<Integer>()
+        {
+            @Override
+            public void onChanged(Integer integer) {
+                String trainingBreakString = "Przerwa pomiędzy seriami: ";
+                String breakTime  = integer + " sekund";
+                SpannableStringBuilder breakBuilder = getSpannableStringBuilder(breakTime, trainingBreakString);
+                trainingBreak.setText(breakBuilder, TextView.BufferType.SPANNABLE);
+            }
+        };
+        model.getCurrentBreakTime().observe(this, breakTimeObserver);
 
 
         RelativeLayout relativeLayout1 = getView().findViewById(R.id.layout0);
@@ -184,6 +198,19 @@ public class DisplayReceivedTraining extends Fragment
             DeleteTrainingDialog deleteTrainingDialog = new DeleteTrainingDialog(getView());
             deleteTrainingDialog.setArguments(args);
             deleteTrainingDialog.show(getParentFragmentManager(), "dialog");
+        });
+
+        Button editBreakTimeButton = getView().findViewById(R.id.editTrainingBreakButton);
+        editBreakTimeButton.setOnClickListener(v -> {
+            Bundle args = new Bundle();
+            args.putString("trainingID",
+                    String.format(Locale.getDefault(),
+                            "%d/%d",
+                            index,
+                            trainingWithForm.training.getId()));
+            EditBreakDialog editBreakDialog = new EditBreakDialog(trainingWithForm.training.getBreakTime());
+            editBreakDialog.setArguments(args);
+            editBreakDialog.show(getParentFragmentManager(), "dialog");
         });
 
 
@@ -286,6 +313,8 @@ public class DisplayReceivedTraining extends Fragment
                 day1Button.setVisibility(View.VISIBLE);
                 break;
         }
+        String breakTime  = trainingWithForm.training.getBreakTime() + " sekund";
+
         String trainingTimeString = "Czas treningu: ";
         SpannableStringBuilder timeBuilder = getSpannableStringBuilder(durationDisplay, trainingTimeString);
 
@@ -295,12 +324,16 @@ public class DisplayReceivedTraining extends Fragment
         String trainingTypeString = "Rodzaj treningu: ";
         SpannableStringBuilder typeBuilder = getSpannableStringBuilder(trainingTypeDisplay, trainingTypeString);
 
+        String trainingBreakString = "Przerwa pomiędzy seriami: ";
+        SpannableStringBuilder breakBuilder = getSpannableStringBuilder(breakTime, trainingBreakString);
+
         String trainingNameString = "Nazwa treningu: ";
         SpannableStringBuilder nameBuilder = getSpannableStringBuilder(nameOfTraining, trainingNameString);
 
         trainingName.setText(nameBuilder, TextView.BufferType.SPANNABLE);
         trainingType.setText(typeBuilder, TextView.BufferType.SPANNABLE);
         trainingForm.setText(formBuilder, TextView.BufferType.SPANNABLE);
+        trainingBreak.setText(breakBuilder, TextView.BufferType.SPANNABLE);
         trainingDuration.setText(timeBuilder, TextView.BufferType.SPANNABLE);
         trainingDuration.setVisibility(View.GONE);
 
