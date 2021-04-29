@@ -148,6 +148,14 @@ public class WorkoutFormsServices
                 }
                 else
                 {
+                    if (response.code() == 409)
+                    {
+                        switch (response.headers().get("Cause"))
+                        {
+                            case "0 body parts":
+                                activity.showSnackbar(fragment.getResources().getString(R.string.noBodyParts));
+                        }
+                    }
                     Log.e("Network ", "WorkoutForms.getTrainingType error " + response.code());
                     LogUtils.logCause(response.headers().get("Cause"));
                 }
@@ -163,7 +171,7 @@ public class WorkoutFormsServices
 
     private void createTraining(Training body, Fragment fragment) {
         body.setGenerationDate(body.getGenerationDate());
-        body.setTrainingName("Default training name");
+        body.setTrainingName("Nowy trening");
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity())
                 .get(InitiationTrainingDisplayLayoutViewModel.class);
         model.addTrainingWithForm(TrainingRepository.getInstance(fragment.getContext()).add(body));

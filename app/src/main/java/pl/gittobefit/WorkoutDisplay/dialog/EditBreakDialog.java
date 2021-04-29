@@ -86,7 +86,6 @@ public class EditBreakDialog extends AppCompatDialogFragment implements NumberPi
                     {
                         activity.showSnackbar(getContext().getResources().getString(R.string.editionComplete));
                     }
-
                 });
         return builder.create();
     }

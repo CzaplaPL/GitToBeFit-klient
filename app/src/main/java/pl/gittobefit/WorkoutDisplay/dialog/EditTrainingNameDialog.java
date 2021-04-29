@@ -53,22 +53,28 @@ public class EditTrainingNameDialog extends AppCompatDialogFragment
                     Bundle args = getArguments();
                     String trainingID = args.getString("trainingID");
                     String[] tokens = trainingID.split("/");
-                    IShowSnackbar activity = (IShowSnackbar) getActivity();
-                    long idFromServer = AppDataBase.getInstance(getContext()).trainingDao().getIdFromServerById(tokens[1]);
-                    if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
-                    {
-                            ConnectionToServer.getInstance().trainingServices.updateTrainingName(
-                                    idFromServer,
-                                    activity,
-                                    getContext(),
-                                    newTrainingName
-                            );
-                    }
+
                     model.getTrainingWithForms().get(Integer.parseInt(tokens[0])).training.setTrainingName(newTrainingName);
                     model.getCurrentName().setValue(newTrainingName);
                     AppDataBase.getInstance(getContext())
                             .trainingDao()
                             .updateTrainingNameInDataBase(newTrainingName, Integer.parseInt(tokens[1]));
+
+                    IShowSnackbar activity = (IShowSnackbar) getActivity();
+                    long idFromServer = AppDataBase.getInstance(getContext()).trainingDao().getIdFromServerById(tokens[1]);
+                    if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
+                    {
+                        ConnectionToServer.getInstance().trainingServices.updateTrainingName(
+                                idFromServer,
+                                activity,
+                                getContext(),
+                                newTrainingName
+                        );
+                    }
+                    else
+                    {
+                        activity.showSnackbar(getContext().getResources().getString(R.string.editionComplete));
+                    }
                 });
         newName = view.findViewById(R.id.newTrainingName);
         return builder.create();
