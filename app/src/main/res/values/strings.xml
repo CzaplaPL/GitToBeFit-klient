@@ -30,6 +30,8 @@
     <string name="breakTime">Przerwa pomiędzy seriami:</string>
     <string name="edit_break_time">Edytuj czas przerwy.</string>
     <string name="noBodyParts">Pownieneś zaznaczyć jakieś partie ciała, aby wygenerować wybrany typ treningu.</string>
+    <string name="wrongCombination">Genewowanie niepomyślne, rozważ zaznczenie ćwiczeń niewymagającyh sprzetu.</string>
+    <string name="needMoreEQ">Genewowanie niepomyślne, rozważ zaznczenie większej ilości sprzetu.</string>
 
 
     <string name="incorrectpassword">hasła różnią się </string>
