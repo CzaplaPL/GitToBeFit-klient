@@ -15,6 +15,7 @@ import pl.gittobefit.database.dao.ITrainingDao;
 import pl.gittobefit.database.dao.IUserDao;
 import pl.gittobefit.database.data.EquipmentData;
 import pl.gittobefit.database.entity.UserEntity;
+import pl.gittobefit.database.entity.equipment.Checksum;
 import pl.gittobefit.database.entity.equipment.Equipment;
 import pl.gittobefit.database.entity.equipment.EquipmentType;
 import pl.gittobefit.database.entity.training.Exercise;
@@ -24,7 +25,7 @@ import pl.gittobefit.database.entity.training.WorkoutForm;
 /**
  * klasa bazy danych
  */
-@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SavedTraining.class, EquipmentType.class, Equipment.class}, version =12, exportSchema = false)
+@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SavedTraining.class, EquipmentType.class, Equipment.class, Checksum.class}, version =1, exportSchema = false)
 @TypeConverters({TrainingConverter.class})
 public abstract class AppDataBase extends RoomDatabase
 {
@@ -44,8 +45,8 @@ public abstract class AppDataBase extends RoomDatabase
                             .allowMainThreadQueries()
                             .fallbackToDestructiveMigration()
                             .build();
-                    INSTANCE.equipmentDao().insertEquipmentTypes(EquipmentData.equipmentTypes());
-                    INSTANCE.equipmentDao().insertEquipments(EquipmentData.equipments());
+                    INSTANCE.equipmentDao().initEquipmentTypes(EquipmentData.equipmentTypes());
+                    INSTANCE.equipmentDao().initEquipments(EquipmentData.equipments());
                 }
             }
         }

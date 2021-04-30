@@ -15,6 +15,7 @@ import pl.gittobefit.R;
 import pl.gittobefit.databinding.FragmentSummaryFormBinding;
 import pl.gittobefit.workoutforms.adapters.CheckedEquipmentAdapter;
 import pl.gittobefit.workoutforms.adapters.ChosenBodyPartsAdapter;
+import pl.gittobefit.workoutforms.viewmodel.GenerateTrainingViewModelFactory;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
 /**
@@ -42,7 +43,7 @@ public class SummaryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
+        model= new ViewModelProvider(requireActivity(),new GenerateTrainingViewModelFactory(this.getContext())).get(GenerateTraningViewModel.class);
         bodyPartsAdapter = new ChosenBodyPartsAdapter(model.getBodyPartsChecked());
         binding.bodyPartsList.setAdapter(bodyPartsAdapter);
         binding.bodyPartsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

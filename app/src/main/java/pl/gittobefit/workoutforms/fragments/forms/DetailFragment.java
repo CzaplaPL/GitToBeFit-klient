@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import pl.gittobefit.R;
 import pl.gittobefit.databinding.FragmentDetailFormBinding;
 import pl.gittobefit.workoutforms.adapters.BodyPartsAdapter;
+import pl.gittobefit.workoutforms.viewmodel.GenerateTrainingViewModelFactory;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
 
@@ -44,7 +45,7 @@ public class DetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
+        model= new ViewModelProvider(requireActivity(),new GenerateTrainingViewModelFactory(this.getContext())).get(GenerateTraningViewModel.class);
         model.setBodyPartsSplit(getContext());
         //tworzenie 1 spinera wyboru typu treningu
         bodyPartsAdapter = new BodyPartsAdapter(model.getBodyParts());

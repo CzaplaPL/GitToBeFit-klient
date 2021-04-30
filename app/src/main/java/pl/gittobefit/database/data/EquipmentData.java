@@ -30,6 +30,11 @@ public class EquipmentData
                 add(new Equipment(8, "Wyciąg górny", "035-machine.png", 1));
                 add(new Equipment(11, "Roller", "036-dumbbell-3.png", 2));
                 add(new Equipment(13, "Taśma treningowa", "031-measuring-tape.png", 2));
+                add(new Equipment(25, "Mata treningowa", "041-yoga-mat.png", 2));
+                add(new Equipment(14, "Gryf", "barbell-bar.png", 3));
+                add(new Equipment(15, "Hantle", "barbell-bar.png", 3));
+                add(new Equipment(23, "Ławka rzymska", "013-machine.png", 3));
+                add(new Equipment(20, "Bez sprzetu", "", 4));
             }
         };
     }

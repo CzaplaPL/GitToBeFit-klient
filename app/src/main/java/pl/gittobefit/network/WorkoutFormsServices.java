@@ -15,15 +15,14 @@ import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
+import pl.gittobefit.database.entity.equipment.Checksum;
 import pl.gittobefit.database.entity.training.WorkoutForm;
-import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.repository.TrainingRepository;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.EquipmentItem;
 import pl.gittobefit.workoutforms.object.EquipmentTypeItem;
-import pl.gittobefit.WorkoutDisplay.objects.Training;
-import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
+import pl.gittobefit.database.repository.WorkoutFormsRepository;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,7 +36,38 @@ public class WorkoutFormsServices
     {
         workout = adapter.create(IWorkoutFormsServices.class);
     }
-    public void getEquipmentType(EquipmentFragment fragment)
+
+    public void checkChecksum(WorkoutFormsRepository repository)
+    {
+        Log.w("Network", "WorkoutForms.checkChecksum");
+        Call<ArrayList<Checksum>> call = workout.getChecksum();
+        call.enqueue(new Callback<ArrayList<Checksum>>()
+        {
+            @Override
+            public void onResponse(Call<ArrayList<Checksum>> call, Response<ArrayList<Checksum>> response)
+            {
+                if(response.code()==200)
+                {
+                    repository.setChecksum(response.body());
+                }else
+                {
+                    Log.e("Network","kod błędu checkChecksum " + String.valueOf(response.code()));
+                    LogUtils.logCause(response.headers().get("Cause"));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Checksum>> call, Throwable t)
+            {
+                Log.e("Network ", "WorkoutForms.checkChecksum error = " + t.toString());
+            }
+        });
+    }
+
+
+
+    public void getEquipmentType(WorkoutFormsRepository repository)
     {
         Log.w("Network", "WorkoutForms.getEquipmentType");
         Call<ArrayList<EquipmentTypeItem>> call = workout.getEquipmentType();
@@ -56,12 +86,11 @@ public class WorkoutFormsServices
                         {
                             if(response2.code()==200)
                             {
-                                fragment.createList(response.body(),Integer.parseInt(response2.headers().get("id")));
+                                repository.downloadEquipmentType(response.body(),Integer.parseInt(response2.headers().get("id")));
                             }else
                             {
                                 Log.e("Network","kod błędu getNoEquipment " + String.valueOf(response2.code()));
                                 LogUtils.logCause(response.headers().get("Cause"));
-                                fragment.createList(response.body(),Integer.parseInt("20"));
                             }
                         }
 

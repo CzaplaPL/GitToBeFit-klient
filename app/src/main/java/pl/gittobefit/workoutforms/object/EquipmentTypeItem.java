@@ -2,6 +2,8 @@ package pl.gittobefit.workoutforms.object;
 
 import java.util.ArrayList;
 
+import pl.gittobefit.database.entity.equipment.EquipmentType;
+
 public class EquipmentTypeItem extends EquipmentForm
 {
 
@@ -10,6 +12,16 @@ public class EquipmentTypeItem extends EquipmentForm
     public EquipmentTypeItem(int id, String name, String url)
     {
         super(id, name, url);
+        equipment = new ArrayList<>();
+    }
+
+    public EquipmentTypeItem(EquipmentType item)
+    {
+        super(
+                item.getId(),
+                item.getName(),
+                item.getPath()
+        );
         equipment = new ArrayList<>();
     }
 
@@ -26,7 +38,6 @@ public class EquipmentTypeItem extends EquipmentForm
 
     public void setEquipment(ArrayList<EquipmentItem> equipment)
     {
-
         this.equipment = equipment;
     }
 }
