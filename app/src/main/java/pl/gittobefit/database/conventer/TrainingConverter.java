@@ -54,5 +54,4 @@ public class TrainingConverter
     {
         return new Gson().fromJson(value,new TypeToken< ArrayList<Equipment>>(){}.getType());
     }
-
 }

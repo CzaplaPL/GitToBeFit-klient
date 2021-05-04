@@ -92,18 +92,16 @@ public class WorkoutFormsRepository
             ConnectionToServer.getInstance().WorkoutFormsServices.getEquipment(typeId, position, this);
         }else
         {
-            ArrayList<Equipment> equipmentsDB =new ArrayList<>(base.equipmentDao().getEquipmentForType(typeId));
+            ArrayList<Equipment> equipmentsDB = new ArrayList<>(base.equipmentDao().getEquipmentForType(typeId));
             ArrayList<EquipmentItem> equipmentItems = new ArrayList<>();
             for(Equipment equipment : equipmentsDB)
             {
                 equipmentItems.add(new EquipmentItem(equipment));
             }
-            addEquipment(typeId,equipmentItems,position);
+            addEquipment(typeId, equipmentItems, position);
         }
 
     }
-
-
 
     public void addEquipment(int typeid, ArrayList<EquipmentItem> response, int position)
     {
@@ -129,7 +127,6 @@ public class WorkoutFormsRepository
             }
         }
     }
-
 
     public ArrayList<Integer> getIdCheckEqiupment()
     {
@@ -218,7 +215,6 @@ public class WorkoutFormsRepository
         observer.setNoEquipmentcheched(true);
     }
 
-
     private void setEquipmentTypes(boolean isNetwork)
     {
         if(equipmentTypes.size() == 0)
@@ -236,7 +232,7 @@ public class WorkoutFormsRepository
         observer.initList(equipmentTypes);
         observer.setNoEquipmentid(noEquipmentId);
         observer.setNoEquipmentcheched(true);
-        Checksum loadedType =base.equipmentDao().getLoadedType();
-        if(loadedType!=null)isEquipmentDownload = new ArrayList<>(loadedType.getLoadedType());
+        Checksum loadedType = base.equipmentDao().getLoadedType();
+        if(loadedType != null) isEquipmentDownload = new ArrayList<>(loadedType.getLoadedType());
     }
 }

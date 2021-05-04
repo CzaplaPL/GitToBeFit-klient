@@ -24,6 +24,4 @@ public interface IExerciseDao
     @Transaction
     @Query("SELECT * FROM Exercise WHERE id = :id")
     Exercise getExercise(long id);
-
-
 }

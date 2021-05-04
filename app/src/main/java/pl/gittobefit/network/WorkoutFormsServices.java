@@ -49,12 +49,12 @@ public class WorkoutFormsServices
             @Override
             public void onResponse(Call<ArrayList<Checksum>> call, Response<ArrayList<Checksum>> response)
             {
-                if(response.code()==200)
+                if(response.code() == 200)
                 {
                     repository.setChecksum(response.body());
                 }else
                 {
-                    Log.e("Network","kod błędu checkChecksum " + String.valueOf(response.code()));
+                    Log.e("Network", "kod błędu checkChecksum " + String.valueOf(response.code()));
                     LogUtils.logCause(response.headers().get("Cause"));
                 }
 
@@ -67,7 +67,6 @@ public class WorkoutFormsServices
             }
         });
     }
-
 
 
     public void getEquipmentType(WorkoutFormsRepository repository)
@@ -87,12 +86,12 @@ public class WorkoutFormsServices
                         @Override
                         public void onResponse(Call<Void> call2, Response<Void> response2)
                         {
-                            if(response2.code()==200)
+                            if(response2.code() == 200)
                             {
-                                repository.downloadEquipmentType(response.body(),Integer.parseInt(response2.headers().get("id")));
+                                repository.downloadEquipmentType(response.body(), Integer.parseInt(response2.headers().get("id")));
                             }else
                             {
-                                Log.e("Network","kod błędu getNoEquipment " + String.valueOf(response2.code()));
+                                Log.e("Network", "kod błędu getNoEquipment " + String.valueOf(response2.code()));
                                 LogUtils.logCause(response.headers().get("Cause"));
                             }
                         }
@@ -106,10 +105,11 @@ public class WorkoutFormsServices
 
                 }else
                 {
-                    Log.e("Network ", "WorkoutForms.getEquipmentType error " +String.valueOf(response.code()));
+                    Log.e("Network ", "WorkoutForms.getEquipmentType error " + String.valueOf(response.code()));
                     LogUtils.logCause(response.headers().get("Cause"));
                 }
             }
+
             @Override
             public void onFailure(Call<ArrayList<EquipmentTypeItem>> call, Throwable t)
             {
@@ -119,10 +119,11 @@ public class WorkoutFormsServices
 
         });
     }
+
     public void getEquipment(int typeid, int position, WorkoutFormsRepository repository)
     {
         Log.w("Network", "WorkoutForms.getEquipment");
-        ArrayList<EquipmentItem> data =new ArrayList<EquipmentItem>();
+        ArrayList<EquipmentItem> data = new ArrayList<EquipmentItem>();
         Call<ArrayList<EquipmentItem>> call = workout.getEquipment(typeid);
         call.enqueue(new Callback<ArrayList<EquipmentItem>>()
         {
@@ -131,13 +132,14 @@ public class WorkoutFormsServices
             {
                 if(response.isSuccessful())
                 {
-                    repository.addEquipment(typeid,response.body(),position);
+                    repository.addEquipment(typeid, response.body(), position);
                 }else
                 {
-                    Log.e("Network ", "WorkoutForms.getEquipmentType error " +String.valueOf(response.code()));
+                    Log.e("Network ", "WorkoutForms.getEquipmentType error " + String.valueOf(response.code()));
                     LogUtils.logCause(response.headers().get("Cause"));
                 }
             }
+
             @Override
             public void onFailure(Call<ArrayList<EquipmentItem>> call, Throwable t)
             {
@@ -150,32 +152,31 @@ public class WorkoutFormsServices
 
     public void getTrainingPlan(Fragment fragment, WorkoutForm form)
     {
-        Log.w("form",String.format("%s %s %s %s %s %s %s %s %s %s %s %s","equipmentIDs",form.getEquipmentIDs().toString()," trainingType ",form.getTrainingType()," bodyParts ",form.getBodyParts()," daysCount",form.getDaysCount()," scheduleType ",form.getScheduleType()," duration ",form.getDuration()));
+        Log.w("form", String.format("%s %s %s %s %s %s %s %s %s %s %s %s", "equipmentIDs", form.getEquipmentIDs().toString(), " trainingType ", form.getTrainingType(), " bodyParts ", form.getBodyParts(), " daysCount", form.getDaysCount(), " scheduleType ", form.getScheduleType(), " duration ", form.getDuration()));
         IShowSnackbar activity = (IShowSnackbar) fragment.getActivity();
         activity.showSnackbar(fragment.getString(R.string.generateTraining));
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Call<Training> call;
-        if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
+        if(!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
         {
-             call = workout.getTrainingPlanForLoggedInUser(form, User.getInstance().getToken(), formatter.format(date));
-        }
-        else
+            call = workout.getTrainingPlanForLoggedInUser(form, User.getInstance().getToken(), formatter.format(date));
+        }else
         {
-             call = workout.getTrainingPlan(form, formatter.format(date));
+            call = workout.getTrainingPlan(form, formatter.format(date));
         }
 
         call.enqueue(new Callback<Training>()
         {
             @Override
-            public void onResponse(Call<Training> call, Response<Training> response) {
+            public void onResponse(Call<Training> call, Response<Training> response)
+            {
                 if(response.isSuccessful())
                 {
                     createTraining(response.body(), fragment);
                     Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
                     activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
-                }
-                else
+                }else
                 {
                     Log.e("Network ", "WorkoutForms.getTrainingType error " + response.code());
                     LogUtils.logCause(response.headers().get("Cause"));
@@ -190,7 +191,8 @@ public class WorkoutFormsServices
         });
     }
 
-    private void createTraining(Training body, Fragment fragment) {
+    private void createTraining(Training body, Fragment fragment)
+    {
         body.setGenerationDate(body.getGenerationDate());
         body.setTrainingName("Default training name");
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity())
