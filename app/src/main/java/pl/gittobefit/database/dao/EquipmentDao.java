@@ -50,9 +50,9 @@ public interface EquipmentDao
     void addChecksum(ArrayList<Checksum> checksum);
 
     @Transaction
-    @Query("SELECT loadedType FROM Checksum WHERE `Table`=''")
-    List<Integer> getLoadedType();
+    @Query("SELECT * FROM Checksum WHERE `Table`='git2befit.equipment'")
+    Checksum getLoadedType();
 
     @Query("SELECT * FROM Equipment WHERE type=:typeId")
-    ArrayList<Equipment> getEquipmentForType(int typeId);
+    List<Equipment> getEquipmentForType(int typeId);
 }

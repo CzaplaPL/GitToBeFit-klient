@@ -6,6 +6,7 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.equipment.Checksum;
@@ -62,16 +63,14 @@ public class WorkoutFormsRepository
             if(!isChecksumChecked)
             {
                 ConnectionToServer.getInstance().WorkoutFormsServices.checkChecksum(this);
-            }else
+                return;
+            }else if(!isCurrent)
             {
-
+                ConnectionToServer.getInstance().WorkoutFormsServices.getEquipmentType(this);
+                return;
             }
-
-        }else
-        {
-            setEquipmentTypes();
         }
-
+        setEquipmentTypes(false);
     }
 
     public void loadEquipment(int typeId, int position)
@@ -88,12 +87,12 @@ public class WorkoutFormsRepository
             }
         }
 
-        if(  ConnectionToServer.isNetwork(context) && (!isCurrent || !isEquipmentDownload.contains(typeId)))
+        if(ConnectionToServer.isNetwork(context) && (!isCurrent || !isEquipmentDownload.contains(typeId)))
         {
             ConnectionToServer.getInstance().WorkoutFormsServices.getEquipment(typeId, position, this);
         }else
         {
-            ArrayList<Equipment> equipmentsDB =base.equipmentDao().getEquipmentForType(typeId);
+            ArrayList<Equipment> equipmentsDB =new ArrayList<>(base.equipmentDao().getEquipmentForType(typeId));
             ArrayList<EquipmentItem> equipmentItems = new ArrayList<>();
             for(Equipment equipment : equipmentsDB)
             {
@@ -198,7 +197,7 @@ public class WorkoutFormsRepository
             ConnectionToServer.getInstance().WorkoutFormsServices.getEquipmentType(this);
         }
         {
-            setEquipmentTypes();
+            setEquipmentTypes(true);
         }
     }
 
@@ -220,20 +219,24 @@ public class WorkoutFormsRepository
     }
 
 
-    private void setEquipmentTypes()
+    private void setEquipmentTypes(boolean isNetwork)
     {
         if(equipmentTypes.size() == 0)
         {
             ArrayList<EquipmentType> baseEquipmentType = new ArrayList<>(base.equipmentDao().getAllEquipmentType());
             for(EquipmentType equipmentType : baseEquipmentType)
             {
-                equipmentTypes.add(new EquipmentTypeItem(equipmentType));
+                if(!isNetwork && equipmentType.isOffline())
+                    equipmentTypes.add(new EquipmentTypeItem(equipmentType));
+                else if(isNetwork)
+                    equipmentTypes.add(new EquipmentTypeItem(equipmentType));
             }
         }
         int noEquipmentId = base.equipmentDao().getNoEquipmentId();
         observer.initList(equipmentTypes);
         observer.setNoEquipmentid(noEquipmentId);
         observer.setNoEquipmentcheched(true);
-        isEquipmentDownload = new ArrayList<>(base.equipmentDao().getLoadedType());
+        Checksum loadedType =base.equipmentDao().getLoadedType();
+        if(loadedType!=null)isEquipmentDownload = new ArrayList<>(loadedType.getLoadedType());
     }
 }
