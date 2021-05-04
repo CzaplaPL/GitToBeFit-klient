@@ -19,16 +19,16 @@ import pl.gittobefit.workoutforms.object.EquipmentItem;
 @Dao
 public interface EquipmentDao
 {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertEquipmentTypes(ArrayList<EquipmentType> equipmentTypes);
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void initEquipmentTypes(ArrayList<EquipmentType> equipmentTypes);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertEquipments(ArrayList<Equipment> equipments);
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void initEquipments(ArrayList<Equipment> equipments);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

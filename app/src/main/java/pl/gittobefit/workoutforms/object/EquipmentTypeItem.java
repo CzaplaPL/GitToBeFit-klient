@@ -11,7 +11,7 @@ public class EquipmentTypeItem extends EquipmentForm
 
     public EquipmentTypeItem(int id, String name, String url)
     {
-        super(id, name, url);
+        super(id, name, url,false);
         equipment = new ArrayList<>();
     }
 
@@ -20,7 +20,8 @@ public class EquipmentTypeItem extends EquipmentForm
         super(
                 item.getId(),
                 item.getName(),
-                item.getPath()
+                item.getPath(),
+                item.isOffline()
         );
         equipment = new ArrayList<>();
     }

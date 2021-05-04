@@ -206,7 +206,7 @@ public class WorkoutFormsRepository
             equipmentTypesToDB.add(new EquipmentType(equipmentType));
         }
         base.equipmentDao().insertEquipmentTypes(equipmentTypesToDB);
-        Equipment noEquipment = new Equipment(noEquipmentId, "Bez sprzetu", "", 4);
+        Equipment noEquipment = new Equipment(noEquipmentId, "Bez sprzetu", "", 4,true);
         base.equipmentDao().insertEquipment(noEquipment);
         this.equipmentTypes.clear();
         this.equipmentTypes.addAll(equipmentTypes);

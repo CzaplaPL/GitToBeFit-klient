@@ -72,14 +72,16 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
                                 localDataSet.get(position).getUrl(),
                                 "drawable",
                                 context.getPackageName()))
+                        .placeholder(R.drawable.ic_baseline_downloading_24)
                         .into(viewHolder.getImage());
             }else
             {
-                Glide.with(context)
-                        .load("http://c4szkolenia.pl/" + localDataSet.get(position).getUrl())
+                Glide.with(viewHolder.getContext())
+                        .load(ConnectionToServer.PREFIX_PHOTO_URL + localDataSet.get(position).getUrl())
                         .placeholder(R.drawable.ic_baseline_downloading_24)
                         .into(viewHolder.getImage());
             }
+
         }else
         {
             RelativeLayout.LayoutParams margin = new RelativeLayout.LayoutParams(viewHolder.getContainer().getLayoutParams());
@@ -95,15 +97,17 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
                                 localDataSet.get(position).getUrl(),
                                 "drawable",
                                 context.getPackageName()))
+                        .placeholder(R.drawable.ic_baseline_downloading_24)
                         .into(viewHolder.getImage());
             }else
             {
-                Glide.with(context)
-                        .load("http://c4szkolenia.pl/" + localDataSet.get(position).getUrl())
-                        .placeholder(R.drawable.baseline_email_24)
+                Glide.with(viewHolder.getContext())
+                        .load(ConnectionToServer.PREFIX_PHOTO_URL + localDataSet.get(position).getUrl())
+                        .placeholder(R.drawable.ic_baseline_downloading_24)
                         .into(viewHolder.getImage());
-                viewHolder.getCheckBox().setVisibility(View.GONE);
+
             }
+            viewHolder.getCheckBox().setVisibility(View.GONE);
         }
     }
 
