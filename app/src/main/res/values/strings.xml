@@ -22,6 +22,11 @@
     <string name="incorrectData">Błędne dane</string>
     <string name="editionComplete">Edycja pomyślna !</string>
     <string name="nameChanged">Nazwa zmieniona !</string>
+    <string name="circuitsCount">Ilość obwodów</string>
+    <string name="seriesCount">Ilość serii</string>
+    <string name="time">Czas trwania</string>
+    <string name="repCount">Ilość powtórzeń</string>
+    <string name="deleteComplete">Usunięto trening poprawnie.</string>
 
 
     <string name="incorrectpassword">hasła różnią się </string>
@@ -288,4 +293,5 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="textForTimerExercise">TRENUJ PRZEZ</string>
     <string name="start">START</string>
     <string name="seconds">sekund</string>
+    <string name="noSynchronize">Synchronizacja nie udana.</string>
 </resources>

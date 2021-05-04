@@ -19,10 +19,15 @@ import java.util.ArrayList;
 
 import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
+import pl.gittobefit.WorkoutDisplay.exceptions.TrainingNotFoundException;
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
+import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.AppDataBase;
+import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
+import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.user.User;
 
 public class EditExerciseDialog extends AppCompatDialogFragment implements NumberPicker.OnValueChangeListener
 {
@@ -35,8 +40,10 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
     private int trainingID;
     private String exerciseName;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
+    private int circuitsCount;
 
     public EditExerciseDialog(
+            int circuitsCount,
             View view,
             String scheduleType,
             int position,
@@ -46,6 +53,7 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
             ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS
     )
     {
+        this.circuitsCount = circuitsCount;
         this.myView = view;
         this.scheduleType = scheduleType;
         this.position = position;
@@ -65,7 +73,18 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
 
         seriesNumberPicker = view.findViewById(R.id.seriesNumberPicker);
         seriesNumberPicker.setMaxValue(10);
-        seriesNumberPicker.setValue(exercisesExecutionArrayList.get(position).getSeries());
+        TextView seriesCount = view.findViewById(R.id.seriesCount);
+
+        if (scheduleType.equals("CIRCUIT"))
+        {
+            seriesNumberPicker.setValue(circuitsCount);
+            seriesCount.setText(view.getResources().getString(R.string.circuitsCount));
+        }
+        else
+        {
+            seriesNumberPicker.setValue(exercisesExecutionArrayList.get(position).getSeries());
+            seriesCount.setText(view.getResources().getString(R.string.seriesCount));
+        }
         seriesNumberPicker.setMinValue(1);
         seriesNumberPicker.setWrapSelectorWheel(false);
         seriesNumberPicker.setOnValueChangedListener(this);
@@ -77,26 +96,17 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
             countNumberPicker.setMaxValue(90);
             countNumberPicker.setMinValue(10);
             countNumberPicker.setValue(exercisesExecutionArrayList.get(position).getTime());
-            count_time.setText("Czas trwania");
+            count_time.setText(view.getResources().getString(R.string.time));
         } else {
             countNumberPicker.setMaxValue(50);
             countNumberPicker.setMinValue(1);
             countNumberPicker.setValue(exercisesExecutionArrayList.get(position).getCount());
-            count_time.setText("Ilość powtórzeń");
+            count_time.setText(view.getResources().getString(R.string.repCount));
         }
 
         countNumberPicker.setWrapSelectorWheel(false);
         countNumberPicker.setOnValueChangedListener(this);
 
-        TextView seriesCount = view.findViewById(R.id.seriesCount);
-        if (scheduleType.equals("SERIES"))
-        {
-            seriesCount.setText("Ilość serii");
-        }
-        else if (scheduleType.equals("CIRCUIT"))
-        {
-            seriesCount.setText("Ilość obwodów");
-        }
 
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
 
@@ -109,31 +119,53 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
                 {
                     if (scheduleType.equals("CIRCUIT"))
                     {
-                        for (ExerciseExecutionPOJODB item: exercisesExecutionArrayList)
-                        {
-                            item.setSeries(seriesNumberPicker.getValue());
-                            model.getCurrentSeries().setValue(seriesNumberPicker.getValue());
+                        try {
+                            if (seriesNumberPicker.getValue() != model.getTrainingByID(trainingID).training.getCircuitsCount())
+                            {
+                                model.getTrainingByID(trainingID).training.setCircuitsCount(seriesNumberPicker.getValue());
+                                model.getCurrentSeries().setValue(seriesNumberPicker.getValue());
+                                circuitsCount = seriesNumberPicker.getValue();
+                            }
+                        } catch (TrainingNotFoundException e) {
+                            e.printStackTrace();
                         }
                     }
                     else
                     {
-                        exercisesExecutionArrayList.get(position).setSeries(seriesNumberPicker.getValue());
-                        model.getCurrentSeries().setValue(seriesNumberPicker.getValue());
+                        if (seriesNumberPicker.getValue() != exercisesExecutionArrayList.get(position).getSeries())
+                        {
+                            exercisesExecutionArrayList.get(position).setSeries(seriesNumberPicker.getValue());
+                            model.getCurrentSeries().setValue(seriesNumberPicker.getValue());
+                        }
+
                     }
 
                     if (exercisesExecutionArrayList.get(position).getTime() != 0)
                     {
-                        exercisesExecutionArrayList.get(position).setTime(countNumberPicker.getValue());
-                        model.getCurrentTime().setValue(countNumberPicker.getValue());
+                        if (countNumberPicker.getValue() != exercisesExecutionArrayList.get(position).getTime())
+                        {
+                            exercisesExecutionArrayList.get(position).setTime(countNumberPicker.getValue());
+                            model.getCurrentTime().setValue(countNumberPicker.getValue());
+                        }
                     }
                     else {
-                        exercisesExecutionArrayList.get(position).setCount(countNumberPicker.getValue());
-                        model.getCurrentCount().setValue(countNumberPicker.getValue());
+                        if (countNumberPicker.getValue() != exercisesExecutionArrayList.get(position).getCount())
+                        {
+                            exercisesExecutionArrayList.get(position).setCount(countNumberPicker.getValue());
+                            model.getCurrentCount().setValue(countNumberPicker.getValue());
+                        }
                     }
 
-                    AppDataBase.getInstance(getContext()).trainingDao().updateTrainingPlan(exerciseExecutionPOJODBS, trainingID);
+                    AppDataBase.getInstance(getContext()).trainingDao().updateTrainingPlan(exerciseExecutionPOJODBS, circuitsCount, trainingID);
                     IShowSnackbar activity = (IShowSnackbar) getActivity();
-                    activity.showSnackbar(getResources().getString(R.string.editionComplete));
+                    if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
+                    {
+                        ConnectionToServer.getInstance().trainingServices.saveTrainingAfterChanges(activity, getContext());
+                    }
+                    else
+                    {
+                        activity.showSnackbar(getContext().getResources().getString(R.string.editionComplete));
+                    }
                 });
         return builder.create();
     }

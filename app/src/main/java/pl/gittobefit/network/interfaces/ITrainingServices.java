@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -20,6 +21,11 @@ public interface ITrainingServices
     @GET("/training-plan")
     Call<ArrayList<Training>> getTrainings(@Header("Authorization") String auth);
 
+    @DELETE("/training-plan/{id}")
+    Call<Void> deleteTrainingPLan(@Path("id") String id, @Header("Authorization") String auth);
+
     @PUT("/training-plan/updateTitle/{id}")
-    Call<Void> updateTrainingTitle(@Path("id") String id, @Header("Authorization") String authHeader);
+    Call<Void> updateTrainingTitle(@Path("id") String id,
+                                   @Header("Authorization") String authHeader,
+                                   @Header("title") String title);
 }

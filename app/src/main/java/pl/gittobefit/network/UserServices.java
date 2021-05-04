@@ -82,7 +82,9 @@ public class UserServices
                                         new UserEntity(
                                                 Integer.parseInt(Objects.requireNonNull(responseGetId.headers().get("idUser"))),
                                                 email,
-                                                response.headers().get("Authorization")));
+                                                response.headers().get("Authorization"),
+                                                false
+                                        ));
                                 fragment.loginSuccess();
                             }else
                             {
@@ -183,7 +185,9 @@ public class UserServices
                                         new UserEntity(
                                                 Integer.parseInt(response2.headers().get("idUser")),
                                                 email,
-                                                response.headers().get("Authorization")));
+                                                response.headers().get("Authorization"),
+                                                true
+                                        ));
                                 fragment.loginSuccess();
                             }else
                             {
@@ -510,7 +514,23 @@ public class UserServices
                     Log.w("Autologwanie  ", "  sukces");
                     System.out.println("Kod zwracany przez autoLog: " + response.code());
                     AppDataBase.getInstance(fragment.getContext()).userDao().setToken(response.headers().get("Authorization"),userEntity.getId());
-                    User.getInstance().add(userEntity.getEmail(), response.headers().get("Authorization"), String.valueOf(userEntity.getId()), User.WayOfLogin.OUR_SERVER);
+                    if(userEntity.isLoggedByGoogle())
+                    {
+                        User.getInstance().add(
+                                userEntity.getEmail(),
+                                response.headers().get("Authorization"),
+                                String.valueOf(userEntity.getId()),
+                                User.WayOfLogin.GOOGLE
+                        );
+                    }else
+                    {
+                        User.getInstance().add(
+                                userEntity.getEmail(),
+                                response.headers().get("Authorization"),
+                                String.valueOf(userEntity.getId()),
+                                User.WayOfLogin.OUR_SERVER
+                        );
+                    }
                     fragment.loginSuccess();
                 }
                 else

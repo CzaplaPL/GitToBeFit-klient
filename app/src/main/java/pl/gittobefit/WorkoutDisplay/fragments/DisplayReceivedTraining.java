@@ -251,6 +251,7 @@ public class DisplayReceivedTraining extends Fragment
                         false));
             }
         };
+
         model.getCurrentCount().observe(this, exerciseInfoObserver);
         model.getCurrentTime().observe(this, exerciseInfoObserver);
         model.getCurrentSeries().observe(this, exerciseInfoObserver);
@@ -305,7 +306,8 @@ public class DisplayReceivedTraining extends Fragment
 
         for (int i = 0; i < exercisesArrayList.size(); i++)
         {
-            exerciseListAdapters.add(new ExerciseListAdapter(exercisesArrayList.get(i),
+            exerciseListAdapters.add(new ExerciseListAdapter(
+                    exercisesArrayList.get(i),
                     trainingWithForm.training.getPlanList().get(i),
                     trainingWithForm.form.getScheduleType(),
                     trainingWithForm.training.getId(),
@@ -344,10 +346,12 @@ public class DisplayReceivedTraining extends Fragment
     private SpannableStringBuilder getSpannableStringBuilder(String durationDisplay, String stringToColor) {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         SpannableString redSpannable= new SpannableString(stringToColor);
-        redSpannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.ourGreen)),
+        redSpannable.setSpan(
+                new ForegroundColorSpan(getResources().getColor(R.color.ourGreen)),
                 0,
                 stringToColor.length(),
-                0);
+                0
+        );
         builder.append(redSpannable);
         builder.append(durationDisplay);
         return builder;

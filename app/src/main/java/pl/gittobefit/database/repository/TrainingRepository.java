@@ -50,9 +50,11 @@ public class TrainingRepository
         saveExercise(training.getPlanList());
         long idTraining = base.trainingDao().addTraining(
                 new SavedTraining(
+                        training.getId(),
                         idForm,
                         training.getPlanList(),
-                        training.getTrainingName()
+                        training.getTrainingName(),
+                        training.getGenerationDate()
                 )
         );
         TrainingWithForm savedTraining = base.trainingDao().getTraining(idTraining);
@@ -105,6 +107,17 @@ public class TrainingRepository
         return trainingsToSend;
     }
 
+    public ArrayList<Training> getTrainingsToSendAfterChanges()
+    {
+        ArrayList<Training> trainingsToSend = new ArrayList<>();
+        ArrayList<TrainingWithForm> trainingsInDB = getAllTrainings();
+        for(TrainingWithForm trainingDB : trainingsInDB)
+        {
+            trainingsToSend.add(new Training(trainingDB, this));
+        }
+        return trainingsToSend;
+    }
+
     public void synchroniseUser()
     {
         base.trainingDao().addUserForTrainings(User.getInstance().getIdServer());
@@ -148,5 +161,17 @@ public class TrainingRepository
             base.workoutFormDao().deleteFormForUser(id);
             base.trainingDao().deleteTrainingForUser(id);
         });
+    }
+
+    public ArrayList<TrainingWithForm> loadTrainings()
+    {
+        User user = User.getInstance();
+        ArrayList<TrainingWithForm> loadedTraining = new ArrayList<>();
+        if(user.getLoggedBy() != User.WayOfLogin.NO_LOGIN)
+        {
+            loadedTraining.addAll(getAllTrainingsForUser(user.getIdServer()));
+        }
+        loadedTraining.addAll(base.trainingDao().getOfflineTraining());
+        return loadedTraining;
     }
 }

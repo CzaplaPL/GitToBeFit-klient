@@ -81,12 +81,13 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toTopOf="@+id/start"
-                app:layout_constraintTop_toBottomOf="@id/initVideo"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                app:layout_constraintStart_toStartOf="@+id/guideline2">
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@id/initVideo">
 
                 <LinearLayout
-                    android:id="@+id/description_main"
+                    android:id="@+id/description_main_change_exercise"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_rectangle"
@@ -151,7 +152,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/titleDescriptionOfStart"
+                        android:id="@+id/title_start_position"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"

@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import pl.gittobefit.R;
+import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.workoutforms.object.EquipmentForm;
 
 public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.ViewHolder>
@@ -141,26 +142,10 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
         {
             return nameView;
         }
-
-        public ImageView getImage()
-        {
-            return image;
-        }
-
-        public ImageView getButton()
-        {
-            return button;
-        }
-
-        public CheckBox getCheckBox()
-        {
-            return checkBox;
-        }
-
-        public Context getContext()
-        {
-            return context;
-        }
+        public ImageView getImage() {return image;}
+        public ImageView getButton() {return button;}
+        public CheckBox getCheckBox(){ return checkBox; }
+        public Context getContext() { return context; }
 
         @Override
         public void onClick(View v)
@@ -178,7 +163,5 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
     {
         void onItemClick(int position);
     }
-
-
 }
 

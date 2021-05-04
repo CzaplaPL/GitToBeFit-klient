@@ -19,6 +19,7 @@ public class ConnectionToServer
     public final TrainingServices trainingServices;
     private static volatile ConnectionToServer INSTANCE;
     public static final String PREFIX_VIDEO_URL = "https://static.fabrykasily.pl/atlas/";
+    public static final String PREFIX_PHOTO_URL = "http://c4szkolenia.pl/git2befit";
 
     static public ConnectionToServer getInstance()
     {
