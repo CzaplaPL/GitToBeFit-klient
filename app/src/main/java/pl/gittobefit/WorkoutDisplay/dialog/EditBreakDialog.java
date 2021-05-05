@@ -25,7 +25,6 @@ import pl.gittobefit.user.User;
 
 public class EditBreakDialog extends AppCompatDialogFragment implements NumberPicker.OnValueChangeListener
 {
-
     private NumberPicker seriesNumberPicker;
     private int breakTime;
 
@@ -40,7 +39,6 @@ public class EditBreakDialog extends AppCompatDialogFragment implements NumberPi
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_edit_break_time_dialog, null);
-
 
         seriesNumberPicker = view.findViewById(R.id.trainingBreakNumberPicker);
         seriesNumberPicker.setMinValue(1);
@@ -63,8 +61,7 @@ public class EditBreakDialog extends AppCompatDialogFragment implements NumberPi
                     String trainingID = args.getString("trainingID");
                     String[] tokens = trainingID.split("/");
 
-                    model
-                            .getTrainingWithForms()
+                    model.getTrainingWithForms()
                             .get(Integer.parseInt(tokens[0]))
                             .training.setBreakTime(seriesNumberPicker.getValue());
 
@@ -73,8 +70,7 @@ public class EditBreakDialog extends AppCompatDialogFragment implements NumberPi
                     IShowSnackbar activity = (IShowSnackbar) getActivity();
                     long idFromServer = AppDataBase.getInstance(getContext()).trainingDao().getIdFromServerById(tokens[1]);
 
-                    AppDataBase
-                            .getInstance(getContext())
+                    AppDataBase.getInstance(getContext())
                             .trainingDao()
                             .updateBreakTime(seriesNumberPicker.getValue(), Integer.parseInt(tokens[1]));
 

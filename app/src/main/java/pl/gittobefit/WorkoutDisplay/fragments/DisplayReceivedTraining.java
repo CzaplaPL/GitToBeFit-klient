@@ -105,8 +105,8 @@ public class DisplayReceivedTraining extends Fragment
         final Observer<String> nameObserver = new Observer<String>() {
             @Override
             public void onChanged(@Nullable final String newName) {
-                String trainingNameString = "Nazwa treningu: ";
-                SpannableStringBuilder nameBuilder = getSpannableStringBuilder(newName, trainingNameString);
+                String trainingNameString = getResources().getString(R.string.trainingName) + " ";
+                SpannableStringBuilder nameBuilder = getSpannableStringBuilder(newName, trainingNameString) ;
                 trainingName.setText(nameBuilder, TextView.BufferType.SPANNABLE);
             }
         };
@@ -116,7 +116,7 @@ public class DisplayReceivedTraining extends Fragment
         {
             @Override
             public void onChanged(Integer integer) {
-                String trainingBreakString = "Przerwa pomiędzy seriami: ";
+                String trainingBreakString = getResources().getString(R.string.trainingBreakTime) + " ";
                 String breakTime  = integer + " sekund";
                 SpannableStringBuilder breakBuilder = getSpannableStringBuilder(breakTime, trainingBreakString);
                 trainingBreak.setText(breakBuilder, TextView.BufferType.SPANNABLE);
@@ -293,9 +293,9 @@ public class DisplayReceivedTraining extends Fragment
             case "FBW":
                 durationDisplay = trainingWithForm.form.getDaysCount() + " dni";
                 if (trainingWithForm.form.getScheduleType().equals("PER_DAY")) {
-                    scheduleTypeDisplay = "wykonujesz każdego dnia inny trening";
+                    scheduleTypeDisplay = getResources().getString(R.string.scheduleTypeDisplayPerDay);
                 } else {
-                    scheduleTypeDisplay = "wykonujesz każdego dnia taki sam trening";
+                    scheduleTypeDisplay = getResources().getString(R.string.scheduleTypeDisplayRep);
                 }
                 for (int i = 0; i < trainingWithForm.form.getDaysCount(); i++) {
                     buttonArrayList.get(i).setVisibility(View.VISIBLE);
@@ -306,28 +306,28 @@ public class DisplayReceivedTraining extends Fragment
             case "FITNESS":
                 durationDisplay = trainingWithForm.form.getDuration() + " minut";
                 if (trainingWithForm.form.getScheduleType().equals("SERIES")) {
-                    scheduleTypeDisplay = "wykonujesz wybraną ilość serii każdego ćwiczenia";
+                    scheduleTypeDisplay = getResources().getString(R.string.scheduleTypeDisplaySeries);
                 } else {
-                    scheduleTypeDisplay = "wykonujesz jedno ćwiczenie po drugim, z przerwami pomiędzy nimi, bądź bez";
+                    scheduleTypeDisplay = getResources().getString(R.string.scheduleTypeDisplayCircuit);
                 }
                 day1Button.setVisibility(View.VISIBLE);
                 break;
         }
         String breakTime  = trainingWithForm.training.getBreakTime() + " sekund";
 
-        String trainingTimeString = "Czas treningu: ";
+        String trainingTimeString = getResources().getString(R.string.trainingTime) + " ";
         SpannableStringBuilder timeBuilder = getSpannableStringBuilder(durationDisplay, trainingTimeString);
 
-        String formTrainingString = "Forma treningu: ";
+        String formTrainingString = getResources().getString(R.string.trainingForm) + " ";
         SpannableStringBuilder formBuilder = getSpannableStringBuilder(scheduleTypeDisplay, formTrainingString);
 
-        String trainingTypeString = "Rodzaj treningu: ";
+        String trainingTypeString = getResources().getString(R.string.trainingType) + " ";
         SpannableStringBuilder typeBuilder = getSpannableStringBuilder(trainingTypeDisplay, trainingTypeString);
 
-        String trainingBreakString = "Przerwa pomiędzy seriami: ";
+        String trainingBreakString = getResources().getString(R.string.trainingBreakTime) + " ";
         SpannableStringBuilder breakBuilder = getSpannableStringBuilder(breakTime, trainingBreakString);
 
-        String trainingNameString = "Nazwa treningu: ";
+        String trainingNameString = getResources().getString(R.string.trainingName) + " ";
         SpannableStringBuilder nameBuilder = getSpannableStringBuilder(nameOfTraining, trainingNameString);
 
         trainingName.setText(nameBuilder, TextView.BufferType.SPANNABLE);
