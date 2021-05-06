@@ -10,6 +10,7 @@ import androidx.room.Transaction;
 import java.util.List;
 
 import pl.gittobefit.database.entity.training.Exercise;
+import pl.gittobefit.database.entity.training.relation.ExerciseToEquipment;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 
 @Dao
@@ -17,6 +18,9 @@ public interface IExerciseDao
 {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addExercise(Exercise exercise);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void addExerciseToEquipment(ExerciseToEquipment exerciseToEquipment);
 
     @Transaction
     @Query("SELECT * FROM Exercise WHERE id = :id")

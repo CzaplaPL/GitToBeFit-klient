@@ -20,11 +20,12 @@ import pl.gittobefit.database.entity.equipment.EquipmentType;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.entity.training.SavedTraining;
 import pl.gittobefit.database.entity.training.WorkoutForm;
+import pl.gittobefit.database.entity.training.relation.ExerciseToEquipment;
 
 /**
  * klasa bazy danych
  */
-@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SavedTraining.class, EquipmentType.class, Equipment.class}, version = 14, exportSchema = false)
+@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SavedTraining.class, EquipmentType.class, Equipment.class, ExerciseToEquipment.class}, version = 14, exportSchema = false)
 @TypeConverters({TrainingConverter.class})
 public abstract class AppDataBase extends RoomDatabase
 {
