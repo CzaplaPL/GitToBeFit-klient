@@ -2,6 +2,7 @@ package pl.gittobefit.workoutforms.object.exercise;
 
 import java.util.ArrayList;
 
+import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.workoutforms.object.EquipmentItem;
 
 
@@ -21,6 +22,17 @@ public class ExerciseItem
 
     public ExerciseItem()
     {
+    }
+
+    public ExerciseItem(Exercise exercise)
+    {
+        this.id = exercise.getId();
+        this.name = exercise.getName();
+        this.descriptionOfStartPosition = exercise.getDescriptionOfStartPosition();
+        this.descriptionOfCorrectExecution = exercise.getDescriptionOfCorrectExecution();
+        this.hints = exercise.getHints();
+        this.videoUrl = exercise.getVideoUrl();
+        this.photoUrl = exercise.getPhotoUrl();
     }
 
 
@@ -59,9 +71,9 @@ public class ExerciseItem
         return photoUrl;
     }
 
-    public BodyPart getBodyPart()
+    public String getBodyPart()
     {
-        return bodyPart;
+        return bodyPart.getName();
     }
 
     public ArrayList<TrainingTypes> getTrainingTypes()
@@ -74,8 +86,8 @@ public class ExerciseItem
         return equipmentsNeeded;
     }
 
-    public ScheduleType getScheduleType()
+    public String getScheduleType()
     {
-        return scheduleType;
+        return scheduleType.getName();
     }
 }

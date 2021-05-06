@@ -13,10 +13,12 @@ import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.entity.training.SavedTraining;
 import pl.gittobefit.database.entity.training.relation.ExerciseToEquipment;
+import pl.gittobefit.database.entity.training.relation.TrainingTypesToExercise;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 import pl.gittobefit.user.User;
 import pl.gittobefit.workoutforms.object.EquipmentItem;
+import pl.gittobefit.workoutforms.object.exercise.TrainingTypes;
 
 
 public class TrainingRepository
@@ -150,6 +152,13 @@ public class TrainingRepository
                 {
                     base.exerciseDao().addExerciseToEquipment(new ExerciseToEquipment(
                             equipmentItem.getId(),
+                            exercisesExecution.getExercise().getId()
+                    ));
+                }
+                for(TrainingTypes trainingType : exercisesExecution.getExercise().getTrainingTypes())
+                {
+                    base.exerciseDao().addTrainingTypesToExercise(new TrainingTypesToExercise(
+                            trainingType.getName(),
                             exercisesExecution.getExercise().getId()
                     ));
                 }

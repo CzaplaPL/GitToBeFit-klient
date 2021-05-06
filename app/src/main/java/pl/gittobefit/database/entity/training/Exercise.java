@@ -19,16 +19,14 @@ public class Exercise
     private String hints;
     private String videoUrl;
     private String photoUrl;
-
-   // private String repeat;
-   // private String bodyPart;
-   // private ArrayList<String> trainingTypes;
+    private String scheduleType;
+    private String bodyPart;
 
     public Exercise()
     {
     }
 
-    public Exercise(int id, String name, String descriptionOfStartPosition, String descriptionOfCorrectExecution, String hints, String videoUrl, String photoUrl, boolean repeat, String bodyPart, String[] trainingTypes)
+    public Exercise(int id, String name, String descriptionOfStartPosition, String descriptionOfCorrectExecution, String hints, String videoUrl, String photoUrl, String scheduleType, String bodyPart)
     {
         this.id = id;
         this.name = name;
@@ -37,9 +35,8 @@ public class Exercise
         this.hints = hints;
         this.videoUrl = videoUrl;
         this.photoUrl = photoUrl;
-       /* this.repeat = repeat;
+        this.scheduleType = scheduleType;
         this.bodyPart = bodyPart;
-        this.trainingTypes.addAll(Arrays.asList(trainingTypes));*/
     }
 
     public Exercise(ExerciseItem exercise)
@@ -51,6 +48,8 @@ public class Exercise
         this.hints = exercise.getHints();
         this.videoUrl = exercise.getVideoUrl();
         this.photoUrl = exercise.getPhotoUrl();
+        this.scheduleType = exercise.getScheduleType();
+        this.bodyPart = exercise.getBodyPart();
     }
 
     public int getId()
@@ -123,15 +122,7 @@ public class Exercise
         this.photoUrl = photoUrl;
     }
 
-   /* public boolean isRepeat()
-    {
-        return repeat;
-    }
 
-    public void setRepeat(boolean repeat)
-    {
-        this.repeat = repeat;
-    }
 
     public String getBodyPart()
     {
@@ -143,13 +134,13 @@ public class Exercise
         this.bodyPart = bodyPart;
     }
 
-    public String getTrainingTypes()
+    public String getScheduleType()
     {
-        return TrainingTypes;
+        return scheduleType;
     }
 
-    public void setTrainingTypes(String trainingTypes)
+    public void setScheduleType(String scheduleType)
     {
-        TrainingTypes = trainingTypes;
-    }*/
+        this.scheduleType = scheduleType;
+    }
 }

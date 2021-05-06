@@ -18,7 +18,7 @@ public class ExerciseExecution
         this.time = exerciseExecution.getTime();
         this.series = exerciseExecution.getSeries();
         this.count = exerciseExecution.getCount();
-        this.exercise = new ExerciseItem();//todo do  zrobienia;
+        this.exercise = new ExerciseItem(exercise);
     }
 
     public int getId()
