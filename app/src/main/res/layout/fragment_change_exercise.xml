@@ -57,23 +57,36 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlCompat" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/view_video"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_change_exercise"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_r_change_exercise"
+            app:layout_constraintBottom_toTopOf="@+id/next_change_exercise"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_r_change_exercise"
             app:layout_constraintStart_toStartOf="@id/guideline_l_change_exercise"
             app:layout_constraintTop_toBottomOf="@+id/title_exercise_change">
 
             <VideoView
                 android:id="@+id/videoView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:keepScreenOn="true"/>
+
+            <ProgressBar
+                android:id="@+id/read_video"
+                style="?android:attr/progressBarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
+                android:layout_centerInParent="true"
+                android:indeterminateBehavior="repeat"
+                android:visibility="visible" />
+
+        </RelativeLayout>
 
         <ImageView
             android:id="@+id/next_change_exercise"
@@ -99,7 +112,6 @@
             android:id="@+id/main_description"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="25dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_change_exercise2"
             app:layout_constraintEnd_toStartOf="@+id/guideline_r_change_exercise"
             app:layout_constraintStart_toStartOf="@+id/guideline_l_change_exercise"
