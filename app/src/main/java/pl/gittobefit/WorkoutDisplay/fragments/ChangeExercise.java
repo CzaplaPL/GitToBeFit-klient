@@ -9,15 +9,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
+import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
+import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
+import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 import pl.gittobefit.database.repository.TrainingRepository;
 import pl.gittobefit.databinding.FragmentChangeExerciseBinding;
 import pl.gittobefit.databinding.FragmentTrainingStartBinding;
@@ -32,8 +39,13 @@ public class ChangeExercise extends Fragment {
     private FragmentChangeExerciseBinding binding;
     private int exerciseId;
     private int trainingId;
+    private int position;
+    private TrainingWithForm trainingWithForm;
 
-    public ChangeExercise() {}
+
+    public ChangeExercise()
+    {
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,14 +74,15 @@ public class ChangeExercise extends Fragment {
         Bundle args = getArguments();
         exerciseId = args.getInt("exerciseID");
         trainingId = args.getInt("trainingID");
+        position = args.getInt("position");
 
-        TrainingWithForm trainingWithForm =  TrainingRepository.getInstance(getContext()).getTraining(trainingId);
+        trainingWithForm =  TrainingRepository.getInstance(getContext()).getTraining(trainingId);
         ConnectionToServer.getInstance().trainingServices.changeExercise(exerciseId, trainingWithForm.form, this);
 
         model = new ViewModelProvider(this).get(ChangeExerciseViewModel.class);
         model.init(exerciseId, getContext());
 
-        generateMainView();
+        generateMainView(0);
 
         return binding.getRoot();
     }
@@ -81,7 +94,18 @@ public class ChangeExercise extends Fragment {
         {
             @Override
             public void onClick(View v) {
+                trainingWithForm.training
+                        .getPlanList()
+                        .get(0)
+                        .get(position)
+                        .setExerciseId(
+                                model.getListExercises().get((int) model.getIndexExercise()).getId()
+                        );
+                AppDataBase.getInstance(getContext())
+                        .trainingDao()
+                        .updateTrainingPlan( trainingWithForm.training.getPlanList(), trainingWithForm.training.getCircuitsCount(), trainingId);
 
+                Navigation.findNavController(view).navigate(R.id.change_exercise_to_training_layout);
             }
         });
 
@@ -99,7 +123,6 @@ public class ChangeExercise extends Fragment {
                     model.getIndexChange().setValue((int) (model.getIndexExercise() + 1));
                     model.setIndexExercise((int) (model.getIndexExercise() + 1));
                 }
-
             }
         });
 
@@ -117,7 +140,6 @@ public class ChangeExercise extends Fragment {
                     model.getIndexChange().setValue((int) (model.getIndexExercise() - 1));
                     model.setIndexExercise((int) (model.getIndexExercise() - 1));
                 }
-
             }
         });
 
@@ -125,22 +147,22 @@ public class ChangeExercise extends Fragment {
         {
             @Override
             public void onChanged(Integer integer) {
-                generateMainView();
+                generateMainView(integer);
             }
         };
 
         model.getIndexChange().observe(getViewLifecycleOwner(), indexChangeObserver);
     }
 
-    private void generateMainView(){
-        getVideo();
-        binding.titleExerciseChange.setText(String.format("%s", model.getExercise().getName()));
-        binding.descriptionStartPosition.setText(model.getExercise().getDescriptionOfStartPosition());
-        binding.descriptionOfMoveText.setText(model.getExercise().getDescriptionOfCorrectExecution());
+    private void generateMainView(int index){
+        getVideo(index);
+        binding.titleExerciseChange.setText(String.format("%s", model.getListExercises().get(index).getName()));
+        binding.descriptionStartPosition.setText(model.getListExercises().get(index).getDescriptionOfStartPosition());
+        binding.descriptionOfMoveText.setText(model.getListExercises().get(index).getDescriptionOfCorrectExecution());
     }
 
-    private void getVideo() {
-        Uri uri = Uri.parse(ConnectionToServer.PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
+    private void getVideo(int index) {
+        Uri uri = Uri.parse(ConnectionToServer.PREFIX_VIDEO_URL + model.getListExercises().get(index).getVideoUrl());
         binding.videoView.setVideoURI(uri);
         binding.videoView.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
         binding.videoView.setOnPreparedListener(mp ->

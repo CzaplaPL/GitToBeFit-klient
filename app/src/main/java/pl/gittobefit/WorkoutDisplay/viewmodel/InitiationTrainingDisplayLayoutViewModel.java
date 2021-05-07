@@ -120,5 +120,4 @@ public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
         }
         return breakTime;
     }
-
 }

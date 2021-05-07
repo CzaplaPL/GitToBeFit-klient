@@ -161,7 +161,13 @@ public class TrainingServices
                 if (response.isSuccessful())
                 {
                     ChangeExerciseViewModel model = new ViewModelProvider(fragment).get(ChangeExerciseViewModel.class);
-                    model.setListExercises(response.body());
+                    for (Exercise ex: response.body())
+                    {
+                        model.addTrainingToList(ex);
+                        System.out.println(ex.getName());
+                    }
+                    //model.setListExercises(response.body());
+                    System.out.println(response.body().size());
                     System.out.println(model.getListExercises().size());
                 }
                 else

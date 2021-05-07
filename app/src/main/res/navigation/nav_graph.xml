@@ -234,6 +234,11 @@
         android:name="pl.gittobefit.WorkoutDisplay.fragments.ChangeExercise"
         android:label=""
         tools:layout="@layout/fragment_change_exercise" >
+        <action
+            android:id="@+id/change_exercise_to_training_layout"
+            app:destination="@id/displayReceivedTraining"
+            app:popUpTo="@+id/displayReceivedTraining"
+            app:popUpToInclusive="true"/>
 
     </fragment>
 </navigation>

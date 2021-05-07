@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 
+import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.repository.TrainingRepository;
 
@@ -33,6 +34,11 @@ public class ChangeExerciseViewModel extends ViewModel {
     public void init(int displayToExercise, Context context){
         this.trainingRepository = TrainingRepository.getInstance(context);
         this.listExercises.add(this.trainingRepository.getExercise(displayToExercise));
+    }
+
+    public void addTrainingToList(Exercise exercise)
+    {
+        listExercises.add(exercise);
     }
 
     public Exercise getExercise()

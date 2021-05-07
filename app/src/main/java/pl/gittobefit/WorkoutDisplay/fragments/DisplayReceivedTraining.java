@@ -357,6 +357,11 @@ public class DisplayReceivedTraining extends Fragment
                     LinearLayoutManager.VERTICAL,
                     false));
         }
+
+//        for (int i = 0; i < exercisesArrayList.size(); i++)
+//        {
+//            exerciseListAdapters.get(i).notifyDataSetChanged();
+//        }
     }
 
     private void setTrainingDayVisibility(RelativeLayout relativeLayout1, RecyclerView exercisesList, Button day1Button) {
