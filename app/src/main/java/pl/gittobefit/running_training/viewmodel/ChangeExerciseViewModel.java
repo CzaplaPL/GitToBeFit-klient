@@ -2,6 +2,7 @@ package pl.gittobefit.running_training.viewmodel;
 
 import android.content.Context;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class ChangeExerciseViewModel extends ViewModel {
     private ArrayList<Exercise> listExercises = new ArrayList<>();
     private int indexExercise;
     private TrainingRepository trainingRepository;
+    private MutableLiveData<Integer> indexChange;
 
     public ChangeExerciseViewModel() { }
 
@@ -36,5 +38,12 @@ public class ChangeExerciseViewModel extends ViewModel {
     public Exercise getExercise()
     {
         return listExercises.get(indexExercise);
+    }
+
+    public MutableLiveData<Integer> getIndexChange() {
+        if (indexChange == null) {
+            indexChange = new MutableLiveData<Integer>();
+        }
+        return indexChange;
     }
 }

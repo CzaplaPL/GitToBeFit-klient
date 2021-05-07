@@ -165,7 +165,7 @@ public class WorkoutFormsServices
                             case "wrong exercises count":
                                 activity.showSnackbar(fragment.getResources().getString(R.string.wrongCombination));
                                 break;
-                            case "not enough exercises for: [BICEPS, SHOULDERS]":
+                            case "not enough exercises for [BICEPS, SHOULDERS]":
                             case "not enough exercises for: [SIXPACK]":
                             case "not enough exercises for: [CHEST]":
                             case "not enough exercises for: [BICEPS]":

@@ -3,8 +3,11 @@ package pl.gittobefit.WorkoutDisplay.fragments;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -12,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import pl.gittobefit.R;
+import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.database.entity.training.Exercise;
+import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.repository.TrainingRepository;
 import pl.gittobefit.databinding.FragmentChangeExerciseBinding;
 import pl.gittobefit.databinding.FragmentTrainingStartBinding;
@@ -25,6 +30,8 @@ public class ChangeExercise extends Fragment {
 
     private ChangeExerciseViewModel model;
     private FragmentChangeExerciseBinding binding;
+    private int exerciseId;
+    private int trainingId;
 
     public ChangeExercise() {}
     @Override
@@ -53,11 +60,76 @@ public class ChangeExercise extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentChangeExerciseBinding.inflate(inflater, container, false);
         Bundle args = getArguments();
-        int exerciseID = args.getInt("exerciseID");
+        exerciseId = args.getInt("exerciseID");
+        trainingId = args.getInt("trainingID");
+
+        TrainingWithForm trainingWithForm =  TrainingRepository.getInstance(getContext()).getTraining(trainingId);
+        ConnectionToServer.getInstance().trainingServices.changeExercise(exerciseId, trainingWithForm.form, this);
+
         model = new ViewModelProvider(this).get(ChangeExerciseViewModel.class);
-        model.init(exerciseID, getContext());
+        model.init(exerciseId, getContext());
+
         generateMainView();
+
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.btnChangeExercise.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        binding.nextChangeExercise.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                if (model.getIndexExercise() == model.getListExercises().size() - 1)
+                {
+                    model.getIndexChange().setValue(0);
+                    model.setIndexExercise(0);
+                }
+                else
+                {
+                    model.getIndexChange().setValue((int) (model.getIndexExercise() + 1));
+                    model.setIndexExercise((int) (model.getIndexExercise() + 1));
+                }
+
+            }
+        });
+
+        binding.backChangeExercise.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                if (model.getIndexExercise() == 0)
+                {
+                    model.getIndexChange().setValue(model.getListExercises().size() - 1);
+                    model.setIndexExercise(model.getListExercises().size() - 1);
+                }
+                else
+                {
+                    model.getIndexChange().setValue((int) (model.getIndexExercise() - 1));
+                    model.setIndexExercise((int) (model.getIndexExercise() - 1));
+                }
+
+            }
+        });
+
+        final Observer<Integer> indexChangeObserver = new Observer<Integer>()
+        {
+            @Override
+            public void onChanged(Integer integer) {
+                generateMainView();
+            }
+        };
+
+        model.getIndexChange().observe(getViewLifecycleOwner(), indexChangeObserver);
     }
 
     private void generateMainView(){

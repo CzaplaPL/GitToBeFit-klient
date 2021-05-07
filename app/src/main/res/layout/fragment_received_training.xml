@@ -78,7 +78,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -92,17 +92,16 @@
                         android:text="@string/breakTime"
                         android:textColor="?attr/colorPrimaryVariant"
                         android:textSize="17sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/editTrainingBreakButton" />
 
                     <Button
                         android:id="@+id/editTrainingBreakButton"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:background="@drawable/ic_baseline_edit"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_alignParentRight="true" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/trainingForm"

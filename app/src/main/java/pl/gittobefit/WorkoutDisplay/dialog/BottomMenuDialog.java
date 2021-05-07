@@ -69,6 +69,7 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
             public void onClick(View v) {
                 Bundle args = new Bundle();
                 args.putInt("exerciseID", exerciseArrayList.get(position).getId());
+                args.putInt("trainingID", trainingID);
                 Navigation.findNavController(fragment.getView()).navigate(R.id.training_to_change_exercise, args);
             dismiss();
             }
