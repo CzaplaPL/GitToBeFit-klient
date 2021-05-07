@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,6 +53,15 @@ public class ListOfTrainings extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
+        Bundle args = getArguments();
+        if (args  != null)
+        {
+            Integer xd = args.getInt("xd");
+            if (xd == 1)
+            {
+                Navigation.findNavController(view).navigate(R.id.xd);
+            }
+        }
 
         trainingList = getView().findViewById(R.id.list_of_trainings);
         loading = getView().findViewById(R.id.list_traing_loading);

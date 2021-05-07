@@ -12,12 +12,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
@@ -80,6 +82,7 @@ public class ChangeExercise extends Fragment {
         ConnectionToServer.getInstance().trainingServices.changeExercise(exerciseId, trainingWithForm.form, this);
 
         model = new ViewModelProvider(this).get(ChangeExerciseViewModel.class);
+
         model.init(exerciseId, getContext());
 
         generateMainView(0);
@@ -105,7 +108,22 @@ public class ChangeExercise extends Fragment {
                         .trainingDao()
                         .updateTrainingPlan( trainingWithForm.training.getPlanList(), trainingWithForm.training.getCircuitsCount(), trainingId);
 
-                Navigation.findNavController(view).navigate(R.id.change_exercise_to_training_layout);
+                Handler handler = new Handler();
+                IShowSnackbar activity = (IShowSnackbar) getActivity();
+                activity.showSnackbar("Trwa wymiana ...");
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        Bundle args = new Bundle();
+                        args.putInt("xd", 1);
+                        activity.showSnackbar(getResources().getString(R.string.editionComplete));
+                        Navigation.findNavController(view).navigate(R.id.change_exercise_to_xd, args);
+
+                        //Navigation.findNavController(view).navigate(R.id.change_exercise_to_training_layout);
+                    }
+                }, 1000);
+
+
+
             }
         });
 
