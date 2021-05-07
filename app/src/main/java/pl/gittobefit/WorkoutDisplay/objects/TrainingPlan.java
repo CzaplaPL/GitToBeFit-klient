@@ -96,4 +96,5 @@ public class TrainingPlan
     public void setCircuitsCount(int circuitsCount) {
         this.circuitsCount = circuitsCount;
     }
+
 }

@@ -76,7 +76,9 @@ public class EditBreakDialog extends AppCompatDialogFragment implements NumberPi
 
                     if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
                     {
-                        ConnectionToServer.getInstance().trainingServices.saveTrainingAfterChanges(activity, getContext());
+                        ConnectionToServer.getInstance()
+                                .trainingServices
+                                .saveTrainingAfterChanges(activity, getContext(), Integer.parseInt(tokens[1]));
                     }
                     else
                     {

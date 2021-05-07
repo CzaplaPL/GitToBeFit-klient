@@ -86,11 +86,11 @@ public class TrainingServices
             }
         });
     }
-    public void saveTrainingAfterChanges(IShowSnackbar activity, Context context)
+    public void saveTrainingAfterChanges(IShowSnackbar activity, Context context, int id)
     {
         TrainingRepository repository = TrainingRepository.getInstance(context);
         User user = User.getInstance();
-        Call<Void> call = training.sendTrainings(user.getToken(), repository.getTrainingsToSendAfterChanges());
+        Call<Void> call = training.sendTrainings(user.getToken(), repository.getTrainingsToSendAfterChanges(id));
         call.enqueue(new Callback<Void>()
         {
             @Override

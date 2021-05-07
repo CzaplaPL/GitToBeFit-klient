@@ -56,6 +56,7 @@ public class DeleteTrainingDialog extends AppCompatDialogFragment
                         ConnectionToServer.getInstance().trainingServices.deleteTrainingFromServer(activity, idFromServer, getContext());
                     }
                     Navigation.findNavController(myView).navigate(R.id. training_to_delete_action);
+                    model.setLastIndex(-1);
                     activity.showSnackbar(getActivity().getString(R.string.deleteComplete));
                 });
         return builder.create();

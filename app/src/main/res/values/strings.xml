@@ -32,6 +32,7 @@
     <string name="noBodyParts">Pownieneś zaznaczyć jakieś partie ciała, aby wygenerować wybrany typ treningu.</string>
     <string name="wrongCombination">Genewowanie niepomyślne, rozważ zaznczenie ćwiczeń niewymagającyh sprzetu.</string>
     <string name="needMoreEQ">Genewowanie niepomyślne, rozważ zaznczenie większej ilości sprzetu.</string>
+    <string name="needMoreBodyParts">Genewowanie niepomyślne, rozważ zaznczenie większej ilości partii ciała.</string>
 
 
     <string name="incorrectpassword">hasła różnią się </string>

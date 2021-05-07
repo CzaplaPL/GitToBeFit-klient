@@ -143,7 +143,8 @@ public class WorkoutFormsServices
                 if(response.isSuccessful())
                 {
                     createTraining(response.body(), fragment);
-                    Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+                    Navigation.findNavController(fragment.getView())
+                            .navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
                     activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
                 }
                 else
@@ -152,7 +153,7 @@ public class WorkoutFormsServices
                     {
                         switch (response.headers().get("Cause"))
                         {
-                            case "0 body parts":
+                            case "Body parts cannot be empty":
                                 activity.showSnackbar(fragment.getResources().getString(R.string.noBodyParts));
                                 break;
                         }
@@ -164,8 +165,18 @@ public class WorkoutFormsServices
                             case "wrong exercises count":
                                 activity.showSnackbar(fragment.getResources().getString(R.string.wrongCombination));
                                 break;
-                            case "not enough exercises for [BICEPS, SHOULDERS]":
+                            case "not enough exercises for: [BICEPS, SHOULDERS]":
+                            case "not enough exercises for: [SIXPACK]":
+                            case "not enough exercises for: [CHEST]":
+                            case "not enough exercises for: [BICEPS]":
+                            case "not enough exercises for: [SHOULDERS]":
+                            case "not enough exercises for: [CALVES]":
+                            case "not enough exercises for: [THIGHS]":
+                            case "not enough exercises for: [TRICEPS]":
                                 activity.showSnackbar(fragment.getResources().getString(R.string.needMoreEQ));
+                                break;
+                            case "not enough days for set body parts":
+                                activity.showSnackbar(fragment.getResources().getString(R.string.needMoreBodyParts));
                                 break;
                         }
                     }
@@ -182,8 +193,8 @@ public class WorkoutFormsServices
         });
     }
 
-    private void createTraining(Training body, Fragment fragment) {
-        body.setTrainingName("Nowy trening");
+    private void createTraining(Training body, Fragment fragment)
+    {
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity())
                 .get(InitiationTrainingDisplayLayoutViewModel.class);
         model.addTrainingWithForm(TrainingRepository.getInstance(fragment.getContext()).add(body));
