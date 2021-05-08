@@ -34,6 +34,7 @@ import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.running_training.fragment.TrainingStartArgs;
 import pl.gittobefit.running_training.viewmodel.ChangeExerciseViewModel;
 import pl.gittobefit.running_training.viewmodel.TrainingViewModel;
+import pl.gittobefit.user.User;
 
 public class ChangeExercise extends Fragment {
 
@@ -120,7 +121,14 @@ public class ChangeExercise extends Fragment {
                     public void run() {
                         Bundle args = new Bundle();
                         args.putInt("xd", 1);
-                        activity.showSnackbar(getResources().getString(R.string.editionComplete));
+                        if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
+                        {
+                            ConnectionToServer.getInstance().trainingServices.saveTrainingAfterChanges(activity, getContext(), trainingId);
+                        }
+                        else
+                        {
+                            activity.showSnackbar(getContext().getResources().getString(R.string.editionComplete));
+                        }
                         Navigation.findNavController(view).navigate(R.id.change_exercise_to_xd, args);
 
                         //Navigation.findNavController(view).navigate(R.id.change_exercise_to_training_layout);
