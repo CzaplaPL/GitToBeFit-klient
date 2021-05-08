@@ -164,11 +164,8 @@ public class TrainingServices
                     for (Exercise ex: response.body())
                     {
                         model.addTrainingToList(ex);
-                        System.out.println(ex.getName());
                     }
                     //model.setListExercises(response.body());
-                    System.out.println(response.body().size());
-                    System.out.println(model.getListExercises().size());
                 }
                 else
                 {

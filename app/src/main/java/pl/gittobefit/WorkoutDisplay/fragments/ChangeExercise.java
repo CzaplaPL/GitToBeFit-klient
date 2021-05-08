@@ -42,6 +42,7 @@ public class ChangeExercise extends Fragment {
     private int exerciseId;
     private int trainingId;
     private int position;
+    private int controlSum;
     private TrainingWithForm trainingWithForm;
 
 
@@ -77,6 +78,7 @@ public class ChangeExercise extends Fragment {
         exerciseId = args.getInt("exerciseID");
         trainingId = args.getInt("trainingID");
         position = args.getInt("position");
+        controlSum = args.getInt("sum");
 
         trainingWithForm =  TrainingRepository.getInstance(getContext()).getTraining(trainingId);
         ConnectionToServer.getInstance().trainingServices.changeExercise(exerciseId, trainingWithForm.form, this);
@@ -93,13 +95,16 @@ public class ChangeExercise extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        
+        int trainingDay = getTrainingDayFromSum();
+        System.out.println(trainingDay);
         binding.btnChangeExercise.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
                 trainingWithForm.training
                         .getPlanList()
-                        .get(0)
+                        .get(trainingDay)
                         .get(position)
                         .setExerciseId(
                                 model.getListExercises().get((int) model.getIndexExercise()).getId()
@@ -170,6 +175,21 @@ public class ChangeExercise extends Fragment {
         };
 
         model.getIndexChange().observe(getViewLifecycleOwner(), indexChangeObserver);
+    }
+
+    private int getTrainingDayFromSum() {
+        trainingWithForm.training.getPlanList().get(0);
+        int i;
+        for (i = 0; i < trainingWithForm.training.getPlanList().size(); i++) {
+            int sum = 0;
+            for (int j = 0; j < trainingWithForm.training.getPlanList().get(i).size(); j++)
+            {
+                sum += trainingWithForm.training.getPlanList().get(i).get(j).getExerciseId();
+            }
+            if (sum == controlSum) break;
+        }
+
+        return i;
     }
 
     private void generateMainView(int index){
