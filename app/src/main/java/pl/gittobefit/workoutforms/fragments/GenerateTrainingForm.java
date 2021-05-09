@@ -15,6 +15,7 @@ import pl.gittobefit.R;
 import pl.gittobefit.databinding.FragmentGenerateTrainingBinding;
 import pl.gittobefit.network.ConnectionToServer;
 import pl.gittobefit.workoutforms.adapters.WorkoutFormAdapter;
+import pl.gittobefit.workoutforms.viewmodel.GenerateTrainingViewModelFactory;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
 public class GenerateTrainingForm extends Fragment
@@ -35,7 +36,7 @@ public class GenerateTrainingForm extends Fragment
         binding = FragmentGenerateTrainingBinding.inflate(inflater, container, false);
         WorkoutFormAdapter adapter = new WorkoutFormAdapter (this);
         binding.viewPagerId.setAdapter(adapter);
-        model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
+        model= new ViewModelProvider(requireActivity(), new GenerateTrainingViewModelFactory(this.getContext())).get(GenerateTraningViewModel.class);
         binding.next.setOnClickListener(v -> binding.viewPagerId.setCurrentItem(1));
         // Metoda ustawiania tekstu formularza
         new TabLayoutMediator (binding.tabLayoutId,  binding.viewPagerId,

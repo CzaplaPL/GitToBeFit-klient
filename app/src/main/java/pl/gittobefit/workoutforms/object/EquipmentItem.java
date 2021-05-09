@@ -1,11 +1,11 @@
 package pl.gittobefit.workoutforms.object;
 
+import pl.gittobefit.database.entity.equipment.Equipment;
+
 public class EquipmentItem extends EquipmentForm
 {
-    private final String description;
-    public EquipmentItem(int id, String name, String url, String description)
+    public EquipmentItem(Equipment equipment)
     {
-        super(id, name, url);
-        this.description=description;
+        super(equipment.getId(), equipment.getName(), equipment.getUrl(), equipment.isOffline());
     }
 }

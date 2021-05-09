@@ -11,13 +11,15 @@ public class Equipment
     private String name;
     private String url;
     private int type;
+    private boolean isOffline;
 
-    public Equipment(int id, String name, String url, int type)
+    public Equipment(int id, String name, String url, int type, boolean isOffline)
     {
         this.id = id;
         this.name = name;
         this.url = url;
         this.type = type;
+        this.isOffline = isOffline;
     }
 
     public int getId()
@@ -58,5 +60,15 @@ public class Equipment
     public void setType(int type)
     {
         this.type = type;
+    }
+
+    public boolean isOffline()
+    {
+        return isOffline;
+    }
+
+    public void setOffline(boolean offline)
+    {
+        isOffline = offline;
     }
 }
