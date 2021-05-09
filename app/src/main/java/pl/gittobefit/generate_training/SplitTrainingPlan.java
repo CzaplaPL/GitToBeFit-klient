@@ -28,9 +28,10 @@ public class SplitTrainingPlan implements TrainingPlanGenerator
     private List<Exercise> exercisesWithEquipment = new ArrayList<>();
     private WorkoutForm trainingForm;
 
-    private  AppDataBase base;
+    private AppDataBase base;
 
-    public SplitTrainingPlan(Context context) {
+    public SplitTrainingPlan(Context context)
+    {
         this.base = AppDataBase.getInstance(context);
     }
 
@@ -42,52 +43,50 @@ public class SplitTrainingPlan implements TrainingPlanGenerator
         Map<String, List<ExerciseExecutionPOJODB>> trainingForBodyPart = assignExercisesToBodyPart();
         List<Map<String, List<ExerciseExecutionPOJODB>>> trainingList = divideTrainingIntoDays(trainingForBodyPart);
 
-        return  normalize(trainingList);
+        return normalize(trainingList);
     }
 
     @Override
     public void validate(SavedTraining trainingPlan, WorkoutForm trainingForm) throws NotValidTrainingException
     {
-
+        SplitValidator splitValidator = new SplitValidator();
+        splitValidator.validateTraining(trainingPlan, trainingForm, base);
     }
 
-   /* @Override
-    public void validate(TrainingPlan trainingPlan, TrainingForm trainingForm) {
-        SplitValidator splitValidator = new SplitValidator();
-        splitValidator.validateTraining(trainingPlan, trainingForm);
-    }*/
-
-    private void initialize(WorkoutForm trainingForm) {
+    private void initialize(WorkoutForm trainingForm)
+    {
         this.trainingForm = trainingForm;
         List<Integer> exerciseIds = base.exerciseDao().getAllByTrainingTypes_Name(TRAINING_TYPE);
 
-        ArrayList<Exercise> exerciseListFilteredByTrainingType =new ArrayList<>();
+        ArrayList<Exercise> exerciseListFilteredByTrainingType = new ArrayList<>();
         for(Integer exerciseId : exerciseIds)
         {
             exerciseListFilteredByTrainingType.add(base.exerciseDao().getExercise(exerciseId));
         }
 
-        exercisesWithEquipment = filterAllByAvailableEquipment(exerciseListFilteredByTrainingType,trainingForm.getEquipmentIDs(),base);
+        exercisesWithEquipment = filterAllByAvailableEquipment(exerciseListFilteredByTrainingType, trainingForm.getEquipmentIDs(), base);
     }
 
-    //
-    private Map<String, List<ExerciseExecutionPOJODB>> assignExercisesToBodyPart() {
+    private Map<String, List<ExerciseExecutionPOJODB>> assignExercisesToBodyPart()
+    {
         ArrayList<ExerciseExecutionPOJODB> exerciseExecutionList = new ArrayList<>();
         HashMap<String, List<ExerciseExecutionPOJODB>> exercisesForBodyPart = new HashMap<>();
 
         ArrayList<String> trainingFormBodyParts = trainingForm.getBodyParts();
 
-        for (String bodyPart : trainingFormBodyParts)
+        for(String bodyPart : trainingFormBodyParts)
         {
             ArrayList<Exercise> exercisesWithEquipmentFilteredByBodyPart = getExercisesFilteredByBodyPart(exercisesWithEquipment, bodyPart);
             int amountOfExercises = SMALL_BODY_PARTS.contains(bodyPart) ? AMOUNT_FOR_SMALL : AMOUNT_FOR_BIG;
-            for (int i = 0; i < amountOfExercises; i++)
+            for(int i = 0; i < amountOfExercises; i++)
             {
                 try
                 {
                     ExerciseExecutionPOJODB exerciseExecution = getUniqueExercise(exercisesWithEquipmentFilteredByBodyPart);
                     exerciseExecutionList.add(exerciseExecution);
-                } catch (IllegalStateException ignore) { }
+                }catch(IllegalStateException ignore)
+                {
+                }
             }
             exercisesForBodyPart.put(bodyPart, exerciseExecutionList);
             exerciseExecutionList = new ArrayList<>();
@@ -95,7 +94,6 @@ public class SplitTrainingPlan implements TrainingPlanGenerator
         return exercisesForBodyPart;
     }
 
-    //
     private ArrayList<Exercise> getExercisesFilteredByBodyPart(List<Exercise> exercises, String bodyPart)
     {
         ArrayList<Exercise> toReturn = new ArrayList<>();
@@ -109,14 +107,13 @@ public class SplitTrainingPlan implements TrainingPlanGenerator
         return toReturn;
     }
 
-//
     private ExerciseExecutionPOJODB getUniqueExercise(List<Exercise> exercisesWithEquipmentFilteredByBodyPart) throws IllegalStateException
     {
         Random random = new Random();
         int randomExerciseIndex;
         Exercise exercise;
 
-        if (isEnough(exercisesWithEquipmentFilteredByBodyPart))
+        if(isEnough(exercisesWithEquipmentFilteredByBodyPart))
         {
             randomExerciseIndex = random.nextInt(exercisesWithEquipmentFilteredByBodyPart.size());
             exercise = exercisesWithEquipmentFilteredByBodyPart.remove(randomExerciseIndex);
@@ -128,65 +125,67 @@ public class SplitTrainingPlan implements TrainingPlanGenerator
         return getExactExerciseExecution(exercise, this.trainingForm);
     }
 
-    //
-    private boolean isEnough(List<Exercise> exercises) {
+    private boolean isEnough(List<Exercise> exercises)
+    {
         return exercises.size() != 0;
     }
 
-    //
     private List<Map<String, List<ExerciseExecutionPOJODB>>> divideTrainingIntoDays(Map<String, List<ExerciseExecutionPOJODB>> exercisesForBodyPart)
     {
         List<Map<String, List<ExerciseExecutionPOJODB>>> trainingList = new ArrayList<>();
 
-        if (trainingForm.getBodyParts().size() == 0)
+        if(trainingForm.getBodyParts().size() == 0)
             return Collections.emptyList();
 
-        switch (trainingForm.getDaysCount()) {
-            case 1 :
+        switch(trainingForm.getDaysCount())
+        {
+            case 1:
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "THIGHS", "TRICEPS", "SHOULDERS0", "CALVES",
                         "CHEST", "BICEPS", "SIXPACK", "BACK"));
-            break;
-            case 2 :
+                break;
+            case 2:
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "CHEST", "BICEPS", "SIXPACK", "BACK"));
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "THIGHS", "TRICEPS", "SHOULDERS0", "CALVES"));
-           break;
-            case 3 :
+                break;
+            case 3:
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "CHEST", "BICEPS", "SIXPACK"));
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "BACK", "CALVES"));
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "THIGHS", "TRICEPS", "SHOULDERS"));
-            break;
-            case 4 :
+                break;
+            case 4:
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "CHEST", "BICEPS"));
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "BACK", "CALVES"));
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "THIGHS", "TRICEPS"));
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "SIXPACK", "SHOULDERS"));
-            break;
-            case 5 :
+                break;
+            case 5:
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "CHEST", "BICEPS"));
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "BACK"));
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "THIGHS"));
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "SIXPACK", "SHOULDERS"));
                 trainingList.add(getMapOfBodyPartsExercisesForDay(exercisesForBodyPart, "CALVES", "TRICEPS"));
-            break;
+                break;
         }
         return trainingList;
     }
 
-    //
-    private Map<String, List<ExerciseExecutionPOJODB>> getMapOfBodyPartsExercisesForDay(Map<String, List<ExerciseExecutionPOJODB>> trainingForBodyPart, String... bodyParts) {
+    private Map<String, List<ExerciseExecutionPOJODB>> getMapOfBodyPartsExercisesForDay(Map<String, List<ExerciseExecutionPOJODB>> trainingForBodyPart, String... bodyParts)
+    {
         Map<String, List<ExerciseExecutionPOJODB>> map = new HashMap<>();
-        for (String part : bodyParts)
-            if (trainingForBodyPart.containsKey(part))
+        for(String part : bodyParts)
+            if(trainingForBodyPart.containsKey(part))
                 map.put(part, trainingForBodyPart.get(part));
 
         return map;
     }
 
-    public SavedTraining normalize(List<Map<String, List<ExerciseExecutionPOJODB>>> list) {
+    public SavedTraining normalize(List<Map<String, List<ExerciseExecutionPOJODB>>> list)
+    {
         Random random = new Random();
         int maxIndex, minIndex, min, max;
 
-        do {
+        do
+        {
 
             ArrayList<Integer> listOfMapsSize = new ArrayList<>();
             for(Map<String, List<ExerciseExecutionPOJODB>> stringListMap : list)
@@ -197,18 +196,22 @@ public class SplitTrainingPlan implements TrainingPlanGenerator
             minIndex = 0;
             min = list.get(0).size();
             max = list.get(0).size();
-            for (int i = 1; i < listOfMapsSize.size(); i++) {
-                if (listOfMapsSize.get(i) > max) {
+            for(int i = 1; i < listOfMapsSize.size(); i++)
+            {
+                if(listOfMapsSize.get(i) > max)
+                {
                     maxIndex = i;
                     max = listOfMapsSize.get(i);
                 }
-                if (listOfMapsSize.get(i) < min) {
+                if(listOfMapsSize.get(i) < min)
+                {
                     minIndex = i;
                     min = listOfMapsSize.get(i);
                 }
             }
 
-            if (max - min > 1) {
+            if(max - min > 1)
+            {
                 String randomBodyPart = (String) list.get(maxIndex)
                         .keySet()
                         .toArray()[random.nextInt(listOfMapsSize.get(maxIndex))];
@@ -216,14 +219,15 @@ public class SplitTrainingPlan implements TrainingPlanGenerator
                 list.get(maxIndex).remove(randomBodyPart);
                 list.get(minIndex).put(randomBodyPart, exerciseExecutions);
             }
-        } while (max - min > 1);
+        }while(max - min > 1);
 
 
         return parseMapOfExercisesToListOfExercises(list);
     }
 
-    private SavedTraining parseMapOfExercisesToListOfExercises(List<Map<String, List<ExerciseExecutionPOJODB>>> list) {
-        SavedTraining training = new SavedTraining(NOT_APPLICABLE,DEFAULT_BREAK_TIME);
+    private SavedTraining parseMapOfExercisesToListOfExercises(List<Map<String, List<ExerciseExecutionPOJODB>>> list)
+    {
+        SavedTraining training = new SavedTraining(NOT_APPLICABLE, DEFAULT_BREAK_TIME);
 
         for(Map<String, List<ExerciseExecutionPOJODB>> trainingDay : list)
         {
@@ -233,7 +237,8 @@ public class SplitTrainingPlan implements TrainingPlanGenerator
         return training;
     }
 
-    private  ArrayList<ExerciseExecutionPOJODB> getTrainingForDay(Map<String, List<ExerciseExecutionPOJODB>> trainingDay) {
+    private ArrayList<ExerciseExecutionPOJODB> getTrainingForDay(Map<String, List<ExerciseExecutionPOJODB>> trainingDay)
+    {
         SavedTraining training = new SavedTraining();
         Collection<List<ExerciseExecutionPOJODB>> exerciseExecutionCollection = trainingDay.values();
         ArrayList<ExerciseExecutionPOJODB> exerciseExecutionList = new ArrayList<>();
@@ -243,6 +248,4 @@ public class SplitTrainingPlan implements TrainingPlanGenerator
         }
         return exerciseExecutionList;
     }
-
-
 }

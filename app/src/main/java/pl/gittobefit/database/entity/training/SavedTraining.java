@@ -150,27 +150,33 @@ public class SavedTraining
         return planList.size() > trainingDay + 1;
     }
 
-    public long getIdFromServer() {
+    public long getIdFromServer()
+    {
         return idFromServer;
     }
 
-    public void setIdFromServer(long idFromServer) {
+    public void setIdFromServer(long idFromServer)
+    {
         this.idFromServer = idFromServer;
     }
 
-    public int getBreakTime() {
+    public int getBreakTime()
+    {
         return breakTime;
     }
 
-    public void setBreakTime(int breakTime) {
+    public void setBreakTime(int breakTime)
+    {
         this.breakTime = breakTime;
     }
 
-    public int getCircuitsCount() {
+    public int getCircuitsCount()
+    {
         return circuitsCount;
     }
 
-    public void setCircuitsCount(int circuitsCount) {
+    public void setCircuitsCount(int circuitsCount)
+    {
         this.circuitsCount = circuitsCount;
     }
 
@@ -198,10 +204,10 @@ public class SavedTraining
         {
             this.idUser = "";
         }
-        this.idFromServer = NU0LL;
+        this.idFromServer = NULL;
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        this.generationDate =  formatter.format(date);
+        this.generationDate = formatter.format(date);
         this.trainingName = name;
         this.trainingDay = 0;
         this.offline = true;

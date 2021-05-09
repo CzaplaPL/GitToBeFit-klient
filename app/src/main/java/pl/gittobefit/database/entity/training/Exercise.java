@@ -122,8 +122,6 @@ public class Exercise
         this.photoUrl = photoUrl;
     }
 
-
-
     public String getBodyPart()
     {
         return bodyPart;

@@ -166,7 +166,6 @@ public class TrainingRepository
                 }
                 base.exerciseDao().addExercise(new Exercise(exercisesExecution.getExercise()));
             }
-
         }
     }
 

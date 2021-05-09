@@ -36,7 +36,6 @@ public class ExerciseExecutionPOJODB
         this.idServer = NULL;
         this.idServerPlanList = NULL;
         this.idServerTraining = NULL;
-
     }
 
     public int getTime()
