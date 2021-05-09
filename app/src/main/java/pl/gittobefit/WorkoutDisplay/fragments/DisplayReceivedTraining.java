@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.adapters.ExerciseListAdapter;
 import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
@@ -61,6 +62,17 @@ public class DisplayReceivedTraining extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Bundle args = getArguments();
+        if (args  != null)
+        {
+            int  afterExerciseChange = args.getInt("exerciseChanged");
+            if (afterExerciseChange == 1)
+            {
+                IShowSnackbar activity = (IShowSnackbar) getActivity();
+                activity.showSnackbar(getContext().getResources().getString(R.string.editionComplete));
+                args.clear();
+            }
+        }
         model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
         model.getPosition().observe(getViewLifecycleOwner(), integer -> index = integer);
         Button next = getView().findViewById(R.id.next);

@@ -110,6 +110,17 @@ public class ChangeExercise extends Fragment {
                         .setExerciseId(
                                 model.getListExercises().get((int) model.getIndexExercise()).getId()
                         );
+
+                Exercise exercise = model.getTrainingRepository().
+                        getExercise(model.getListExercises().get((int) model.getIndexExercise()).getId());
+
+                if (exercise == null)
+                {
+                    AppDataBase.getInstance(getContext())
+                            .exerciseDao()
+                            .addExercise(model.getListExercises().get((int) model.getIndexExercise()));
+                }
+
                 AppDataBase.getInstance(getContext())
                         .trainingDao()
                         .updateTrainingPlan( trainingWithForm.training.getPlanList(), trainingWithForm.training.getCircuitsCount(), trainingId);
@@ -130,8 +141,6 @@ public class ChangeExercise extends Fragment {
                             activity.showSnackbar(getContext().getResources().getString(R.string.editionComplete));
                         }
                         Navigation.findNavController(view).navigate(R.id.change_exercise_to_list_of_trainings, args);
-
-                        //Navigation.findNavController(view).navigate(R.id.change_exercise_to_training_layout);
                     }
                 }, 1000);
             }

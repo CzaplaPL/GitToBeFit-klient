@@ -46,6 +46,10 @@ public class ChangeExerciseViewModel extends ViewModel {
         return listExercises.get(indexExercise);
     }
 
+    public TrainingRepository getTrainingRepository() {
+        return trainingRepository;
+    }
+
     public MutableLiveData<Integer> getIndexChange() {
         if (indexChange == null) {
             indexChange = new MutableLiveData<Integer>();

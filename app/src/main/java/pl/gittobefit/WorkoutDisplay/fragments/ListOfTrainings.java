@@ -59,9 +59,7 @@ public class ListOfTrainings extends Fragment
             int  afterExerciseChange = args.getInt("exerciseChanged");
             if (afterExerciseChange == 1)
             {
-                IShowSnackbar activity = (IShowSnackbar) getActivity();
-                activity.showSnackbar(getContext().getResources().getString(R.string.editionComplete));
-                Navigation.findNavController(view).navigate(R.id.xd);
+                Navigation.findNavController(view).navigate(R.id.xd, args);
             }
         }
 
