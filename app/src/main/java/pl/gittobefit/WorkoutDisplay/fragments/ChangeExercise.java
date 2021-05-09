@@ -120,7 +120,7 @@ public class ChangeExercise extends Fragment {
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         Bundle args = new Bundle();
-                        args.putInt("xd", 1);
+                        args.putInt("exerciseChanged", 1);
                         if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
                         {
                             ConnectionToServer.getInstance().trainingServices.saveTrainingAfterChanges(activity, getContext(), trainingId);
@@ -129,14 +129,11 @@ public class ChangeExercise extends Fragment {
                         {
                             activity.showSnackbar(getContext().getResources().getString(R.string.editionComplete));
                         }
-                        Navigation.findNavController(view).navigate(R.id.change_exercise_to_xd, args);
+                        Navigation.findNavController(view).navigate(R.id.change_exercise_to_list_of_trainings, args);
 
                         //Navigation.findNavController(view).navigate(R.id.change_exercise_to_training_layout);
                     }
                 }, 1000);
-
-
-
             }
         });
 

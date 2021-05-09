@@ -56,9 +56,11 @@ public class ListOfTrainings extends Fragment
         Bundle args = getArguments();
         if (args  != null)
         {
-            Integer xd = args.getInt("xd");
-            if (xd == 1)
+            int  afterExerciseChange = args.getInt("exerciseChanged");
+            if (afterExerciseChange == 1)
             {
+                IShowSnackbar activity = (IShowSnackbar) getActivity();
+                activity.showSnackbar(getContext().getResources().getString(R.string.editionComplete));
                 Navigation.findNavController(view).navigate(R.id.xd);
             }
         }
