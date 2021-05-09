@@ -1,6 +1,8 @@
 package pl.gittobefit.workoutforms.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +47,7 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position)
     {
-
+        Context context = viewHolder.getContext();
         if(localDataSet.get(position).getName().equals(""))
         {
             viewHolder.getNameView().setText("trwa wczytywanie...");
@@ -63,10 +65,23 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
             viewHolder.getNameView().setText(localDataSet.get(position).getName());
             viewHolder.getCheckBox().setVisibility(View.VISIBLE);
             viewHolder.getCheckBox().setChecked(localDataSet.get(position).isIschecked());
-            Glide.with(viewHolder.getContext())
-                    .load(ConnectionToServer.PREFIX_PHOTO_URL + localDataSet.get(position).getUrl())
-                    .placeholder(R.drawable.ic_baseline_downloading_24)
-                    .into(viewHolder.getImage());
+            if(localDataSet.get(position).isOffline())
+            {
+                Glide.with(context)
+                        .load(context.getResources().getIdentifier(
+                                localDataSet.get(position).getUrl(),
+                                "drawable",
+                                context.getPackageName()))
+                        .placeholder(R.drawable.ic_baseline_downloading_24)
+                        .into(viewHolder.getImage());
+            }else
+            {
+                Glide.with(viewHolder.getContext())
+                        .load(ConnectionToServer.PREFIX_PHOTO_URL + localDataSet.get(position).getUrl())
+                        .placeholder(R.drawable.ic_baseline_downloading_24)
+                        .into(viewHolder.getImage());
+            }
+
         }else
         {
             RelativeLayout.LayoutParams margin = new RelativeLayout.LayoutParams(viewHolder.getContainer().getLayoutParams());
@@ -75,10 +90,23 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
             viewHolder.getButton().setVisibility(View.VISIBLE);
             viewHolder.getImage().setVisibility(View.VISIBLE);
             viewHolder.getNameView().setText(localDataSet.get(position).getName());
-            Glide.with(viewHolder.getContext())
-                    .load(ConnectionToServer.PREFIX_PHOTO_URL + localDataSet.get(position).getUrl())
-                    .placeholder(R.drawable.ic_baseline_downloading_24)
-                    .into(viewHolder.getImage());
+            if(localDataSet.get(position).isOffline())
+            {
+                Glide.with(context)
+                        .load(context.getResources().getIdentifier(
+                                localDataSet.get(position).getUrl(),
+                                "drawable",
+                                context.getPackageName()))
+                        .placeholder(R.drawable.ic_baseline_downloading_24)
+                        .into(viewHolder.getImage());
+            }else
+            {
+                Glide.with(viewHolder.getContext())
+                        .load(ConnectionToServer.PREFIX_PHOTO_URL + localDataSet.get(position).getUrl())
+                        .placeholder(R.drawable.ic_baseline_downloading_24)
+                        .into(viewHolder.getImage());
+
+            }
             viewHolder.getCheckBox().setVisibility(View.GONE);
         }
     }
@@ -118,26 +146,10 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.View
         {
             return nameView;
         }
-
-        public ImageView getImage()
-        {
-            return image;
-        }
-
-        public ImageView getButton()
-        {
-            return button;
-        }
-
-        public CheckBox getCheckBox()
-        {
-            return checkBox;
-        }
-
-        public Context getContext()
-        {
-            return context;
-        }
+        public ImageView getImage() {return image;}
+        public ImageView getButton() {return button;}
+        public CheckBox getCheckBox(){ return checkBox; }
+        public Context getContext() { return context; }
 
         @Override
         public void onClick(View v)

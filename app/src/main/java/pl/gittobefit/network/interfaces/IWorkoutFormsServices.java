@@ -2,6 +2,7 @@ package pl.gittobefit.network.interfaces;
 
 import java.util.ArrayList;
 
+import pl.gittobefit.database.entity.equipment.Checksum;
 import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.workoutforms.object.EquipmentItem;
 import pl.gittobefit.workoutforms.object.EquipmentTypeItem;
@@ -23,6 +24,12 @@ public interface IWorkoutFormsServices
 
     @GET("/equipment/no-equipment")
     Call<Void> getNoEquipment();
+
+    @POST("/training-plan/generate")
+    Call<Training> getTrainingPlan(@Body WorkoutForm formSend);
+
+    @GET("/check-sum")
+    Call<ArrayList<Checksum>> getChecksum();
 
     @POST("/training-plan/generate")
     Call<Training> getTrainingPlan(@Body WorkoutForm formSend, @Header("Date") String date);

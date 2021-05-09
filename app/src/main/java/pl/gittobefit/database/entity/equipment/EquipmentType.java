@@ -3,6 +3,8 @@ package pl.gittobefit.database.entity.equipment;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import pl.gittobefit.workoutforms.object.EquipmentTypeItem;
+
 @Entity
 public class EquipmentType
 {
@@ -18,6 +20,13 @@ public class EquipmentType
         this.name = name;
         this.path = path;
         this.offline = true;
+    }
+    public EquipmentType(EquipmentTypeItem item)
+    {
+        this.id = item.getId();
+        this.name = item.getName();
+        this.path = item.getUrl();
+        this.offline = false;
     }
 
     public int getId()
