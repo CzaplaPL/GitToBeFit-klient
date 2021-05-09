@@ -47,7 +47,7 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        model= new ViewModelProvider(requireActivity(),new GenerateTrainingViewModelFactory(this.getContext())).get(GenerateTraningViewModel.class);
+        model= new ViewModelProvider(requireActivity(), new GenerateTrainingViewModelFactory(this.getContext())).get(GenerateTraningViewModel.class);
 
         model.EquipmentTypeIsLoaded().observe(getViewLifecycleOwner(), new Observer<Boolean>()
         {

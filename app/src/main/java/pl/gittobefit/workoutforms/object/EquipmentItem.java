@@ -6,6 +6,6 @@ public class EquipmentItem extends EquipmentForm
 {
     public EquipmentItem(Equipment equipment)
     {
-        super(equipment.getId(),equipment.getName(),equipment.getUrl(),equipment.isOffline());
+        super(equipment.getId(), equipment.getName(), equipment.getUrl(), equipment.isOffline());
     }
 }

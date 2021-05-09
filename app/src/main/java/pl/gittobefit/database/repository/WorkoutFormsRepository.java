@@ -192,7 +192,7 @@ public class WorkoutFormsRepository
         if(!isCurrent)
         {
             ConnectionToServer.getInstance().WorkoutFormsServices.getEquipmentType(this);
-        }
+        }else
         {
             setEquipmentTypes(true);
         }
