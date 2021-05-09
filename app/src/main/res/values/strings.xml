@@ -294,4 +294,6 @@ sprawdzanie czy użytkownik ma internet\n
     <string name="start">START</string>
     <string name="seconds">sekund</string>
     <string name="noSynchronize">Synchronizacja nie udana.</string>
+    <string name="start_training_text">Twoje Treningi</string>
+    <string name="generate_training_start">Stwórz Trening</string>
 </resources>
