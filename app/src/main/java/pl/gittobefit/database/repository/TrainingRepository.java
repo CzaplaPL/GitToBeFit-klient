@@ -12,10 +12,12 @@ import pl.gittobefit.WorkoutDisplay.objects.TrainingPlan;
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.entity.training.SavedTraining;
+import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.database.entity.training.relation.ExerciseToEquipment;
 import pl.gittobefit.database.entity.training.relation.TrainingTypesToExercise;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
+import pl.gittobefit.network.WorkoutFormsServices;
 import pl.gittobefit.user.User;
 import pl.gittobefit.workoutforms.object.EquipmentItem;
 import pl.gittobefit.workoutforms.object.exercise.TrainingTypes;
@@ -192,5 +194,15 @@ public class TrainingRepository
         }
         loadedTraining.addAll(base.trainingDao().getOfflineTraining());
         return loadedTraining;
+    }
+
+    public TrainingWithForm addOfflineTraining(SavedTraining training, WorkoutForm form)
+    {
+        long idForm = base.workoutFormDao().addForm(form);
+        training.setIdForm(idForm);
+        long idTraining = base.trainingDao().addTraining(training);
+        TrainingWithForm savedTraining = base.trainingDao().getTraining(idTraining);
+        loadedTrainingWithForm.put((long) savedTraining.training.getId(), savedTraining);
+        return savedTraining;
     }
 }

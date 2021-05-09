@@ -17,9 +17,12 @@ import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
+import pl.gittobefit.database.entity.training.SavedTraining;
 import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.repository.TrainingRepository;
+import pl.gittobefit.generate_training.EquipmentCountException;
+import pl.gittobefit.generate_training.TrainingPlanFacade;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
 import pl.gittobefit.user.User;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
@@ -126,39 +129,58 @@ public class WorkoutFormsServices
         activity.showSnackbar(fragment.getString(R.string.generateTraining));
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        Call<Training> call;
-        if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
-        {
-             call = workout.getTrainingPlanForLoggedInUser(form, User.getInstance().getToken(), formatter.format(date));
-        }
-        else
-        {
-             call = workout.getTrainingPlan(form, formatter.format(date));
-        }
 
-        call.enqueue(new Callback<Training>()
+        if(ConnectionToServer.isNetwork(fragment.getContext()))
         {
-            @Override
-            public void onResponse(Call<Training> call, Response<Training> response) {
-                if(response.isSuccessful())
-                {
-                    createTraining(response.body(), fragment);
-                    Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
-                    activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
-                }
-                else
-                {
-                    Log.e("Network ", "WorkoutForms.getTrainingType error " + response.code());
-                    LogUtils.logCause(response.headers().get("Cause"));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Training> call, Throwable t)
+            Call<Training> call;
+            if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
             {
-                Log.e("Network ", "WorkoutForms.getTrainingType error = " + t.toString());
+                call = workout.getTrainingPlanForLoggedInUser(form, User.getInstance().getToken(), formatter.format(date));
             }
-        });
+            else
+            {
+                call = workout.getTrainingPlan(form, formatter.format(date));
+            }
+            call.enqueue(new Callback<Training>()
+            {
+                @Override
+                public void onResponse(Call<Training> call, Response<Training> response) {
+                    if(response.isSuccessful())
+                    {
+                        createTraining(response.body(), fragment);
+                        Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+                        activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
+                    }
+                    else
+                    {
+                        Log.e("Network ", "WorkoutForms.getTrainingType error " + response.code());
+                        LogUtils.logCause(response.headers().get("Cause"));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Training> call, Throwable t)
+                {
+                    Log.e("Network ", "WorkoutForms.getTrainingType error = " + t.toString());
+                }
+            });
+        }else
+        {
+            try
+            {
+                SavedTraining training = TrainingPlanFacade.createTrainingPlan(form,fragment.getContext());
+                InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity())
+                        .get(InitiationTrainingDisplayLayoutViewModel.class);
+                model.addTrainingWithForm(TrainingRepository.getInstance(fragment.getContext()).addOfflineTraining(training,form));
+                model.setNumberOfClickedTraining(model.getTrainingWithForms().size() - 1);
+                Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+                activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
+            }catch(EquipmentCountException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     private void createTraining(Training body, Fragment fragment) {

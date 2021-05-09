@@ -68,4 +68,9 @@ public class WorkoutForm
     {
         FormId = formId;
     }
+
+    public boolean checkIfScheduleTypeIsCircuit()
+    {
+        return this.scheduleType.equalsIgnoreCase("CIRCUIT");
+    }
 }

@@ -12,6 +12,8 @@ import pl.gittobefit.WorkoutDisplay.objects.TrainingPlan;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 import pl.gittobefit.user.User;
 
+import static java.sql.Types.NULL;
+
 
 @Entity
 public class SavedTraining
@@ -63,6 +65,13 @@ public class SavedTraining
     public SavedTraining()
     {
         this.trainingDay = 0;
+    }
+
+    public SavedTraining(int circuitsCount, long breakTime)
+    {
+        this.circuitsCount = circuitsCount;
+        this.breakTime = (int) breakTime;
+        this.planList = new ArrayList<>();
     }
 
 
@@ -173,5 +182,29 @@ public class SavedTraining
     public void setOffline(boolean offline)
     {
         this.offline = offline;
+    }
+
+    public void addDay(ArrayList<ExerciseExecutionPOJODB> trainingForDay)
+    {
+        planList.add(trainingForDay);
+    }
+
+    public void setInfo(String name)
+    {
+        if(User.getInstance().getLoggedBy() != User.WayOfLogin.NO_LOGIN)
+        {
+            this.idUser = User.getInstance().getIdServer();
+        }else
+        {
+            this.idUser = "";
+        }
+        this.idFromServer = NU0LL;
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        this.generationDate =  formatter.format(date);
+        this.trainingName = name;
+        this.trainingDay = 0;
+        this.offline = true;
+
     }
 }
