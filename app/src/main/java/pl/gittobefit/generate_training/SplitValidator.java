@@ -24,7 +24,7 @@ public class SplitValidator
     {
         this.base = base;
         validateDaysCount(trainingForm);
-        validateAmountOfExercises(prepare(trainingPlan));
+        validateAmountOfExercises(prepare(trainingPlan), trainingForm);
     }
 
     private List<Map<String, List<ExerciseExecutionPOJODB>>> prepare(SavedTraining plan)
@@ -50,7 +50,7 @@ public class SplitValidator
         return listToReturn;
     }
 
-    private void validateAmountOfExercises(List<Map<String, List<ExerciseExecutionPOJODB>>> trainingList)
+    private void validateAmountOfExercises(List<Map<String, List<ExerciseExecutionPOJODB>>> trainingList, WorkoutForm trainingForm)
     {
         Map<String, List<ExerciseExecutionPOJODB>> map = new HashMap<>();
         for(Map<String, List<ExerciseExecutionPOJODB>> stringListMap : trainingList)
@@ -59,9 +59,15 @@ public class SplitValidator
         }
         List<String> errors = new ArrayList<>();
 
-        for(String bodyPart : map.keySet())
+        for(String bodyPart : trainingForm.getBodyParts())
         {
-            if(map.get(bodyPart).size() != getAmountOfExercisesForBodyPart(bodyPart))
+            if(map.containsKey(bodyPart))
+            {
+                if(map.get(bodyPart).size() != getAmountOfExercisesForBodyPart(bodyPart))
+                {
+                    errors.add(bodyPart);
+                }
+            }else
             {
                 errors.add(bodyPart);
             }
