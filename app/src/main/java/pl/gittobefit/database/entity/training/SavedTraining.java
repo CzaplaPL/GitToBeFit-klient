@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 import pl.gittobefit.WorkoutDisplay.objects.TrainingPlan;
@@ -73,7 +74,6 @@ public class SavedTraining
         this.breakTime = (int) breakTime;
         this.planList = new ArrayList<>();
     }
-
 
     public int getId()
     {

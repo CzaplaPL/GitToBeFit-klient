@@ -15,8 +15,8 @@ import pl.gittobefit.workoutforms.object.exercise.ExerciseItem;
 
 public interface TrainingPlanGenerator
 {
-    long DEFAULT_BREAK_TIME = 30;
-    long DEFAULT_CIRCUIT_COUNT = 3;
+    int DEFAULT_BREAK_TIME = 30;
+    int DEFAULT_CIRCUIT_COUNT = 3;
     int DEFAULT_SERIES_COUNT = 3;
     int DEFAULT_COUNT_OF_REPEATITIONS = 8;
     int DEFAULT_EXERCISE_TIME_EXECUTION = 30;

@@ -10,9 +10,11 @@ public class TrainingPlanFactory
          switch (trainingType.toUpperCase()) {
             case "SPLIT" :
                 return new SplitTrainingPlan(context);
-                /* case "FBW" -> new FBWTrainingPlan();
-            case "CARDIO" -> new CardioTrainingPlan();
-            case "FITNESS" -> new FitnessTrainingPlan();*/
+                 //case "FBW" -> new FBWTrainingPlan();
+             case "CARDIO":
+                 return new CardioTrainingPlan(context);
+             case "FITNESS":
+                 return new FitnessTrainingPlan(context);
              default : throw new IllegalArgumentException("");
         }
     }
