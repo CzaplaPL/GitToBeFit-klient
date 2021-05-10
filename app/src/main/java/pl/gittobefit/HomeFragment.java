@@ -49,8 +49,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener
         button.setOnClickListener(this);
         Button button2 = view.findViewById(R.id.button3);
         button2.setOnClickListener(this);
-        //Button button3 = view.findViewById(R.id.button2);
-        //button3.setOnClickListener(this);
         return view;
     }
 
