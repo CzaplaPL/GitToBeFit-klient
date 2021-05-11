@@ -22,6 +22,7 @@ import pl.gittobefit.user.User;
 public class DeleteTrainingDialog extends AppCompatDialogFragment
 {
     private View myView;
+    private static final int  indexReset = -1;
 
     public DeleteTrainingDialog(View view) {
         this.myView = view;
@@ -56,7 +57,7 @@ public class DeleteTrainingDialog extends AppCompatDialogFragment
                         ConnectionToServer.getInstance().trainingServices.deleteTrainingFromServer(activity, idFromServer, getContext());
                     }
                     Navigation.findNavController(myView).navigate(R.id. training_to_delete_action);
-                    model.setLastIndex(-1);
+                    model.setLastIndex(indexReset);
                     activity.showSnackbar(getActivity().getString(R.string.deleteComplete));
                 });
         return builder.create();

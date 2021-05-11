@@ -65,7 +65,7 @@ public class DisplayReceivedTraining extends Fragment
         Bundle args = getArguments();
         if (args  != null)
         {
-            int  afterExerciseChange = args.getInt("exerciseChanged");
+            int afterExerciseChange = args.getInt("exerciseChanged");
             if (afterExerciseChange == 1)
             {
                 IShowSnackbar activity = (IShowSnackbar) getActivity();

@@ -56,10 +56,10 @@ public class ListOfTrainings extends Fragment
         Bundle args = getArguments();
         if (args  != null)
         {
-            int  afterExerciseChange = args.getInt("exerciseChanged");
+            int afterExerciseChange = args.getInt("exerciseChanged");
             if (afterExerciseChange == 1)
             {
-                Navigation.findNavController(view).navigate(R.id.xd, args);
+                Navigation.findNavController(view).navigate(R.id.list_of_trainings_to_displayReceivedTraining_after_exercise_changed, args);
             }
         }
 

@@ -97,7 +97,7 @@ public class TrainingServices
     {
         TrainingRepository repository = TrainingRepository.getInstance(context);
         User user = User.getInstance();
-        Call<Void> call = training.sendTrainings(user.getToken(), repository.getTrainingsToSendAfterChanges(id));
+        Call<Void> call = training.sendTrainings(user.getToken(), repository.getTrainingToSendAfterChangesById(id));
         call.enqueue(new Callback<Void>()
         {
             @Override
@@ -165,7 +165,6 @@ public class TrainingServices
                     {
                         model.addTrainingToList(ex);
                     }
-                    //model.setListExercises(response.body());
                 }
                 else
                 {

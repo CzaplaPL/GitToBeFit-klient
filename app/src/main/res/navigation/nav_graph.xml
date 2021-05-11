@@ -141,7 +141,7 @@
             android:id="@+id/list_of_trainings_to_displayReceivedTraining"
             app:destination="@id/displayReceivedTraining" />
         <action
-            android:id="@+id/xd"
+            android:id="@+id/list_of_trainings_to_displayReceivedTraining_after_exercise_changed"
             app:destination="@id/displayReceivedTraining"
             app:popUpTo="@+id/displayReceivedTraining"
             app:popUpToInclusive="true"/>

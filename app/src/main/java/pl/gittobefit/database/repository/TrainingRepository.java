@@ -107,7 +107,7 @@ public class TrainingRepository
         return trainingsToSend;
     }
 
-    public ArrayList<Training> getTrainingsToSendAfterChanges(int id)
+    public ArrayList<Training> getTrainingToSendAfterChangesById(int id)
     {
         ArrayList<Training> trainingsToSend = new ArrayList<>();
         TrainingWithForm trainingWithForm = getTraining(id);

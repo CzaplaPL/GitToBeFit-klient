@@ -33,7 +33,6 @@ public class TrainingPlan
         this.circuitsCount  = circuitsCount;
     }
 
-
     public TrainingPlan(ArrayList<ExerciseExecutionPOJODB> exerciseExecutionPOJODBS, ArrayList<Exercise> exercisesDB)
     {
         if(exerciseExecutionPOJODBS.size() != 0)
@@ -96,5 +95,4 @@ public class TrainingPlan
     public void setCircuitsCount(int circuitsCount) {
         this.circuitsCount = circuitsCount;
     }
-
 }
