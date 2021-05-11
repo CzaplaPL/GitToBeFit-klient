@@ -30,6 +30,7 @@ public class TrainingStart extends Fragment
 
     public TrainingStart()
     {
+
     }
 
     @Override
@@ -80,7 +81,7 @@ public class TrainingStart extends Fragment
     @Override
     public void onDestroyView()
     {
-        timer.cancel();
+        if(timer != null) timer.cancel();
         super.onDestroyView();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         if(activity != null)
