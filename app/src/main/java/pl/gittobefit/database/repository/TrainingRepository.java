@@ -54,7 +54,8 @@ public class TrainingRepository
                         idForm,
                         training.getPlanList(),
                         training.getTrainingName(),
-                        training.getGenerationDate()
+                        training.getGenerationDate(),
+                        training.getDayOfTraining()
                 )
         );
         TrainingWithForm savedTraining = base.trainingDao().getTraining(idTraining);

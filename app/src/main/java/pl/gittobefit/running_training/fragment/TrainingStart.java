@@ -26,9 +26,11 @@ public class TrainingStart extends Fragment
 {
     private TrainingViewModel model;
     private FragmentTrainingStartBinding binding;
+    CountDownTimer timer;
 
     public TrainingStart()
     {
+
     }
 
     @Override
@@ -79,6 +81,7 @@ public class TrainingStart extends Fragment
     @Override
     public void onDestroyView()
     {
+        if(timer != null) timer.cancel();
         super.onDestroyView();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         if(activity != null)
@@ -128,7 +131,7 @@ public class TrainingStart extends Fragment
         binding.scheduleTypeTitle.setText(getString(R.string.scheduleTypeCircuit));
         binding.countOfSeries.setText(String.format("%s / %s",
                 model.getNumberOfSeries(),
-                model.getExerciseExecution().getSeries())
+                model.getTrainingWithForm().training.getCircuitsCount())
         );
     }
 
@@ -164,11 +167,21 @@ public class TrainingStart extends Fragment
 
     private void printDefault()
     {
-        binding.printCountOfSeries.setText(String.format("%s / %s",
-                model.getNumberOfSeries(),
-                model.getExerciseExecution().getSeries()
-        ));
-        
+        if(model.getTrainingWithForm().form.getScheduleType().equals("CIRCUIT"))
+        {
+            binding.printCountOfSeries.setText(String.format("%s / %s",
+                    model.getNumberOfSeries(),
+                    model.getTrainingWithForm().training.getCircuitsCount()
+            ));
+        }else
+        {
+            binding.printCountOfSeries.setText(String.format("%s / %s",
+                    model.getNumberOfSeries(),
+                    model.getExerciseExecution().getSeries()
+            ));
+        }
+
+
         if(model.getExerciseExecution().getCount() == 0)
         {
             binding.buttonClickButton.setVisibility(View.GONE);
@@ -190,7 +203,7 @@ public class TrainingStart extends Fragment
 
     private void timerBreakDuringExercises()
     {
-        new CountDownTimer(30000, 1000)
+        timer = new CountDownTimer(model.getTrainingWithForm().training.getBreakTime() * 1000, 1000)
         {
             @Override
             public void onTick(long millisUntilFinished)
@@ -211,7 +224,7 @@ public class TrainingStart extends Fragment
 
     private void timerBeforeStartTraining()
     {
-        new CountDownTimer(4000, 1000)
+        timer = new CountDownTimer(6000, 1000)
         {
             @Override
             public void onTick(long millisUntilFinished)
@@ -233,7 +246,7 @@ public class TrainingStart extends Fragment
 
     private void timerOnStartTraining()
     {
-        new CountDownTimer(model.getExerciseExecution().getTime() * 1000, 1000)
+        timer = new CountDownTimer(model.getExerciseExecution().getTime() * 1000, 1000)
         {
             @Override
             public void onTick(long millisUntilFinished)
@@ -273,6 +286,7 @@ public class TrainingStart extends Fragment
             binding.miss.setVisibility(View.VISIBLE);
             binding.start.setVisibility(View.VISIBLE);
             generateMainView();
+            binding.miss.setEnabled(true);
             timerBreakDuringExercises();
         }else
         {
@@ -308,7 +322,7 @@ public class TrainingStart extends Fragment
 
     private void startPause()
     {
-        new CountDownTimer(30000, 1000)
+        timer = new CountDownTimer(model.getTrainingWithForm().training.getBreakTime() * 1000, 1000)
         {
             @Override
             public void onTick(long millisUntilFinished)
@@ -340,6 +354,7 @@ public class TrainingStart extends Fragment
             binding.miss.setVisibility(View.VISIBLE);
             binding.start.setVisibility(View.VISIBLE);
             generateMainView();
+            binding.miss.setEnabled(true);
             timerBreakDuringExercises();
         }else
         {
@@ -386,8 +401,8 @@ public class TrainingStart extends Fragment
                 binding.loaderVideo.setAlpha(1);
                 mp.setLooping(true);
             });
-        }
-        else{
+        }else
+        {
             binding.loaderVideo.setVisibility(View.INVISIBLE);
             binding.readVideo.setVisibility(View.INVISIBLE);
             binding.image.setVisibility(View.VISIBLE);
@@ -397,7 +412,8 @@ public class TrainingStart extends Fragment
 
     private void getSmallVideo()
     { // wczytanie wideo do foregrounda
-        if(model.getExercise().getVideoUrl() != null){
+        if(model.getExercise().getVideoUrl() != null)
+        {
             binding.smallImage.setVisibility(View.INVISIBLE);
             binding.videoViewStartTraining.setVisibility(View.VISIBLE);
             Uri uri = Uri.parse(ConnectionToServer.PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
@@ -408,8 +424,8 @@ public class TrainingStart extends Fragment
                 binding.videoViewStartTraining.start();
                 mp.setLooping(true);
             });
-        }
-        else{
+        }else
+        {
             binding.videoViewStartTraining.setVisibility(View.INVISIBLE);
             binding.smallImage.setVisibility(View.VISIBLE);
             Glide.with(this).load(ConnectionToServer.PREFIX_PHOTO_URL + model.getExercise().getPhotoUrl()).into(binding.smallImage);

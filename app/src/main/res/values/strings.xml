@@ -235,7 +235,10 @@
     <string name="timeTitle">Czas Wykonywania Ćwiczenia:</string>
     <string name="seriesTitle">Ilość Serii:</string>
     <string name="repeatsTitle">Ilość Powtórzeń:</string>
-    <string name="detailsInfo">Siema siema</string>
+    <string name="detailsInfo">Split to inaczej trening dzielony. Polega na ćwiczeniu konkretnej partii mięśni w danym dniu treningowym.Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.\n
+    Trening FBW to ćwiczenia całego ciała. W trakcie jego wykonywania angażujesz wiele partii mięśniowych. Głównym założeniem jest wywołanie jak największej odpowiedzi anabolicznej twojego ciała, poprzez pobudzanie go ćwiczeniami wielostawowymi.\n
+    Trening cardio to ćwiczenia wytrzymałościowe dotleniające organizm, poprawiające pracę układu krążenia oraz kondycję organizmu. Zwiększa ilość oddechów na minutę oraz przyspiesza tętno, co sprawia, że komórki i tkanki mięśniowe są lepiej dotlenione.\n
+    Głównym założeniem treningu fitness jest jego pozasportowy, prozdrowotny charakter. Do zajęć fitness można więc zaliczyć wszelkie formy aktywności fizycznej, ale podejmowane świadomie i systematycznie w celu poprawy szeroko pojmowanego zdrowia.\n</string>
     <string name="miss">Pomiń</string>
     <string name="preview_info">PRZYGOTUJ SIĘ</string>
     <string name="text_info_next">KLIKNIJ W POWYŻSZY PRZYCISK ABY PRZEJSC DALEJ</string>
