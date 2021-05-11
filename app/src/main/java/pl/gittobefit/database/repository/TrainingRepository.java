@@ -107,10 +107,12 @@ public class TrainingRepository
         return trainingsToSend;
     }
 
-    public ArrayList<Training> getTrainingsToSendAfterChanges()
+    public ArrayList<Training> getTrainingToSendAfterChangesById(int id)
     {
         ArrayList<Training> trainingsToSend = new ArrayList<>();
-        ArrayList<TrainingWithForm> trainingsInDB = getAllTrainings();
+        TrainingWithForm trainingWithForm = getTraining(id);
+        ArrayList<TrainingWithForm> trainingsInDB = new ArrayList<>();
+        trainingsInDB.add(trainingWithForm);
         for(TrainingWithForm trainingDB : trainingsInDB)
         {
             trainingsToSend.add(new Training(trainingDB, this));

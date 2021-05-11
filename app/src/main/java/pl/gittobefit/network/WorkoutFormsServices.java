@@ -174,10 +174,65 @@ public class WorkoutFormsServices
                 if(response.isSuccessful())
                 {
                     createTraining(response.body(), fragment);
-                    Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+                    Navigation.findNavController(fragment.getView())
+                            .navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
                     activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
                 }else
                 {
+                    if (response.code() == 409)
+                    {
+                        switch (response.headers().get("Cause"))
+                        {
+                            case "Body parts cannot be empty":
+                                activity.showSnackbar(fragment.getResources().getString(R.string.noBodyParts));
+                                break;
+                        }
+                    }
+                    else if (response.code() == 417)
+                    {
+                        if (response.headers().get("Cause").startsWith("not enough exercises for"))
+                        {
+                            String [] tokens = response.headers().get("Cause").split("\\:");
+
+                            switch (tokens[1].trim())
+                            {
+                                case "[CALVES]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " łydek !");
+                                    break;
+                                case "[SIXPACK]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " brzucha !");
+                                    break;
+                                case "[CHEST]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " klatki piersiowej !");
+                                    break;
+                                case "[BICEPS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " bicepsa !");
+                                    break;
+                                case "[SHOULDERS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " ramion !");
+                                    break;
+                                case "[THIGHS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " ud !");
+                                    break;
+                                case "[TRICEPS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " tricepsa !");
+                                    break;
+                            }
+                        }
+
+                        switch (response.headers().get("Cause"))
+                        {
+                            case "wrong exercises count":
+                                activity.showSnackbar(fragment.getResources().getString(R.string.wrongCombination));
+                                break;
+                            case "not enough exercises for [BICEPS, SHOULDERS]"://Michał mógłby dodać ':' po for tak jak w innych przypadkach jest zrobione
+                                activity.showSnackbar(fragment.getResources().getString(R.string.needMoreEQ));
+                                break;
+                            case "not enough days for set body parts":
+                                activity.showSnackbar(fragment.getResources().getString(R.string.needMoreBodyParts));
+                                break;
+                        }
+                    }
                     Log.e("Network ", "WorkoutForms.getTrainingType error " + response.code());
                     LogUtils.logCause(response.headers().get("Cause"));
                 }
@@ -193,8 +248,6 @@ public class WorkoutFormsServices
 
     private void createTraining(Training body, Fragment fragment)
     {
-        body.setGenerationDate(body.getGenerationDate());
-        body.setTrainingName("Default training name");
         InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity())
                 .get(InitiationTrainingDisplayLayoutViewModel.class);
         model.addTrainingWithForm(TrainingRepository.getInstance(fragment.getContext()).add(body));

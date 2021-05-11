@@ -27,6 +27,13 @@
     <string name="time">Czas trwania</string>
     <string name="repCount">Ilość powtórzeń</string>
     <string name="deleteComplete">Usunięto trening poprawnie.</string>
+    <string name="breakTime">Przerwa pomiędzy seriami:</string>
+    <string name="edit_break_time">Edytuj czas przerwy.</string>
+    <string name="noBodyParts">Pownieneś zaznaczyć jakieś partie ciała, aby wygenerować wybrany typ treningu.</string>
+    <string name="wrongCombination">Genewowanie niepomyślne, rozważ zaznczenie ćwiczeń niewymagającyh sprzetu.</string>
+    <string name="needMoreEQ">Genewowanie niepomyślne, rozważ zaznczenie większej ilości sprzetu.</string>
+    <string name="needMoreBodyParts">Genewowanie niepomyślne, rozważ zaznczenie większej ilości partii ciała.</string>
+    <string name="notEnoughExercise">Genewowanie niepomyślne, niewystarczająca ilość ćwiczeń dla </string>
 
 
     <string name="incorrectpassword">hasła różnią się </string>
@@ -53,6 +60,15 @@
     <string name="example">przykładowy tekst</string>
     <string name="titleEquipment">Wybierz swój sprzęt do wykonania treningu:</string>
     <string name="next">Przejdź Dalej</string>
+    <string name="trainingTime">Czas treningu: </string>
+    <string name="trainingForm">Forma treningu: </string>
+    <string name="trainingType">Rodzaj treningu: </string>
+    <string name="trainingBreakTime">Przerwa pomiędzy seriami: </string>
+    <string name="trainingName">Nazwa treningu: </string>
+    <string name="scheduleTypeDisplaySeries">wykonujesz wybraną ilość serii każdego ćwiczenia</string>
+    <string name="scheduleTypeDisplayCircuit">wykonujesz jedno ćwiczenie po drugim, z przerwami pomiędzy nimi, bądź bez</string>
+    <string name="scheduleTypeDisplayPerDay">wykonujesz każdego dnia inny trening</string>
+    <string name="scheduleTypeDisplayRep">wykonujesz każdego dnia taki sam trening</string>
 
     <string name="exercise_pl">Ćwieczenie</string>
     <string name="edit_pl">Edytuj</string>

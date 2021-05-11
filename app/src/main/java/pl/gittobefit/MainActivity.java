@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
                 R.id.displayReceivedTraining,
                 R.id.listOfTrainings,
                 R.id.generateTrainingForm,
-                R.id.exerciseDetails
+                R.id.exerciseDetails,
+                R.id.change_exercise
         ).setOpenableLayout(drawerLayout).build();
 
         navigationView = findViewById(R.id.nav_view);

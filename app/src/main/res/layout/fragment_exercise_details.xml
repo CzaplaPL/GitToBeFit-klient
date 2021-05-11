@@ -5,13 +5,26 @@
     android:layout_height="match_parent"
     android:id="@+id/exercise_details_layout">
 
+    <TextView
+        android:id="@+id/exercise_details_name"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_rectangle"
+        android:gravity="center_vertical"
+        android:textColor="?attr/colorPrimaryVariant"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"/>
+
     <LinearLayout
         android:id="@+id/movieLoading"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:orientation="vertical"
         android:visibility="visible"
-        >
+        android:layout_below="@id/exercise_details_name">
 
         <ProgressBar
             android:id="@+id/progressBar3"
@@ -35,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:alpha="0"
-        android:layout_alignParentTop="true"/>
+        android:layout_below="@id/exercise_details_name"/>
 
     <ScrollView
         android:id="@+id/my_scroll_view"
@@ -61,7 +74,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:justificationMode="inter_word"
-                android:layout_margin="8dp"/>
+                android:layout_margin="8dp"
+                android:textColor="?attr/colorPrimaryVariant"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,7 +89,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:justificationMode="inter_word"
-                android:layout_margin="8dp"/>
+                android:layout_margin="8dp"
+                android:textColor="?attr/colorPrimaryVariant"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,7 +103,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:justificationMode="inter_word"
-                android:layout_margin="8dp"/>
+                android:layout_margin="8dp"
+                android:textColor="?attr/colorPrimaryVariant"/>
         </LinearLayout>
     </ScrollView>
 
