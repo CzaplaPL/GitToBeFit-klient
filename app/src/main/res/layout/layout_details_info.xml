@@ -14,14 +14,20 @@
         android:padding="16dp"
         tools:ignore="UselessParent">
 
-        <TextView
-            android:id="@+id/detailsInfoText"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="@string/detailsInfo"
-            android:textColor="?attr/colorPrimaryVariant"
-            android:textSize="18sp" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/detailsInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/detailsInfo"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textSize="18sp" />
+        </ScrollView>
 
     </LinearLayout>
 

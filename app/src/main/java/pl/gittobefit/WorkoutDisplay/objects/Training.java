@@ -14,6 +14,7 @@ public class Training
     private ArrayList<TrainingPlan> planList = new ArrayList<>();
     private String createdAt;
     private String title;
+    private int dayOfTraining;
     private int breakTime;
     private int id;
 
@@ -106,5 +107,10 @@ public class Training
 
     public void setBreakTime(int breakTime) {
         this.breakTime = breakTime;
+    }
+
+    public int getDayOfTraining()
+    {
+        return dayOfTraining;
     }
 }
