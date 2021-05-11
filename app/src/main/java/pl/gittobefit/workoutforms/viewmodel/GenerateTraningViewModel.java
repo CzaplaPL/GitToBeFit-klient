@@ -18,11 +18,11 @@ import pl.gittobefit.workoutforms.object.BodyParts;
 import pl.gittobefit.workoutforms.object.EquipmentItem;
 import pl.gittobefit.workoutforms.object.EquipmentForm;
 import pl.gittobefit.workoutforms.object.EquipmentTypeItem;
-import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
+import pl.gittobefit.database.repository.WorkoutFormsRepository;
 
 public class GenerateTraningViewModel extends ViewModel
 {
-    private WorkoutFormsRepository repository =new WorkoutFormsRepository(this) ;
+    private WorkoutFormsRepository repository  ;
     private EquipmentList equipmentList=new EquipmentList();
     private int noEquipmentid = -1;
     private boolean noEquipmentcheched = true;
@@ -37,8 +37,10 @@ public class GenerateTraningViewModel extends ViewModel
     private MutableLiveData<Integer> timeFitnesSpinnerChose =new  MutableLiveData<>();
     private MutableLiveData<Integer> scheduleSpinnerChosen =new  MutableLiveData<>();
     private MutableLiveData<Boolean> equiomentIsChecked =new  MutableLiveData<>();
+    private MutableLiveData<Boolean> equipmentTypeIsLoaded =new  MutableLiveData<>();
+    private EquipmentAdapter.EquipmentListener equipmentListener;
 
-    public GenerateTraningViewModel()
+    public GenerateTraningViewModel(Context context)
     {
         setTypeSpinnerChose(0);
         setWaySpinnerChose(0);
@@ -46,6 +48,7 @@ public class GenerateTraningViewModel extends ViewModel
         setTimeCardioSpinnerChose(0);
         setTimeFitnesSpinnerChose(0);
         setScheduleSpinnerChosen(0);
+        this.repository=WorkoutFormsRepository.getInstance(context);
     }
 
     public RecyclerView.Adapter getListAdapter()
@@ -53,17 +56,21 @@ public class GenerateTraningViewModel extends ViewModel
         return equipmentList.getAdapter();
     }
 
-    public void initList(ArrayList<EquipmentTypeItem> equipmentTypes , EquipmentAdapter.EquipmentListener equipmentListener)
+    public void initList(ArrayList<EquipmentTypeItem> equipmentTypes )
     {
-        this.listData = new ArrayList<>(equipmentTypes);
-        repository.setEqiupmentTypes(equipmentTypes);
+        listData.clear();
+        listData.addAll(equipmentTypes);
         equipmentList.setData(listData);
         equipmentList.init(equipmentListener);
+        equipmentTypeIsLoaded.setValue(true);
+        equipmentList.getAdapter().notifyDataSetChanged();
     }
 
     public void loadEqiupmentTypes(EquipmentFragment equipmentFragment)
     {
-        repository.loadEquipmentTypes(equipmentFragment);
+        this.repository.setObserver(this);
+        this.equipmentListener =equipmentFragment;
+        repository.loadEquipmentTypes();
     }
 
     public void equipmentListClick(int position)
@@ -322,5 +329,10 @@ scheduleSpinnerChosen.setValue(position);
             bodyparts.add(bodyPartsChecked.get(i).getBodyTitle());
         }
         return bodyparts;
+    }
+
+    public MutableLiveData<Boolean> EquipmentTypeIsLoaded()
+    {
+        return equipmentTypeIsLoaded;
     }
 }

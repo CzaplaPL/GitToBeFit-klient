@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import pl.gittobefit.databinding.FragmentEquipmentBinding;
 import pl.gittobefit.workoutforms.adapters.EquipmentAdapter;
 import pl.gittobefit.workoutforms.object.EquipmentTypeItem;
+import pl.gittobefit.workoutforms.viewmodel.GenerateTrainingViewModelFactory;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
 /**
@@ -46,20 +47,37 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        model = new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
-        model.loadEqiupmentTypes(this);
-        model.getEquiomentIsChecked().observe(getViewLifecycleOwner(), new Observer<Boolean>()
+        model= new ViewModelProvider(requireActivity(), new GenerateTrainingViewModelFactory(this.getContext())).get(GenerateTraningViewModel.class);
+
+        model.EquipmentTypeIsLoaded().observe(getViewLifecycleOwner(), new Observer<Boolean>()
         {
             @Override
-            public void onChanged(Boolean aBoolean)
+            public void onChanged(Boolean loaded)
             {
-                if(!aBoolean)
+                if(loaded)
                 {
-                    model.setNoEquipmentcheched(true);
-                    binding.noEquipmentChecbox.setChecked(true);
+                    binding.titleEquipment.setVisibility(View.VISIBLE);
+                    binding.noEquipment.setVisibility(View.VISIBLE);
+                    binding.rvContacts.setAdapter(model.getListAdapter());
+                    binding.rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
+                    binding.equipmentLoading.setVisibility(View.GONE);
+                }else
+                {
+                    binding.titleEquipment.setVisibility(View.GONE);
+                    binding.noEquipment.setVisibility(View.GONE);
+                    binding.equipmentLoading.setVisibility(View.VISIBLE);
                 }
-                binding.noEquipmentChecbox.setEnabled(aBoolean);
             }
+        });
+        model.loadEqiupmentTypes(this);
+        model.getEquiomentIsChecked().observe(getViewLifecycleOwner(), aBoolean ->
+        {
+            if(!aBoolean)
+            {
+                model.setNoEquipmentcheched(true);
+                binding.noEquipmentChecbox.setChecked(true);
+            }
+            binding.noEquipmentChecbox.setEnabled(aBoolean);
         });
         binding.noEquipment.setOnClickListener(v ->
         {
@@ -76,17 +94,7 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
         binding.noEquipmentChecbox.setOnClickListener(v -> model.setNoEquipmentcheched(binding.noEquipmentChecbox.isChecked()));
     }
 
-    public void createList(ArrayList<EquipmentTypeItem> equipmentType, int noEquipmentId)
-    {
-        model.initList(equipmentType, this);
-        model.setNoEquipmentid(noEquipmentId);
-        model.setNoEquipmentcheched(true);
-        binding.titleEquipment.setVisibility(View.VISIBLE);
-        binding.noEquipment.setVisibility(View.VISIBLE);
-        binding.rvContacts.setAdapter(model.getListAdapter());
-        binding.rvContacts.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.equipmentLoading.setVisibility(View.GONE);
-    }
+
 
     @Override
     public void onDestroyView()

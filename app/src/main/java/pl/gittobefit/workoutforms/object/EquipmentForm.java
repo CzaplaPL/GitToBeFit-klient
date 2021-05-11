@@ -7,12 +7,14 @@ public class EquipmentForm
     final private String url;
     private boolean isEqiupment=false;
     private boolean ischecked=false;
+    private boolean isOffline;
 
-    public EquipmentForm(int id, String name, String url)
+    public EquipmentForm(int id, String name, String url,boolean isOffline)
     {
         this.id = id;
         this.name = name;
         this.url = url;
+        this.isOffline = isOffline;
     }
     public int getId()
     {
@@ -42,4 +44,5 @@ public class EquipmentForm
     {
         this.ischecked = ischecked;
     }
+    public boolean isOffline() { return isOffline; }
 }
