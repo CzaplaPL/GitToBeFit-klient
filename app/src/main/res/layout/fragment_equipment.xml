@@ -91,15 +91,14 @@
             android:orientation="horizontal"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/rvContacts"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/equipment_guideline_right"
+            app:layout_constraintStart_toStartOf="@+id/equipment_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/titleEquipment">
 
             <ImageView
                 android:id="@+id/no_equipment_item_image"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="8dp"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/ic_baseline_clear_24" />
 
@@ -109,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="26dp"
+                android:layout_marginStart="24dp"
                 android:text="@string/noeqiupment"
                 android:textColor="?attr/colorPrimaryVariant"
                 android:textSize="13sp"
@@ -139,7 +138,8 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/equipment_guideline_left"
+            app:layout_constraintEnd_toStartOf="@+id/equipment_guideline_right"
             app:layout_constraintTop_toBottomOf="@+id/no_equipment"
             tools:listitem="@layout/equipment_item">
 
