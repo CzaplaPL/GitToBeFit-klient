@@ -281,7 +281,9 @@ public class DisplayReceivedTraining extends Fragment
                         trainingWithForm.form.getScheduleType(),
                         trainingWithForm.training.getId(),
                         getParentFragment(),
-                        trainingWithForm.training.getPlanList()));
+                        trainingWithForm.training.getPlanList(),
+                        i)
+                );
                 recyclerViewArrayList.get(i).setAdapter(exerciseListAdapters.get(i));
                 recyclerViewArrayList.get(i).setNestedScrollingEnabled(false);
 
@@ -357,7 +359,9 @@ public class DisplayReceivedTraining extends Fragment
                     trainingWithForm.form.getScheduleType(),
                     trainingWithForm.training.getId(),
                     this,
-                    trainingWithForm.training.getPlanList()));
+                    trainingWithForm.training.getPlanList(),
+                    i
+            ));
             recyclerViewArrayList.get(i).addItemDecoration(new DividerItemDecoration(
                     getContext(),
                     DividerItemDecoration.VERTICAL));
