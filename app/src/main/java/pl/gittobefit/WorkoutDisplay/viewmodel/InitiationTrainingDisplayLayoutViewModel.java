@@ -74,7 +74,10 @@ public class InitiationTrainingDisplayLayoutViewModel extends ViewModel
     }
     public void setState(int index)
     {
-        states.set(index, !states.get(index));
+        if (index < states.size())
+        {
+            states.set(index, !states.get(index));
+        }
     }
 
     public ArrayList<Boolean> getStates() {

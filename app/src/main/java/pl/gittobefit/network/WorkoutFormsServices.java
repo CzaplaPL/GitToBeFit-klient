@@ -226,6 +226,12 @@ public class WorkoutFormsServices
                                 case "[SIXPACK, CALVES, BICEPS, TRICEPS, SHOULDERS, CHEST, BACK, THIGHS]":
                                     activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " wszystich partii ciała !");
                                     break;
+                                case "[CALVES, BICEPS, SHOULDERS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " łydek,  bicepsa i ramion !");
+                                    break;
+                                case "[SIXPACK, BICEPS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " brzucha i bicepsa !");
+                                    break;
                             }
                         }
                         else if (response.code() == 403)
