@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.facebook.AccessToken;
 import com.google.android.material.snackbar.Snackbar;
@@ -280,7 +281,7 @@ public class UserServices
      * funkcja zmieniająca hasło
      * @author Kuba
      */
-    public void changePassword(String actualPassword, String newPassword, Context context, IShowSnackbar activity)
+    public void changePassword(String actualPassword, String newPassword, Context context, IShowSnackbar activity, View view)
     {
         String userID =  User.getInstance().getIdServer();
         Call<Void> call2 = user.changePassword(userID, User.getInstance().getToken(), new UserChangePass(User.getInstance().getEmail(), actualPassword, newPassword));
@@ -303,6 +304,7 @@ public class UserServices
                     else if (code == 403)
                     {
                         activity.showSnackbar(context.getString(R.string.authorizationError));
+                        Navigation.findNavController(view).navigate(R.id.authError_go_to_login);
                     }
                     else
                     {
@@ -324,7 +326,7 @@ public class UserServices
      * funkcja usuwająca konto
      * @author Kuba
      */
-    public void deleteAccount(String password, Context context, DeleteAccountDialog.DeleteAccountDialogInterface activity)
+    public void deleteAccount(String password, Context context, DeleteAccountDialog.DeleteAccountDialogInterface activity, View view)
     {
         String userID = User.getInstance().getIdServer();
         Call<Void> call2 = user.deleteAccount(userID, User.getInstance().getToken(), password);
@@ -348,6 +350,7 @@ public class UserServices
                     else if (code == 403)
                     {
                         activity.onAccountDelete(false ,context.getString(R.string.authorizationError));
+                        Navigation.findNavController(view).navigate(R.id.authError_go_to_login);
                     }
                     else
                     {
@@ -369,7 +372,7 @@ public class UserServices
      * funkcja zmieniająca email
      * @author Kuba
      */
-    public void changeEmail(String newEmail, String password, Context context, ChangeMailDialog.ChangeMailDialogInterface activity)
+    public void changeEmail(String newEmail, String password, Context context, ChangeMailDialog.ChangeMailDialogInterface activity, View view)
     {
         String userID = User.getInstance().getIdServer();
         Call<Void> call2 = user.changeEmail(userID, User.getInstance().getToken(), new UserChangeEmail(newEmail, password));
@@ -403,6 +406,7 @@ public class UserServices
                     else if (code == 403)
                     {
                         activity.onChangeMail(false, context.getString(R.string.authorizationError));
+                        Navigation.findNavController(view).navigate(R.id.authError_go_to_login);
                     }
                     else
                     {

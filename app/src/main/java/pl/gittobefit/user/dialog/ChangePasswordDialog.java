@@ -43,7 +43,7 @@ public class ChangePasswordDialog extends AppCompatDialogFragment
                     String newPassword = editTextUserNewPassword.getText().toString();
                     IShowSnackbar activity = (IShowSnackbar) getActivity();
                     if (newPassword.matches(Validation.PASSWORD_REGEX)) {
-                        ConnectionToServer.getInstance().userServices.changePassword(oldPassword, newPassword, getContext(),activity);
+                        ConnectionToServer.getInstance().userServices.changePassword(oldPassword, newPassword, getContext(),activity, getView());
                     }
                     else {
                         activity.showSnackbar(getString(R.string.wrongPassword));

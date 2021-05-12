@@ -111,15 +111,32 @@
         <action
             android:id="@+id/action_changeMailDialog_to_login"
             app:destination="@id/login" />
+        <action
+            android:id="@+id/authError_go_to_login"
+            app:destination="@id/login"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true"/>
     </dialog>
     <dialog
         android:id="@+id/changePasswordDialog"
         android:name="pl.gittobefit.user.dialog.ChangePasswordDialog"
-        android:label="ChangePasswordDialog" />
+        android:label="ChangePasswordDialog" >
+        <action
+            android:id="@+id/authError_go_to_login"
+            app:destination="@id/login"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true"/>
+    </dialog>
     <dialog
         android:id="@+id/deleteAccountDialog"
         android:name="pl.gittobefit.user.dialog.DeleteAccountDialog"
-        android:label="DeleteAccountDialog" />
+        android:label="DeleteAccountDialog" >
+        <action
+            android:id="@+id/authError_go_to_login"
+            app:destination="@id/login"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true"/>
+    </dialog>
     <dialog
         android:id="@+id/detailsInfoLayout"
         android:name="pl.gittobefit.workoutforms.dialog.DetailsInfoDialog"
