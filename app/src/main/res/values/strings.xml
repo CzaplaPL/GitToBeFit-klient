@@ -34,6 +34,7 @@
     <string name="needMoreEQ">Genewowanie niepomyślne, rozważ zaznczenie większej ilości sprzetu.</string>
     <string name="needMoreBodyParts">Genewowanie niepomyślne, rozważ zaznczenie większej ilości partii ciała.</string>
     <string name="notEnoughExercise">Genewowanie niepomyślne, niewystarczająca ilość ćwiczeń dla </string>
+    <string name="authorizationError">Bład autoryzacji, proszę o ponowne zalogowanie. </string>
 
 
     <string name="incorrectpassword">hasła różnią się </string>

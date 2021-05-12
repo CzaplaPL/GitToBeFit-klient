@@ -51,8 +51,8 @@ public class UserServices
     public void login(String email, String password, Login fragment , IShowSnackbar activity)
     {
 
-        Log.w("Network", "      user.login");
-        Log.w("Network", "   " + email + " " + password);
+        Log.w("Network", " user.login");
+        Log.w("Network", " " + email + " " + password);
         //przygotowanie zapytania
         Call<Void> call = user.login(new RespondUser(email, password));
         //wywołanie zapytania
@@ -63,7 +63,7 @@ public class UserServices
             {
                 if(response.isSuccessful())
                 {
-                    Log.w("logowanie  ", "  get_id");
+                    Log.w("logowanie  ", " get_id");
                     Call<Void> call2 = user.getUserIDbyEmail(email, response.headers().get("Authorization"));
                     //wywołanie zapytania
                     call2.enqueue(new Callback<Void>()
@@ -90,8 +90,9 @@ public class UserServices
                             {
                                 if(responseGetId.code() != 404)
                                 {
-                                    Log.e("get_id  error : ", "   " + responseGetId.code());
-                                }else
+                                    Log.e("get_id  error : ", "  " + responseGetId.code());
+                                }
+                                else
                                 {
                                     Log.w("get_id error : ", "    404 ");
                                 }
@@ -138,8 +139,6 @@ public class UserServices
 
                             fragment.loginFail(false,fragment.getString(R.string.noActivateAcount));
                         }
-
-
                     }
                 }
             }
@@ -301,13 +300,16 @@ public class UserServices
                     {
                         activity.showSnackbar(context.getString(R.string.wrong_old_pass));
                     }
+                    else if (code == 403)
+                    {
+                        activity.showSnackbar(context.getString(R.string.authorizationError));
+                    }
                     else
                     {
                         activity.showSnackbar(context.getString(R.string.serwerError));
                     }
                     Log.e("kod błędu", String.valueOf(code));
                     LogUtils.logCause(response.headers().get("Cause"));
-
                 }
             }
             @Override
@@ -343,13 +345,16 @@ public class UserServices
                     {
                         activity.onAccountDelete(false ,context.getString(R.string.incoredPassword));
                     }
+                    else if (code == 403)
+                    {
+                        activity.onAccountDelete(false ,context.getString(R.string.authorizationError));
+                    }
                     else
                     {
                         activity.onAccountDelete(false ,context.getString(R.string.serwerError));
                     }
                     Log.e("kod błędu", String.valueOf(code));
                     LogUtils.logCause(response.headers().get("Cause"));
-
                 }
             }
             @Override
@@ -394,7 +399,12 @@ public class UserServices
                         {
                             activity.onChangeMail(false, context.getString(R.string.serwerError));
                         }
-                    }else
+                    }
+                    else if (code == 403)
+                    {
+                        activity.onChangeMail(false, context.getString(R.string.authorizationError));
+                    }
+                    else
                     {
                         activity.onChangeMail(false, context.getString(R.string.serwerError));
                         Log.e("kod błędu", String.valueOf(code));
@@ -513,7 +523,7 @@ public class UserServices
                 {
                     Log.w("Autologwanie  ", "  sukces");
                     System.out.println("Kod zwracany przez autoLog: " + response.code());
-                    AppDataBase.getInstance(fragment.getContext()).userDao().setToken(response.headers().get("Authorization"),userEntity.getId());
+                    AppDataBase.getInstance(fragment.getContext()).userDao().setToken(response.headers().get("Authorization"), userEntity.getId());
                     if(userEntity.isLoggedByGoogle())
                     {
                         User.getInstance().add(

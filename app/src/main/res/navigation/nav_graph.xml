@@ -39,6 +39,11 @@
         <action
             android:id="@+id/action_homeFragment_to_trainingStart"
             app:destination="@id/trainingStart" />
+        <action
+            android:id="@+id/action_homeFragment_to_login"
+            app:destination="@id/login"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/setting"
@@ -131,6 +136,11 @@
         <action
             android:id="@+id/action_generateTrainingForm_to_detailsInfoLayout"
             app:destination="@id/detailsInfoLayout" />
+        <action
+            android:id="@+id/action_generateTrainingForm_to_login"
+            app:destination="@id/login"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/listOfTrainings"
