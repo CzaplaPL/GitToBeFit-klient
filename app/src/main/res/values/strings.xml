@@ -235,10 +235,14 @@
     <string name="timeTitle">Czas Wykonywania Ćwiczenia:</string>
     <string name="seriesTitle">Ilość Serii:</string>
     <string name="repeatsTitle">Ilość Powtórzeń:</string>
-    <string name="detailsInfo">Split to inaczej trening dzielony. Polega na ćwiczeniu konkretnej partii mięśni w danym dniu treningowym.Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.\n
-    Trening FBW to ćwiczenia całego ciała. W trakcie jego wykonywania angażujesz wiele partii mięśniowych. Głównym założeniem jest wywołanie jak największej odpowiedzi anabolicznej twojego ciała, poprzez pobudzanie go ćwiczeniami wielostawowymi.\n
-    Trening cardio to ćwiczenia wytrzymałościowe dotleniające organizm, poprawiające pracę układu krążenia oraz kondycję organizmu. Zwiększa ilość oddechów na minutę oraz przyspiesza tętno, co sprawia, że komórki i tkanki mięśniowe są lepiej dotlenione.\n
-    Głównym założeniem treningu fitness jest jego pozasportowy, prozdrowotny charakter. Do zajęć fitness można więc zaliczyć wszelkie formy aktywności fizycznej, ale podejmowane świadomie i systematycznie w celu poprawy szeroko pojmowanego zdrowia.\n</string>
+    <string name="split_title">SPLIT:</string>
+    <string name="fbw_title">Trening FBW:</string>
+    <string name="cardio_title">Trening CARDIO:</string>
+    <string name="fitness_title">Trening FITNESS:</string>
+    <string name="split_description">To inaczej trening dzielony. Polega na ćwiczeniu konkretnej partii mięśni w danym dniu treningowym.Taki schemat ćwiczeń to najskuteczniejszy sposób na zbudowanie masy mięśniowej i wyrzeźbienie sylwetki.</string>
+    <string name="fbw_description">To ćwiczenia całego ciała. W trakcie jego wykonywania angażujesz wiele partii mięśniowych. Głównym założeniem jest wywołanie jak największej odpowiedzi anabolicznej twojego ciała, poprzez pobudzanie go ćwiczeniami wielostawowymi.</string>
+    <string name="cardio_description">To ćwiczenia wytrzymałościowe dotleniające organizm, poprawiające pracę układu krążenia oraz kondycję organizmu. Zwiększa ilość oddechów na minutę oraz przyspiesza tętno, co sprawia, że komórki i tkanki mięśniowe są lepiej dotlenione.</string>
+    <string name="fitness_description">Jego głównym założeniem jest jego pozasportowy, prozdrowotny charakter. Do zajęć fitness można więc zaliczyć wszelkie formy aktywności fizycznej, ale podejmowane świadomie i systematycznie w celu poprawy szeroko pojmowanego zdrowia.</string>
     <string name="miss">Pomiń</string>
     <string name="preview_info">PRZYGOTUJ SIĘ</string>
     <string name="text_info_next">KLIKNIJ W POWYŻSZY PRZYCISK ABY PRZEJSC DALEJ</string>
@@ -250,4 +254,67 @@
     <string name="noSynchronize">Synchronizacja nie udana.</string>
     <string name="start_training_text">Twoje Treningi</string>
     <string name="generate_training_start">Stwórz Trening</string>
+
+
+    <string name="regulations">Regulamin</string>
+    <string name="first_paragraph">§ 1 Postanowienia ogólne</string>
+    <string name="second_paragraph">§ 2 Rejestracja i wymagania techniczne</string>
+    <string name="third_paragraph">§ 3 Media społecznościowe</string>
+    <string name="fourth_paragraph">§ 4 Zasady korzystania z Aplikacji przez Użytkownika</string>
+    <string name="fiveth_paragraph">§ 5 Prawa i obowiązki Operatora</string>
+    <string name="sixth_paragraph">§ 6 Postanowienia końcowe</string>
+    <string name="first_description">
+        1. Niniejszy Regulamin (zwany dalej „Regulamin”) określa zasady, zakres i warunki korzystania z aplikacji mobilnej GitToBeFit (zwanadalej „Aplikacją”) i odnosi się do wszystkich stosunków pomiędzy Użytkownikiem a Operatorem Aplikacji.\n\n
+        2. Regulamin dotyczy usług świadczonych drogą elektroniczną za pośrednictwem Aplikacji przez zespół 8 w ramach przedmiotu “Programowanie Zespołowe” na Uniwersytecie Mikołaja Kopernika w Toruniu (zwany dalej „Operatorem”).\n\n
+        3. Użytkownikiem jest każda osoba fizyczna korzystająca z usług świadczonych za pośrednictwem Aplikacji.\n\n
+        4. Przez Strefę Klienta rozumie się: część systemu GitToBeFit, będącego platformą dotworzenia oraz zarządzania planami treningowymi.\n\n
+        5. Do usług świadczonych za pośrednictwem Aplikacji należą w szczególności:\n\n
+        a. generowanie planów treningowych,\n\n
+        b. zarządzanie nimi,\n\n
+        c. przeprowadzenie wcześniej wygenerowanego treningu.\n\n
+        6. Aplikacja przeznaczona jest na urządzenia mobilne z systemem operacyjnym Android.\n\n
+        7. Aplikację można pobrać wyłącznie ze środowiska testowego Firebase po wcześniejszym otrzymaniu zaproszenia do testów.\n\n
+        8. Pobranie Aplikacji oraz korzystanie z oferowanych za jej pośrednictwem usług jest bezpłatne.\n\n
+        9. Do pobrania, instalacji, uruchomienia i korzystania z Aplikacji w pełni wymagane jest połączenie z Internetem. Wszelkie koszty połączenia z Internetem, w szczególności transmisji danych, pokrywa Użytkownik we własnym zakresie,stosownie do umów zawartych przez Użytkownika z operatorami telekomunikacyjnymi lub innym dostawcą Internetu. Operator nie ponosi odpowiedzialności za niewykonanie lub nienależyte wykonanie usług przez operatorów telekomunikacyjnych lub innych dostawców Internetu, z którymi Użytkownik ma zawarte umowy.
+    </string>
+    <string name="second_description">
+        1. Rejestracja w Aplikacji odbywa się poprzez wypełnienie formularza rejestracyjnego,w którym Użytkownik zobowiązany jest podać adres email oraz hasło.\n\n
+        2. Urządzenie mobilne, na którym Użytkownik uruchomi pobraną i zainstalowaną Aplikację, musi spełniać następujące wymagania techniczne: Android w wersji minimum (Android 6.0).\n\n
+        3. Do uruchomienia i prawidłowego działania Aplikacji niezbędne jest aktywne połączenie internetowe.\n\n
+        4. Korzystanie z Aplikacji jest jednoznaczne z akceptacją treści Regulaminu przez Użytkownika oraz zawarciem umowy świadczenia usług drogą elektroniczną pomiędzy Operatorem Użytkownikiem, zgodnie z zasadami określonymi w niniejszym Regulaminie.
+    </string>
+    <string name="third_description">
+        1. Użytkownik może połączyć Aplikację z platformą mediów społecznościowych.Jednakże w przypadku połączenia konta Użytkownikaw Aplikacji z platformą mediów społecznościowych, Użytkownik będzie podlegał warunkom korzystania i polityce prywatności, określonym w polityce tej platformy.\n\n
+        2. Połączenie Aplikacji z platformą mediów społecznościowych,o którym mowa w ust.1, jest dobrowolne; Użytkownik może w każdej chwili aktywować lub dezaktywować to połączenie.
+    </string>
+    <string name="fourth_description">
+        1. Użytkownik zobowiązany jest do korzystania z Aplikacji zgodnie z powszechnie obowiązującym prawem, zasadami współżycia społecznego,Regulaminem oraz wszelkimi warunkami korzystania oraz politykami prywatności obowiązującymi w ramach korzystania ze sklepów internetowych, wskazanych w § 1 ust. 6 Regulaminu.\n\n
+        2. Korzystanie przez Użytkownika z Aplikacji w inny sposób niż w ramach dozwolonego użytku jest niedopuszczalne bez wyraźnej zgody Operatora.\n\n
+        3. Użytkownik zobowiązany jest powiadomić Operatora o każdorazowym naruszeniu jego praw w związku z korzystaniem z Aplikacji.\n\n
+        4. Użytkownik korzysta z Aplikacji dobrowolnie, na własną odpowiedzialność.\n\n
+        5. Użytkownik ma prawo w każdej chwili zakończyć korzystanie z Aplikacji, w szczególności w sytuacji braku akceptacji Użytkownika na zmianę Regulaminu,Polityki Prywatności oraz modyfikacji Aplikacji, o czym mowa w § 4 ust. 7 Regulaminu.
+    </string>
+    <string name="fiveth_description">
+        1. Operator zobowiązuje się sprawować nadzór nad technicznym funkcjonowaniem Aplikacji.\n\n
+        2. Operator nie gwarantuje niezakłóconego dostępu do Aplikacji oraz nie zapewnia stałej dostępności wszystkich funkcji Aplikacji i ich bezbłędnego działania.\n\n
+        3. Operator nie ponosi odpowiedzialności za jakiekolwiek szkody i utracone korzyści poniesione przez Użytkownika w związku:\n\n
+        a. funkcjonowaniem Aplikacji, w szczególności zakłóceniem dostępności wszystkich funkcji Aplikacji bądź ich błędnym działaniem,\n\n
+        b. naruszeniem przez Użytkownika praw osób trzecich,\n\n
+        c. funkcjonowaniem interfejsów oraz łączy telekomunikacyjnych,które nie są własnością Operatora lub nie są przez niego obsługiwane,\n\n
+        d. usługami, aplikacjami i serwisami internetowymi, które nie są własnością Operatora lub nie są przez niego obsługiwane.\n\n
+        4. Operator ma prawo zablokować konto Użytkownika, jeżeli poweźmie uzasadnione podejrzenie, że Użytkownik korzysta z Aplikacji sprzecznie z zasadami określonymi w § 5 Regulaminu.\n\n
+        5. Operator ma prawo czasowo zawiesić działanie Aplikacji, celem przeprowadzenia konsekwencji technicznej Aplikacji, dokonania zmianw działaniu Aplikacji, bądź zapobieżeniu ewentualnym szkodom.\n\n
+        6. Operator zobowiązuje się w przeciągu 14 dni rozpatrzyć reklamację złożoną przez Użytkownika za pośrednictwem Strefy Klienta. W sytuacji gdy podane w reklamacji dane lub informacje, będą wymagać uzupełnienia Operator zwróci się do Użytkownika, celem ich uzupełnienia.\n\n
+        7. Operator zastrzega sobie prawo zmiany Regulaminu,Polityki Prywatności oraz modyfikacji Aplikacji, o czym powiadomi Użytkownika 14 dni przed wprowadzeniem zmiany za pośrednictwem Strefy Klienta lub na adres e-mail.
+    </string>
+    <string name="sixth_description">
+        1. Akceptacja Regulaminu przez Użytkownika jest równoznaczna z akceptacją Polityki Prywatności i wyrażeniem zgody na przetwarzanie danych osobowych, koniecznych do realizacji świadczenia usług przez Operatora za pośrednictwem Aplikacji.Operator zapewnia stały dostęp do Polityki Prywatności za pośrednictwem Strefy Klienta.\n\n
+        2. Operator może przekazać innemu podmiotowi prawa wynikające z niniejszego Regulaminu oraz Polityki Prywatności, jednak nie będzie to miało wpływu na prawa Użytkownika.\n\n
+        3. Każde postanowienie niniejszego regulaminu funkcjonuje oddzielnie. W przypadku stwierdzenia przez sąd nieważności któregokolwiek postanowienia Regulaminu,pozostałe postanowienia pozostają w mocy.\n\n
+        4. Zaniechanie przez Operatora egzekwowania obowiązków Użytkownika wynikających z Regulaminu bądź opóźnienie takiego egzekwowania,nie oznaczania zrzeczenia się roszczeń przysługujących Operatorowi przeciwko Użytkownikowi. Każdorazowe zrzeczenie się praw przysługujących Operatorowi wymaga formy pisemnej podrygorem nieważności.\n\n
+        5. Wszelkie spory powstałe na tle niniejszej Regulaminu lub Polityki Prywatności będą rozstrzygane w sposób polubowny. W sytuacji, gdy osiągnięcie porozumienia pomiędzy Operatorem a Użytkownikiem na drodze polubownego rozstrzygnięcia sporu nie będzie możliwe, sprawę rozstrzygał będzie sąd powszechny właściwy dla siedziby Operatora.\n\n
+        6. W sprawach nieuregulowanych niniejszym Regulaminem,zastosowanie mają przepisy powszechnie obowiązującego prawa polskiego,a w szczególności przepisy Ustawy z dnia 23 kwietnia 1964 roku Kodeks Cywilny,Ustawy z dnia 29 sierpnia 1997 roku o ochronie danych osobowych oraz Ustawy z dnia 18 lipca 2002 roku oświadczeniu usług drogą elektroniczną.
+    </string>
+
+
 </resources>

@@ -7,28 +7,97 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
         tools:ignore="UselessParent">
-
-        <ScrollView
+        <TextView
+            android:id="@+id/split_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/detailsInfoText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/detailsInfo"
-                android:textColor="?attr/colorPrimaryVariant"
-                android:textSize="18sp" />
-        </ScrollView>
+            android:layout_marginTop="5dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:text="@string/split_title"
+            android:paddingBottom="5dp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimaryVariant"/>
+        <TextView
+            android:id="@+id/split_description"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/split_description"
+            android:textColor="?attr/colorPrimaryVariant"/>
+        <TextView
+            android:id="@+id/fbw_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:text="@string/fbw_title"
+            android:paddingBottom="5dp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimaryVariant"/>
+        <TextView
+            android:id="@+id/fbw_description"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/fbw_description"
+            android:textColor="?attr/colorPrimaryVariant"/>
+        <TextView
+            android:id="@+id/cardio_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:text="@string/cardio_title"
+            android:paddingBottom="5dp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimaryVariant"/>
+        <TextView
+            android:id="@+id/cardio_description"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/cardio_description"
+            android:textColor="?attr/colorPrimaryVariant"/>
+        <TextView
+            android:id="@+id/fitness_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:text="@string/fitness_title"
+            android:paddingBottom="5dp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimaryVariant"/>
+        <TextView
+            android:id="@+id/fitness_description"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="5dp"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/fitness_description"
+            android:textColor="?attr/colorPrimaryVariant"/>
 
     </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

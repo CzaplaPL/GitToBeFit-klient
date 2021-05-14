@@ -66,12 +66,16 @@
     <fragment
         android:id="@+id/registration"
         android:name="pl.gittobefit.user.fragments.Registration"
-        android:label="Registration">
+        android:label="Registration"
+        tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_registration_to_login2"
             app:destination="@id/login"
             app:popUpTo="@+id/login"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_registration_to_detailsRegulationsLayout"
+            app:destination="@id/detailsRegulationsLayout" />
     </fragment>
 
     <fragment
@@ -86,6 +90,11 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <fragment
+        android:id="@+id/regulations"
+        android:name="pl.gittobefit.Regulations"
+        android:label="@string/regulations"
+        tools:layout="@layout/fragment_regulations"/>
     <dialog
         android:id="@+id/remindPasswoedDialog"
         android:name="pl.gittobefit.user.dialog.RemindPasswordDialog"
@@ -99,6 +108,11 @@
         android:id="@+id/editTimeBreakDialog"
         android:name="pl.gittobefit.WorkoutDisplay.dialog.EditBreakDialog"
         android:label="EditBreakDialog" />
+    <dialog
+        android:id="@+id/detailsRegulationsLayout"
+        android:name="pl.gittobefit.user.dialog.DetailsRegulations"
+        android:label="DetailsRegulations"
+        tools:layout="@layout/layout_details_regulations" />
     <dialog
         android:id="@+id/changeMailDialog"
         android:name="pl.gittobefit.user.dialog.ChangeMailDialog"
@@ -118,7 +132,7 @@
     <dialog
         android:id="@+id/detailsInfoLayout"
         android:name="pl.gittobefit.workoutforms.dialog.DetailsInfoDialog"
-        android:label="DetailsInfoDialog" />
+        android:label="DetailsInfoDialog"/>
     <fragment
         android:id="@+id/generateTrainingForm"
         android:name="pl.gittobefit.workoutforms.fragments.GenerateTrainingForm"

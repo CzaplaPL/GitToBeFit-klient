@@ -170,6 +170,7 @@
                 android:layout_marginTop="5dp"
                 android:text="@string/statute"
                 android:visibility="visible"
+                android:textColor="@color/com_facebook_blue"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
                 app:layout_constraintTop_toBottomOf="@+id/checkBox_robot" />
 

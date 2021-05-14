@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
                 R.id.setting,
                 R.id.aboutUs,
                 R.id.homeFragment,
+                R.id.regulations,
                 R.id.displayReceivedTraining,
                 R.id.listOfTrainings,
                 R.id.generateTrainingForm,
@@ -92,10 +93,10 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
     public void openDrawer(DrawerLayout drawerLayout) {
         TextView emailText = navigationView.getHeaderView(0).findViewById(R.id.user_email_display);
         if (User.getInstance().getLoggedBy() == User.WayOfLogin.NO_LOGIN) {
-            navigationView.getMenu().getItem(3).setTitle(getString(R.string.login));
+            navigationView.getMenu().getItem(4).setTitle(getString(R.string.login));
             emailText.setText("");
         } else {
-            navigationView.getMenu().getItem(3).setTitle(getString(R.string.logout));
+            navigationView.getMenu().getItem(4).setTitle(getString(R.string.logout));
             emailText.setText(User.getInstance().getEmail());
         }
         navigationView.getMenu().getItem(1).setEnabled(User.getInstance().getLoggedBy() == User.WayOfLogin.OUR_SERVER);
