@@ -64,7 +64,15 @@
                 <VideoView
                     android:id="@+id/loaderVideo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"/>
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_launcher_foreground" />
 
                 <ProgressBar
                     android:id="@+id/read_video"
@@ -250,12 +258,26 @@
             app:layout_constraintTop_toTopOf="@id/exercise_background"
             tools:visibility="gone">
 
-            <VideoView
-                android:id="@+id/videoViewStartTraining"
+            <RelativeLayout
+                android:id="@+id/getSmallMedia"
                 android:layout_width="wrap_content"
-                android:layout_height="212dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp" />
+                android:layout_height="wrap_content">
+
+                <VideoView
+                    android:id="@+id/videoViewStartTraining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="212dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp" />
+
+                <ImageView
+                    android:id="@+id/smallImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_launcher_foreground" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/printExerciseInfo"

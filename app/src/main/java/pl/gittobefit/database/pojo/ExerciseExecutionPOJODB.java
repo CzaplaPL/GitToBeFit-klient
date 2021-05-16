@@ -99,4 +99,8 @@ public class ExerciseExecutionPOJODB
     public void setCount(int count) {
         this.count = count;
     }
+
+    public void setExerciseId(int exerciseId) {
+        this.exerciseId = exerciseId;
+    }
 }
