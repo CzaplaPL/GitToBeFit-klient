@@ -80,7 +80,7 @@ public class FBWTrainingPlan implements TrainingPlanGenerator
             bodyPartsListCopy.removeAll(bodyParts);
             if(bodyPartsListCopy.size() != 0)
             {
-                throw new NotValidTrainingException(String.format("not enough exercises for %s",bodyPartsListCopy.toString()));
+                throw new NotValidTrainingException(String.format("not enough exercises for: %s",bodyPartsListCopy.toString()));
             }
         }
     }
