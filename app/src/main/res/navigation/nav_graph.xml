@@ -96,6 +96,10 @@
         android:name="pl.gittobefit.user.dialog.RegistrationSuccesDialog"
         android:label="RegistrationSuccesDialog" />
     <dialog
+        android:id="@+id/editTimeBreakDialog"
+        android:name="pl.gittobefit.WorkoutDisplay.dialog.EditBreakDialog"
+        android:label="EditBreakDialog" />
+    <dialog
         android:id="@+id/changeMailDialog"
         android:name="pl.gittobefit.user.dialog.ChangeMailDialog"
         android:label="ChangeMailDialog">
@@ -136,6 +140,11 @@
         <action
             android:id="@+id/list_of_trainings_to_displayReceivedTraining"
             app:destination="@id/displayReceivedTraining" />
+        <action
+            android:id="@+id/list_of_trainings_to_displayReceivedTraining_after_exercise_changed"
+            app:destination="@id/displayReceivedTraining"
+            app:popUpTo="@+id/displayReceivedTraining"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -230,6 +239,15 @@
         android:name="pl.gittobefit.WorkoutDisplay.fragments.ChangeExercise"
         android:label=""
         tools:layout="@layout/fragment_change_exercise" >
+        <action
+            android:id="@+id/change_exercise_to_training_layout"
+            app:destination="@id/displayReceivedTraining"
+        />
+        <action
+            android:id="@+id/change_exercise_to_list_of_trainings"
+            app:destination="@id/listOfTrainings"
+            app:popUpTo="@+id/list_of_trainings"
+            app:popUpToInclusive="true"/>
 
     </fragment>
 </navigation>

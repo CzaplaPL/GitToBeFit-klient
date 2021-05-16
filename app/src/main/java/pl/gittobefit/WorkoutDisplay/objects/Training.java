@@ -14,6 +14,8 @@ public class Training
     private ArrayList<TrainingPlan> planList = new ArrayList<>();
     private String createdAt;
     private String title;
+    private int dayOfTraining;
+    private int breakTime;
     private int id;
 
     public Training(WorkoutForm form, ArrayList<TrainingPlan> trainingPlansServer, String trainingName)
@@ -25,6 +27,8 @@ public class Training
 
     public Training(TrainingWithForm trainingDB, TrainingRepository trainingRepository)
     {
+        this.breakTime = trainingDB.training.getBreakTime();
+        this.createdAt = trainingDB.training.getGenerationDate();
         this.trainingForm = trainingDB.form;
         this.title = trainingDB.training.getTrainingName();
         this.planList = generatePlanList(trainingDB.training.getPlanList(), trainingRepository);
@@ -95,5 +99,18 @@ public class Training
             trainingPlansServer.add(new TrainingPlan(exerciseExecution, exercisesDB));
         }
         return trainingPlansServer;
+    }
+
+    public int getBreakTime() {
+        return breakTime;
+    }
+
+    public void setBreakTime(int breakTime) {
+        this.breakTime = breakTime;
+    }
+
+    public int getDayOfTraining()
+    {
+        return dayOfTraining;
     }
 }

@@ -30,6 +30,7 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
     private int trainingID;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
     private int circuitsCount;
+    private int controlSum;
 
     public BottomMenuDialog(
             int circuitsCount,
@@ -59,7 +60,7 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
         Button goToEditButton = v.findViewById(R.id.goToEditButton);
         Button goToChangeButton = v.findViewById(R.id.goToChangeButton);
         Button goToInfoButton = v.findViewById(R.id.goToInfoButton);
-
+        controlSum = countSum();
         TextView title = v.findViewById(R.id.menu_title);
         title.setText(exerciseArrayList.get(position).getName());
 
@@ -69,6 +70,9 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
             public void onClick(View v) {
                 Bundle args = new Bundle();
                 args.putInt("exerciseID", exerciseArrayList.get(position).getId());
+                args.putInt("trainingID", trainingID);
+                args.putInt("position", position);
+                args.putInt("sum", controlSum);
                 Navigation.findNavController(fragment.getView()).navigate(R.id.training_to_change_exercise, args);
             dismiss();
             }
@@ -104,5 +108,14 @@ public class BottomMenuDialog extends BottomSheetDialogFragment
             }
         });
         return v;
+    }
+
+    private int countSum() {
+        int sum = 0;
+        for (ExerciseExecutionPOJODB item: exercisesExecutionArrayList)
+        {
+            sum += item.getExerciseId();
+        }
+        return sum;
     }
 }

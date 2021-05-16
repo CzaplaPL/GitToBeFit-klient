@@ -81,14 +81,17 @@ public class EquipmentFragment extends Fragment implements EquipmentAdapter.Equi
         });
         binding.noEquipment.setOnClickListener(v ->
         {
-            if(!binding.noEquipmentChecbox.isChecked() && binding.noEquipmentChecbox.isEnabled())
+            if(binding.noEquipmentChecbox.isEnabled())
             {
-                binding.noEquipmentChecbox.setChecked(true);
-                model.setNoEquipmentcheched(true);
-            }else
-            {
-                binding.noEquipmentChecbox.setChecked(false);
-                model.setNoEquipmentcheched(false);
+                if(!binding.noEquipmentChecbox.isChecked())
+                {
+                    binding.noEquipmentChecbox.setChecked(true);
+                    model.setNoEquipmentcheched(true);
+                }else
+                {
+                    binding.noEquipmentChecbox.setChecked(false);
+                    model.setNoEquipmentcheched(false);
+                }
             }
         });
         binding.noEquipmentChecbox.setOnClickListener(v -> model.setNoEquipmentcheched(binding.noEquipmentChecbox.isChecked()));

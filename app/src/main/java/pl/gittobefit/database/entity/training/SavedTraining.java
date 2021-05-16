@@ -31,7 +31,13 @@ public class SavedTraining
     private int breakTime;
     private int circuitsCount;
 
-    public SavedTraining(long idFromServer, long idForm, ArrayList<TrainingPlan> planList, String name, String date)
+    public SavedTraining(
+            long idFromServer,
+            long idForm,
+            ArrayList<TrainingPlan> planList,
+            String name,
+            String date,
+            int trainingDay)
     {
         this.planList = new ArrayList<>();
         if(User.getInstance().getLoggedBy() == User.WayOfLogin.NO_LOGIN)
@@ -59,7 +65,7 @@ public class SavedTraining
             this.planList.add(savePlan);
         }
 
-        this.trainingDay = 0;
+        this.trainingDay = trainingDay;
     }
 
     public SavedTraining()
