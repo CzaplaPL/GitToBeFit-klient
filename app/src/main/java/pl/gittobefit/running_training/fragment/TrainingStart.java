@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.bumptech.glide.Glide;
+
 import pl.gittobefit.R;
 import pl.gittobefit.databinding.FragmentTrainingStartBinding;
 import pl.gittobefit.network.ConnectionToServer;
@@ -24,9 +26,11 @@ public class TrainingStart extends Fragment
 {
     private TrainingViewModel model;
     private FragmentTrainingStartBinding binding;
+    CountDownTimer timer;
 
     public TrainingStart()
     {
+
     }
 
     @Override
@@ -77,6 +81,7 @@ public class TrainingStart extends Fragment
     @Override
     public void onDestroyView()
     {
+        if(timer != null) timer.cancel();
         super.onDestroyView();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         if(activity != null)
@@ -126,7 +131,7 @@ public class TrainingStart extends Fragment
         binding.scheduleTypeTitle.setText(getString(R.string.scheduleTypeCircuit));
         binding.countOfSeries.setText(String.format("%s / %s",
                 model.getNumberOfSeries(),
-                model.getExerciseExecution().getSeries())
+                model.getTrainingWithForm().training.getCircuitsCount())
         );
     }
 
@@ -162,11 +167,21 @@ public class TrainingStart extends Fragment
 
     private void printDefault()
     {
-        binding.printCountOfSeries.setText(String.format("%s / %s",
-                model.getNumberOfSeries(),
-                model.getExerciseExecution().getSeries()
-        ));
-        
+        if(model.getTrainingWithForm().form.getScheduleType().equals("CIRCUIT"))
+        {
+            binding.printCountOfSeries.setText(String.format("%s / %s",
+                    model.getNumberOfSeries(),
+                    model.getTrainingWithForm().training.getCircuitsCount()
+            ));
+        }else
+        {
+            binding.printCountOfSeries.setText(String.format("%s / %s",
+                    model.getNumberOfSeries(),
+                    model.getExerciseExecution().getSeries()
+            ));
+        }
+
+
         if(model.getExerciseExecution().getCount() == 0)
         {
             binding.buttonClickButton.setVisibility(View.GONE);
@@ -188,7 +203,7 @@ public class TrainingStart extends Fragment
 
     private void timerBreakDuringExercises()
     {
-        new CountDownTimer(30000, 1000)
+        timer = new CountDownTimer(model.getTrainingWithForm().training.getBreakTime() * 1000, 1000)
         {
             @Override
             public void onTick(long millisUntilFinished)
@@ -209,7 +224,7 @@ public class TrainingStart extends Fragment
 
     private void timerBeforeStartTraining()
     {
-        new CountDownTimer(4000, 1000)
+        timer = new CountDownTimer(6000, 1000)
         {
             @Override
             public void onTick(long millisUntilFinished)
@@ -231,7 +246,7 @@ public class TrainingStart extends Fragment
 
     private void timerOnStartTraining()
     {
-        new CountDownTimer(model.getExerciseExecution().getTime() * 1000, 1000)
+        timer = new CountDownTimer(model.getExerciseExecution().getTime() * 1000, 1000)
         {
             @Override
             public void onTick(long millisUntilFinished)
@@ -271,6 +286,7 @@ public class TrainingStart extends Fragment
             binding.miss.setVisibility(View.VISIBLE);
             binding.start.setVisibility(View.VISIBLE);
             generateMainView();
+            binding.miss.setEnabled(true);
             timerBreakDuringExercises();
         }else
         {
@@ -306,7 +322,7 @@ public class TrainingStart extends Fragment
 
     private void startPause()
     {
-        new CountDownTimer(30000, 1000)
+        timer = new CountDownTimer(model.getTrainingWithForm().training.getBreakTime() * 1000, 1000)
         {
             @Override
             public void onTick(long millisUntilFinished)
@@ -338,6 +354,7 @@ public class TrainingStart extends Fragment
             binding.miss.setVisibility(View.VISIBLE);
             binding.start.setVisibility(View.VISIBLE);
             generateMainView();
+            binding.miss.setEnabled(true);
             timerBreakDuringExercises();
         }else
         {
@@ -370,27 +387,48 @@ public class TrainingStart extends Fragment
 
     private void getVideo()
     { // wczytanie wideo do maina
-        Uri uri = Uri.parse(ConnectionToServer.PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
-        binding.loaderVideo.setVideoURI(uri);
-        binding.loaderVideo.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
-        binding.loaderVideo.setOnPreparedListener(mp ->
+        if(model.getExercise().getVideoUrl() != null)
         {
+            binding.image.setVisibility(View.INVISIBLE);
+            binding.loaderVideo.setVisibility(View.VISIBLE);
+            Uri uri = Uri.parse(ConnectionToServer.PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
+            binding.loaderVideo.setVideoURI(uri);
+            binding.loaderVideo.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
+            binding.loaderVideo.setOnPreparedListener(mp ->
+            {
+                binding.readVideo.setVisibility(View.INVISIBLE);
+                binding.loaderVideo.start();
+                binding.loaderVideo.setAlpha(1);
+                mp.setLooping(true);
+            });
+        }else
+        {
+            binding.loaderVideo.setVisibility(View.INVISIBLE);
             binding.readVideo.setVisibility(View.INVISIBLE);
-            binding.loaderVideo.start();
-            binding.loaderVideo.setAlpha(1);
-            mp.setLooping(true);
-        });
+            binding.image.setVisibility(View.VISIBLE);
+            Glide.with(this).load(ConnectionToServer.PREFIX_PHOTO_URL + model.getExercise().getPhotoUrl()).into(binding.image);
+        }
     }
 
     private void getSmallVideo()
     { // wczytanie wideo do foregrounda
-        Uri uri = Uri.parse(ConnectionToServer.PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
-        binding.videoViewStartTraining.setVideoURI(uri);
-        binding.videoViewStartTraining.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
-        binding.videoViewStartTraining.setOnPreparedListener(mp ->
+        if(model.getExercise().getVideoUrl() != null)
         {
-            binding.videoViewStartTraining.start();
-            mp.setLooping(true);
-        });
+            binding.smallImage.setVisibility(View.INVISIBLE);
+            binding.videoViewStartTraining.setVisibility(View.VISIBLE);
+            Uri uri = Uri.parse(ConnectionToServer.PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
+            binding.videoViewStartTraining.setVideoURI(uri);
+            binding.videoViewStartTraining.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
+            binding.videoViewStartTraining.setOnPreparedListener(mp ->
+            {
+                binding.videoViewStartTraining.start();
+                mp.setLooping(true);
+            });
+        }else
+        {
+            binding.videoViewStartTraining.setVisibility(View.INVISIBLE);
+            binding.smallImage.setVisibility(View.VISIBLE);
+            Glide.with(this).load(ConnectionToServer.PREFIX_PHOTO_URL + model.getExercise().getPhotoUrl()).into(binding.smallImage);
+        }
     }
 }

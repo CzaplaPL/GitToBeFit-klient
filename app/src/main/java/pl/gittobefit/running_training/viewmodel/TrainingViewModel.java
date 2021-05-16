@@ -124,7 +124,7 @@ public class TrainingViewModel extends ViewModel
         if(indexExercise < listExercises.size() - 1)
         {
             indexExercise++;
-        }else if(numberOfSeries < getExerciseExecution().getSeries())
+        }else if(numberOfSeries < trainingWithForm.training.getCircuitsCount())
         {
             indexExercise = 0;
             numberOfSeries++;

@@ -26,6 +26,11 @@ public class ExerciseDetails extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if(activity != null)
+        {
+            activity.getSupportActionBar().hide();
+        }
 
     }
 
@@ -46,10 +51,8 @@ public class ExerciseDetails extends Fragment
 
         Exercise exercise = TrainingRepository.getInstance(getContext()).getExercise(exerciseID);
 
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        if (activity != null) {
-            activity.getSupportActionBar().setTitle(exercise.getName());
-        }
+        TextView displayExerciseName = getView().findViewById(R.id.exercise_details_name);
+        displayExerciseName.setText(exercise.getName());
 
         TextView descriptionOfStartPosition = getView().findViewById(R.id.descriptionOfStartPosition);
         TextView descriptionOfCorrectExecution = getView().findViewById(R.id.descriptionOfCorrectExecution);
@@ -81,5 +84,16 @@ public class ExerciseDetails extends Fragment
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if(activity != null)
+        {
+            activity.getSupportActionBar().show();
+        }
     }
 }

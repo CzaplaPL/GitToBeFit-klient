@@ -137,7 +137,6 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
                             exercisesExecutionArrayList.get(position).setSeries(seriesNumberPicker.getValue());
                             model.getCurrentSeries().setValue(seriesNumberPicker.getValue());
                         }
-
                     }
 
                     if (exercisesExecutionArrayList.get(position).getTime() != 0)
@@ -160,7 +159,7 @@ public class EditExerciseDialog extends AppCompatDialogFragment implements Numbe
                     IShowSnackbar activity = (IShowSnackbar) getActivity();
                     if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
                     {
-                        ConnectionToServer.getInstance().trainingServices.saveTrainingAfterChanges(activity, getContext());
+                        ConnectionToServer.getInstance().trainingServices.saveTrainingAfterChanges(activity, getContext(), trainingID);
                     }
                     else
                     {
