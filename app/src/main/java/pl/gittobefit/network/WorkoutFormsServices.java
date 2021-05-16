@@ -18,8 +18,12 @@ import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.entity.equipment.Checksum;
+import pl.gittobefit.database.entity.training.SavedTraining;
 import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.database.repository.TrainingRepository;
+import pl.gittobefit.generate_training.EquipmentCountException;
+import pl.gittobefit.generate_training.NotValidTrainingException;
+import pl.gittobefit.generate_training.TrainingPlanFacade;
 import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
 import pl.gittobefit.user.User;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
@@ -157,93 +161,166 @@ public class WorkoutFormsServices
         activity.showSnackbar(fragment.getString(R.string.generateTraining));
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        Call<Training> call;
-        if(!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
+        if(ConnectionToServer.isNetwork(fragment.getContext()))
         {
-            call = workout.getTrainingPlanForLoggedInUser(form, User.getInstance().getToken(), formatter.format(date));
-        }else
-        {
-            call = workout.getTrainingPlan(form, formatter.format(date));
-        }
-
-        call.enqueue(new Callback<Training>()
-        {
-            @Override
-            public void onResponse(Call<Training> call, Response<Training> response)
+            Call<Training> call;
+            if(!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
             {
-                if(response.isSuccessful())
-                {
-                    createTraining(response.body(), fragment);
-                    Navigation.findNavController(fragment.getView())
-                            .navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
-                    activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
-                }else
-                {
-                    if (response.code() == 409)
-                    {
-                        switch (response.headers().get("Cause"))
-                        {
-                            case "Body parts cannot be empty":
-                                activity.showSnackbar(fragment.getResources().getString(R.string.noBodyParts));
-                                break;
-                        }
-                    }
-                    else if (response.code() == 417)
-                    {
-                        if (response.headers().get("Cause").startsWith("not enough exercises for"))
-                        {
-                            String [] tokens = response.headers().get("Cause").split("\\:");
+                call = workout.getTrainingPlanForLoggedInUser(form, User.getInstance().getToken(), formatter.format(date));
+            }else
+            {
+                call = workout.getTrainingPlan(form, formatter.format(date));
+            }
 
-                            switch (tokens[1].trim())
+            call.enqueue(new Callback<Training>()
+            {
+                @Override
+                public void onResponse(Call<Training> call, Response<Training> response)
+                {
+                    if(response.isSuccessful())
+                    {
+                        createTraining(response.body(), fragment);
+                        Navigation.findNavController(fragment.getView())
+                                .navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+                        activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
+                    }else
+                    {
+                        if (response.code() == 409)
+                        {
+                            switch (response.headers().get("Cause"))
                             {
-                                case "[CALVES]":
-                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " łydek !");
-                                    break;
-                                case "[SIXPACK]":
-                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " brzucha !");
-                                    break;
-                                case "[CHEST]":
-                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " klatki piersiowej !");
-                                    break;
-                                case "[BICEPS]":
-                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " bicepsa !");
-                                    break;
-                                case "[SHOULDERS]":
-                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " ramion !");
-                                    break;
-                                case "[THIGHS]":
-                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " ud !");
-                                    break;
-                                case "[TRICEPS]":
-                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " tricepsa !");
+                                case "Body parts cannot be empty":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.noBodyParts));
                                     break;
                             }
                         }
-
-                        switch (response.headers().get("Cause"))
+                        else if (response.code() == 417)
                         {
-                            case "wrong exercises count":
-                                activity.showSnackbar(fragment.getResources().getString(R.string.wrongCombination));
-                                break;
-                            case "not enough exercises for [BICEPS, SHOULDERS]"://Michał mógłby dodać ':' po for tak jak w innych przypadkach jest zrobione
-                                activity.showSnackbar(fragment.getResources().getString(R.string.needMoreEQ));
-                                break;
-                            case "not enough days for set body parts":
-                                activity.showSnackbar(fragment.getResources().getString(R.string.needMoreBodyParts));
-                                break;
-                        }
-                    }
-                    Log.e("Network ", "WorkoutForms.getTrainingType error " + response.code());
-                    LogUtils.logCause(response.headers().get("Cause"));
-                }
-            }
+                            if (response.headers().get("Cause").startsWith("not enough exercises for"))
+                            {
+                                String [] tokens = response.headers().get("Cause").split("\\:");
 
-            @Override
-            public void onFailure(Call<Training> call, Throwable t)
+                                switch (tokens[1].trim())
+                                {
+                                    case "[CALVES]":
+                                        activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " łydek !");
+                                        break;
+                                    case "[SIXPACK]":
+                                        activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " brzucha !");
+                                        break;
+                                    case "[CHEST]":
+                                        activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " klatki piersiowej !");
+                                        break;
+                                    case "[BICEPS]":
+                                        activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " bicepsa !");
+                                        break;
+                                    case "[SHOULDERS]":
+                                        activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " ramion !");
+                                        break;
+                                    case "[THIGHS]":
+                                        activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " ud !");
+                                        break;
+                                    case "[TRICEPS]":
+                                        activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " tricepsa !");
+                                        break;
+                                }
+                            }
+
+                            switch (response.headers().get("Cause"))
+                            {
+                                case "wrong exercises count":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.wrongCombination));
+                                    break;
+                                case "not enough exercises for [BICEPS, SHOULDERS]"://Michał mógłby dodać ':' po for tak jak w innych przypadkach jest zrobione
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.needMoreEQ));
+                                    break;
+                                case "not enough days for set body parts":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.needMoreBodyParts));
+                                    break;
+                                default:
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.cantGenerate));
+                                    break;
+                            }
+                        }
+                        Log.e("Network ", "WorkoutForms.getTrainingType error " + response.code());
+                        LogUtils.logCause(response.headers().get("Cause"));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Training> call, Throwable t)
+                {
+                    Log.e("Network ", "WorkoutForms.getTrainingType error = " + t.toString());
+                }
+            });
+        }else
+        {
+            generateOfflineTraining(form, fragment);
+        }
+
+    }
+
+    private void generateOfflineTraining(WorkoutForm form, Fragment fragment)
+    {
+        IShowSnackbar activity = (IShowSnackbar) fragment.getActivity();
+        try
+        {
+
+            SavedTraining training = TrainingPlanFacade.createTrainingPlan(form,fragment.getContext());
+            InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity())
+                    .get(InitiationTrainingDisplayLayoutViewModel.class);
+            model.addTrainingWithForm(TrainingRepository.getInstance(fragment.getContext()).addOfflineTraining(training,form));
+            model.setNumberOfClickedTraining(model.getTrainingWithForms().size() - 1);
+            Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+            activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
+        }catch(NotValidTrainingException e)
+        {
+            switch(e.getMessage())
             {
-                Log.e("Network ", "WorkoutForms.getTrainingType error = " + t.toString());
+                case "not enough exercises for" :
+                {
+                    String [] tokens = e.getMessage().split(":");
+
+                    switch (tokens[1].trim())
+                    {
+                        case "[CALVES]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " łydek !");
+                            break;
+                        case "[SIXPACK]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " brzucha !");
+                            break;
+                        case "[CHEST]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " klatki piersiowej !");
+                            break;
+                        case "[BICEPS]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " bicepsa !");
+                            break;
+                        case "[SHOULDERS]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " ramion !");
+                            break;
+                        case "[THIGHS]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " ud !");
+                            break;
+                        case "[TRICEPS]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " tricepsa !");
+                            break;
+                    }
+                }
+                case "not enough days for set body parts":
+                    activity.showSnackbar(fragment.getResources().getString(R.string.needMoreBodyParts));
+                    break;
+                case "wrong exercises count":
+                    activity.showSnackbar(fragment.getResources().getString(R.string.wrongCombination));
+                    break;
+                default:
+                    activity.showSnackbar(fragment.getResources().getString(R.string.cantGenerate));
+                    break;
             }
-        });
+            activity.showSnackbar(fragment.getResources().getString(R.string.needMoreBodyParts));
+        }catch(IllegalArgumentException e)
+        {
+            activity.showSnackbar(fragment.getResources().getString(R.string.cantGenerate));
+        }
     }
 
     private void createTraining(Training body, Fragment fragment)
