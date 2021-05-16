@@ -71,19 +71,16 @@ public class FBWTrainingPlan implements TrainingPlanGenerator
         ArrayList<String> bodyParts = new ArrayList<>();
         for( ArrayList<ExerciseExecutionPOJODB> trainingDay : trainingPlan.getPlanList())
         {
-            for(ExerciseExecutionPOJODB exerciseExecutionPOJODB : trainingDay)
+            for(ExerciseExecutionPOJODB exerciseExecution : trainingDay)
             {
-                
+                Exercise exercise = base.exerciseDao().getExercise(exerciseExecution.getExerciseId());
+                bodyParts.add(exercise.getBodyPart());
             }
-            
-            
-            
-            trainingDay.getExercisesExecutions()
-                    .forEach(exerciseExecution -> bodyParts.add(exerciseExecution.getExercise().getBodyPart().getName()));
+
             bodyPartsListCopy.removeAll(bodyParts);
             if(bodyPartsListCopy.size() != 0)
             {
-                throw new NotValidTrainingException("not enough exercises for %s".formatted(bodyPartsListCopy));
+                throw new NotValidTrainingException(String.format("not enough exercises for %s",bodyPartsListCopy.toString()));
             }
         }
     }
