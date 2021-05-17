@@ -23,7 +23,7 @@ public class SavedTraining
     private int id;
     private String idUser;
     private long idForm;
-    private long idFromServer;
+    private Integer idFromServer;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList;
     private String generationDate;
     private String trainingName;
@@ -54,7 +54,7 @@ public class SavedTraining
         this.circuitsCount = planList.get(0).getCircuitsCount();
         this.generationDate = date;
         this.trainingName = name;
-        this.idFromServer = idFromServer;
+        this.idFromServer = (int) idFromServer;
         this.idForm = idForm;
         for(TrainingPlan readPlan : planList)
         {
@@ -79,6 +79,7 @@ public class SavedTraining
         this.circuitsCount = circuitsCount;
         this.breakTime = (int) breakTime;
         this.planList = new ArrayList<>();
+        this.idFromServer = NULL;
     }
 
     public int getId()
@@ -156,16 +157,6 @@ public class SavedTraining
         return planList.size() > trainingDay + 1;
     }
 
-    public long getIdFromServer()
-    {
-        return idFromServer;
-    }
-
-    public void setIdFromServer(long idFromServer)
-    {
-        this.idFromServer = idFromServer;
-    }
-
     public int getBreakTime()
     {
         return breakTime;
@@ -218,5 +209,15 @@ public class SavedTraining
         this.trainingDay = 0;
         this.offline = true;
 
+    }
+
+    public Integer getIdFromServer()
+    {
+        return idFromServer;
+    }
+
+    public void setIdFromServer(Integer idFromServer)
+    {
+        this.idFromServer = idFromServer;
     }
 }
