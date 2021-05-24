@@ -217,16 +217,34 @@ public class WorkoutFormsServices
                                 case "[TRICEPS]":
                                     activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " tricepsa !");
                                     break;
+                                case "[CHEST, THIGHS, CALVES]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " klatki piersiowej, ud i łydek !");
+                                    break;
+                                case "[BICEPS, SHOULDERS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " klatki piersiowej i ramion !");
+                                    break;
+                                case "[SIXPACK, CALVES, BICEPS, TRICEPS, SHOULDERS, CHEST, BACK, THIGHS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " wszystich partii ciała !");
+                                    break;
+                                case "[CALVES, BICEPS, SHOULDERS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " łydek,  bicepsa i ramion !");
+                                    break;
+                                case "[SIXPACK, BICEPS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " brzucha i bicepsa !");
+                                    break;
                             }
+                        }
+                        else if (response.code() == 403)
+                        {
+                            activity.showSnackbar(fragment.getResources().getString(R.string.authorizationError));
+                            Navigation.findNavController(fragment.getView())
+                                    .navigate(R.id.action_generateTrainingForm_to_login);
                         }
 
                         switch (response.headers().get("Cause"))
                         {
                             case "wrong exercises count":
                                 activity.showSnackbar(fragment.getResources().getString(R.string.wrongCombination));
-                                break;
-                            case "not enough exercises for [BICEPS, SHOULDERS]"://Michał mógłby dodać ':' po for tak jak w innych przypadkach jest zrobione
-                                activity.showSnackbar(fragment.getResources().getString(R.string.needMoreEQ));
                                 break;
                             case "not enough days for set body parts":
                                 activity.showSnackbar(fragment.getResources().getString(R.string.needMoreBodyParts));

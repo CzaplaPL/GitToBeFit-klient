@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
 
@@ -40,6 +41,7 @@ public class TrainingServices
         repository.deleteAllTrainingsForUser(user.getIdServer());
         Call<ArrayList<Training>> downloadCall = training.getTrainings(user.getToken());
         Response<ArrayList<Training>> downloadResponse = downloadCall.execute();
+
         if(downloadResponse.code() != 200)
         {
             Log.e("Network", "Trainings.SendTraining " + String.valueOf(downloadResponse.code()));
@@ -49,7 +51,6 @@ public class TrainingServices
 
         for(Training training : downloadResponse.body())
         {
-            System.out.println(training.getGenerationDate());
             repository.add(training);
         }
         Call<Void> sendCall = training.sendTrainings(user.getToken(), repository.getTrainingsToSend());

@@ -49,6 +49,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
     private int trainingID;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS;
     private int circuitsCount;
+    private int dayOfTrainings;
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
@@ -70,7 +71,8 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
             String scheduleType,
             int trainingID,
             Fragment fragment,
-            ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS
+            ArrayList<ArrayList<ExerciseExecutionPOJODB>> exerciseExecutionPOJODBS,
+            int dayOfTrainings
     )
     {
         this.exerciseArrayList = exerciseArrayList;
@@ -79,6 +81,7 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         this.scheduleType = scheduleType;
         this.trainingID = trainingID;
         this.exerciseExecutionPOJODBS = exerciseExecutionPOJODBS;
+        this.dayOfTrainings = dayOfTrainings;
     }
 
     @NonNull
@@ -182,7 +185,8 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
                     position ,
                     exercisesExecutionArrayList,
                     trainingID,
-                    exerciseExecutionPOJODBS
+                    exerciseExecutionPOJODBS,
+                    dayOfTrainings
             );
             bottomSheetDialog.show(fragment.getParentFragmentManager(), "bottomMenu");
         });

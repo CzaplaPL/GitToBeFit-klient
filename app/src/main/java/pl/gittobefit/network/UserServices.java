@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.facebook.AccessToken;
 import com.google.android.material.snackbar.Snackbar;
@@ -51,8 +52,8 @@ public class UserServices
     public void login(String email, String password, Login fragment , IShowSnackbar activity)
     {
 
-        Log.w("Network", "      user.login");
-        Log.w("Network", "   " + email + " " + password);
+        Log.w("Network", " user.login");
+        Log.w("Network", " " + email + " " + password);
         //przygotowanie zapytania
         Call<Void> call = user.login(new RespondUser(email, password));
         //wywołanie zapytania
@@ -63,7 +64,7 @@ public class UserServices
             {
                 if(response.isSuccessful())
                 {
-                    Log.w("logowanie  ", "  get_id");
+                    Log.w("logowanie  ", " get_id");
                     Call<Void> call2 = user.getUserIDbyEmail(email, response.headers().get("Authorization"));
                     //wywołanie zapytania
                     call2.enqueue(new Callback<Void>()
@@ -90,8 +91,9 @@ public class UserServices
                             {
                                 if(responseGetId.code() != 404)
                                 {
-                                    Log.e("get_id  error : ", "   " + responseGetId.code());
-                                }else
+                                    Log.e("get_id  error : ", "  " + responseGetId.code());
+                                }
+                                else
                                 {
                                     Log.w("get_id error : ", "    404 ");
                                 }
@@ -138,8 +140,6 @@ public class UserServices
 
                             fragment.loginFail(false,fragment.getString(R.string.noActivateAcount));
                         }
-
-
                     }
                 }
             }
@@ -281,7 +281,7 @@ public class UserServices
      * funkcja zmieniająca hasło
      * @author Kuba
      */
-    public void changePassword(String actualPassword, String newPassword, Context context, IShowSnackbar activity)
+    public void changePassword(String actualPassword, String newPassword, Context context, IShowSnackbar activity, View view)
     {
         String userID =  User.getInstance().getIdServer();
         Call<Void> call2 = user.changePassword(userID, User.getInstance().getToken(), new UserChangePass(User.getInstance().getEmail(), actualPassword, newPassword));
@@ -301,13 +301,17 @@ public class UserServices
                     {
                         activity.showSnackbar(context.getString(R.string.wrong_old_pass));
                     }
+                    else if (code == 403)
+                    {
+                        activity.showSnackbar(context.getString(R.string.authorizationError));
+                        Navigation.findNavController(view).navigate(R.id.authError_go_to_login);
+                    }
                     else
                     {
                         activity.showSnackbar(context.getString(R.string.serwerError));
                     }
                     Log.e("kod błędu", String.valueOf(code));
                     LogUtils.logCause(response.headers().get("Cause"));
-
                 }
             }
             @Override
@@ -322,7 +326,7 @@ public class UserServices
      * funkcja usuwająca konto
      * @author Kuba
      */
-    public void deleteAccount(String password, Context context, DeleteAccountDialog.DeleteAccountDialogInterface activity)
+    public void deleteAccount(String password, Context context, DeleteAccountDialog.DeleteAccountDialogInterface activity, View view)
     {
         String userID = User.getInstance().getIdServer();
         Call<Void> call2 = user.deleteAccount(userID, User.getInstance().getToken(), password);
@@ -343,13 +347,17 @@ public class UserServices
                     {
                         activity.onAccountDelete(false ,context.getString(R.string.incoredPassword));
                     }
+                    else if (code == 403)
+                    {
+                        activity.onAccountDelete(false ,context.getString(R.string.authorizationError));
+                        Navigation.findNavController(view).navigate(R.id.authError_go_to_login);
+                    }
                     else
                     {
                         activity.onAccountDelete(false ,context.getString(R.string.serwerError));
                     }
                     Log.e("kod błędu", String.valueOf(code));
                     LogUtils.logCause(response.headers().get("Cause"));
-
                 }
             }
             @Override
@@ -364,7 +372,7 @@ public class UserServices
      * funkcja zmieniająca email
      * @author Kuba
      */
-    public void changeEmail(String newEmail, String password, Context context, ChangeMailDialog.ChangeMailDialogInterface activity)
+    public void changeEmail(String newEmail, String password, Context context, ChangeMailDialog.ChangeMailDialogInterface activity, View view)
     {
         String userID = User.getInstance().getIdServer();
         Call<Void> call2 = user.changeEmail(userID, User.getInstance().getToken(), new UserChangeEmail(newEmail, password));
@@ -394,7 +402,13 @@ public class UserServices
                         {
                             activity.onChangeMail(false, context.getString(R.string.serwerError));
                         }
-                    }else
+                    }
+                    else if (code == 403)
+                    {
+                        activity.onChangeMail(false, context.getString(R.string.authorizationError));
+                        Navigation.findNavController(view).navigate(R.id.authError_go_to_login);
+                    }
+                    else
                     {
                         activity.onChangeMail(false, context.getString(R.string.serwerError));
                         Log.e("kod błędu", String.valueOf(code));
@@ -513,7 +527,7 @@ public class UserServices
                 {
                     Log.w("Autologwanie  ", "  sukces");
                     System.out.println("Kod zwracany przez autoLog: " + response.code());
-                    AppDataBase.getInstance(fragment.getContext()).userDao().setToken(response.headers().get("Authorization"),userEntity.getId());
+                    AppDataBase.getInstance(fragment.getContext()).userDao().setToken(response.headers().get("Authorization"), userEntity.getId());
                     if(userEntity.isLoggedByGoogle())
                     {
                         User.getInstance().add(

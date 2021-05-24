@@ -49,7 +49,7 @@ public class ChangeMailDialog extends AppCompatDialogFragment
                     ChangeMailDialogInterface activity = (ChangeMailDialogInterface) getActivity();
                     if (email.matches(Validation.EMAIL_REGEX)) {
                         activity.onChangeMail(false ,getString(R.string.changingMail));
-                        ConnectionToServer.getInstance().userServices.changeEmail(email, password, getContext(),activity);
+                        ConnectionToServer.getInstance().userServices.changeEmail(email, password, getContext(),activity, getView());
                     } else {
                        activity.onChangeMail(false ,getString(R.string.wrongEmail));
                     }

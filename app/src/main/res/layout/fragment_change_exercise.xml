@@ -75,7 +75,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
-                android:keepScreenOn="true"/>
+                android:keepScreenOn="true"
+                android:alpha="0"/>
 
             <ProgressBar
                 android:id="@+id/read_video"
