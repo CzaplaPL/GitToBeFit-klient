@@ -3,6 +3,11 @@ package pl.gittobefit.database.entity.training;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import pl.gittobefit.workoutforms.object.exercise.ExerciseItem;
+
 @Entity
 public class Exercise
 {
@@ -14,9 +19,37 @@ public class Exercise
     private String hints;
     private String videoUrl;
     private String photoUrl;
+    private String scheduleType;
+    private String bodyPart;
 
     public Exercise()
     {
+    }
+
+    public Exercise(int id, String name, String descriptionOfStartPosition, String descriptionOfCorrectExecution, String hints, String videoUrl, String photoUrl, String scheduleType, String bodyPart)
+    {
+        this.id = id;
+        this.name = name;
+        this.descriptionOfStartPosition = descriptionOfStartPosition;
+        this.descriptionOfCorrectExecution = descriptionOfCorrectExecution;
+        this.hints = hints;
+        this.videoUrl = videoUrl;
+        this.photoUrl = photoUrl;
+        this.scheduleType = scheduleType;
+        this.bodyPart = bodyPart;
+    }
+
+    public Exercise(ExerciseItem exercise)
+    {
+        this.id = exercise.getId();
+        this.name = exercise.getName();
+        this.descriptionOfStartPosition = exercise.getDescriptionOfStartPosition();
+        this.descriptionOfCorrectExecution = exercise.getDescriptionOfCorrectExecution();
+        this.hints = exercise.getHints();
+        this.videoUrl = exercise.getVideoUrl();
+        this.photoUrl = exercise.getPhotoUrl();
+        this.scheduleType = exercise.getScheduleType();
+        this.bodyPart = exercise.getBodyPart();
     }
 
     public int getId()
@@ -87,5 +120,25 @@ public class Exercise
     public void setPhotoUrl(String photoUrl)
     {
         this.photoUrl = photoUrl;
+    }
+
+    public String getBodyPart()
+    {
+        return bodyPart;
+    }
+
+    public void setBodyPart(String bodyPart)
+    {
+        this.bodyPart = bodyPart;
+    }
+
+    public String getScheduleType()
+    {
+        return scheduleType;
+    }
+
+    public void setScheduleType(String scheduleType)
+    {
+        this.scheduleType = scheduleType;
     }
 }

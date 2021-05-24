@@ -2,9 +2,9 @@ package pl.gittobefit.workoutforms.adapters;
 
 import java.util.ArrayList;
 
-import pl.gittobefit.workoutforms.object.Equipment;
+import pl.gittobefit.workoutforms.object.EquipmentItem;
 import pl.gittobefit.workoutforms.object.EquipmentForm;
-import pl.gittobefit.workoutforms.object.EquipmentType;
+import pl.gittobefit.workoutforms.object.EquipmentTypeItem;
 
 
 public class EquipmentList
@@ -45,7 +45,7 @@ public class EquipmentList
      */
     public void addLoading(int position)
     {
-        data.add(position + 1, new EquipmentType(-1, "", ""));
+        data.add(position + 1, new EquipmentTypeItem(-1, "", ""));
         loadingIndex = position;
         loadingEndIndex = position + 1;
         adapter.notifyItemInserted(position + 1);
@@ -86,14 +86,14 @@ public class EquipmentList
      * @param position  pozycja kategori do ktorej zostały wczytane sprzety
      * @param body Array lista zawierajaca wczytane sprzety
      */
-    public void showEquipment(int position, ArrayList<Equipment> body)
+    public void showEquipment(int position, ArrayList<EquipmentItem> body)
     {
         if(loadingIndex == position)
         {
             data.remove(loadingIndex + 1);
             adapter.notifyItemRemoved(loadingIndex + 1);
             loadingEndIndex = position;
-            for(Equipment equipment : body)
+            for(EquipmentItem equipment : body)
             {
                 loadingEndIndex +=1;
                 equipment.setEqiupment(true);

@@ -25,7 +25,7 @@
             app:srcCompat="@drawable/logo" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/description_main_change_exercise"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -153,25 +153,58 @@
                     android:inputType="textWebPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <CheckBox
-                android:id="@+id/checkBox_robot"
+            <LinearLayout
+                android:id="@+id/checkbox_robot_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/robot"
-                android:visibility="visible"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
-                app:layout_constraintTop_toBottomOf="@+id/loginRewersePasswordKontener" />
+                app:layout_constraintTop_toBottomOf="@+id/loginRewersePasswordKontener">
 
-            <CheckBox
-                android:id="@+id/checkBox_statute"
+                <CheckBox
+                    android:id="@+id/checkBox_robot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:visibility="visible" />
+                <TextView
+                    android:id="@+id/title_checkbox_robot"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/robot"
+                    android:textColor="?attr/colorPrimaryVariant"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/checkbox_regulations"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/statute"
-                android:visibility="visible"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox_robot" />
+                app:layout_constraintTop_toBottomOf="@+id/checkbox_robot_container">
+                <CheckBox
+                    android:id="@+id/checkBox_statute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:contextClickable="true"
+                    android:visibility="visible" />
+                <TextView
+                    android:id="@+id/title_checkbox"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/statute"
+                    android:clickable="true"
+                    android:onClick="onClick"
+                    android:textColor="@color/com_facebook_blue"
+                    android:focusable="true" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/buttonRegistr"
@@ -183,7 +216,7 @@
                 android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toStartOf="@+id/main_guideline_right"
                 app:layout_constraintStart_toStartOf="@+id/main_guideline_left"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox_statute"
+                app:layout_constraintTop_toBottomOf="@+id/checkbox_regulations"
                 app:shapeAppearanceOverlay="@style/roundedButton"
                 app:strokeColor="?attr/colorPrimary"/>
 

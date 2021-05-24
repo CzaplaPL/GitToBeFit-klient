@@ -16,9 +16,12 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.AppDataBase;
+import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.user.User;
 
 public class EditTrainingNameDialog extends AppCompatDialogFragment
 {
@@ -53,7 +56,25 @@ public class EditTrainingNameDialog extends AppCompatDialogFragment
 
                     model.getTrainingWithForms().get(Integer.parseInt(tokens[0])).training.setTrainingName(newTrainingName);
                     model.getCurrentName().setValue(newTrainingName);
-                    AppDataBase.getInstance(getContext()).trainingDao().updateTrainingNameInDataBase(newTrainingName, Integer.parseInt(tokens[1]));
+                    AppDataBase.getInstance(getContext())
+                            .trainingDao()
+                            .updateTrainingNameInDataBase(newTrainingName, Integer.parseInt(tokens[1]));
+
+                    IShowSnackbar activity = (IShowSnackbar) getActivity();
+                    long idFromServer = AppDataBase.getInstance(getContext()).trainingDao().getIdFromServerById(tokens[1]);
+                    if (!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
+                    {
+                        ConnectionToServer.getInstance().trainingServices.updateTrainingName(
+                                idFromServer,
+                                activity,
+                                getContext(),
+                                newTrainingName
+                        );
+                    }
+                    else
+                    {
+                        activity.showSnackbar(getContext().getResources().getString(R.string.editionComplete));
+                    }
                 });
         newName = view.findViewById(R.id.newTrainingName);
         return builder.create();

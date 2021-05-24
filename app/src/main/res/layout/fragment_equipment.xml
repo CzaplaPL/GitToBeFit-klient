@@ -70,7 +70,8 @@
                 android:id="@+id/progressBar2"
                 style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="150dp"
+                android:indeterminateBehavior="repeat" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -83,22 +84,21 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/bez_sprzetu"
+            android:id="@+id/no_equipment"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:orientation="horizontal"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/rvContacts"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/equipment_guideline_right"
+            app:layout_constraintStart_toStartOf="@+id/equipment_guideline_left"
             app:layout_constraintTop_toBottomOf="@+id/titleEquipment">
 
             <ImageView
                 android:id="@+id/no_equipment_item_image"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="8dp"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/ic_baseline_clear_24" />
 
@@ -126,6 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:checked="true"
+                    android:enabled="false"
                     android:textColorLink="#FFFFFF"
                     tools:ignore="RelativeOverlap" />
             </LinearLayout>
@@ -137,8 +138,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bez_sprzetu"
+            app:layout_constraintStart_toStartOf="@+id/equipment_guideline_left"
+            app:layout_constraintEnd_toStartOf="@+id/equipment_guideline_right"
+            app:layout_constraintTop_toBottomOf="@+id/no_equipment"
             tools:listitem="@layout/equipment_item">
 
         </androidx.recyclerview.widget.RecyclerView>

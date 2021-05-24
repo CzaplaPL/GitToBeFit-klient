@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import pl.gittobefit.HomeFragment;
@@ -121,12 +122,13 @@ public class Login extends Fragment implements View.OnClickListener
             {
                 try
                 {
-                    User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.Start_Synchronise);
+                    User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.START_SYNCHRONISE);
                     ConnectionToServer.getInstance().trainingServices.synchronisedTraining(getContext());
-                }catch(Exception e)
+               }catch(Exception e)
                 {
-                    User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.Synchronise_error);
+                    User.getInstance().setSynchroniseTraining(User.SynchroniseTraining.SYNCHRONISE_ERROR);
                     Log.e("Network", "Trainings.synchronisedTraining error " + e.toString());
+                    Log.e("Network", "Trainings.synchronisedTraining error " + Arrays.toString(e.getStackTrace()));
                 }
             }
         }).start();

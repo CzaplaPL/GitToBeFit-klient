@@ -1,6 +1,5 @@
 package pl.gittobefit.WorkoutDisplay.fragments;
 
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -19,6 +18,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,9 +26,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.adapters.ExerciseListAdapter;
 import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
+import pl.gittobefit.WorkoutDisplay.dialog.EditBreakDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.EditTrainingNameDialog;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.entity.training.Exercise;
@@ -60,8 +62,26 @@ public class DisplayReceivedTraining extends Fragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Bundle args = getArguments();
+        if (args  != null)
+        {
+            int afterExerciseChange = args.getInt("exerciseChanged");
+            if (afterExerciseChange == 1)
+            {
+                IShowSnackbar activity = (IShowSnackbar) getActivity();
+                activity.showSnackbar(getContext().getResources().getString(R.string.editionComplete));
+                args.clear();
+            }
+        }
         model = new ViewModelProvider(requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
         model.getPosition().observe(getViewLifecycleOwner(), integer -> index = integer);
+        Button next = getView().findViewById(R.id.next);
+        next.setOnClickListener(v ->
+        {
+            DisplayReceivedTrainingDirections.ToTrainingAction action = DisplayReceivedTrainingDirections.toTrainingAction();
+            action.setDisplayToTraining(model.getTrainingWithForms().get(index).training.getId());
+            Navigation.findNavController(getView()).navigate(action);
+        });
     }
 
 
@@ -75,7 +95,7 @@ public class DisplayReceivedTraining extends Fragment
         for (int i = 0; i < trainingWithForm.training.getPlanList().size(); i++)
         {
             exercisesArrayList.add(
-                    TrainingRepository.getInstance(getContext()).getExerciseForPlanList(
+                    TrainingRepository.getInstance(getContext()).getExercisesForPlanList(
                             trainingWithForm.training.getPlanList().get(i)
                     )
             );
@@ -92,16 +112,29 @@ public class DisplayReceivedTraining extends Fragment
         TextView trainingForm = getView().findViewById(R.id.trainingForm);
         TextView trainingDuration = getView().findViewById(R.id.trainingDuration);
         TextView trainingName = getView().findViewById(R.id.trainingName);
+        TextView trainingBreak = getView().findViewById(R.id.trainingBreak);
 
         final Observer<String> nameObserver = new Observer<String>() {
             @Override
             public void onChanged(@Nullable final String newName) {
-                String trainingNameString = "Nazwa treningu: ";
-                SpannableStringBuilder nameBuilder = getSpannableStringBuilder(newName, trainingNameString);
+                String trainingNameString = getResources().getString(R.string.trainingName) + " ";
+                SpannableStringBuilder nameBuilder = getSpannableStringBuilder(newName, trainingNameString) ;
                 trainingName.setText(nameBuilder, TextView.BufferType.SPANNABLE);
             }
         };
         model.getCurrentName().observe(this, nameObserver);
+
+        final Observer<Integer> breakTimeObserver = new Observer<Integer>()
+        {
+            @Override
+            public void onChanged(Integer integer) {
+                String trainingBreakString = getResources().getString(R.string.trainingBreakTime) + " ";
+                String breakTime  = integer + " sekund";
+                SpannableStringBuilder breakBuilder = getSpannableStringBuilder(breakTime, trainingBreakString);
+                trainingBreak.setText(breakBuilder, TextView.BufferType.SPANNABLE);
+            }
+        };
+        model.getCurrentBreakTime().observe(this, breakTimeObserver);
 
 
         RelativeLayout relativeLayout1 = getView().findViewById(R.id.layout0);
@@ -179,6 +212,19 @@ public class DisplayReceivedTraining extends Fragment
             deleteTrainingDialog.show(getParentFragmentManager(), "dialog");
         });
 
+        Button editBreakTimeButton = getView().findViewById(R.id.editTrainingBreakButton);
+        editBreakTimeButton.setOnClickListener(v -> {
+            Bundle args = new Bundle();
+            args.putString("trainingID",
+                    String.format(Locale.getDefault(),
+                            "%d/%d",
+                            index,
+                            trainingWithForm.training.getId()));
+            EditBreakDialog editBreakDialog = new EditBreakDialog(trainingWithForm.training.getBreakTime());
+            editBreakDialog.setArguments(args);
+            editBreakDialog.show(getParentFragmentManager(), "dialog");
+        });
+
 
         day1Button.setOnClickListener(v -> {
             setTrainingDayVisibility(relativeLayout1, exercisesList, day1Button);
@@ -195,7 +241,6 @@ public class DisplayReceivedTraining extends Fragment
         day3Button.setOnClickListener(v -> {
             setTrainingDayVisibility(relativeLayout3, exercisesList3, day3Button);
             model.setState(2);
-
         });
 
         day4Button.setOnClickListener(v -> {
@@ -236,7 +281,9 @@ public class DisplayReceivedTraining extends Fragment
                         trainingWithForm.form.getScheduleType(),
                         trainingWithForm.training.getId(),
                         getParentFragment(),
-                        trainingWithForm.training.getPlanList()));
+                        trainingWithForm.training.getPlanList(),
+                        i)
+                );
                 recyclerViewArrayList.get(i).setAdapter(exerciseListAdapters.get(i));
                 recyclerViewArrayList.get(i).setNestedScrollingEnabled(false);
 
@@ -245,6 +292,7 @@ public class DisplayReceivedTraining extends Fragment
                         false));
             }
         };
+
         model.getCurrentCount().observe(this, exerciseInfoObserver);
         model.getCurrentTime().observe(this, exerciseInfoObserver);
         model.getCurrentSeries().observe(this, exerciseInfoObserver);
@@ -259,9 +307,9 @@ public class DisplayReceivedTraining extends Fragment
             case "FBW":
                 durationDisplay = trainingWithForm.form.getDaysCount() + " dni";
                 if (trainingWithForm.form.getScheduleType().equals("PER_DAY")) {
-                    scheduleTypeDisplay = "wykonujesz każdego dnia inny trening";
+                    scheduleTypeDisplay = getResources().getString(R.string.scheduleTypeDisplayPerDay);
                 } else {
-                    scheduleTypeDisplay = "wykonujesz każdego dnia taki sam trening";
+                    scheduleTypeDisplay = getResources().getString(R.string.scheduleTypeDisplayRep);
                 }
                 for (int i = 0; i < trainingWithForm.form.getDaysCount(); i++) {
                     buttonArrayList.get(i).setVisibility(View.VISIBLE);
@@ -272,39 +320,48 @@ public class DisplayReceivedTraining extends Fragment
             case "FITNESS":
                 durationDisplay = trainingWithForm.form.getDuration() + " minut";
                 if (trainingWithForm.form.getScheduleType().equals("SERIES")) {
-                    scheduleTypeDisplay = "wykonujesz wybraną ilość serii każdego ćwiczenia";
+                    scheduleTypeDisplay = getResources().getString(R.string.scheduleTypeDisplaySeries);
                 } else {
-                    scheduleTypeDisplay = "wykonujesz jedno ćwiczenie po drugim, z przerwami pomiędzy nimi, bądź bez";
+                    scheduleTypeDisplay = getResources().getString(R.string.scheduleTypeDisplayCircuit);
                 }
                 day1Button.setVisibility(View.VISIBLE);
                 break;
         }
-        String trainingTimeString = "Czas treningu: ";
+        String breakTime  = trainingWithForm.training.getBreakTime() + " sekund";
+
+        String trainingTimeString = getResources().getString(R.string.trainingTime) + " ";
         SpannableStringBuilder timeBuilder = getSpannableStringBuilder(durationDisplay, trainingTimeString);
 
-        String formTrainingString = "Forma treningu: ";
+        String formTrainingString = getResources().getString(R.string.trainingForm) + " ";
         SpannableStringBuilder formBuilder = getSpannableStringBuilder(scheduleTypeDisplay, formTrainingString);
 
-        String trainingTypeString = "Rodzaj treningu: ";
+        String trainingTypeString = getResources().getString(R.string.trainingType) + " ";
         SpannableStringBuilder typeBuilder = getSpannableStringBuilder(trainingTypeDisplay, trainingTypeString);
 
-        String trainingNameString = "Nazwa treningu: ";
+        String trainingBreakString = getResources().getString(R.string.trainingBreakTime) + " ";
+        SpannableStringBuilder breakBuilder = getSpannableStringBuilder(breakTime, trainingBreakString);
+
+        String trainingNameString = getResources().getString(R.string.trainingName) + " ";
         SpannableStringBuilder nameBuilder = getSpannableStringBuilder(nameOfTraining, trainingNameString);
 
         trainingName.setText(nameBuilder, TextView.BufferType.SPANNABLE);
         trainingType.setText(typeBuilder, TextView.BufferType.SPANNABLE);
         trainingForm.setText(formBuilder, TextView.BufferType.SPANNABLE);
+        trainingBreak.setText(breakBuilder, TextView.BufferType.SPANNABLE);
         trainingDuration.setText(timeBuilder, TextView.BufferType.SPANNABLE);
         trainingDuration.setVisibility(View.GONE);
 
         for (int i = 0; i < exercisesArrayList.size(); i++)
         {
-            exerciseListAdapters.add(new ExerciseListAdapter(exercisesArrayList.get(i),
+            exerciseListAdapters.add(new ExerciseListAdapter(
+                    exercisesArrayList.get(i),
                     trainingWithForm.training.getPlanList().get(i),
                     trainingWithForm.form.getScheduleType(),
                     trainingWithForm.training.getId(),
                     this,
-                    trainingWithForm.training.getPlanList()));
+                    trainingWithForm.training.getPlanList(),
+                    i
+            ));
             recyclerViewArrayList.get(i).addItemDecoration(new DividerItemDecoration(
                     getContext(),
                     DividerItemDecoration.VERTICAL));
@@ -335,14 +392,15 @@ public class DisplayReceivedTraining extends Fragment
         day1Button.setCompoundDrawablesWithIntrinsicBounds(null, null, newDrawable, null);
     }
 
-
     private SpannableStringBuilder getSpannableStringBuilder(String durationDisplay, String stringToColor) {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         SpannableString redSpannable= new SpannableString(stringToColor);
-        redSpannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.ourGreen)),
+        redSpannable.setSpan(
+                new ForegroundColorSpan(getResources().getColor(R.color.ourGreen)),
                 0,
                 stringToColor.length(),
-                0);
+                0
+        );
         builder.append(redSpannable);
         builder.append(durationDisplay);
         return builder;

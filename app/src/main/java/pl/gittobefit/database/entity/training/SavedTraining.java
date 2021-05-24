@@ -6,10 +6,14 @@ import androidx.room.PrimaryKey;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import pl.gittobefit.WorkoutDisplay.objects.ExerciseExecution;
 import pl.gittobefit.WorkoutDisplay.objects.TrainingPlan;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
 import pl.gittobefit.user.User;
+
+import static java.sql.Types.NULL;
 
 
 @Entity
@@ -19,44 +23,64 @@ public class SavedTraining
     private int id;
     private String idUser;
     private long idForm;
+    private Integer idFromServer;
     private ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList;
     private String generationDate;
     private String trainingName;
+    private int trainingDay;
+    private boolean offline;
+    private int breakTime;
+    private int circuitsCount;
 
-    public SavedTraining(long idForm, ArrayList<TrainingPlan> planList)
+    public SavedTraining(
+            long idFromServer,
+            long idForm,
+            ArrayList<TrainingPlan> planList,
+            String name,
+            String date,
+            int trainingDay)
     {
         this.planList = new ArrayList<>();
-        if(User.getInstance().getLoggedBy() != User.WayOfLogin.NO_LOGIN)
+        if(User.getInstance().getLoggedBy() == User.WayOfLogin.NO_LOGIN)
         {
             this.idUser = "";
+            this.offline = true;
         }else
         {
             this.idUser = User.getInstance().getIdServer();
+            this.offline = false;
         }
-
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        this.generationDate = formatter.format(date);
-        this.trainingName = "Default training name";
-
+        this.breakTime = planList.get(0).getBreakTime();
+        this.circuitsCount = planList.get(0).getCircuitsCount();
+        this.generationDate = date;
+        this.trainingName = name;
+        this.idFromServer = (int) idFromServer;
         this.idForm = idForm;
-        for(int i = 0; i < planList.size(); i++)
+        for(TrainingPlan readPlan : planList)
         {
-            TrainingPlan readPlan = planList.get(i);
             ArrayList<ExerciseExecutionPOJODB> savePlan = new ArrayList<>();
-            for(int j = 0; j < readPlan.getExercisesExecutions().size(); j++)
+            for(ExerciseExecution exercisesExecution : readPlan.getExercisesExecutions())
             {
-                savePlan.add(new ExerciseExecutionPOJODB(readPlan.getExerciseExecution(j), readPlan.getId(), readPlan.getTrainingId()));
+                savePlan.add(new ExerciseExecutionPOJODB(exercisesExecution, readPlan.getId(), readPlan.getTrainingId()));
             }
             this.planList.add(savePlan);
         }
 
+        this.trainingDay = trainingDay;
     }
 
     public SavedTraining()
     {
+        this.trainingDay = 0;
     }
 
+    public SavedTraining(int circuitsCount, long breakTime)
+    {
+        this.circuitsCount = circuitsCount;
+        this.breakTime = (int) breakTime;
+        this.planList = new ArrayList<>();
+        this.idFromServer = NULL;
+    }
 
     public int getId()
     {
@@ -116,5 +140,84 @@ public class SavedTraining
     public void setTrainingName(String trainingName)
     {
         this.trainingName = trainingName;
+    }
+
+    public int getTrainingDay()
+    {
+        return trainingDay;
+    }
+
+    public void setTrainingDay(int trainingDay)
+    {
+        this.trainingDay = trainingDay;
+    }
+
+    public boolean isNextDay()
+    {
+        return planList.size() > trainingDay + 1;
+    }
+
+    public int getBreakTime()
+    {
+        return breakTime;
+    }
+
+    public void setBreakTime(int breakTime)
+    {
+        this.breakTime = breakTime;
+    }
+
+    public int getCircuitsCount()
+    {
+        return circuitsCount;
+    }
+
+    public void setCircuitsCount(int circuitsCount)
+    {
+        this.circuitsCount = circuitsCount;
+    }
+
+    public boolean isOffline()
+    {
+        return offline;
+    }
+
+    public void setOffline(boolean offline)
+    {
+        this.offline = offline;
+    }
+
+    public void addDay(ArrayList<ExerciseExecutionPOJODB> trainingForDay)
+    {
+        planList.add(trainingForDay);
+    }
+
+    public void setInfo(String name)
+    {
+        if(User.getInstance().getLoggedBy() != User.WayOfLogin.NO_LOGIN)
+        {
+            this.idUser = User.getInstance().getIdServer();
+        }else
+        {
+            this.idUser = "";
+        }
+        this.idFromServer = NULL;
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        this.generationDate = formatter.format(date);
+        this.trainingName = name;
+        this.trainingDay = 0;
+        this.offline = true;
+
+    }
+
+    public Integer getIdFromServer()
+    {
+        return idFromServer;
+    }
+
+    public void setIdFromServer(Integer idFromServer)
+    {
+        this.idFromServer = idFromServer;
     }
 }

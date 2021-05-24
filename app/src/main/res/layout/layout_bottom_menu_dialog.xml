@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/my_border">
+    <TextView
+        android:id="@+id/menu_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exercise_pl"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"/>
+
+    <Button
+        android:id="@+id/goToEditButton"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_pl"
+        app:shapeAppearanceOverlay="@style/roundedButton"/>
+    <Button
+        android:id="@+id/goToInfoButton"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:text="@string/info_pl"
+        app:shapeAppearanceOverlay="@style/roundedButton"/>
+
+    <Button
+        android:id="@+id/goToChangeButton"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:text="@string/change_pl"
+        app:shapeAppearanceOverlay="@style/roundedButton"/>
+
+</LinearLayout>

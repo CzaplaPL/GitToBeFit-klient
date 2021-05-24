@@ -8,15 +8,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import pl.gittobefit.R;
 import pl.gittobefit.databinding.FragmentSummaryFormBinding;
-import pl.gittobefit.workoutforms.adapters.BodyPartsAdapter;
 import pl.gittobefit.workoutforms.adapters.CheckedEquipmentAdapter;
 import pl.gittobefit.workoutforms.adapters.ChosenBodyPartsAdapter;
+import pl.gittobefit.workoutforms.viewmodel.GenerateTrainingViewModelFactory;
 import pl.gittobefit.workoutforms.viewmodel.GenerateTraningViewModel;
 
 /**
@@ -44,12 +43,12 @@ public class SummaryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
-        model= new ViewModelProvider(requireActivity()).get(GenerateTraningViewModel.class);
+        model= new ViewModelProvider(requireActivity(), new GenerateTrainingViewModelFactory(this.getContext())).get(GenerateTraningViewModel.class);
         bodyPartsAdapter = new ChosenBodyPartsAdapter(model.getBodyPartsChecked());
         binding.bodyPartsList.setAdapter(bodyPartsAdapter);
         binding.bodyPartsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        equipmentAdapter = new CheckedEquipmentAdapter(model.getCheckedEqiupment());
+        equipmentAdapter = new CheckedEquipmentAdapter(model.getCheckedEquipment());
         binding.eqiupmentsList.setAdapter(equipmentAdapter);
         binding.eqiupmentsList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
@@ -85,7 +84,7 @@ public class SummaryFragment extends Fragment {
             String[] time = getResources().getStringArray(R.array.fintess_duration);
             binding.time.setText(getString(R.string.chosenTime) + time[position] );
         });
-        model.getScheduleSpinnerChose().observe(getViewLifecycleOwner(), position ->
+        model.getScheduleSpinnerChosen().observe(getViewLifecycleOwner(), position ->
         {
             String[] schedule = getResources().getStringArray(R.array.fbw_sheduletype);
             binding.scheule.setText(getString(R.string.chosenSchedule) + schedule[position] );

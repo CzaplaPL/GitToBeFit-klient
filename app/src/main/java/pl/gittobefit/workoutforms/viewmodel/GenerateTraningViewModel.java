@@ -15,19 +15,19 @@ import pl.gittobefit.workoutforms.adapters.EquipmentAdapter;
 import pl.gittobefit.workoutforms.adapters.EquipmentList;
 import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
 import pl.gittobefit.workoutforms.object.BodyParts;
-import pl.gittobefit.workoutforms.object.Equipment;
+import pl.gittobefit.workoutforms.object.EquipmentItem;
 import pl.gittobefit.workoutforms.object.EquipmentForm;
-import pl.gittobefit.workoutforms.object.EquipmentType;
-import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
+import pl.gittobefit.workoutforms.object.EquipmentTypeItem;
+import pl.gittobefit.database.repository.WorkoutFormsRepository;
 
 public class GenerateTraningViewModel extends ViewModel
 {
-    private WorkoutFormsRepository repository =new WorkoutFormsRepository(this) ;
+    private WorkoutFormsRepository repository  ;
     private EquipmentList equipmentList=new EquipmentList();
     private int noEquipmentid = -1;
     private boolean noEquipmentcheched = true;
     private ArrayList<EquipmentForm> listData = new ArrayList<>();
-    private ArrayList<Equipment> checkedEqiupment = new ArrayList<>();
+    private ArrayList<EquipmentItem> checkedEquipment = new ArrayList<>();
     private  ArrayList<BodyParts> bodyPartsToChoose = new ArrayList<>();
     private  ArrayList<BodyParts> bodyPartsChecked = new ArrayList<>();
     private MutableLiveData<Integer> typeSpinnerChose =new  MutableLiveData<>();
@@ -35,20 +35,20 @@ public class GenerateTraningViewModel extends ViewModel
     private MutableLiveData<Integer> frequencySpinnerChose =new  MutableLiveData<>();
     private MutableLiveData<Integer> timeCardioSpinnerChose =new  MutableLiveData<>();
     private MutableLiveData<Integer> timeFitnesSpinnerChose =new  MutableLiveData<>();
-    private MutableLiveData<Integer> scheduleSpinnerChose =new  MutableLiveData<>();
-   public MutableLiveData<Integer> getScheduleSpinnerChose()
-    {
-        return scheduleSpinnerChose;
-    }
+    private MutableLiveData<Integer> scheduleSpinnerChosen =new  MutableLiveData<>();
+    private MutableLiveData<Boolean> equiomentIsChecked =new  MutableLiveData<>();
+    private MutableLiveData<Boolean> equipmentTypeIsLoaded =new  MutableLiveData<>();
+    private EquipmentAdapter.EquipmentListener equipmentListener;
 
-    public GenerateTraningViewModel()
+    public GenerateTraningViewModel(Context context)
     {
         setTypeSpinnerChose(0);
         setWaySpinnerChose(0);
         setFrequencySpinnerChose(0);
         setTimeCardioSpinnerChose(0);
         setTimeFitnesSpinnerChose(0);
-        setScheduleSpinnerChose(0);
+        setScheduleSpinnerChosen(0);
+        this.repository=WorkoutFormsRepository.getInstance(context);
     }
 
     public RecyclerView.Adapter getListAdapter()
@@ -56,23 +56,23 @@ public class GenerateTraningViewModel extends ViewModel
         return equipmentList.getAdapter();
     }
 
-    public void initList(ArrayList<EquipmentType> equipmentTypes , EquipmentAdapter.EquipmentListener equipmentListener)
+    public void initList(ArrayList<EquipmentTypeItem> equipmentTypes )
     {
-        this.listData = new ArrayList<>(equipmentTypes);
-        repository.setEqiupmentTypes(equipmentTypes);
+        listData.clear();
+        listData.addAll(equipmentTypes);
         equipmentList.setData(listData);
         equipmentList.init(equipmentListener);
+        equipmentTypeIsLoaded.setValue(true);
+        equipmentList.getAdapter().notifyDataSetChanged();
     }
 
     public void loadEqiupmentTypes(EquipmentFragment equipmentFragment)
     {
-        repository.loadEquipmentTypes(equipmentFragment);
+        this.repository.setObserver(this);
+        this.equipmentListener =equipmentFragment;
+        repository.loadEquipmentTypes();
     }
 
-    /**
-     * obsługiwanie klikniecia w liste
-     * @param position pozycja w której wystąpiło wciśnięcie
-     */
     public void equipmentListClick(int position)
     {
         if(position == equipmentList.getLoadingIndex())
@@ -84,12 +84,16 @@ public class GenerateTraningViewModel extends ViewModel
             if(listData.get(position).isIschecked())
             {
                 listData.get(position).setIschecked(false);
-                equipmentList.getAdapter().notifyItemChanged(position);
+                equipmentList.getAdapter().notifyDataSetChanged();
             }else
             {
                 listData.get(position).setIschecked(true);
-                equipmentList.getAdapter().notifyItemChanged(position);
+                equipmentList.getAdapter().notifyDataSetChanged();
             }
+            ArrayList<Integer> idCheckedEqiupment = getIdCheckedEqiupment();
+            int size = getIdCheckedEqiupment().size();
+            if(noEquipmentcheched) equiomentIsChecked.setValue(size > 1);
+            else equiomentIsChecked.setValue(size > 0);
         }else
         {//klikanie w kategorie nie rozwinieta
             position = equipmentList.clickInTypes(position);
@@ -98,14 +102,15 @@ public class GenerateTraningViewModel extends ViewModel
         }
     }
 
-
-    public void loadEquipment(int position, ArrayList<Equipment> body)
+    public void loadEquipment(int position, ArrayList<EquipmentItem> body)
     {
         equipmentList.showEquipment(position,body);
     }
 
-
-
+    public MutableLiveData<Integer> getScheduleSpinnerChosen()
+    {
+        return scheduleSpinnerChosen;
+    }
 
     public void setBodyPartsSplit(Context context)
     {
@@ -119,6 +124,7 @@ public class GenerateTraningViewModel extends ViewModel
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.triceps),"TRICEPS"));
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.shoulders ),"SHOULDERS"));
     }
+
     public void setBodyPartsFitnes(Context context)
     {
         bodyPartsToChoose.clear();
@@ -129,6 +135,7 @@ public class GenerateTraningViewModel extends ViewModel
         bodyPartsToChoose.add(new BodyParts(context.getString(R.string.legs),"LEGS"));
 
     }
+
     public ArrayList<BodyParts> getBodyParts()
     {
         return bodyPartsToChoose;
@@ -184,9 +191,9 @@ public class GenerateTraningViewModel extends ViewModel
         timeFitnesSpinnerChose.setValue(position);
     }
 
-    public void setScheduleSpinnerChose(int position)
+    public void setScheduleSpinnerChosen(int position)
     {
-scheduleSpinnerChose.setValue(position);
+scheduleSpinnerChosen.setValue(position);
     }
 
     public void updateCheckedBodyParts()
@@ -224,6 +231,7 @@ scheduleSpinnerChose.setValue(position);
     {
         this.noEquipmentcheched = noEquipmentcheched;
     }
+
     public ArrayList<Integer> getIdCheckedEqiupment()
     {
         ArrayList<Integer> checked = repository.getIdCheckEqiupment();
@@ -231,21 +239,21 @@ scheduleSpinnerChose.setValue(position);
         {
             checked.add(getNoEquipmentid());
         }
-        if(checked.size()<1)
-            checked.add(getNoEquipmentid());
         return  checked;
     }
-    public ArrayList<Equipment> getCheckedEqiupment()
+
+    public ArrayList<EquipmentItem> getCheckedEquipment()
     {
-        return  checkedEqiupment;
+        return checkedEquipment;
     }
 
     public void updateCheckedEqiupment()
     {
-        ArrayList<Equipment> equipmentInRepo = repository.getCheckEqiupment();
-        checkedEqiupment.clear();
-        checkedEqiupment.addAll(equipmentInRepo);
+        ArrayList<EquipmentItem> equipmentInRepo = repository.getCheckEqiupment();
+        checkedEquipment.clear();
+        checkedEquipment.addAll(equipmentInRepo);
     }
+
     public WorkoutForm getForm(Resources resources)
     {
         String[] Type = resources.getStringArray(R.array.trening_type_name);
@@ -262,7 +270,7 @@ scheduleSpinnerChose.setValue(position);
                         Type[getTypeSpinnerChose().getValue()],
                         getBodyPartsIdChecked(),
                         Integer.parseInt(daysCount[getFrequencySpinnerChose().getValue()]),
-                        scheduleType[getScheduleSpinnerChose().getValue()],
+                        scheduleType[getScheduleSpinnerChosen().getValue()],
                         0);
 
                 case 1:
@@ -272,7 +280,7 @@ scheduleSpinnerChose.setValue(position);
                         Type[getTypeSpinnerChose().getValue()],
                         new ArrayList<String>(),
                         Integer.parseInt(daysCount[getFrequencySpinnerChose().getValue()]),
-                        scheduleType[getScheduleSpinnerChose().getValue()],
+                        scheduleType[getScheduleSpinnerChosen().getValue()],
                         0);
             case 2:
                 duration = new int[] {9,12,15,18,21,24,27,30};
@@ -303,6 +311,16 @@ scheduleSpinnerChose.setValue(position);
                 0);
     }
 
+    public MutableLiveData<Boolean> getEquiomentIsChecked()
+    {
+        return equiomentIsChecked;
+    }
+
+    public void setEquiomentIsChecked(Boolean equiomentIsChecked)
+    {
+        this.equiomentIsChecked.setValue( equiomentIsChecked);
+    }
+
     private ArrayList<String> getBodyPartsIdChecked()
     {
         ArrayList<String> bodyparts = new ArrayList<>();
@@ -311,5 +329,10 @@ scheduleSpinnerChose.setValue(position);
             bodyparts.add(bodyPartsChecked.get(i).getBodyTitle());
         }
         return bodyparts;
+    }
+
+    public MutableLiveData<Boolean> EquipmentTypeIsLoaded()
+    {
+        return equipmentTypeIsLoaded;
     }
 }

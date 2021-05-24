@@ -15,13 +15,14 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import pl.gittobefit.R;
-import pl.gittobefit.workoutforms.object.Equipment;
+import pl.gittobefit.network.ConnectionToServer;
+import pl.gittobefit.workoutforms.object.EquipmentItem;
 
 public class CheckedEquipmentAdapter extends RecyclerView.Adapter<CheckedEquipmentAdapter.ViewHolder> {
 
-private final ArrayList<Equipment> localDataSet;
+private final ArrayList<EquipmentItem> localDataSet;
 
-    public CheckedEquipmentAdapter(ArrayList<Equipment> dataSet)
+    public CheckedEquipmentAdapter(ArrayList<EquipmentItem> dataSet)
     {
         localDataSet = dataSet;
     }
@@ -42,7 +43,7 @@ private final ArrayList<Equipment> localDataSet;
             viewHolder.getNameView().setText(localDataSet.get(position).getName());
             viewHolder.getCheckBox().setVisibility(View.GONE);
             Glide.with(viewHolder.getContext())
-                        .load("http://c4szkolenia.pl/"+localDataSet.get(position).getUrl())
+                        .load(ConnectionToServer.PREFIX_PHOTO_URL+localDataSet.get(position).getUrl())
                         .placeholder(R.drawable.ic_baseline_downloading_24)
                         .into(viewHolder.getImage());
     }

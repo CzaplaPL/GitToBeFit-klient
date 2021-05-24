@@ -34,14 +34,14 @@ import pl.gittobefit.user.dialog.DeleteAccountDialog;
 /***
  * author:Dominik
  */
-public class MainActivity extends AppCompatActivity implements ChangeMailDialog.ChangeMailDialogInterface, DeleteAccountDialog.DeleteAccountDialogInterface,IShowSnackbar, HomeFragment.HideKeyboardInterface
+public class MainActivity extends AppCompatActivity implements ChangeMailDialog.ChangeMailDialogInterface, DeleteAccountDialog.DeleteAccountDialogInterface, IShowSnackbar, HomeFragment.HideKeyboardInterface
 {
     private DrawerLayout drawerLayout;
     NavigationView navigationView;
+
     //////
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -49,14 +49,21 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
         setSupportActionBar(myToolbar);
         myToolbar.setNavigationOnClickListener(v -> openDrawer(drawerLayout));
         AppBarConfiguration mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.setting, R.id.aboutUs, R.id.homeFragment, R.id.displayReceivedTraining, R.id.listOfTrainings,R.id.generateTrainingForm)
-                .setOpenableLayout(drawerLayout)
-                .build();
+                R.id.setting,
+                R.id.aboutUs,
+                R.id.homeFragment,
+                R.id.regulations,
+                R.id.displayReceivedTraining,
+                R.id.listOfTrainings,
+                R.id.generateTrainingForm,
+                R.id.exerciseDetails,
+                R.id.change_exercise
+        ).setOpenableLayout(drawerLayout).build();
 
         navigationView = findViewById(R.id.nav_view);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-       NavigationUI.setupWithNavController(navigationView, navController);
+        NavigationUI.setupWithNavController(navigationView, navController);
 
         //chowanie actionBar
 
@@ -66,36 +73,30 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
     }
 
     @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState)
-    {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
     @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState)
-    {
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        Fragment fragment =  navHostFragment.getChildFragmentManager().getFragments().get(0);
+        Fragment fragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
         fragment.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void openDrawer(DrawerLayout drawerLayout)
-    {
+    public void openDrawer(DrawerLayout drawerLayout) {
         TextView emailText = navigationView.getHeaderView(0).findViewById(R.id.user_email_display);
-        if(User.getInstance().getLoggedBy()== User.WayOfLogin.NO_LOGIN)
-        {
-            navigationView.getMenu().getItem(3).setTitle(getString(R.string.login));
+        if (User.getInstance().getLoggedBy() == User.WayOfLogin.NO_LOGIN) {
+            navigationView.getMenu().getItem(4).setTitle(getString(R.string.login));
             emailText.setText("");
-        }else
-        {
-            navigationView.getMenu().getItem(3).setTitle(getString(R.string.logout));
+        } else {
+            navigationView.getMenu().getItem(4).setTitle(getString(R.string.logout));
             emailText.setText(User.getInstance().getEmail());
         }
         navigationView.getMenu().getItem(1).setEnabled(User.getInstance().getLoggedBy() == User.WayOfLogin.OUR_SERVER);
@@ -103,32 +104,25 @@ public class MainActivity extends AppCompatActivity implements ChangeMailDialog.
     }
 
     @Override
-    public void onChangeMail(Boolean sukces,String message )
-    {
-        if(sukces)
-        {
+    public void onChangeMail(Boolean sukces, String message) {
+        if (sukces) {
             Navigation.findNavController(findViewById(R.id.nav_host_fragment)).navigate(R.id.action_global_logout);
         }
-        Snackbar.make(findViewById(R.id.nav_host_fragment), message, Snackbar.LENGTH_SHORT)
-                .show();
+        Snackbar.make(findViewById(R.id.nav_host_fragment), message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showSnackbar(String message)
-    {
-        Snackbar.make(findViewById(R.id.nav_host_fragment), message, Snackbar.LENGTH_SHORT)
-                .show();
+    public void showSnackbar(String message) {
+        Snackbar.make(findViewById(R.id.nav_host_fragment), message, Snackbar.LENGTH_SHORT).show();
     }
 
 
     @Override
     public void onAccountDelete(Boolean success, String message) {
-        if(success)
-        {
+        if (success) {
             Navigation.findNavController(findViewById(R.id.nav_host_fragment)).navigate(R.id.action_global_logout);
         }
-        Snackbar.make(findViewById(R.id.nav_host_fragment), message, Snackbar.LENGTH_SHORT)
-                .show();
+        Snackbar.make(findViewById(R.id.nav_host_fragment), message, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

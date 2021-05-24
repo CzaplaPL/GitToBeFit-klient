@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detailsRegulationsLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/first_paragraph"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="10dp"
+                android:text="@string/first_paragraph"
+                android:textAlignment="center"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/first_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/first_description"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/second_paragraph"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:paddingBottom="10dp"
+                android:text="@string/second_paragraph"
+                android:textAlignment="center"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/second_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/second_description"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/third_paragraph"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:paddingBottom="10dp"
+                android:text="@string/third_paragraph"
+                android:textAlignment="center"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/third_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/third_description"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/fourth_paragraph"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:paddingBottom="10dp"
+                android:text="@string/fourth_paragraph"
+                android:textAlignment="center"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fourth_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/fourth_description"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/fiveth_paragraph"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:paddingBottom="10dp"
+                android:text="@string/fiveth_paragraph"
+                android:textAlignment="center"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fiveth_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/fiveth_description"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/sixth_paragraph"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:paddingBottom="10dp"
+                android:text="@string/sixth_paragraph"
+                android:textAlignment="center"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sixth_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="15dp"
+                android:text="@string/sixth_description"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

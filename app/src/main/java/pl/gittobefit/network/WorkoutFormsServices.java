@@ -7,21 +7,29 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
 import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.LogUtils;
 import pl.gittobefit.R;
-import pl.gittobefit.database.repository.TrainingRepository;
-import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
-import pl.gittobefit.database.entity.training.WorkoutForm;
-import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
-import pl.gittobefit.workoutforms.object.Equipment;
-import pl.gittobefit.workoutforms.object.EquipmentType;
 import pl.gittobefit.WorkoutDisplay.objects.Training;
-import pl.gittobefit.workoutforms.repository.WorkoutFormsRepository;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
+import pl.gittobefit.database.entity.equipment.Checksum;
+import pl.gittobefit.database.entity.training.SavedTraining;
+import pl.gittobefit.database.entity.training.WorkoutForm;
+import pl.gittobefit.database.repository.TrainingRepository;
+import pl.gittobefit.generate_training.EquipmentCountException;
+import pl.gittobefit.generate_training.NotValidTrainingException;
+import pl.gittobefit.generate_training.TrainingPlanFacade;
+import pl.gittobefit.network.interfaces.IWorkoutFormsServices;
+import pl.gittobefit.user.User;
+import pl.gittobefit.workoutforms.fragments.forms.EquipmentFragment;
+import pl.gittobefit.workoutforms.object.EquipmentItem;
+import pl.gittobefit.workoutforms.object.EquipmentTypeItem;
+import pl.gittobefit.database.repository.WorkoutFormsRepository;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,14 +43,44 @@ public class WorkoutFormsServices
     {
         workout = adapter.create(IWorkoutFormsServices.class);
     }
-    public void getEquipmentType(EquipmentFragment fragment)
+
+    public void checkChecksum(WorkoutFormsRepository repository)
     {
-        Log.w("Network", "WorkoutForms.getEquipmentType");
-        Call<ArrayList<EquipmentType>> call = workout.getEquipmentType();
-        call.enqueue(new Callback<ArrayList<EquipmentType>>()
+        Log.w("Network", "WorkoutForms.checkChecksum");
+        Call<ArrayList<Checksum>> call = workout.getChecksum();
+        call.enqueue(new Callback<ArrayList<Checksum>>()
         {
             @Override
-            public void onResponse(Call<ArrayList<EquipmentType>> call, Response<ArrayList<EquipmentType>> response)
+            public void onResponse(Call<ArrayList<Checksum>> call, Response<ArrayList<Checksum>> response)
+            {
+                if(response.code() == 200)
+                {
+                    repository.setChecksum(response.body());
+                }else
+                {
+                    Log.e("Network", "kod błędu checkChecksum " + String.valueOf(response.code()));
+                    LogUtils.logCause(response.headers().get("Cause"));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Checksum>> call, Throwable t)
+            {
+                Log.e("Network ", "WorkoutForms.checkChecksum error = " + t.toString());
+            }
+        });
+    }
+
+
+    public void getEquipmentType(WorkoutFormsRepository repository)
+    {
+        Log.w("Network", "WorkoutForms.getEquipmentType");
+        Call<ArrayList<EquipmentTypeItem>> call = workout.getEquipmentType();
+        call.enqueue(new Callback<ArrayList<EquipmentTypeItem>>()
+        {
+            @Override
+            public void onResponse(Call<ArrayList<EquipmentTypeItem>> call, Response<ArrayList<EquipmentTypeItem>> response)
             {
                 if(response.isSuccessful())
                 {
@@ -52,14 +90,13 @@ public class WorkoutFormsServices
                         @Override
                         public void onResponse(Call<Void> call2, Response<Void> response2)
                         {
-                            if(response2.code()==200)
+                            if(response2.code() == 200)
                             {
-                                fragment.createList(response.body(),Integer.parseInt(response2.headers().get("id")));
+                                repository.downloadEquipmentType(response.body(), Integer.parseInt(response2.headers().get("id")));
                             }else
                             {
-                                Log.e("Network","kod błędu getNoEquipment " + String.valueOf(response2.code()));
+                                Log.e("Network", "kod błędu getNoEquipment " + String.valueOf(response2.code()));
                                 LogUtils.logCause(response.headers().get("Cause"));
-                                fragment.createList(response.body(),Integer.parseInt("20"));
                             }
                         }
 
@@ -72,12 +109,13 @@ public class WorkoutFormsServices
 
                 }else
                 {
-                    Log.e("Network ", "WorkoutForms.getEquipmentType error " +String.valueOf(response.code()));
+                    Log.e("Network ", "WorkoutForms.getEquipmentType error " + String.valueOf(response.code()));
                     LogUtils.logCause(response.headers().get("Cause"));
                 }
             }
+
             @Override
-            public void onFailure(Call<ArrayList<EquipmentType>> call, Throwable t)
+            public void onFailure(Call<ArrayList<EquipmentTypeItem>> call, Throwable t)
             {
                 Log.e("Network ", "WorkoutForms.getEquipmentType error = " + t.toString());
             }
@@ -85,27 +123,29 @@ public class WorkoutFormsServices
 
         });
     }
+
     public void getEquipment(int typeid, int position, WorkoutFormsRepository repository)
     {
         Log.w("Network", "WorkoutForms.getEquipment");
-        ArrayList<Equipment> data =new ArrayList<Equipment>();
-        Call<ArrayList<Equipment>> call = workout.getEquipment(typeid);
-        call.enqueue(new Callback<ArrayList<Equipment>>()
+        ArrayList<EquipmentItem> data = new ArrayList<EquipmentItem>();
+        Call<ArrayList<EquipmentItem>> call = workout.getEquipment(typeid);
+        call.enqueue(new Callback<ArrayList<EquipmentItem>>()
         {
             @Override
-            public void onResponse(Call<ArrayList<Equipment>> call, Response<ArrayList<Equipment>> response)
+            public void onResponse(Call<ArrayList<EquipmentItem>> call, Response<ArrayList<EquipmentItem>> response)
             {
                 if(response.isSuccessful())
                 {
-                    repository.addEquipment(typeid,response.body(),position);
+                    repository.addEquipment(typeid, response.body(), position);
                 }else
                 {
-                    Log.e("Network ", "WorkoutForms.getEquipmentType error " +String.valueOf(response.code()));
+                    Log.e("Network ", "WorkoutForms.getEquipmentType error " + String.valueOf(response.code()));
                     LogUtils.logCause(response.headers().get("Cause"));
                 }
             }
+
             @Override
-            public void onFailure(Call<ArrayList<Equipment>> call, Throwable t)
+            public void onFailure(Call<ArrayList<EquipmentItem>> call, Throwable t)
             {
                 Log.e("Network ", "WorkoutForms.getEquipmentType error = " + t.toString());
             }
@@ -116,42 +156,192 @@ public class WorkoutFormsServices
 
     public void getTrainingPlan(Fragment fragment, WorkoutForm form)
     {
-        Log.w("form",String.format("%s %s %s %s %s %s %s %s %s %s %s %s","equipmentIDs",form.getEquipmentIDs().toString()," trainingType ",form.getTrainingType()," bodyParts ",form.getBodyParts()," daysCount",form.getDaysCount()," scheduleType ",form.getScheduleType()," duration ",form.getDuration()));
+        Log.w("form", String.format("%s %s %s %s %s %s %s %s %s %s %s %s", "equipmentIDs", form.getEquipmentIDs().toString(), " trainingType ", form.getTrainingType(), " bodyParts ", form.getBodyParts(), " daysCount", form.getDaysCount(), " scheduleType ", form.getScheduleType(), " duration ", form.getDuration()));
         IShowSnackbar activity = (IShowSnackbar) fragment.getActivity();
         activity.showSnackbar(fragment.getString(R.string.generateTraining));
-        Call<Training> call = workout.getTrainingPlan(form);
-        call.enqueue(new Callback<Training>()
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        if(ConnectionToServer.isNetwork(fragment.getContext()))
         {
-            @Override
-            public void onResponse(Call<Training> call, Response<Training> response) {
-                if(response.isSuccessful())
+            Call<Training> call;
+            if(!User.getInstance().getLoggedBy().equals(User.WayOfLogin.NO_LOGIN))
+            {
+                call = workout.getTrainingPlanForLoggedInUser(form, User.getInstance().getToken(), formatter.format(date));
+            }else
+            {
+                call = workout.getTrainingPlan(form, formatter.format(date));
+            }
+
+            call.enqueue(new Callback<Training>()
+            {
+                @Override
+                public void onResponse(Call<Training> call, Response<Training> response)
                 {
-                  createTraining(response.body(), fragment);
-                  Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
-                    activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
-                }
-                else
-                {
+                    if(response.isSuccessful())
+                    {
+                        createTraining(response.body(), fragment);
+                        Navigation.findNavController(fragment.getView())
+                                .navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+                        activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
+                    }else
+                    {
+                        if (response.code() == 409)
+                        {
+                            switch (response.headers().get("Cause"))
+                            {
+                                case "Body parts cannot be empty":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.noBodyParts));
+                                    break;
+                            }
+                        }
+                        else if (response.code() == 417)
+                        {
+                            if (response.headers().get("Cause").startsWith("not enough exercises for"))
+                            {
+                                String [] tokens = response.headers().get("Cause").split("\\:");
+
+                            switch (tokens[1].trim())
+                            {
+                                case "[CALVES]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " łydek !");
+                                    break;
+                                case "[SIXPACK]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " brzucha !");
+                                    break;
+                                case "[CHEST]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " klatki piersiowej !");
+                                    break;
+                                case "[BICEPS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " bicepsa !");
+                                    break;
+                                case "[SHOULDERS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " ramion !");
+                                    break;
+                                case "[THIGHS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " ud !");
+                                    break;
+                                case "[TRICEPS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " tricepsa !");
+                                    break;
+                                case "[CHEST, THIGHS, CALVES]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " klatki piersiowej, ud i łydek !");
+                                    break;
+                                case "[BICEPS, SHOULDERS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " klatki piersiowej i ramion !");
+                                    break;
+                                case "[SIXPACK, CALVES, BICEPS, TRICEPS, SHOULDERS, CHEST, BACK, THIGHS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " wszystich partii ciała !");
+                                    break;
+                                case "[CALVES, BICEPS, SHOULDERS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " łydek,  bicepsa i ramion !");
+                                    break;
+                                case "[SIXPACK, BICEPS]":
+                                    activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " brzucha i bicepsa !");
+                                    break;
+                            }
+                        }
+                        else if (response.code() == 403)
+                        {
+                            activity.showSnackbar(fragment.getResources().getString(R.string.authorizationError));
+                            Navigation.findNavController(fragment.getView())
+                                    .navigate(R.id.action_generateTrainingForm_to_login);
+                        }
+
+                        switch (response.headers().get("Cause"))
+                        {
+                            case "wrong exercises count":
+                                activity.showSnackbar(fragment.getResources().getString(R.string.wrongCombination));
+                                break;
+                            case "not enough days for set body parts":
+                                activity.showSnackbar(fragment.getResources().getString(R.string.needMoreBodyParts));
+                                break;
+                        }
+                    }
                     Log.e("Network ", "WorkoutForms.getTrainingType error " + response.code());
                     LogUtils.logCause(response.headers().get("Cause"));
                 }
             }
 
-            @Override
-            public void onFailure(Call<Training> call, Throwable t)
-            {
-                Log.e("Network ", "WorkoutForms.getTrainingType error = " + t.toString());
-            }
-        });
+                @Override
+                public void onFailure(Call<Training> call, Throwable t)
+                {
+                    Log.e("Network ", "WorkoutForms.getTrainingType error = " + t.toString());
+                }
+            });
+        }else
+        {
+            generateOfflineTraining(form, fragment);
+        }
+
     }
 
-    private void createTraining(Training body, Fragment fragment) {
-        Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String text = formatter.format(date);
-        body.setGenerationDate(text);
-        body.setTrainingName("Default training name");
-        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity()).get(InitiationTrainingDisplayLayoutViewModel.class);
+    private void generateOfflineTraining(WorkoutForm form, Fragment fragment)
+    {
+        IShowSnackbar activity = (IShowSnackbar) fragment.getActivity();
+        try
+        {
+
+            SavedTraining training = TrainingPlanFacade.createTrainingPlan(form,fragment.getContext());
+            InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity())
+                    .get(InitiationTrainingDisplayLayoutViewModel.class);
+            model.addTrainingWithForm(TrainingRepository.getInstance(fragment.getContext()).addOfflineTraining(training,form));
+            model.setNumberOfClickedTraining(model.getTrainingWithForms().size() - 1);
+            Navigation.findNavController(fragment.getView()).navigate(R.id.action_generateTrainingForm_to_displayReceivedTraining);
+            activity.showSnackbar(fragment.getString(R.string.generateTrainingSukccess));
+        }catch(NotValidTrainingException e)
+        {
+            switch(e.getMessage())
+            {
+                case "not enough exercises for" :
+                {
+                    String [] tokens = e.getMessage().split(":");
+
+                    switch (tokens[1].trim())
+                    {
+                        case "[CALVES]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " łydek !");
+                            break;
+                        case "[SIXPACK]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " brzucha !");
+                            break;
+                        case "[CHEST]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " klatki piersiowej !");
+                            break;
+                        case "[BICEPS]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " bicepsa !");
+                            break;
+                        case "[SHOULDERS]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " ramion !");
+                            break;
+                        case "[THIGHS]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " ud !");
+                            break;
+                        case "[TRICEPS]":
+                            activity.showSnackbar(fragment.getResources().getString(R.string.notEnoughExercise) + " tricepsa !");
+                            break;
+                    }
+                }
+                case "not enough days for set body parts":
+                    activity.showSnackbar(fragment.getResources().getString(R.string.needMoreBodyParts));
+                    break;
+                case "wrong exercises count":
+                    activity.showSnackbar(fragment.getResources().getString(R.string.wrongCombination));
+                    break;
+                default:
+                    activity.showSnackbar(fragment.getResources().getString(R.string.cantGenerate));
+                    break;
+            }
+            activity.showSnackbar(fragment.getResources().getString(R.string.needMoreBodyParts));
+        }catch(IllegalArgumentException e)
+        {
+            activity.showSnackbar(fragment.getResources().getString(R.string.cantGenerate));
+        }
+    }
+
+    private void createTraining(Training body, Fragment fragment)
+    {
+        InitiationTrainingDisplayLayoutViewModel model = new ViewModelProvider(fragment.requireActivity())
+                .get(InitiationTrainingDisplayLayoutViewModel.class);
         model.addTrainingWithForm(TrainingRepository.getInstance(fragment.getContext()).add(body));
         model.setNumberOfClickedTraining(model.getTrainingWithForms().size() - 1);
     }
