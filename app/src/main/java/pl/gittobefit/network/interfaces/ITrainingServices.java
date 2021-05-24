@@ -6,6 +6,7 @@ import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.entity.training.WorkoutForm;
 import pl.gittobefit.network.object.RespondUser;
+import pl.gittobefit.workoutforms.object.exercise.ExerciseItem;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -33,4 +34,7 @@ public interface ITrainingServices
 
     @POST("/replace/{id}")
     Call<ArrayList<Exercise>> changeExercise(@Path("id") String id, @Body WorkoutForm workoutForm);
+
+    @POST("/exercise")
+    Call<ArrayList<ExerciseItem>> exercise(@Body ArrayList<Long> id);
 }

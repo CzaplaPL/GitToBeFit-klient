@@ -36,6 +36,7 @@
     <string name="notEnoughExercise">Genewowanie niepomyślne, niewystarczająca ilość ćwiczeń dla </string>
     <string name="authorizationError">Bład autoryzacji, proszę o ponowne zalogowanie. </string>
 
+    <string name="cantGenerate">Nie udało się wygenerować treningu </string>
 
     <string name="incorrectpassword">hasła różnią się </string>
     <string name="serwerError">Błąd serwera</string>
@@ -78,8 +79,7 @@
     <string name="logout">Wyloguj</string>
     <string name="hints">Wskazówki do wykonywanego ćwiczenia</string>
     <string name="exercise_des">Opis wykonywanego ćwiczenia</string>
-    <string name="position_des">Opis pozycji wyjściowej do wykonaania ćwiczenia</string>
-
+    <string name="position_des">Opis pozycji wyjściowej do wykonania ćwiczenia</string>
     <string name="start_training">Start</string>
     <string name="type_of_training">Rodzaj treningu:</string>
     <string name="form_of_training">Forma treningu:</string>

@@ -2,6 +2,7 @@ package pl.gittobefit.WorkoutDisplay.objects;
 
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
+import pl.gittobefit.workoutforms.object.exercise.ExerciseItem;
 
 public class ExerciseExecution
 {
@@ -9,7 +10,7 @@ public class ExerciseExecution
     private int time;
     private int series;
     private int count;
-    private Exercise exercise = new Exercise();
+    private ExerciseItem exercise = new ExerciseItem();
 
     public ExerciseExecution(ExerciseExecutionPOJODB exerciseExecution, Exercise exercise)
     {
@@ -17,7 +18,7 @@ public class ExerciseExecution
         this.time = exerciseExecution.getTime();
         this.series = exerciseExecution.getSeries();
         this.count = exerciseExecution.getCount();
-        this.exercise = exercise;
+        this.exercise = new ExerciseItem(exercise);
     }
 
     public int getId()
@@ -40,7 +41,7 @@ public class ExerciseExecution
         return count;
     }
 
-    public Exercise getExercise()
+    public ExerciseItem getExercise()
     {
         return exercise;
     }
@@ -61,7 +62,7 @@ public class ExerciseExecution
         this.count = count;
     }
 
-    public void setExercise(Exercise exercise) {
+    public void setExercise(ExerciseItem exercise) {
         this.exercise = exercise;
     }
 }

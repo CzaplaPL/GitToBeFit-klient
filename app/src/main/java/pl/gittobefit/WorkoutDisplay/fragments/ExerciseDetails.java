@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -15,9 +16,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+
 import pl.gittobefit.R;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.repository.TrainingRepository;
+import pl.gittobefit.network.ConnectionToServer;
 
 public class ExerciseDetails extends Fragment
 {
@@ -64,20 +68,32 @@ public class ExerciseDetails extends Fragment
         hints.setText(exercise.getHints());
 
         String PREFIX_VIDEO_URL = "https://static.fabrykasily.pl/atlas/";
-        Uri uri = Uri.parse(PREFIX_VIDEO_URL + exercise.getVideoUrl());
         VideoView videoView = getView().findViewById(R.id.exerciseDisplay);
-        videoView.setVideoURI(uri);
-        videoView.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
+        if( exercise.getVideoUrl() != null)
         {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                videoView.start();
-                videoView.setAlpha(1);
-                onLoading.setVisibility(View.GONE);
-                mp.setLooping(true);
-            }
-        });
+            Uri uri = Uri.parse(PREFIX_VIDEO_URL + exercise.getVideoUrl());
+
+            videoView.setVideoURI(uri);
+            videoView.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
+            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
+            {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    videoView.start();
+                    videoView.setAlpha(1);
+                    onLoading.setVisibility(View.GONE);
+                    mp.setLooping(true);
+                }
+            });
+        }else
+        {
+            ImageView Placeholder = (ImageView) getView().findViewById(R.id.image_placeholder2);
+            onLoading.setVisibility(View.GONE);
+            videoView.setVisibility(View.INVISIBLE);
+            Placeholder.setVisibility(View.VISIBLE);
+            Glide.with(this).load(ConnectionToServer.PREFIX_PHOTO_URL + exercise.getPhotoUrl()).into(Placeholder);
+        }
+
 
     }
 

@@ -14,6 +14,7 @@ import pl.gittobefit.database.dao.IFormDao;
 import pl.gittobefit.database.dao.ITrainingDao;
 import pl.gittobefit.database.dao.IUserDao;
 import pl.gittobefit.database.data.EquipmentData;
+import pl.gittobefit.database.data.ExerciseData;
 import pl.gittobefit.database.entity.UserEntity;
 import pl.gittobefit.database.entity.equipment.Checksum;
 import pl.gittobefit.database.entity.equipment.Equipment;
@@ -21,12 +22,13 @@ import pl.gittobefit.database.entity.equipment.EquipmentType;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.entity.training.SavedTraining;
 import pl.gittobefit.database.entity.training.WorkoutForm;
+import pl.gittobefit.database.entity.training.relation.ExerciseToEquipment;
+import pl.gittobefit.database.entity.training.relation.TrainingTypesToExercise;
 
 /**
  * klasa bazy danych
  */
-
-@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SavedTraining.class, EquipmentType.class, Equipment.class, Checksum.class}, version = 125, exportSchema = false)
+@Database(entities = {UserEntity.class, WorkoutForm.class, Exercise.class, SavedTraining.class, EquipmentType.class, Equipment.class, ExerciseToEquipment.class, TrainingTypesToExercise.class, Checksum.class}, version = 12, exportSchema = false)
 @TypeConverters({TrainingConverter.class})
 public abstract class AppDataBase extends RoomDatabase
 {
@@ -46,8 +48,12 @@ public abstract class AppDataBase extends RoomDatabase
                             .allowMainThreadQueries()
                             .fallbackToDestructiveMigration()
                             .build();
-                    INSTANCE.equipmentDao().initEquipmentTypes(EquipmentData.equipmentTypes());
-                    INSTANCE.equipmentDao().initEquipments(EquipmentData.equipments());
+                    INSTANCE.equipmentDao().insertEquipmentTypes(EquipmentData.equipmentTypes());
+                    INSTANCE.equipmentDao().insertEquipments(EquipmentData.equipments());
+                    INSTANCE.exerciseDao().insertExercise(ExerciseData.exercise());
+                    INSTANCE.exerciseDao().insertExerciseEquipment(ExerciseData.exerciseToEquipment());
+                    INSTANCE.exerciseDao().insertExerciseTypes(ExerciseData.trainingTypesToExercise());
+
                 }
             }
         }

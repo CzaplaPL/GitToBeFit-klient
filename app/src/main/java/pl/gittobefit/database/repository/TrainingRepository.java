@@ -3,6 +3,7 @@ package pl.gittobefit.database.repository;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,9 +13,15 @@ import pl.gittobefit.WorkoutDisplay.objects.TrainingPlan;
 import pl.gittobefit.database.AppDataBase;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.entity.training.SavedTraining;
+import pl.gittobefit.database.entity.training.WorkoutForm;
+import pl.gittobefit.database.entity.training.relation.ExerciseToEquipment;
+import pl.gittobefit.database.entity.training.relation.TrainingTypesToExercise;
 import pl.gittobefit.database.entity.training.relation.TrainingWithForm;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
+import pl.gittobefit.network.WorkoutFormsServices;
 import pl.gittobefit.user.User;
+import pl.gittobefit.workoutforms.object.EquipmentItem;
+import pl.gittobefit.workoutforms.object.exercise.TrainingTypes;
 
 
 public class TrainingRepository
@@ -87,6 +94,18 @@ public class TrainingRepository
         return loadTraining;
     }
 
+    private ArrayList<TrainingWithForm> getOfflineTrainingsWithoutUser(String idServer)
+    {
+        ArrayList<TrainingWithForm> loadTraining = new ArrayList<>(base.trainingDao().getAllTrainingWithoutUser(idServer));
+        for(TrainingWithForm training : loadTraining)
+        {
+            loadedTrainingWithForm.put((long) training.training.getId(), training);
+        }
+        return loadTraining;
+    }
+
+
+
     public ArrayList<TrainingWithForm> getAllTrainings()
     {
         ArrayList<TrainingWithForm> loadTraining = new ArrayList<>(base.trainingDao().getAllTrainings());
@@ -107,6 +126,7 @@ public class TrainingRepository
         }
         return trainingsToSend;
     }
+
 
     public ArrayList<Training> getTrainingToSendAfterChangesById(int id)
     {
@@ -145,9 +165,23 @@ public class TrainingRepository
         for(int i = 0; i < planList.size(); i++)
         {
             TrainingPlan plan = planList.get(i);
-            for(int j = 0; j < plan.getExercisesExecutions().size(); j++)
+            for(ExerciseExecution exercisesExecution : plan.getExercisesExecutions())
             {
-                base.exerciseDao().addExercise(plan.getExerciseExecution(j).getExercise());
+                for(EquipmentItem equipmentItem : exercisesExecution.getExercise().getEquipmentsNeeded())
+                {
+                    base.exerciseDao().addExerciseToEquipment(new ExerciseToEquipment(
+                            equipmentItem.getId(),
+                            exercisesExecution.getExercise().getId()
+                    ));
+                }
+                for(TrainingTypes trainingType : exercisesExecution.getExercise().getTrainingTypes())
+                {
+                    base.exerciseDao().addTrainingTypesToExercise(new TrainingTypesToExercise(
+                            trainingType.getName(),
+                            exercisesExecution.getExercise().getId()
+                    ));
+                }
+                base.exerciseDao().addExercise(new Exercise(exercisesExecution.getExercise()));
             }
         }
     }
@@ -173,8 +207,23 @@ public class TrainingRepository
         if(user.getLoggedBy() != User.WayOfLogin.NO_LOGIN)
         {
             loadedTraining.addAll(getAllTrainingsForUser(user.getIdServer()));
+            loadedTraining.addAll(getOfflineTrainingsWithoutUser(user.getIdServer()));
+        }else
+        {
+            loadedTraining.addAll(base.trainingDao().getOfflineTraining());
         }
-        loadedTraining.addAll(base.trainingDao().getOfflineTraining());
+
         return loadedTraining;
+    }
+
+
+    public TrainingWithForm addOfflineTraining(SavedTraining training, WorkoutForm form)
+    {
+        long idForm = base.workoutFormDao().addForm(form);
+        training.setIdForm(idForm);
+        long idTraining = base.trainingDao().addTraining(training);
+        TrainingWithForm savedTraining = base.trainingDao().getTraining(idTraining);
+        loadedTrainingWithForm.put((long) savedTraining.training.getId(), savedTraining);
+        return savedTraining;
     }
 }
