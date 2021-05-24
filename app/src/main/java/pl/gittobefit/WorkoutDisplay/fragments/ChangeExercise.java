@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import pl.gittobefit.IShowSnackbar;
@@ -214,14 +216,23 @@ public class ChangeExercise extends Fragment {
     }
 
     private void getVideo(int index) {
-        Uri uri = Uri.parse(ConnectionToServer.PREFIX_VIDEO_URL + model.getListExercises().get(index).getVideoUrl());
-        binding.videoView.setVideoURI(uri);
-        binding.videoView.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
-        binding.videoView.setOnPreparedListener(mp ->
+        if(model.getExercise().getVideoUrl() != null)
+        {
+            Uri uri = Uri.parse(ConnectionToServer.PREFIX_VIDEO_URL + model.getListExercises().get(index).getVideoUrl());
+            binding.videoView.setVideoURI(uri);
+            binding.videoView.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
+            binding.videoView.setOnPreparedListener(mp ->
+            {
+                binding.readVideo.setVisibility(View.INVISIBLE);
+                binding.videoView.start();
+                mp.setLooping(true);
+            });
+        }else
         {
             binding.readVideo.setVisibility(View.INVISIBLE);
-            binding.videoView.start();
-            mp.setLooping(true);
-        });
+            binding.videoView.setVisibility(View.INVISIBLE);
+            binding.imagePlaceholder.setVisibility(View.VISIBLE);
+            Glide.with(this).load(ConnectionToServer.PREFIX_PHOTO_URL + model.getExercise().getPhotoUrl()).into(binding.imagePlaceholder);
+        }
     }
 }

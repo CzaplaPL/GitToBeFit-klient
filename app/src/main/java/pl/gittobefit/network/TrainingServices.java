@@ -6,6 +6,9 @@ import android.util.Log;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import pl.gittobefit.IShowSnackbar;
@@ -18,6 +21,9 @@ import pl.gittobefit.database.repository.TrainingRepository;
 import pl.gittobefit.network.interfaces.ITrainingServices;
 import pl.gittobefit.running_training.viewmodel.ChangeExerciseViewModel;
 import pl.gittobefit.user.User;
+import pl.gittobefit.workoutforms.object.EquipmentItem;
+import pl.gittobefit.workoutforms.object.exercise.ExerciseItem;
+import pl.gittobefit.workoutforms.object.exercise.TrainingTypes;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -179,4 +185,5 @@ public class TrainingServices
             }
         });
     }
+
 }

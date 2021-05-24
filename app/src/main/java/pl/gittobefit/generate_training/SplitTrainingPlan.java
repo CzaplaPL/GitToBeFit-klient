@@ -239,7 +239,6 @@ public class SplitTrainingPlan implements TrainingPlanGenerator
 
     private ArrayList<ExerciseExecutionPOJODB> getTrainingForDay(Map<String, List<ExerciseExecutionPOJODB>> trainingDay)
     {
-        SavedTraining training = new SavedTraining();
         Collection<List<ExerciseExecutionPOJODB>> exerciseExecutionCollection = trainingDay.values();
         ArrayList<ExerciseExecutionPOJODB> exerciseExecutionList = new ArrayList<>();
         for(List<ExerciseExecutionPOJODB> exerciseExecutionPOJODBS : exerciseExecutionCollection)
