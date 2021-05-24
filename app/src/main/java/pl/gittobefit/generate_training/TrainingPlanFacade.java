@@ -10,8 +10,6 @@ public class TrainingPlanFacade {
     static public SavedTraining createTrainingPlan(WorkoutForm trainingForm,Context context) throws IllegalArgumentException, NotValidTrainingException
     {
         TrainingPlanFactory trainingPlanFactory = new TrainingPlanFactory();
-        if (trainingForm.getBodyParts().isEmpty()) throw new IllegalArgumentException("Body parts cannot be empty");
-
         TrainingPlanGenerator trainingPlanGenerator = trainingPlanFactory.createPlan(trainingForm.getTrainingType(),context);
 
         SavedTraining trainingPlan = trainingPlanGenerator.create(trainingForm);

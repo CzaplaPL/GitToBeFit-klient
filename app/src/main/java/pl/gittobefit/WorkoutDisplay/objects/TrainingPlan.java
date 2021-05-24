@@ -14,10 +14,6 @@ public class TrainingPlan
     private int breakTime;
     private int circuitsCount;
 
-    public TrainingPlan()
-    {
-    }
-
     public TrainingPlan(
             ArrayList<ExerciseExecution> exerciseExecutions,
             int idPlanList,
@@ -33,8 +29,10 @@ public class TrainingPlan
         this.circuitsCount  = circuitsCount;
     }
 
-    public TrainingPlan(ArrayList<ExerciseExecutionPOJODB> exerciseExecutionPOJODBS, ArrayList<Exercise> exercisesDB)
+    public TrainingPlan(ArrayList<ExerciseExecutionPOJODB> exerciseExecutionPOJODBS, ArrayList<Exercise> exercisesDB, int breakTime, int circuitsCount)
     {
+        this.breakTime = breakTime;
+        this.circuitsCount = circuitsCount;
         if(exerciseExecutionPOJODBS.size() != 0)
         {
             final ExerciseExecutionPOJODB exerciseExecutionPOJODB = exerciseExecutionPOJODBS.get(0);

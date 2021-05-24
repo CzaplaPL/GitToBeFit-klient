@@ -31,7 +31,7 @@ public class Training
         this.createdAt = trainingDB.training.getGenerationDate();
         this.trainingForm = trainingDB.form;
         this.title = trainingDB.training.getTrainingName();
-        this.planList = generatePlanList(trainingDB.training.getPlanList(), trainingRepository);
+        this.planList = generatePlanList(trainingDB.training.getPlanList(), trainingRepository,trainingDB.training.getBreakTime(),trainingDB.training.getCircuitsCount());
     }
 
     public WorkoutForm getTrainingForm()
@@ -89,14 +89,14 @@ public class Training
         this.id = id;
     }
 
-    private ArrayList<TrainingPlan> generatePlanList(ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList, TrainingRepository trainingRepository)
+    private ArrayList<TrainingPlan> generatePlanList(ArrayList<ArrayList<ExerciseExecutionPOJODB>> planList, TrainingRepository trainingRepository, int breakTime, int circuitsCount)
     {
         ArrayList<TrainingPlan> trainingPlansServer = new ArrayList<>();
 
         for(ArrayList<ExerciseExecutionPOJODB> exerciseExecution : planList)
         {
             ArrayList<Exercise> exercisesDB = trainingRepository.getExercisesForPlanList(exerciseExecution);
-            trainingPlansServer.add(new TrainingPlan(exerciseExecution, exercisesDB));
+            trainingPlansServer.add(new TrainingPlan(exerciseExecution, exercisesDB,breakTime,circuitsCount));
         }
         return trainingPlansServer;
     }
