@@ -13,6 +13,7 @@ public class WorkoutForm
     private ArrayList<Integer> equipmentIDs;
     private String trainingType;
     private ArrayList<String> bodyParts;
+
     private int daysCount;
     private String scheduleType;
     private int duration;
@@ -72,5 +73,10 @@ public class WorkoutForm
     public boolean checkIfScheduleTypeIsCircuit()
     {
         return this.scheduleType.equalsIgnoreCase("CIRCUIT");
+    }
+
+    public void setDaysCount(int daysCount)
+    {
+        this.daysCount = daysCount;
     }
 }

@@ -4,6 +4,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -387,27 +388,44 @@ public class TrainingStart extends Fragment
 
     private void getVideo()
     { // wczytanie wideo do maina
-        if(model.getExercise().getVideoUrl() != null)
+        if(ConnectionToServer.isNetwork(getContext()))
         {
-            binding.image.setVisibility(View.INVISIBLE);
-            binding.loaderVideo.setVisibility(View.VISIBLE);
-            Uri uri = Uri.parse(ConnectionToServer.PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
-            binding.loaderVideo.setVideoURI(uri);
-            binding.loaderVideo.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
-            binding.loaderVideo.setOnPreparedListener(mp ->
+            if(model.getExercise().getVideoUrl() != null)
             {
+                binding.image.setVisibility(View.INVISIBLE);
+                binding.loaderVideo.setVisibility(View.VISIBLE);
+                Uri uri = Uri.parse(ConnectionToServer.PREFIX_VIDEO_URL + model.getExercise().getVideoUrl());
+                binding.loaderVideo.setVideoURI(uri);
+                binding.loaderVideo.setOnPreparedListener(mediaPlayer -> mediaPlayer.setLooping(true));
+                binding.loaderVideo.setOnPreparedListener(mp ->
+                {
+                    binding.readVideo.setVisibility(View.INVISIBLE);
+                    binding.loaderVideo.start();
+                    binding.loaderVideo.setAlpha(1);
+                    mp.setLooping(true);
+                });
+            }else
+            {
+                binding.loaderVideo.setVisibility(View.INVISIBLE);
                 binding.readVideo.setVisibility(View.INVISIBLE);
-                binding.loaderVideo.start();
-                binding.loaderVideo.setAlpha(1);
-                mp.setLooping(true);
-            });
+                binding.image.setVisibility(View.VISIBLE);
+                Glide.with(this).load(ConnectionToServer.PREFIX_PHOTO_URL + model.getExercise().getPhotoUrl()).placeholder(R.drawable.no_image).into(binding.image);
+            }
         }else
         {
             binding.loaderVideo.setVisibility(View.INVISIBLE);
             binding.readVideo.setVisibility(View.INVISIBLE);
             binding.image.setVisibility(View.VISIBLE);
-            Glide.with(this).load(ConnectionToServer.PREFIX_PHOTO_URL + model.getExercise().getPhotoUrl()).into(binding.image);
+            Log.w("eee", model.getExercise().getPhotoUrl());
+            Glide.with(getContext())
+                    .load(getContext().getResources().getIdentifier(
+                            model.getExercise().getPhotoUrl(),
+                            "drawable",
+                            getContext().getPackageName()))
+                    .placeholder(R.drawable.no_image)
+                    .into(binding.image);
         }
+
     }
 
     private void getSmallVideo()

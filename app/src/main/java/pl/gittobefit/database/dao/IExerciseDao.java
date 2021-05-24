@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pl.gittobefit.database.entity.equipment.Checksum;
+import pl.gittobefit.database.entity.equipment.EquipmentType;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.entity.training.relation.ExerciseToEquipment;
 import pl.gittobefit.database.entity.training.relation.TrainingTypesToExercise;
@@ -20,13 +21,13 @@ import pl.gittobefit.workoutforms.object.EquipmentItem;
 @Dao
 public interface IExerciseDao
 {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void addExercise(Exercise exercise);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void addExerciseToEquipment(ExerciseToEquipment exerciseToEquipment);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void addTrainingTypesToExercise(TrainingTypesToExercise trainingTypesToExercise);
 
     @Transaction
@@ -40,4 +41,13 @@ public interface IExerciseDao
     @Transaction
     @Query("SELECT exerciseId FROM TrainingTypesToExercise WHERE trainingType = :trainingType")
     List<Integer> getAllByTrainingTypes_Name(String trainingType);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertExercise(ArrayList<Exercise> equipmentTypes);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertExerciseEquipment(ArrayList<ExerciseToEquipment> exerciseToEquipment);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertExerciseTypes(ArrayList<TrainingTypesToExercise> trainingTypesToExercise);
 }

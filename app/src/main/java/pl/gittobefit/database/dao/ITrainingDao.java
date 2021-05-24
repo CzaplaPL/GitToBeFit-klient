@@ -73,4 +73,8 @@ public interface ITrainingDao
     @Transaction
     @Query("SELECT * FROM SavedTraining  WHERE offline = 1 ")
     public List<TrainingWithForm>  getOfflineTraining();
+
+    @Transaction
+    @Query("SELECT * FROM SavedTraining  WHERE offline = 1 AND NOT idUser = :idServer")
+    public List<TrainingWithForm> getAllTrainingWithoutUser(String idServer);
 }
