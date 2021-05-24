@@ -2,12 +2,14 @@ package pl.gittobefit.user.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -51,6 +53,7 @@ public class Registration extends Fragment implements View.OnClickListener
         CheckBox checkBox =  view.findViewById(R.id.checkBox_robot);
         Button registr =  view.findViewById(R.id.buttonRegistr);
         TextInputLayout email= view.findViewById(R.id.loginMailKontener);
+        TextView linkRegulations = view.findViewById(R.id.title_checkbox);
         TextInputEditText email2= view.findViewById(R.id.loginMail);
         email2.setOnFocusChangeListener((v, hasFocus) -> email.setErrorEnabled(false));
         TextInputLayout password= view.findViewById(R.id.loginPasswordKontener);
@@ -61,6 +64,7 @@ public class Registration extends Fragment implements View.OnClickListener
         passwordText2.setOnFocusChangeListener((v, hasFocus) -> password2.setErrorEnabled(false));
         registr.setOnClickListener(this);
         checkBox.setOnClickListener(this);
+        linkRegulations.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_registration_to_detailsRegulationsLayout));
         return view;
     }
     @Override
@@ -142,7 +146,6 @@ public class Registration extends Fragment implements View.OnClickListener
                             }
                         });
                 break;
-
         }
     }
     public void Fail(boolean duplicate)
@@ -161,4 +164,6 @@ public class Registration extends Fragment implements View.OnClickListener
         Navigation.findNavController(view).navigate(RegistrationDirections.actionRegistrationToLogin2());
         Navigation.findNavController(view).navigate(R.id.action_login_to_registrationSuccesDialog);
     }
+
+
 }

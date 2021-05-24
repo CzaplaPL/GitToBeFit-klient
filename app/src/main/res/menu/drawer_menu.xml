@@ -10,6 +10,9 @@
         <item android:id="@+id/setting"
             android:icon="@drawable/ic_setting"
             android:title="@string/menu_setting"/>
+        <item android:id="@+id/regulations"
+            android:icon="@drawable/ic_baseline_event_note_24"
+            android:title="@string/regulations"/>
         <item android:id="@+id/aboutUs"
             android:icon="@drawable/ic_about_us"
             android:title="@string/about_us"/>
