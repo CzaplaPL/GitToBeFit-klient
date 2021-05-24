@@ -108,13 +108,7 @@ public class FitnessTrainingPlan implements TrainingPlanGenerator
             int size = exercisesExecutions.size();
             if(size * 3 != trainingForm.getDuration())
                 throw new NotValidTrainingException("wrong exercises count");
-            for(ExerciseExecutionPOJODB exercisesExecution : exercisesExecutions)
-            {
-                Exercise exercise = base.exerciseDao().getExercise(exercisesExecution.getExerciseId());
-                String bodyPartOfExercise = exercise.getBodyPart();
-                if(!trainingForm.getBodyParts().contains(bodyPartOfExercise))
-                    throw new NotValidTrainingException("wrong exercise");
-            }
+
             ArrayList<String> bodyParts = mapToSpecifiedBodyParts(trainingForm.getBodyParts());
 
             for(ExerciseExecutionPOJODB exercisesExecution : exercisesExecutions)

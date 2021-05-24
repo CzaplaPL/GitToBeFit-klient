@@ -1,6 +1,7 @@
 package pl.gittobefit.WorkoutDisplay.adapters;
 
 import android.content.Intent;
+import android.net.Network;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import pl.gittobefit.IShowSnackbar;
 import pl.gittobefit.R;
 import pl.gittobefit.WorkoutDisplay.dialog.BottomMenuDialog;
 import pl.gittobefit.WorkoutDisplay.dialog.DeleteTrainingDialog;
@@ -38,6 +40,7 @@ import pl.gittobefit.WorkoutDisplay.objects.Training;
 import pl.gittobefit.WorkoutDisplay.viewmodel.InitiationTrainingDisplayLayoutViewModel;
 import pl.gittobefit.database.entity.training.Exercise;
 import pl.gittobefit.database.pojo.ExerciseExecutionPOJODB;
+import pl.gittobefit.network.ConnectionToServer;
 
 public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ViewHolder>
 {
@@ -173,19 +176,28 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
 
         holder.exerciseInfo.setText(text);
 
-        holder.itemView.setOnClickListener(v -> {
-            BottomMenuDialog bottomSheetDialog = new BottomMenuDialog(
-                    circuitsCount,
-                    exerciseArrayList,
-                    fragment,
-                    scheduleType,
-                    position ,
-                    exercisesExecutionArrayList,
-                    trainingID,
-                    exerciseExecutionPOJODBS
-            );
-            bottomSheetDialog.show(fragment.getParentFragmentManager(), "bottomMenu");
-        });
+            holder.itemView.setOnClickListener(v -> {
+                if(ConnectionToServer.isNetwork(fragment.getContext()))
+                {
+                BottomMenuDialog bottomSheetDialog = new BottomMenuDialog(
+                        circuitsCount,
+                        exerciseArrayList,
+                        fragment,
+                        scheduleType,
+                        position ,
+                        exercisesExecutionArrayList,
+                        trainingID,
+                        exerciseExecutionPOJODBS
+                );
+                bottomSheetDialog.show(fragment.getParentFragmentManager(), "bottomMenu");
+                }else
+                {
+                    IShowSnackbar activity = (IShowSnackbar) fragment.getActivity();
+                    activity.showSnackbar("Zawartość dostępna w trybie online");
+                }
+            });
+
+
     }
 
 

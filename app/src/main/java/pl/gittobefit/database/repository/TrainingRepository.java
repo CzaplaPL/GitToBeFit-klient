@@ -3,6 +3,7 @@ package pl.gittobefit.database.repository;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -93,6 +94,18 @@ public class TrainingRepository
         return loadTraining;
     }
 
+    private ArrayList<TrainingWithForm> getOfflineTrainingsWithoutUser(String idServer)
+    {
+        ArrayList<TrainingWithForm> loadTraining = new ArrayList<>(base.trainingDao().getAllTrainingWithoutUser(idServer));
+        for(TrainingWithForm training : loadTraining)
+        {
+            loadedTrainingWithForm.put((long) training.training.getId(), training);
+        }
+        return loadTraining;
+    }
+
+
+
     public ArrayList<TrainingWithForm> getAllTrainings()
     {
         ArrayList<TrainingWithForm> loadTraining = new ArrayList<>(base.trainingDao().getAllTrainings());
@@ -113,6 +126,7 @@ public class TrainingRepository
         }
         return trainingsToSend;
     }
+
 
     public ArrayList<Training> getTrainingToSendAfterChangesById(int id)
     {
@@ -193,10 +207,15 @@ public class TrainingRepository
         if(user.getLoggedBy() != User.WayOfLogin.NO_LOGIN)
         {
             loadedTraining.addAll(getAllTrainingsForUser(user.getIdServer()));
+            loadedTraining.addAll(getOfflineTrainingsWithoutUser(user.getIdServer()));
+        }else
+        {
+            loadedTraining.addAll(base.trainingDao().getOfflineTraining());
         }
-        loadedTraining.addAll(base.trainingDao().getOfflineTraining());
+
         return loadedTraining;
     }
+
 
     public TrainingWithForm addOfflineTraining(SavedTraining training, WorkoutForm form)
     {

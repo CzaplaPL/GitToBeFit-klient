@@ -8,13 +8,13 @@ import static java.sql.Types.NULL;
 
 public class ExerciseExecutionPOJODB
 {
-    private int idServer;
-    private int idServerPlanList;
-    private int idServerTraining;
+    private Integer idServer;
+    private Integer idServerPlanList;
+    private Integer idServerTraining;
     private int time;
     private int series;
     private int count;
-    private final int exerciseId;
+    private int exerciseId;
 
     public ExerciseExecutionPOJODB(ExerciseExecution exerciseExecution,int idPlanList,int idTraining)
     {
