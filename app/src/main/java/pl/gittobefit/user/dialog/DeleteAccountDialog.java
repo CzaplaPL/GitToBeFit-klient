@@ -41,7 +41,7 @@ public class DeleteAccountDialog extends AppCompatDialogFragment
                 {
                     String newPassword = userPassword.getText().toString();
                     DeleteAccountDialogInterface activity = (DeleteAccountDialogInterface) getActivity();
-                    ConnectionToServer.getInstance().userServices.deleteAccount(newPassword, getContext(), activity);
+                    ConnectionToServer.getInstance().userServices.deleteAccount(newPassword, getContext(), activity, getView());
                 });
         userPassword = view.findViewById(R.id.userPassword);
         return builder.create();

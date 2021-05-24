@@ -39,6 +39,11 @@
         <action
             android:id="@+id/action_homeFragment_to_trainingStart"
             app:destination="@id/trainingStart" />
+        <action
+            android:id="@+id/action_homeFragment_to_login"
+            app:destination="@id/login"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/setting"
@@ -66,12 +71,16 @@
     <fragment
         android:id="@+id/registration"
         android:name="pl.gittobefit.user.fragments.Registration"
-        android:label="Registration">
+        android:label="Registration"
+        tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_registration_to_login2"
             app:destination="@id/login"
             app:popUpTo="@+id/login"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_registration_to_detailsRegulationsLayout"
+            app:destination="@id/detailsRegulationsLayout" />
     </fragment>
 
     <fragment
@@ -86,6 +95,11 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <fragment
+        android:id="@+id/regulations"
+        android:name="pl.gittobefit.Regulations"
+        android:label="@string/regulations"
+        tools:layout="@layout/fragment_regulations"/>
     <dialog
         android:id="@+id/remindPasswoedDialog"
         android:name="pl.gittobefit.user.dialog.RemindPasswordDialog"
@@ -100,25 +114,47 @@
         android:name="pl.gittobefit.WorkoutDisplay.dialog.EditBreakDialog"
         android:label="EditBreakDialog" />
     <dialog
+        android:id="@+id/detailsRegulationsLayout"
+        android:name="pl.gittobefit.user.dialog.DetailsRegulations"
+        android:label="DetailsRegulations"
+        tools:layout="@layout/layout_details_regulations" />
+    <dialog
         android:id="@+id/changeMailDialog"
         android:name="pl.gittobefit.user.dialog.ChangeMailDialog"
         android:label="ChangeMailDialog">
         <action
             android:id="@+id/action_changeMailDialog_to_login"
             app:destination="@id/login" />
+        <action
+            android:id="@+id/authError_go_to_login"
+            app:destination="@id/login"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true"/>
     </dialog>
     <dialog
         android:id="@+id/changePasswordDialog"
         android:name="pl.gittobefit.user.dialog.ChangePasswordDialog"
-        android:label="ChangePasswordDialog" />
+        android:label="ChangePasswordDialog" >
+        <action
+            android:id="@+id/authError_go_to_login"
+            app:destination="@id/login"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true"/>
+    </dialog>
     <dialog
         android:id="@+id/deleteAccountDialog"
         android:name="pl.gittobefit.user.dialog.DeleteAccountDialog"
-        android:label="DeleteAccountDialog" />
+        android:label="DeleteAccountDialog" >
+        <action
+            android:id="@+id/authError_go_to_login"
+            app:destination="@id/login"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true"/>
+    </dialog>
     <dialog
         android:id="@+id/detailsInfoLayout"
         android:name="pl.gittobefit.workoutforms.dialog.DetailsInfoDialog"
-        android:label="DetailsInfoDialog" />
+        android:label="DetailsInfoDialog"/>
     <fragment
         android:id="@+id/generateTrainingForm"
         android:name="pl.gittobefit.workoutforms.fragments.GenerateTrainingForm"
@@ -131,6 +167,11 @@
         <action
             android:id="@+id/action_generateTrainingForm_to_detailsInfoLayout"
             app:destination="@id/detailsInfoLayout" />
+        <action
+            android:id="@+id/action_generateTrainingForm_to_login"
+            app:destination="@id/login"
+            app:popUpTo="@+id/login"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/listOfTrainings"
